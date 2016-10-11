@@ -4,9 +4,6 @@ angular.module('hg-tea', [])
             // restrict: 'E',
             // transclude: true,
             templateUrl: 'entry.html',
-            // template: '<div>' +
-                        // '<i>blah</i>' +
-                      // '</div>',
             // controller: ['$scope', function($scope) {
             // }],
             // controllerAs: 'entryCtrl'
