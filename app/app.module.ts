@@ -1,11 +1,17 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';  // Needed because this will run in a browser
 
-import { AppComponent }   from './app.component' // Obivously, this is app.component.ts
+import { HgTea }   from './app.hgtea'
+import { HgTeaJournal }   from './app.hgtea-journal'
+import { HgTeaJournalEntry }   from './app.hgtea-journal-entry'
 
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ AppComponent ], // AppComponent is the name of the class in app.component.ts
-  bootstrap:    [ AppComponent ]
+  declarations: [ HgTea,
+                  HgTeaJournal,
+                  HgTeaJournalEntry
+  ],
+  bootstrap:    [ HgTea ]
 })
+
 export class AppModule { }
