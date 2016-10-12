@@ -8,4 +8,6 @@ import { Component, Input } from '@angular/core';
 export class HgTeaJournal {
     @Input()
     entries: string[];
+    @Input()
+    teas: string[];
 }
