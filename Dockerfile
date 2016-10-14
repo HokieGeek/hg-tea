@@ -1,3 +1,5 @@
-FROM node:4-onbuild
-# replace this with your application's default port
+FROM node:6-onbuild
+
+RUN npm run typings install
+
 EXPOSE 80
