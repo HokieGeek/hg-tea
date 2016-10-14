@@ -2,4 +2,4 @@ FROM node:6-onbuild
 
 RUN npm run typings install
 
-EXPOSE 80
+EXPOSE 3000
