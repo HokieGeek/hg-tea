@@ -11,6 +11,7 @@ import { Entry } from './entry'
 export class HgTea {
     tea_database: Tea[];
     journal_entries: Entry[];
+
     constructor() {
         this.tea_database=[{id: 0, name: "A"},
                            {id: 1, name: "B"},
