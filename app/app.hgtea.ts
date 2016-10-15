@@ -9,10 +9,16 @@ import { Entry } from './entry'
 })
 
 export class HgTea {
-    journal_entries: string[];
-    tea_database: string[];
+    tea_database: Tea[];
+    journal_entries: Entry[];
     constructor() {
-        this.tea_database=['Tea A', 'Tea B', 'Tea C']
-        this.journal_entries=['Entry 4', 'entry 2', 'Entry 3']
+        this.tea_database=[{id: 0, name: "A"},
+                           {id: 1, name: "B"},
+                           {id: 2, name: "C"},
+        ]
+        this.journal_entries=[{teaId: 0, comments: "Comment 0"},
+                              {teaId: 1, comments: "Comment 1"},
+                              {teaId: 2, comments: "Comment 2"}
+        ]
     }
 }

@@ -11,7 +11,7 @@ import { Entry } from './entry'
 
 export class HgTeaJournalEntry {
     @Input()
-    entry: string;
+    entry: Entry;
     @Input()
-    tea: string;
+    tea: Tea;
 }

@@ -10,7 +10,7 @@ import { Entry } from './entry'
 
 export class HgTeaJournal {
     @Input()
-    entries: string[];
+    entries: Entry[];
     @Input()
-    teas: string[];
+    teas: Tea[];
 }
