@@ -1,10 +1,12 @@
-<span>{{tea.name}}</span><span>  ({{tea.type}})</span>
-<br />
-<span>   with {{tea.fixins}}</span>
+<span><b>{{tea.name}}</b></span><span>  ({{tea.type}})</span>
+<span *ngIf="tea.fixins"><br />with {{tea.fixins}}</span>
 <br />
 <span>{{entry.date | date:"MM/dd"}} {{entry.time}}</span>
+<span *ngIf="entry.steeptime">for {{entry.steeptime}}</span>
+<span *ngIf="entry.steepingvessel"> in a {{entry.steepingvessel}}</span>
+<span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}}</span>
 <br />
-<span>for {{entry.steeptime}} in a {{entry.steepingvessel}} at {{entry.steeptemperature}}</span>
-<br />
-<span>{{entry.rating}}: </span>
+<div>
+    <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="img/tea_cup.png" />
+</div>
 <span *ngIf="entry.comments"><br/>{{entry.comments}}</span>

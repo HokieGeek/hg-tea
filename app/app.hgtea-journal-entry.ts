@@ -10,8 +10,14 @@ import { Entry } from './entry'
 })
 
 export class HgTeaJournalEntry {
+    arr:Array<number>;
     @Input()
     entry: Entry;
     @Input()
     tea: Tea;
+
+    get rating() {
+        // console.log(this.entry.rating, Array(this.entry.rating).fill(1));
+        return Array(this.entry.rating).fill(1);
+    }
 }
