@@ -1,18 +1,16 @@
 export class Entry {
-    // public "timestamp": ??,
-    // public "date": ??,
-    // public "time": ??,
-    // public "tea": ??,
-    // public "rating": ??,
-    // public "comments": ??,
-    // public "pictures": ??,
-    // public "steeptime": ??,
-    // public "steepingvessel": ??,
-    // public "steeptemperature": ??,
-    // public "sessioninstance": ??,
-    // public "fixins": ??,
     constructor(
         public teaId: number,
-        public comments: string
+        public comments: string,
+        public timestamp: string,
+        public date: string,
+        public time: number,
+        public rating: number,
+        public pictures: string,
+        public steeptime: string,
+        public steepingvessel: number,
+        public steeptemperature: number,
+        public sessioninstance: string,
+        public fixins: string,
     ) {}
 }

@@ -1,2 +1,10 @@
-<span>{{tea.name}}:</span>
-<span>{{entry.comments}}</span>
+<span>{{tea.name}}</span><span>  ({{tea.type}})</span>
+<br />
+<span>   with {{tea.fixins}}</span>
+<br />
+<span>{{entry.date | date:"MM/dd"}} {{entry.time}}</span>
+<br />
+<span>for {{entry.steeptime}} in a {{entry.steepingvessel}} at {{entry.steeptemperature}}</span>
+<br />
+<span>{{entry.rating}}: </span>
+<span *ngIf="entry.comments"><br/>{{entry.comments}}</span>
