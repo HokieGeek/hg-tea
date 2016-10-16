@@ -31,7 +31,6 @@ export class Entry {
 
     get steepingvessel() { return SteepingVessels[this.steepingvessel_idx]; }
     get fixins() {
-        // return this.fixins_list;
         if (this.fixins_list.length > 0) {
             return this.fixins_list.split(";").map(f => TeaFixins[f]);
         }
