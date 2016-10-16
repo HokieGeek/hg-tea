@@ -14,4 +14,11 @@ export class HgTeaJournal {
     entries: Entry[];
     @Input()
     teas: Tea[];
+
+    get reversedEntries() {
+        if (this.entries) {
+            return this.entries.slice().reverse();
+        }
+        return [];
+    }
 }
