@@ -1,25 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit }      from '@angular/core';
 
 import { Tea } from './tea'
 import { Entry } from './entry'
+import { TeaDbService } from './teadb.service'
 
 @Component({
   selector: 'hg-tea',
-  templateUrl: 'app/hgtea.html'
+  templateUrl: 'app/hgtea.html',
+  providers: [ TeaDbService ]
 })
 
-export class HgTea {
+export class HgTea implements OnInit {
     tea_database: Tea[];
     journal_entries: Entry[];
+    errorMsg: string;
+    mode = 'Observable';
 
-    constructor() {
-        this.tea_database=[{id: 0, name: "A"},
-                           {id: 1, name: "B"},
-                           {id: 2, name: "C"},
-        ]
-        this.journal_entries=[{teaId: 0, comments: "Comment 0"},
-                              {teaId: 1, comments: "Comment 1"},
-                              {teaId: 2, comments: "Comment 2"}
-        ]
+    constructor(private teaDbService: TeaDbService) { }
+
+    ngOnInit() {
+        this.getTeaData()
+        this.getJournalEntries()
+    }
+
+    getTeaData() {
+        this.teaDbService.getTeaData().subscribe(
+            tea_data => this.tea_database = tea_data,
+            err => this.errorMsg = <any>err);
+    }
+
+    getJournalEntries() {
+        this.teaDbService.getJournalEntries().subscribe(
+            journal_entries => this.journal_entries = journal_entries,
+            err => this.errorMsg = <any>err);
     }
 }
