@@ -8,7 +8,7 @@ var TeaPackagingTypes = ["Loose Leaf", "Bagged", "Tuo", "Beeng", "Brick", "Mushr
 enum TeaFixins {"Milk", "Cream", "Half & Half",
                 "Sugar", "Brown Sugar", "Raw Sugar",
                 "Honey", "Vanilla Extract", "Vanilla Bean",
-                "Maple Cream", "Maple Sugar"};
+                "Maple Cream", "Maple Sugar", "Chai Goop"};
 enum SteepingVessels {"French Press", "Shipiao Yixing", "Tea-zer Tumbler",
                       "Tea Stick", "Mesh Spoon", "Sauce Pan",
                       Cup, Bowl, Gaiwan, Other};
@@ -32,18 +32,14 @@ export class Entry {
     get steepingvessel() { return SteepingVessels[this.steepingvessel_idx]; }
     get fixins() {
         if (this.fixins_list.length > 0) {
-            return this.fixins_list.split(";").map(f => TeaFixins[f]);
+            var fixins_str = "";
+            for (let f of this.fixins_list.split(";").map(f => TeaFixins[f])) {
+                fixins_str += ", "+f;
+            }
+            fixins_str = fixins_str.replace(/^, /, "");
+            return fixins_str.substring(0, fixins_str.lastIndexOf(','))+" and"+fixins_str.substring(fixins_str.lastIndexOf(',')+1);
         }
-        return [];
-        // return this.fixins_list.split(";").map((f: string) => TeaFixins[f]);
-        // fixins_str;
-        // for (let f of this.fixins_list.split(";")) {
-        //     // console.log(f)
-        //     fixins_str += f + ","
-        // }
-        // console.log(fixins_str);
-        // // return fixins_str
-        // return this.fixins_list;
+        return "";
     }
 
     get datetime(): Date {
