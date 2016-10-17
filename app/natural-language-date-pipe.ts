@@ -2,6 +2,25 @@ import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({ name: 'naturalDate'})
 export class NaturalLanguageDatePipe implements PipeTransform {
+    time_transform(date: Date): string {
+        var mer = "a";
+        var h = date.getHours();
+        if (h > 12) {
+            mer = "p";
+            h -= 12;
+        } else if (h == 0) {
+            h = 12;
+        }
+
+        var m = date.getMinutes();
+        var mpad = "";
+        if (m < 10) {
+            mpad = "0";
+        }
+
+        return h+":"+mpad+m+mer;
+    }
+
     transform(date: Date): string {
 
         // "Natural"
@@ -14,10 +33,15 @@ export class NaturalLanguageDatePipe implements PipeTransform {
         // this year => Month Day
         // else => Month Day, Year
 
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
         var ahora = new Date();
 
         // Determine the number of seconds
         var delta_ms = ahora.getTime() - date.getTime();
+
+        var time = this.time_transform(date);
 
         if (delta_ms <= (3600 * 1000) {
             if (delta_ms < (30 * 1000)) {
@@ -32,21 +56,19 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                 return "An hour ago";
             }
         } else if (ahora.getYear() == date.getYear()) {
-            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-            var time = date.getHours()+":"+date.getMinutes();
-
             if (ahora.getDate() == date.getDate()) {
+                // TODO: If it is currently afternoon, then do "This morning"?
                 return time;
             } else if (ahora.getMonth() == date.getMonth() && (ahora.getDate()-date.getDate()) < 7) {
-                return days[date.getDay()]+" @ "+time;
+                return days[date.getDay()]+" "+time;
             } else {
-                return months[date.getMonth()]+" "+date.getDate()+" @ "+time;
+                return months[date.getMonth()]+" "+date.getDate()+" "+time;
             }
         } else {
-            return date.toLocaleString();
+            return months[date.getMonth()]+" "+date.getDate()+", "+date.getFullYear()+" "+time;
+            // return date.toLocaleString();
         }
     }
 }
