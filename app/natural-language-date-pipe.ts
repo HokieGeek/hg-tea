@@ -22,12 +22,14 @@ export class NaturalLanguageDatePipe implements PipeTransform {
     }
     
     ordinal_indicator(num: number): string {
+        var o = "";
         switch ((num % 10)) {
-            case 1: return "st"; break;
-            case 2: return "nd"; break;
-            case 3: return "rd"; break;
-            default: return "th"; break;
+            case 1: o = "st"; break;
+            case 2: o = "nd"; break;
+            case 3: o = "rd"; break;
+            default: o = "th"; break;
         }
+        return o;
     }
 
     transform(date: Date): string {
@@ -62,7 +64,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                     return time; // Use this until I can come up with something obvious to mean ">8 hours ago"
                 }
             } else if (ahora.getMonth() == date.getMonth()) { // this month
-                if (ahora.getDate()-date.getDate()) < 7) { // this week
+                if ((ahora.getDate()-date.getDate()) < 7) { // this week
                     if (delta_ms < (86400 * 1000)) { // in the last 24 hours
                         if (date.getHours() > 17) {
                             return "Last night at "+time;
