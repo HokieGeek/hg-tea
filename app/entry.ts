@@ -45,4 +45,11 @@ export class Entry {
         // // return fixins_str
         // return this.fixins_list;
     }
+
+    get datetime(): Date {
+        var datetime = new Date(this.date);
+        datetime.setHours(this.time.substring(0, this.time.length-2));
+        datetime.setMinutes(this.time.substring(this.time.length-2));
+        return datetime;
+    }
 }

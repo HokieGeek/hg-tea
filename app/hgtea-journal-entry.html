@@ -1,15 +1,15 @@
-<span><b>{{tea.name}}</b></span>
+<span title="{{tea.type}} tea from {{tea.country}}"><b>{{tea.name}}</b></span>
 <span *ngIf="entry.fixins.length > 0">
 &nbsp;with&nbsp;
     <span *ngFor="let f of entry.fixins">{{f}} </span>
 </span>
 <br />
-<span>{{entry.date | date:"MM/dd"}} {{entry.time}}</span>
+<span title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</span>
 <span *ngIf="entry.steeptime">for {{entry.steeptime}}</span>
 <span *ngIf="entry.steepingvessel"> in a {{entry.steepingvessel}}</span>
 <span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
 <br />
-<div>
+<div title="{{entry.rating}} out of 4">
     <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="img/tea_cup.png" />
 </div>
 <span *ngIf="entry.comments"><br/>{{entry.comments}}</span>
