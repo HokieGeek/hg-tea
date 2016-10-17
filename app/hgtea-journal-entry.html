@@ -3,7 +3,7 @@
 <br />
 <span title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</span>
 <span *ngIf="entry.steeptime">for {{entry.steeptime}}</span>
-<span *ngIf="entry.steepingvessel"> in a {{entry.steepingvessel}}</span>
+<span *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
 <span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
 <br />
 <div title="{{entry.rating}} out of 4">
