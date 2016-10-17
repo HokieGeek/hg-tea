@@ -63,7 +63,11 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                 return time;
             } else if (ahora.getMonth() == date.getMonth() && (ahora.getDate()-date.getDate()) < 7) {
                 if (delta_ms < (86400 * 1000)) {
-                    return "Yesterday at "+time;
+                    if (date.getHours() > 17) {
+                        return "Last night at "+time;
+                    } else {
+                        return "Yesterday at "+time;
+                    }
                 } else {
                     return days[date.getDay()]+" at "+time;
                 }
