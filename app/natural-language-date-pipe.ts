@@ -20,7 +20,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
 
         return h+":"+mpad+m+mer;
     }
-    
+
     ordinal_indicator(num: number): string {
         var o = "";
         switch ((num % 10)) {
@@ -38,7 +38,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
 
         var ahora = new Date();
         var time = this.time_transform(date);
-        
+
         if (ahora.getFullYear() == date.getFullYear()) { // this year
             var delta_ms = ahora.getTime() - date.getTime();
             if (delta_ms <= (3600 * 1000)) { // within the last hour
