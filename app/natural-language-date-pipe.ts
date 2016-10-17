@@ -59,8 +59,13 @@ export class NaturalLanguageDatePipe implements PipeTransform {
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
             if (ahora.getDate() == date.getDate()) {
-                // TODO: If it is currently afternoon, then do "This morning"?
-                return time;
+                if (delta_ms <= (7200 * 1000)) {
+                    return "A couple of hours ago";
+                } else if (date.getHours() < 12 && ahora.getDate() >= 12) {
+                    return "This morning";
+                } else {
+                    return time;
+                }
             } else if (ahora.getMonth() == date.getMonth() && (ahora.getDate()-date.getDate()) < 7) {
                 if (delta_ms < (86400 * 1000)) {
                     if (date.getHours() > 17) {
