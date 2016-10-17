@@ -43,7 +43,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
 
         var time = this.time_transform(date);
 
-        if (delta_ms <= (3600 * 1000) {
+        if (delta_ms <= (3600 * 1000)) {
             if (delta_ms < (30 * 1000)) {
                 return "Just now";
             } else if (delta_ms < (900 * 1000)) {
@@ -55,7 +55,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
             } else {
                 return "An hour ago";
             }
-        } else if (ahora.getYear() == date.getYear()) {
+        } else if (ahora.getFullYear() == date.getFullYear()) {
             var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
             if (ahora.getDate() == date.getDate()) {

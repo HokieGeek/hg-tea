@@ -44,8 +44,9 @@ export class Entry {
 
     get datetime(): Date {
         var datetime = new Date(this.date);
-        datetime.setHours(this.time.substring(0, this.time.length-2));
-        datetime.setMinutes(this.time.substring(this.time.length-2));
+        var time_str = this.time.toString()
+        datetime.setHours(parseInt(time_str.substring(0, time_str.length-2)));
+        datetime.setMinutes(parseInt(time_str.substring(time_str.length-2)));
         return datetime;
     }
 }
