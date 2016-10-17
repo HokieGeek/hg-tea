@@ -62,12 +62,16 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                 // TODO: If it is currently afternoon, then do "This morning"?
                 return time;
             } else if (ahora.getMonth() == date.getMonth() && (ahora.getDate()-date.getDate()) < 7) {
-                return days[date.getDay()]+" "+time;
+                if (delta_ms < (86400 * 1000)) {
+                    return "Yesterday at "+time;
+                } else {
+                    return days[date.getDay()]+" at "+time;
+                }
             } else {
-                return months[date.getMonth()]+" "+date.getDate()+" "+time;
+                return months[date.getMonth()]+" "+date.getDate()+" at "+time;
             }
         } else {
-            return months[date.getMonth()]+" "+date.getDate()+", "+date.getFullYear()+" "+time;
+            return months[date.getMonth()]+" "+date.getDate()+", "+date.getFullYear()+" at "+time;
             // return date.toLocaleString();
         }
     }
