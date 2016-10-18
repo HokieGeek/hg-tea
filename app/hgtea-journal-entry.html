@@ -5,7 +5,7 @@
         <span *ngIf="entry.steeptime">{{entry.steeptime}}</span>
         <span *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
         <span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
-        <span class="card-text" *ngIf="entry.comments"><br />{{entry.comments}}</span>
+        <span class="card-text entryComments" *ngIf="entry.comments"><br /><br />{{entry.comments}}</span>
         <span class="pull-xs-right" title="{{entry.rating}} out of 4">
             <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="img/tea_cup.png" />
         </span>

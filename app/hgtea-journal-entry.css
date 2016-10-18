@@ -1,3 +1,7 @@
+.entryComments {
+    color: #5b5b5b;
+}
+
 .ratingImg {
     height: auto;
     width: auto;
@@ -8,4 +12,8 @@
 .ratingImgUnselected {
     opacity: 0.4;
     filter: alpha(opacity=40); /* msie */
+}
+
+.card-footer {
+    font-size: .8em;
 }
