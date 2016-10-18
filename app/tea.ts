@@ -13,14 +13,14 @@ export class Tea {
         public purchaseprice: string,
         public ratings: string,
         public comments: string,
-        public pictures: string,
+        public pictures: string[],
         public country: string,
         public leafgrade: string,
         public blendedteas: string,
         public blendratio: string,
         public size: string,
-        public stocked: string,
-        public aging: string,
+        public stocked: boolean,
+        public aging: boolean,
         public packaging: string
     ) {}
 }

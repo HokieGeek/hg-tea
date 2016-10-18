@@ -58,14 +58,14 @@ export class TeaDbService {
                        json["gsx$purchaseprice"]["$t"],
                        json["gsx$ratings"]["$t"],
                        json["gsx$comments"]["$t"],
-                       json["gsx$pictures"]["$t"],
+                       json["gsx$pictures"]["$t"].split(";"),
                        json["gsx$country"]["$t"],
                        json["gsx$leafgrade"]["$t"],
                        json["gsx$blendedteas"]["$t"],
                        json["gsx$blendratio"]["$t"],
                        json["gsx$size"]["$t"],
-                       json["gsx$stocked"]["$t"],
-                       json["gsx$aging"]["$t"],
+                       (json["gsx$stocked"]["$t"] == "TRUE"),
+                       (json["gsx$aging"]["$t"] == "TRUE"),
                        json["gsx$packaging"]["$t"],
                       );
     }
