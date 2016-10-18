@@ -1,10 +1,10 @@
 <div role="navigation">
     <ul class="nav nav-tabs nav-justified">
           <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#hg-tea-journal">Journal</a></li>
-          <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#hg-tea-db">Teas</a></li>
+          <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#hg-tea-database">Teas</a></li>
     </ul>
     <div class="tab-content">
         <hg-tea-journal id="hg-tea-journal" class="tab-pane active" [entries]="journal_entries" [teas]="tea_database">loading journal...</hg-tea-journal>
-        <div id="hg-tea-db" class="tab-pane">TODO</div>
+        <hg-tea-database id="hg-tea-database" class="tab-pane" [teas]="tea_database">loading database...</hg-tea-database>
     </div>
 </div>
