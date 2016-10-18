@@ -13,7 +13,6 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe'
 })
 
 export class HgTeaJournalEntry {
-    arr:Array<number>;
     @Input()
     entry: Entry;
     @Input()
