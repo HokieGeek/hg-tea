@@ -76,7 +76,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                         return days[date.getDay()]+" at "+time;
                     }
                 } else { // a few weeks ago
-                    return "The "+date.getDate()+"<sup>"+this.ordinal_indicator(date.getDate())+"</sup> at "+time;
+                    return "The "+date.getDate()+this.ordinal_indicator(date.getDate())+" at "+time;
                 }
             } else { // a month or more ago
                 return months[date.getMonth()]+" "+date.getDate()+" at "+time;
