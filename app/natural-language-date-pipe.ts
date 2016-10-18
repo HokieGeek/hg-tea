@@ -22,12 +22,14 @@ export class NaturalLanguageDatePipe implements PipeTransform {
     }
 
     ordinal_indicator(num: number): string {
-        var o = "";
-        switch ((num % 10)) {
-            case 1: o = "st"; break;
-            case 2: o = "nd"; break;
-            case 3: o = "rd"; break;
-            default: o = "th"; break;
+        var o = "th";
+        if (num < 4 || num > 20) {
+            switch ((num % 10)) {
+                case 1: o = "st"; break;
+                case 2: o = "nd"; break;
+                case 3: o = "rd"; break;
+                default: o = "th"; break;
+            }
         }
         return o;
     }
