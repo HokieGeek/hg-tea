@@ -1,12 +1,14 @@
-<span title="{{tea.type}} from {{tea.country}}"><b>{{tea.name}}</b></span>
-<span *ngIf="entry.fixins.length > 0">with&nbsp;{{entry.fixins | lowercase}}</span>
-<br />
-<span title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</span>
-<span *ngIf="entry.steeptime">for {{entry.steeptime}}</span>
-<span *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
-<span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
-<br />
-<div title="{{entry.rating}} out of 4">
-    <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="img/tea_cup.png" />
+<div class="card-block">
+    <h4 class="card-title d-inline" title="{{tea.type}} from {{tea.country}}">{{tea.name}}</h4>
+    <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">with&nbsp;{{entry.fixins | lowercase}}</h6>
+    <p class="card-text">
+        <span *ngIf="entry.steeptime">{{entry.steeptime}}</span>
+        <span *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
+        <span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
+        <span class="card-text" *ngIf="entry.comments"><br />{{entry.comments}}</span>
+        <span class="pull-xs-right" title="{{entry.rating}} out of 4">
+            <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="img/tea_cup.png" />
+        </span>
+    </p>
 </div>
-<span *ngIf="entry.comments"><br/>{{entry.comments}}</span>
+<div class="card-footer text-muted" title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</div>

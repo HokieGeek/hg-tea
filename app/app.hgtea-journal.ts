@@ -6,7 +6,6 @@ import { Entry } from './entry'
 @Component({
   selector: 'hg-tea-journal',
   templateUrl: 'app/hgtea-journal.html',
-  styleUrls: ['app/hgtea-journal.css'],
 })
 
 export class HgTeaJournal {
