@@ -16,4 +16,4 @@ RUN npm install serve
 RUN sed -i '/^[ \t]*"scripts": /a\
     "serve": "serve",' package.json
 
-# CMD ["npm", "run", "serve"]
+CMD ["npm", "run", "serve"]
