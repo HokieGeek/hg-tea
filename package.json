@@ -35,5 +35,11 @@
     "lite-server": "^2.2.2",
     "typescript": "^2.0.3",
     "typings": "^1.4.0"
-  }
+  },
+  "author": "HokieGeek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HokieGeek/hg-tea/issues"
+  },
+  "homepage": "https://github.com/HokieGeek/hg-tea#readme"
 }
