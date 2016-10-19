@@ -24,4 +24,4 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe'
   bootstrap:    [ HgTea ]
 })
 
-export class AppModule { }
+export class HgTeaModule { }

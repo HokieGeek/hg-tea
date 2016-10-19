@@ -1,7 +1,7 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-// Tells Angular to start the application (called AppModule)
-import { AppModule } from './app.module';
+// Tells Angular to start the application (called HgTeaModule)
+import { HgTeaModule } from './app.module';
 
 const platform = platformBrowserDynamic();
-platform.bootstrapModule(AppModule);
+platform.bootstrapModule(HgTeaModule);
