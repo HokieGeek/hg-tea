@@ -1,6 +1,6 @@
 {
   "name": "hg-tea",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lite": "lite-server",
