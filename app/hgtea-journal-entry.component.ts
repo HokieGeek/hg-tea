@@ -6,9 +6,10 @@ import { Entry } from './entry'
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe'
 
 @Component({
+    moduleId: module.id,
     selector: 'hg-tea-journal-entry',
-    templateUrl: 'app/hgtea-journal-entry.html',
-    styleUrls: ['app/hgtea-journal-entry.css'],
+    templateUrl: 'hgtea-journal-entry.html',
+    styleUrls: ['hgtea-journal-entry.css'],
     providers: [ NaturalLanguageDatePipe ],
 })
 

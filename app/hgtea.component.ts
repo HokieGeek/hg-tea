@@ -5,9 +5,10 @@ import { Entry } from './entry'
 import { TeaDbService } from './teadb.service'
 
 @Component({
-  selector: 'hg-tea',
-  templateUrl: 'app/hgtea.html',
-  providers: [ TeaDbService ]
+    moduleId: module.id,
+    selector: 'hg-tea',
+    templateUrl: 'hgtea.html',
+    providers: [ TeaDbService ]
 })
 
 export class HgTea implements OnInit {

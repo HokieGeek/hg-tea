@@ -4,8 +4,9 @@ import { Tea } from './tea'
 import { Entry } from './entry'
 
 @Component({
+    moduleId: module.id,
   selector: 'hg-tea-journal',
-  templateUrl: 'app/hgtea-journal.html',
+  templateUrl: 'hgtea-journal.html',
 })
 
 export class HgTeaJournal {
