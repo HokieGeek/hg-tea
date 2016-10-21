@@ -14,3 +14,6 @@ enableProdMode();\n\
 ## Install serve
 RUN npm install serve
 RUN sed -i 's/^\([ \t]*"start": \).*$/\1"tsc \&\& serve",/' package.json
+# RUN sed -i 's/^\([ \t]*"start": \).*$/\1"serve",/' package.json
+
+RUN tsc
