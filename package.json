@@ -3,11 +3,7 @@
   "version": "0.0.5",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "lite": "lite-server",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+    "postinstall": "typings install"
   },
   "licenses": [
     {
