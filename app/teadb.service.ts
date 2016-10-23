@@ -36,7 +36,7 @@ export class TeaDbService {
     private extractSpreadsheetEntries<T>(res: Response,
                                          converter: (json: Object) => T): T[] {
         let body = res.json();
-        let entries = [];
+        let entries: T[] = [];
         for (let entry of body.feed.entry) {
             entries.push(converter(entry));
         }
