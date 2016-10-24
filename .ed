@@ -1,0 +1,2 @@
+#!/usr/bin/vim -S
+args index.html app/*.ts app/*html app/*.css systemjs.config.js *.json README.md Dockerfile
