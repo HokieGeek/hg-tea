@@ -1,4 +1,5 @@
 import { Component, OnInit }      from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Tea } from './tea'
 import { Entry } from './entry'
@@ -17,7 +18,11 @@ export class HgTea implements OnInit {
     errorMsg: string;
     mode = 'Observable';
 
-    constructor(private teaDbService: TeaDbService) { }
+    constructor(private teaDbService: TeaDbService,
+                private route: ActivatedRoute,
+                private router: Router
+                ) {}
+
 
     ngOnInit() {
         this.getTeaData()
