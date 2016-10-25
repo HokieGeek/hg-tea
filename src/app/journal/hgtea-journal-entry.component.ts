@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { Tea } from './tea'
-import { Entry } from './entry'
+import { Tea } from '../tea'
+import { Entry } from '../entry'
 
-import { NaturalLanguageDatePipe } from './natural-language-date-pipe'
+import { NaturalLanguageDatePipe } from '../natural-language-date-pipe'
 
 @Component({
     // moduleId: module.id,
