@@ -8,6 +8,7 @@
   "scripts": {
     "start": "tsc && serve",
     "dev": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "install": "tsc -d",
     "postinstall": "typings install"
   },
   "private": true,
