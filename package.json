@@ -8,7 +8,7 @@
   "scripts": {
     "start": "tsc && serve",
     "dev": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "install": "mkdir -p ../../img && cp img/* ../../img && typings install && tsc -d",
+    "install": "typings install && tsc -d",
     "postinstall": "typings install"
   },
   "private": true,
