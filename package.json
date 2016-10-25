@@ -1,19 +1,16 @@
 {
   "name": "hg-tea",
   "version": "0.0.5",
+  "license": "MIT",
   "main": "app/main.js",
   "types": "app/main.d.ts",
   "typings": "app",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "tsc && serve",
+    "dev": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "postinstall": "typings install"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/angular/angular.io/blob/master/LICENSE"
-    }
-  ],
+  "private": true,
   "dependencies": {
     "@angular/common": "~2.1.0",
     "@angular/compiler": "~2.1.0",
