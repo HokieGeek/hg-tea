@@ -1,17 +1,15 @@
 import { Component, OnInit }      from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Tea } from './tea'
 import { Entry } from './entry'
 import { TeaDbService } from './teadb.service'
 
 @Component({
-    moduleId: module.id,
+    // moduleId: module.id,
     selector: 'hg-tea',
-    templateUrl: 'hgtea.html',
+    templateUrl: './hgtea.component.html',
     providers: [ TeaDbService ]
 })
-
 export class HgTea implements OnInit {
     tea_database: Tea[];
     journal_entries: Entry[];
@@ -19,8 +17,8 @@ export class HgTea implements OnInit {
     mode = 'Observable';
 
     constructor(private teaDbService: TeaDbService,
-                private route: ActivatedRoute,
-                private router: Router
+                // private route: ActivatedRoute,
+                // private router: Router
                 ) {}
 
 

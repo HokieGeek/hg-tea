@@ -7,7 +7,7 @@
         <span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
         <span class="card-text entryComments" *ngIf="entry.comments"><br /><br />{{entry.comments}}</span>
         <span class="pull-xs-right" title="{{entry.rating}} out of 4">
-            <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="img/tea_cup.png" />
+            <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="assets/tea_cup.png" />
         </span>
     </p>
 </div>
