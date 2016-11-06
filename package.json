@@ -6,8 +6,8 @@
   "scripts": {
     "start": "tsc && serve",
     "dev": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "install": "typings install && tsc -d",
-    "postinstall": "typings install"
+    "install": "npm run typings install && npm run tsc -d",
+    "postinstall": "npm run typings install"
   },
   "private": true,
   "dependencies": {
