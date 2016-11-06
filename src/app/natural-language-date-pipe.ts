@@ -60,8 +60,12 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                     return "A couple of hours ago";
                 } else if (delta_ms <= (21600 * 1000)) { // less than 6 hours ago
                     return "A few hours ago";
-                } else if (date.getHours() < 12 && ahora.getDate() >= 12) {
-                    return "This morning";
+                } else if (date.getHours() < 12 && ahora.getHours() >= 12) {
+                    if (ahora.getHours() > 5) {
+                        return "This morning at " + date.getHours();
+                    } else {
+                        return "This morning";
+                    }
                 } else {
                     return time; // Use this until I can come up with something obvious to mean ">8 hours ago"
                 }
