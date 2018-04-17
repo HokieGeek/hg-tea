@@ -1,4 +1,4 @@
-<div class="card-block">
+<div class="card-body">
     <h4 class="card-title d-inline" title="{{tea.type}} from {{tea.country}}">{{tea.name}}</h4>
     <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">with&nbsp;{{entry.fixins | lowercase}}</h6>
     <p class="card-text">
@@ -6,7 +6,7 @@
         <span *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
         <span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
         <span class="card-text entryComments" *ngIf="entry.comments"><br /><br />{{entry.comments}}</span>
-        <span class="pull-xs-right" title="{{entry.rating}} out of 4">
+        <span class="float-right" title="{{entry.rating}} out of 4">
             <img *ngFor="let i of [1,2,3,4]" class="ratingImg" [ngClass]="{ratingImgUnselected: entry.rating < i}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABaCAYAAAAvitHLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAAAd0SU1FB9sHEQcaH9bCSw0AAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5F
 VCB2My41LjEwMPRyoQAAKENJREFUeF7VfAeYVdW59gxlYBCYYXovZ06dM2fmnOnDdBh6nwEUEYgg

@@ -4,15 +4,12 @@ import { Tea } from '../tea'
 import { Entry } from '../entry'
 
 @Component({
-    // moduleId: module.id,
     selector: 'hg-tea-journal',
     templateUrl: 'hgtea-journal.component.html',
 })
 export class HgTeaJournal {
-    @Input()
-    entries: Entry[];
-    @Input()
-    teas: Tea[];
+    @Input() entries: Entry[];
+    @Input() teas: Tea[];
 
     get reversedEntries() {
         if (this.entries) {

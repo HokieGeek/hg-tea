@@ -1,4 +1,4 @@
-<div class="card-block">
+<div class="card-body">
     <!--img class="card-img-top" *ngIf="tea.pictures.length > 0" src="blah/{{tea.pictures[0]}}" alt="Card image cap" -->
     <h4 class="card-title d-inline" [ngClass]="{notStocked: !tea.stocked}">{{tea.name}}</h4>
     <h6 class="card-subtitle text-muted d-inline" *ngIf="tea.country">
@@ -17,7 +17,7 @@
         <span class="card-text teaComments" *ngIf="tea.comments">{{tea.comments}}</span>
     </p>
 
-    <p class="card-text pull-xs-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
+    <p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
 
     <!--
         pictures: string[]
