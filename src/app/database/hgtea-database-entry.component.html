@@ -11,7 +11,7 @@
         <span *ngIf="tea.size">a {{tea.size}}</span>
         <span *ngIf="tea.purchaselocation">from {{tea.purchaselocation}}</span>
         <span *ngIf="tea.purchasedate">on {{tea.purchasedate}}</span>
-        for {{tea.purchaseprice | currency:'USD':true}}
+        for {{tea.purchaseprice | currency:'USD':'$'}}
     </p>
     <p class="card-text">
         <span class="card-text teaComments" *ngIf="tea.comments">{{tea.comments}}</span>
