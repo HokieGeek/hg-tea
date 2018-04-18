@@ -45,7 +45,7 @@ build-app:
       #   script:
       #     - npm test
 
-build-docker:
+build-container:
   stage: deploy
   image: docker:git
   services:
