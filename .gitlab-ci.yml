@@ -27,23 +27,22 @@ lint:
   script:
     - npm run lint
 
-      # node:6:
-      #   stage: test
-      #   script:
-      #     - npm install -g codecov
-      #     - npm test && codecov
-      # 
-      # node:7:
-      #   stage: test
-      #   image: node:7
-      #   script:
-      #     - npm test
-      # 
-      # node:4:
-      #   stage: test
-      #   image: node:4
-      #   script:
-      #     - npm test
+node:6:
+  stage: test
+  script:
+    - npm run testci
+
+node:7:
+  stage: test
+  image: node:7
+  script:
+    - npm run testci
+
+node:4:
+  stage: test
+  image: node:4
+  script:
+    - npm run testci
 
 build-container:
   stage: deploy
