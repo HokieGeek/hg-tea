@@ -1,0 +1,12 @@
+.ratingImg {
+    height: auto;
+    width: auto;
+    max-height: 28px;
+    max-width: 40px;
+}
+
+.ratingImgUnselected {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* msie */
+}
+
