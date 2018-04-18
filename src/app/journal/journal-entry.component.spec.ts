@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+// import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { JournalEntryComponent } from './journal-entry.component';
@@ -31,7 +31,7 @@ describe('JournalEntryComponent', () => {
       component = fixture.componentInstance;
 
       component.entry = new Entry(
-          1, //teaId
+          1, // teaId
           'COMMENT', // comments
           '12/30/2011 7:49:05', // timestamp
           '9999/99/99', // date
