@@ -12,7 +12,7 @@ import { NaturalLanguageDatePipe } from '../natural-language-date-pipe'
     providers: [ NaturalLanguageDatePipe ],
 })
 
-export class HgTeaJournalEntry {
+export class HgTeaJournalEntryComponent {
     @Input() entry: Entry;
     @Input() tea: Tea;
 }

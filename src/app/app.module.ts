@@ -5,21 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { RoutingModule } from './routing.module';
 
-import { HgTea } from './hgtea.component';
-import { HgTeaJournal } from './journal/hgtea-journal.component';
-import { HgTeaJournalEntry }  from './journal/hgtea-journal-entry.component'
-import { HgTeaDatabase }  from './database/hgtea-database.component'
-import { HgTeaDatabaseEntry }  from './database/hgtea-database-entry.component'
+import { HgTeaComponent } from './hgtea.component';
+import { HgTeaJournalComponent } from './journal/hgtea-journal.component';
+import { HgTeaJournalEntryComponent }  from './journal/hgtea-journal-entry.component'
+import { HgTeaDatabaseComponent }  from './database/hgtea-database.component'
+import { HgTeaDatabaseEntryComponent }  from './database/hgtea-database-entry.component'
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe'
 
 @NgModule({
     declarations: [
-        HgTea,
-        HgTeaJournal,
-        HgTeaJournalEntry,
-        HgTeaDatabase,
-        HgTeaDatabaseEntry,
+        HgTeaComponent,
+        HgTeaJournalComponent,
+        HgTeaJournalEntryComponent,
+        HgTeaDatabaseComponent,
+        HgTeaDatabaseEntryComponent,
         NaturalLanguageDatePipe,
     ],
     imports: [

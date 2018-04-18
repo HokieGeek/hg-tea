@@ -8,7 +8,7 @@ import { Entry } from '../entry'
     templateUrl: 'hgtea-journal.component.html',
     styleUrls: ['./hgtea-journal.component.css']
 })
-export class HgTeaJournal {
+export class HgTeaJournalComponent {
     @Input() entries: Entry[];
     @Input() teas: Tea[];
 

@@ -10,7 +10,7 @@ import { TeaDbService } from './teadb.service'
     styleUrls: ['hgtea.component.css'],
     providers: [ TeaDbService ]
 })
-export class HgTea implements OnInit {
+export class HgTeaComponent implements OnInit {
     tea_database: Tea[];
     journal_entries: Entry[];
     errorMsg: string;

@@ -39,7 +39,8 @@ export class Entry {
             }
             fixins_str = fixins_str.replace(/^, /, '');
             if (this.fixins_list.split(';').length > 1) {
-                return fixins_str.substring(0, fixins_str.lastIndexOf(',')) + ' and' + fixins_str.substring(fixins_str.lastIndexOf(',') + 1);
+                return fixins_str.substring(0, fixins_str.lastIndexOf(',')) + ' and'
+                    + fixins_str.substring(fixins_str.lastIndexOf(',') + 1);
             } else {
                 return fixins_str;
             }
