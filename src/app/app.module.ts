@@ -6,21 +6,23 @@ import { HttpModule } from '@angular/http';
 import { RoutingModule } from './routing.module';
 
 import { HgTeaComponent } from './hgtea.component';
-import { HgTeaJournalComponent } from './journal/hgtea-journal.component';
-import { HgTeaJournalEntryComponent }  from './journal/hgtea-journal-entry.component'
-import { HgTeaDatabaseComponent }  from './database/hgtea-database.component'
-import { HgTeaDatabaseEntryComponent }  from './database/hgtea-database-entry.component'
+import { JournalComponent } from './journal/journal.component';
+import { JournalEntryComponent }  from './journal/journal-entry.component'
+import { DatabaseComponent }  from './database/database.component'
+import { DatabaseEntryComponent }  from './database/database-entry.component'
 
-import { NaturalLanguageDatePipe } from './natural-language-date-pipe'
+import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
+import { TeacupimgComponent } from './journal/teacupimg/teacupimg.component'
 
 @NgModule({
     declarations: [
         HgTeaComponent,
-        HgTeaJournalComponent,
-        HgTeaJournalEntryComponent,
-        HgTeaDatabaseComponent,
-        HgTeaDatabaseEntryComponent,
+        JournalComponent,
+        JournalEntryComponent,
+        DatabaseComponent,
+        DatabaseEntryComponent,
         NaturalLanguageDatePipe,
+        TeacupimgComponent,
     ],
     imports: [
         BrowserModule,
@@ -29,6 +31,6 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe'
         RoutingModule,
     ],
     providers: [],
-    bootstrap: [HgTea]
+    bootstrap: [HgTeaComponent]
 })
 export class HgTeaModule { }

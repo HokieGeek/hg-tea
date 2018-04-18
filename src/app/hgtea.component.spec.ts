@@ -1,19 +1,19 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { HgTea } from './hgtea.component';
+import { HgTeaComponent } from './hgtea.component';
 
 describe('App: Ngtest', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HgTea
+        HgTeaComponent
       ],
     });
   });
 
   it('should create the app', async(() => {
-    let fixture = TestBed.createComponent(HgTea);
+    let fixture = TestBed.createComponent(HgTeaComponent);
     let app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));

@@ -1,7 +1,7 @@
 <div class="card-columns">
-    <hg-tea-journal-entry
+    <journal-entry
         *ngFor="let entry of reversedEntries"
         [entry]="entry"
         [tea]="teas[entry.teaId]">
-    </hg-tea-journal-entry>
+    </journal-entry>
 </div>

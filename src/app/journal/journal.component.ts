@@ -4,11 +4,11 @@ import { Tea } from '../tea'
 import { Entry } from '../entry'
 
 @Component({
-    selector: 'hg-tea-journal',
-    templateUrl: 'hgtea-journal.component.html',
-    styleUrls: ['./hgtea-journal.component.css']
+    selector: 'journal',
+    templateUrl: 'journal.component.html',
+    styleUrls: ['./journal.component.css']
 })
-export class HgTeaJournalComponent {
+export class JournalComponent {
     @Input() entries: Entry[];
     @Input() teas: Tea[];
 

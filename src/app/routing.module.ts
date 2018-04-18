@@ -1,12 +1,12 @@
 import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { HgTea }    from './hgtea.component';
+import { HgTeaComponent }    from './hgtea.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'tea',  component: HgTea },
+      { path: 'tea',  component: HgTeaComponent },
     ])
   ],
   exports: [
