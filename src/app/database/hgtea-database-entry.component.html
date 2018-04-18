@@ -1,3 +1,5 @@
+<div class="card">
+
 <div class="card-body">
     <!--img class="card-img-top" *ngIf="tea.pictures.length > 0" src="blah/{{tea.pictures[0]}}" alt="Card image cap" -->
     <h4 class="card-title d-inline" [ngClass]="{notStocked: !tea.stocked}">{{tea.name}}</h4>
@@ -34,3 +36,5 @@
     -->
 </div>
 <div class="card-footer text-muted" *ngIf="tea.type">{{tea.type}}</div>
+
+</div>

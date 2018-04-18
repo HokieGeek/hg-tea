@@ -6,6 +6,7 @@ import { Tea } from '../tea'
     // moduleId: module.id,
     selector: 'hg-tea-database',
     templateUrl: 'hgtea-database.component.html',
+    styleUrls: ['./hgtea-database.component.css']
 })
 
 export class HgTeaDatabase {
