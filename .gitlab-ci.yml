@@ -22,10 +22,10 @@ build-app:
   script:
     - npm run build
 
-lint:
-  stage: build
-  script:
-    - npm run lint
+      # lint:
+      #   stage: build
+      #   script:
+      #     - npm run lint
 
       # node:6:
       #   stage: test
