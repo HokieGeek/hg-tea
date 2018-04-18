@@ -13,24 +13,29 @@ cache:
     - node_modules/
     - dist/
 
-build:app:
+build-app:
+  stage: build
   script:
     - npm run build
 
-build:lint:
+lint:
+  stage: build
   script:
     - npm run lint
 
-test:node:6:
+node:6:
+  stage: test
   script:
     - npm run testci
 
-test:node:7:
+node:7:
+  stage: test
   image: node:7
   script:
     - npm run testci
 
-deploy:container:
+create-container:
+  stage: deploy
   image: docker:git
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:0.5.0
