@@ -8,45 +8,33 @@ stages:
 before_script:
   - npm install
 
-variables:
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:0.5.0
-  IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
-
 cache:
   paths:
     - node_modules/
     - dist/
 
-build-app:
-  stage: build
+build:app:
   script:
     - npm run build
 
-lint:
-  stage: build
+build:lint:
   script:
     - npm run lint
 
-node:6:
-  stage: test
+test:node:6:
   script:
     - npm run testci
 
-node:7:
-  stage: test
+test:node:7:
   image: node:7
   script:
     - npm run testci
 
-node:4:
-  stage: test
-  image: node:4
-  script:
-    - npm run testci
-
-build-container:
-  stage: deploy
+deploy:container:
   image: docker:git
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:0.5.0
+    IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   services:
     - docker:dind
   before_script:
