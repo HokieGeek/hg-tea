@@ -22,28 +22,28 @@ build-app:
   script:
     - npm run build
 
-      # lint:
+lint:
+  stage: build
+  script:
+    - npm run lint
+
+      # node:6:
       #   stage: test
       #   script:
-      #     - npm run lint
-
-node:6:
-  stage: test
-  script:
-    - npm install -g codecov
-    - npm test && codecov
-
-node:7:
-  stage: test
-  image: node:7
-  script:
-    - npm test
-
-node:4:
-  stage: test
-  image: node:4
-  script:
-    - npm test
+      #     - npm install -g codecov
+      #     - npm test && codecov
+      # 
+      # node:7:
+      #   stage: test
+      #   image: node:7
+      #   script:
+      #     - npm test
+      # 
+      # node:4:
+      #   stage: test
+      #   image: node:4
+      #   script:
+      #     - npm test
 
 build-docker:
   stage: deploy
