@@ -6,14 +6,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href .",
+    "buildOLD": "ng build --base-href .",
+    "build": "ng build --prod --build-optimizer --environment=prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "tarball": "ng build --base-href . && tar -C dist -cvzf dist.tar.gz .",
-    "startOLD": "tsc && serve",
-    "devOLD": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "installOLD": "tsc -d"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
