@@ -1,4 +1,4 @@
-image: node:6
+image: node:9
 
 stages:
     - build
@@ -25,6 +25,7 @@ lint:
 
 unit-node:6:
   stage: test
+  image: node:6
   script:
     - npm run testci
 
@@ -42,11 +43,10 @@ unit-node:8:
 
 unit-node:9:
   stage: test
-  image: node:9
   script:
     - npm run testci
 
-      # e2e-node:6:
+      # e2e-node:9:
       #   stage: test
       #   script:
       #     - npm run e2e
