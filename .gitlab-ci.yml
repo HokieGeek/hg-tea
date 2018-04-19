@@ -69,7 +69,7 @@ unit-node:latest:
       #     - npm run e2e
       #   allow_failure: true
 
-create-container:
+create-container-dev:
   stage: release
   image: docker:git
   variables:
