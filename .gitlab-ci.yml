@@ -22,6 +22,16 @@ lint:
   stage: build
   script:
     - npm run lint
+  only:
+    - master
+
+lint-warn:
+  stage: build
+  script:
+    - npm run lint
+  except:
+    - master
+  allow_failure: true
 
 unit-node:6:
   stage: test
@@ -46,6 +56,13 @@ unit-node:9:
   script:
     - npm run testci
 
+unit-node:latest:
+  stage: test
+  image: node:latest
+  script:
+    - npm run testci
+  allow_failure: true
+
       # e2e-node:9:
       #   stage: test
       #   script:
@@ -66,3 +83,5 @@ create-container:
     - docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
     - docker push $IMAGE_TAG
     - docker push $IMAGE_LATEST_TAG
+  only:
+    - master
