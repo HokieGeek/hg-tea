@@ -34,6 +34,18 @@ node:7:
   script:
     - npm run testci
 
+node:8:
+  stage: test
+  image: node:8
+  script:
+    - npm run testci
+
+node:9:
+  stage: test
+  image: node:9
+  script:
+    - npm run testci
+
 create-container:
   stage: deploy
   image: docker:git
