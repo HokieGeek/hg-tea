@@ -84,8 +84,9 @@ create-container:
     - docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
     - docker push $IMAGE_TAG
     - docker push $IMAGE_LATEST_TAG
-  only:
-    - branches
+  except:
+    - master
+    - tags
 
 create-container:
   stage: release
@@ -104,7 +105,9 @@ create-container:
     - docker push $IMAGE_LATEST_TAG
   only:
     - tags
-    
+  except:
+    - branches
+
 .build-evaluate:
   stage: test
   image: registry.gitlab.com/hokiegeek/nexus-lifecycle-gitlab:latest
@@ -117,4 +120,3 @@ create-container:
   only:
     - tags
   allow_failure: true
-
