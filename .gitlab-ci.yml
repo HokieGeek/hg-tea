@@ -67,12 +67,13 @@ unit-node:latest:
       #   stage: test
       #   script:
       #     - npm run e2e
+      #   allow_failure: true
 
 create-container:
   stage: release
   image: docker:git
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:0.5.0
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:SNAPSHOT
     IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   services:
     - docker:dind
@@ -83,10 +84,11 @@ create-container:
     - docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
     - docker push $IMAGE_TAG
     - docker push $IMAGE_LATEST_TAG
-  only:
+  except:
     - master
+    - tags
 
-.create-container:
+create-container:
   stage: release
   image: docker:git
   variables:
