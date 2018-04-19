@@ -1,11 +1,15 @@
 import { browser, element, by } from 'protractor';
 
-export class NgtestPage {
+export class HgPage {
   navigateTo() {
     return browser.get('/');
   }
 
+  getTitle() {
+    return element(by.css('title')).getText();
+  }
+
   getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+    return element(by.css('hg-tea h1')).getText();
   }
 }

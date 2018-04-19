@@ -1,14 +1,15 @@
-import { NgtestPage } from './app.po';
+import { HgPage } from './app.po';
 
 describe('ngtest App', function() {
-  let page: NgtestPage;
+  let page: HgPage;
 
   beforeEach(() => {
-    page = new NgtestPage();
+    page = new HgPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getTitle()).toEqual('hokiegeek.net/tea');
+    // expect(page.getParagraphText()).toEqual('hokiegeek.net/tea');
   });
 });
