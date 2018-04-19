@@ -23,28 +23,33 @@ lint:
   script:
     - npm run lint
 
-node:6:
+unit-node:6:
   stage: test
   script:
     - npm run testci
 
-node:7:
+unit-node:7:
   stage: test
   image: node:7
   script:
     - npm run testci
 
-node:8:
+unit-node:8:
   stage: test
   image: node:8
   script:
     - npm run testci
 
-node:9:
+unit-node:9:
   stage: test
   image: node:9
   script:
     - npm run testci
+
+      # e2e-node:6:
+      #   stage: test
+      #   script:
+      #     - npm run e2e
 
 create-container:
   stage: deploy
