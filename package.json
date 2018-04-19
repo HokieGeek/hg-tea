@@ -7,8 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --base-href . --prod --build-optimizer --environment=prod",
-    "test": "ng test",
-    "testci": "ng test --browsers PhantomJS --single-run=true --watch=false",
+    "test": "ng test --browsers PhantomJS --single-run=true --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

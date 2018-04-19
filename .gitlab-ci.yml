@@ -37,30 +37,30 @@ unit-node:6:
   stage: test
   image: node:6
   script:
-    - npm run testci
+    - npm run test
 
 unit-node:7:
   stage: test
   image: node:7
   script:
-    - npm run testci
+    - npm run test
 
 unit-node:8:
   stage: test
   image: node:8
   script:
-    - npm run testci
+    - npm run test
 
 unit-node:9:
   stage: test
   script:
-    - npm run testci
+    - npm run test
 
 unit-node:latest:
   stage: test
   image: node:latest
   script:
-    - npm run testci
+    - npm run test
   allow_failure: true
 
       # e2e-node:9:
