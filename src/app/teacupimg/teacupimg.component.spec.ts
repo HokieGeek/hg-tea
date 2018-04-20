@@ -14,7 +14,7 @@ describe('TeacupimgComponent', () => {
         TestBed.configureTestingModule({
             declarations: [ TeacupimgComponent ]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {
