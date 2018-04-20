@@ -24,10 +24,10 @@ export class Entry {
         public rating: number,
         public pictures: string,
         public steeptime: string,
-        private steepingvessel_idx: number,
+        public steepingvessel_idx: number,
         public steeptemperature: number,
         public sessioninstance: string,
-        private fixins_list: string,
+        public fixins_list: string,
     ) { }
 
     get steepingvessel() { return SteepingVessels[this.steepingvessel_idx]; }
