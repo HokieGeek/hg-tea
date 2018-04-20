@@ -1,18 +1,16 @@
 <div class="card">
-
-<div class="card-body">
-    <h4 class="card-title d-inline" title="{{tea.type}} from {{tea.country}}">{{tea.name}}</h4>
-    <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">with&nbsp;{{entry.fixins | lowercase}}</h6>
-    <p class="card-text">
-        <span *ngIf="entry.steeptime">{{entry.steeptime}}</span>
-        <span *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
-        <span *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
-        <span class="card-text entryComments" *ngIf="entry.comments"><br /><br />{{entry.comments}}</span>
-        <span class="float-right" title="{{entry.rating}} out of 4">
-            <teacupimg *ngFor="let i of [1,2,3,4]" unselect="{{entry.rating < i}}"></teacupimg>
-        </span>
-    </p>
-</div>
-<div class="card-footer text-muted" title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</div>
-
+    <div class="card-body">
+        <h4 class="card-title d-inline" title="{{tea.type}} from {{tea.country}}">{{tea.name}}</h4>
+        <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">with&nbsp;{{entry.fixins | lowercase}}</h6>
+        <p class="card-text">
+            <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime}}</span>
+            <span id="vessel" *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
+            <span id="temperature" *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
+            <span id="comments" class="card-text comments" *ngIf="entry.comments"><br /><br />{{entry.comments}}</span>
+            <span id="rating" class="float-right" title="{{entry.rating}} out of 4">
+                <teacupimg *ngFor="let i of [1,2,3,4]" unselect="{{entry.rating < i}}"></teacupimg>
+            </span>
+        </p>
+    </div>
+    <div class="card-footer text-muted" title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</div>
 </div>
