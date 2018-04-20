@@ -44,7 +44,7 @@ describe('JournalEntryComponent', () => {
             0, // steepingvessel_idx
             212, // steeptemperature
             '', // sessioninstance
-            '' // fixins_list
+            '0;4;7' // fixins_list
         )
 
         component.tea = new Tea(
@@ -89,10 +89,10 @@ describe('JournalEntryComponent', () => {
         expect(has).toBe(expected);
     });
 
-    it('fixins not set', () => {
-        let has = fixture.debugElement.query(By.css('h6'));
-        expect(has).toBeNull();
-        // TODO: do its counterpart
+    it('fixins list makes sense', () => {
+        let has = fixture.debugElement.query(By.css('h6')).nativeElement.innerHTML;
+        let expected = document.createElement('h6').innerHTML = 'with&nbsp;' + component.entry.fixins.toLowerCase();
+        expect(has).toBe(expected);
     });
 
     it('steeptime is correct', () => {
