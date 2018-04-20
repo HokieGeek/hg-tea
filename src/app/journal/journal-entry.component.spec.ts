@@ -14,7 +14,7 @@ describe('JournalEntryComponent', () => {
     let fixture: ComponentFixture<JournalEntryComponent>;
 
     const numRatingValues = 4;
-    // TODO const maxNumFixins = 11;
+    const maxNumFixins = 11;
     const maxNumSteepingVessels = 9;
 
     beforeEach(async(() => {
@@ -40,7 +40,12 @@ describe('JournalEntryComponent', () => {
         let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
         let time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
 
-        // TODO: let fixins = ""
+        let fixins: string;
+        for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
+            fixins += Math.floor(Math.random() * maxNumFixins);
+            fixins += ';';
+        }
+        fixins = fixins.slice(0, -1);
 
         component.entry = new Entry(
             id, // teaId
@@ -54,7 +59,7 @@ describe('JournalEntryComponent', () => {
             Math.floor(Math.random() * maxNumSteepingVessels), // steepingvessel_idx
             212, // steeptemperature
             '', // sessioninstance
-            '0;4;7' // fixins_list
+            fixins // fixins_list
         );
 
         component.tea = new Tea(
