@@ -8,7 +8,7 @@
             <span id="temperature" *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
             <span id="comments" class="card-text comments" *ngIf="entry.comments"><br /><br />{{entry.comments}}</span>
             <span id="rating" class="float-right" title="{{entry.rating}} out of 4">
-                <teacupimg *ngFor="let i of [1,2,3,4]" unselect="{{entry.rating < i}}"></teacupimg>
+                <teacupimg *ngFor="let i of [1,2,3,4]" selected="{{entry.rating >= i}}"></teacupimg>
             </span>
         </p>
     </div>

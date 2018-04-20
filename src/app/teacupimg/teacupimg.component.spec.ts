@@ -3,10 +3,9 @@ import { By } from '@angular/platform-browser';
 
 import { TeacupimgComponent } from './teacupimg.component';
 
-describe('TeacupimgComponent Unselected', () => {
+describe('TeacupimgComponent', () => {
     let component: TeacupimgComponent;
     let fixture: ComponentFixture<TeacupimgComponent>;
-    let classes: DOMTokenList
 
     const defaultClass = 'ratingImg';
     const unselectedClass = 'ratingImgUnselected';
@@ -21,12 +20,7 @@ describe('TeacupimgComponent Unselected', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TeacupimgComponent);
         component = fixture.componentInstance;
-
-        component.unselect = 'true';
-
         fixture.detectChanges();
-
-        classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
     });
 
     it('should create', () => {
@@ -34,49 +28,29 @@ describe('TeacupimgComponent Unselected', () => {
     });
 
     it('contains default class', () => {
+        let classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
         expect(classes.contains(defaultClass)).toBeTruthy();
     });
 
-    it('has Unselected class', () => {
-        expect(classes.contains(unselectedClass)).toBeTruthy();
-    });
-});
+    it('does not have Unselected class when selected', async(() => {
+        component.selected = 'true';
+        fixture.detectChanges();
 
-describe('TeacupimgComponent Selected', () => {
-    let component: TeacupimgComponent;
-    let fixture: ComponentFixture<TeacupimgComponent>;
-    let classes: DOMTokenList
+        let classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
 
-    const defaultClass = 'ratingImg';
-    const unselectedClass = 'ratingImgUnselected';
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [ TeacupimgComponent ]
-        })
-            .compileComponents();
+        fixture.whenStable().then(result => {
+            expect(!classes.contains(unselectedClass)).toBeTruthy();
+        });
     }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(TeacupimgComponent);
-        component = fixture.componentInstance;
-
-        component.unselect = 'false';
-
+    it('has Unselected class when not selected', async(() => {
+        component.selected = 'false';
         fixture.detectChanges();
 
-        classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
-    });
+        let classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    it('contains default class', () => {
-        expect(classes.contains(defaultClass)).toBeTruthy();
-    });
-
-    it('does not have Unselected class', () => {
-        expect(!classes.contains(unselectedClass)).toBeTruthy();
-    });
+        fixture.whenStable().then(result => {
+            expect(classes.contains(unselectedClass)).toBeTruthy();
+        });
+    }));
 });

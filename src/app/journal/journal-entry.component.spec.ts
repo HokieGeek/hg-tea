@@ -138,7 +138,7 @@ describe('JournalEntryComponent', () => {
         fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes.forEach(
             function(val, idx, obj) {
                 if (val.nodeName === 'TEACUPIMG') {
-                    if (val.attributes.getNamedItem('ng-reflect-unselect').value === 'false') {
+                    if (val.attributes.getNamedItem('ng-reflect-selected').value === 'true') {
                         hasSelected++;
                     } else {
                         hasUnselected++;
