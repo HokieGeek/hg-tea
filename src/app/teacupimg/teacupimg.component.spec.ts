@@ -6,7 +6,7 @@ import { TeacupimgComponent } from './teacupimg.component';
 describe('TeacupimgComponent Unselected', () => {
     let component: TeacupimgComponent;
     let fixture: ComponentFixture<TeacupimgComponent>;
-    let classes: string[]
+    let classes: DOMTokenList
 
     const defaultClass = 'ratingImg';
     const unselectedClass = 'ratingImgUnselected';
@@ -34,18 +34,18 @@ describe('TeacupimgComponent Unselected', () => {
     });
 
     it('contains default class', () => {
-        expect(Object.values(classes).includes(defaultClass)).toBeTruthy();
+        expect(classes.contains(defaultClass)).toBeTruthy();
     });
 
     it('has Unselected class', () => {
-        expect(Object.values(classes).includes(unselectedClass)).toBeTruthy();
+        expect(classes.contains(unselectedClass)).toBeTruthy();
     });
 });
 
 describe('TeacupimgComponent Selected', () => {
     let component: TeacupimgComponent;
     let fixture: ComponentFixture<TeacupimgComponent>;
-    let classes: string[]
+    let classes: DOMTokenList
 
     const defaultClass = 'ratingImg';
     const unselectedClass = 'ratingImgUnselected';
@@ -73,10 +73,10 @@ describe('TeacupimgComponent Selected', () => {
     });
 
     it('contains default class', () => {
-        expect(Object.values(classes).includes(defaultClass)).toBeTruthy();
+        expect(classes.contains(defaultClass)).toBeTruthy();
     });
 
     it('does not have Unselected class', () => {
-        expect(!Object.values(classes).includes(unselectedClass)).toBeTruthy();
+        expect(!classes.contains(unselectedClass)).toBeTruthy();
     });
 });

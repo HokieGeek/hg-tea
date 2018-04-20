@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { JournalEntryComponent } from './journal-entry.component';
-import { TeacupimgComponent } from './teacupimg/teacupimg.component';
+import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe'
 
 import { Tea } from '../tea'

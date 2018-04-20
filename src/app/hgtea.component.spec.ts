@@ -16,7 +16,7 @@ import { DatabaseComponent }  from './database/database.component'
 import { DatabaseEntryComponent }  from './database/database-entry.component'
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
-import { TeacupimgComponent } from './journal/teacupimg/teacupimg.component'
+import { TeacupimgComponent } from './teacupimg/teacupimg.component'
 
 describe('HgTeaComponent', () => {
   beforeEach(() => {
