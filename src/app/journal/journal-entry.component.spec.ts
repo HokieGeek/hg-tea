@@ -170,12 +170,59 @@ describe('JournalEntryComponent', () => {
         expect(+(new Date(has)) === +component.entry.datetime).toBeTruthy();
     });
 
-    /* TODO
     it('entrydate is being displayed naturally', () => {
-        let has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
-        expect(+(new Date(has)) == +component.entry.datetime).toBeTruthy();
+        let has = fixture.debugElement.query(By.css('#entrydate')).nativeElement.innerText;
+        let pipe = new NaturalLanguageDatePipe()
+        expect(has).toBe(pipe.transform(component.entry.datetime));
     });
-     */
 
-    // TODO: remove fixins, steeptime, vessel, temp, and comments to test that the elements also do not exist
+    it('no fixins handled correctly', async(() => {
+        component.entry.fixins_list = '';
+        fixture.detectChanges();
+
+        fixture.whenStable().then(result => {
+            let has = fixture.debugElement.query(By.css('h6'));
+            expect(has).toBeNull();
+        });
+    }));
+
+    it('no steeptime is handled correctly', async(() => {
+        component.entry.steeptime = '';
+        fixture.detectChanges();
+
+        fixture.whenStable().then(result => {
+            let has = fixture.debugElement.query(By.css('#steeptime'));
+            expect(has).toBeNull();
+        });
+    }));
+
+    it('no steeping vessel is handled correctly', async(() => {
+        component.entry.steepingvessel_idx = null;
+        fixture.detectChanges();
+
+        fixture.whenStable().then(result => {
+            let has = fixture.debugElement.query(By.css('#vessel'));
+            expect(has).toBeNull();
+        });
+    }));
+
+    it('no temperature is handled correctly', async(() => {
+        component.entry.steeptemperature = null;
+        fixture.detectChanges();
+
+        fixture.whenStable().then(result => {
+            let has = fixture.debugElement.query(By.css('#temperature'));
+            expect(has).toBeNull();
+        });
+    }));
+
+    it('empty comments field is handled correctly', async(() => {
+        component.entry.comments = '';
+        fixture.detectChanges();
+
+        fixture.whenStable().then(result => {
+            let has = fixture.debugElement.query(By.css('#comments'));
+            expect(has).toBeNull();
+        });
+    }));
 });
