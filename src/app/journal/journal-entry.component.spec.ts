@@ -13,7 +13,9 @@ describe('JournalEntryComponent', () => {
     let component: JournalEntryComponent;
     let fixture: ComponentFixture<JournalEntryComponent>;
 
-    const numRatingImages = 4;
+    const numRatingValues = 4;
+    // TODO const maxNumFixins = 11;
+    const maxNumSteepingVessels = 9;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -32,32 +34,40 @@ describe('JournalEntryComponent', () => {
         fixture = TestBed.createComponent(JournalEntryComponent);
         component = fixture.componentInstance;
 
+        let id = Math.floor(Math.random()) + 1;
+
+        let now = new Date();
+        let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
+        let time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
+
+        // TODO: let fixins = ""
+
         component.entry = new Entry(
-            1, // teaId
+            id, // teaId
             'COMMENT', // comments
             '12/30/2011 7:49:05', // timestamp
-            '9999/99/99', // date
-            900, // time
-            3, // rating
+            today, // date
+            time, // time
+            Math.floor(Math.random() * numRatingValues) + 1, // rating
             '', // pictures
             '1m 2s', // steeptime
-            0, // steepingvessel_idx
+            Math.floor(Math.random() * maxNumSteepingVessels), // steepingvessel_idx
             212, // steeptemperature
             '', // sessioninstance
             '0;4;7' // fixins_list
-        )
+        );
 
         component.tea = new Tea(
-            1, // id
+            id, // id
             'Foobar', // name
             '12/30/2011 7:49:05', // timestamp
-            '9999/99/99', // date
+            today, // date
             'Sheng', // type
             'Yunnan', // region
-            2999, // year
+            (new Date()).getFullYear(), // year
             0, // flush
             'tea.awesome.site', // purchaselocation
-            '9999/99/99', // purchasedate
+            today, // purchasedate
             '99.99', // purchaseprice
             '', // ratings
             'COMMENT', // comments
@@ -70,7 +80,7 @@ describe('JournalEntryComponent', () => {
             true , // stocked
             true , // aging
             'loose' // packaging
-        )
+        );
 
         fixture.detectChanges();
     });
@@ -117,7 +127,7 @@ describe('JournalEntryComponent', () => {
 
     it('rating title is correct', () => {
         let has = fixture.debugElement.query(By.css('#rating')).properties['title'];
-        let expected = component.entry.rating + ' out of ' + numRatingImages;
+        let expected = component.entry.rating + ' out of ' + numRatingValues;
         expect(has).toBe(expected);
     });
 
@@ -129,7 +139,7 @@ describe('JournalEntryComponent', () => {
                     has++;
                 }
             });
-        expect(has).toBe(numRatingImages);
+        expect(has).toBe(numRatingValues);
     });
 
     it('rating has images correctly displayed', () => {
@@ -147,10 +157,20 @@ describe('JournalEntryComponent', () => {
             });
 
         expect(hasSelected).toBe(component.entry.rating);
-        expect(hasUnselected).toBe(numRatingImages - component.entry.rating);
+        expect(hasUnselected).toBe(numRatingValues - component.entry.rating);
     });
 
-    /* TODO of currently displayed
-     * entrydate
+    it('entrydate title is correct', () => {
+        let has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
+        expect(+(new Date(has)) === +component.entry.datetime).toBeTruthy();
+    });
+
+    /* TODO
+    it('entrydate is being displayed naturally', () => {
+        let has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
+        expect(+(new Date(has)) == +component.entry.datetime).toBeTruthy();
+    });
      */
+
+    // TODO: remove fixins, steeptime, vessel, temp, and comments to test that the elements also do not exist
 });
