@@ -136,13 +136,12 @@ describe('JournalEntryComponent', () => {
         expect(has).toBe(expected);
     });
 
-    /*
     it('rating has the correct number of images', () => {
         let has = 0;
-
         let nodes = fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes;
-        for(var entry in Object.keys(nodes)) {
-            if (nodes.item(entry).nodeName === 'TEACUPIMG') {
+
+        for (i = nodes.length - 1; i >= 0; i--) {
+            if (nodes[i].nodeName === 'TEACUPIMG') {
                 has++;
             }
         }
@@ -155,13 +154,9 @@ describe('JournalEntryComponent', () => {
         let hasUnselected = 0;
 
         let nodes = fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes;
-        console.log(">>>> nodes ", nodes[0]);
-        for(var entry in Object.keys(nodes)) {
-            console.log(">>>> entry = ", entry);
-            console.log(">>>> node item = ", nodes.item(entry));
-            let val = nodes.item(entry);
-            if (val.nodeName === 'TEACUPIMG') {
-                if (val.attributes.getNamedItem('ng-reflect-selected').value === 'true') {
+        for (let i = nodes.length - 1; i >= 0; i--) {
+            if (nodes[i].nodeName === 'TEACUPIMG') {
+                if (nodes[i].attributes.getNamedItem('ng-reflect-selected').value === 'true') {
                     hasSelected++;
                 } else {
                     hasUnselected++;
@@ -172,7 +167,6 @@ describe('JournalEntryComponent', () => {
         expect(hasSelected).toBe(component.entry.rating);
         expect(hasUnselected).toBe(numRatingValues - component.entry.rating);
     });
-    */
 
     it('entrydate title is correct', () => {
         let has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
