@@ -107,6 +107,39 @@ describe('JournalComponent', () => {
         expect(has).toBe(component.entries.length);
     });
 
-    // TODO
-    // Do a quick verification that all journal entries are displayed
+    xit('verify all expected entries are listed', () => {
+        // TODO
+    });
+
+    it('check that there is only one top-level element', () => {
+        let children = fixture.debugElement.nativeElement.children
+
+        expect(children.length).toBe(1);
+        expect(children[0].nodeName).toBe('DIV');
+        expect(children[0].className).toBe('card-columns');
+    });
+
+    it('check that only journal-entry elements are in the top component', () => {
+        /*
+         * Expected schema
+         * <div class="card-columns">
+         *  <journal-entry></journal-entry>
+         *  <journal-entry></journal-entry>
+         *  ....
+         *  <journal-entry></journal-entry>
+         * </div>
+         */
+        let notEntries = 0;
+        let nodes = fixture.debugElement.query(By.css('.card-columns')).nativeElement.childNodes;
+
+        for (let i = nodes.length - 1; i >= 0; i--) {
+            if (nodes[i].nodeName !== 'JOURNAL-ENTRY'
+                && nodes[i].nodeName !== '#comment'
+                && nodes[i].nodeName !== '#text') {
+
+                notEntries++;
+            }
+        }
+        expect(notEntries).toBe(0);
+    });
 });
