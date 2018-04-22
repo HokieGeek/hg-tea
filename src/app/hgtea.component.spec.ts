@@ -19,6 +19,7 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component'
 
 describe('HgTeaComponent', () => {
+    const numPrimaryElements = 2;
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -45,16 +46,12 @@ describe('HgTeaComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  // it(`should have as title 'app works!'`, async(() => {
-  //   let fixture = TestBed.createComponent(HgTea);
-  //   let app = fixture.debugElement.componentInstance;
-  //   expect(app.title).toEqual('app works!');
-  // }));
+  xit(`should create a journal element`, async(() => {
+  }));
 
-  // it('should render title in a h1 tag', async(() => {
-  //   let fixture = TestBed.createComponent(HgTea);
-  //   fixture.detectChanges();
-  //   let compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelector('h1').textContent).toContain('app works!');
-  // }));
+  xit('should create a database element', async(() => {
+  }));
+
+  xit('should not have more than the required elements', async(() => {
+  }));
 });
