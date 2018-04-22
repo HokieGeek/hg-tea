@@ -14,11 +14,9 @@ describe('JournalComponent', () => {
     let component: JournalComponent;
     let fixture: ComponentFixture<JournalComponent>;
 
-    /*
     const numRatingValues = 4;
     const maxNumFixins = 11;
     const maxNumSteepingVessels = 9;
-     */
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -38,8 +36,7 @@ describe('JournalComponent', () => {
         fixture = TestBed.createComponent(JournalComponent);
         component = fixture.componentInstance;
 
-        /*
-        let id = Math.floor(Math.random()) + 1;
+        let id = 0;
 
         let now = new Date();
         let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
@@ -52,28 +49,8 @@ describe('JournalComponent', () => {
         }
         fixins = fixins.slice(0, -1);
 
-        let dummyEntry = new Entry(
-            1, // teaId
-            'COMMENT', // comments
-            '12/30/2011 7:49:05', // timestamp
-            '9999/99/99', // date
-            '9999', // time
-            4, // rating
-            '', // pictures
-            '1m 2s', // steeptime
-            0, // steepingvessel_idx
-            212, // steeptemperature
-            '', // sessioninstance
-            '' // fixins_list
-        );
-
-        component.entries = [dummyEntry];
-        component.teas = [];
-         */
-
-        /*
         component.entries = [new Entry(
-            id, // teaId
+            id, // teaId (HAS TO MATCH ARRAY POS)
             'COMMENT', // comments
             '12/30/2011 7:49:05', // timestamp
             today, // date
@@ -111,7 +88,6 @@ describe('JournalComponent', () => {
             true , // aging
             'loose' // packaging
         )];
-        */
 
         fixture.detectChanges();
     });
