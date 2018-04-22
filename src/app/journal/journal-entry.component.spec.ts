@@ -140,7 +140,7 @@ describe('JournalEntryComponent', () => {
         let has = 0;
         let nodes = fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes;
 
-        for (i = nodes.length - 1; i >= 0; i--) {
+        for (let i = nodes.length - 1; i >= 0; i--) {
             if (nodes[i].nodeName === 'TEACUPIMG') {
                 has++;
             }
