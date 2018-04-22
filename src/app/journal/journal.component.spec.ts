@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-// import { By } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { JournalComponent } from './journal.component';
@@ -95,4 +95,18 @@ describe('JournalComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('correct number of entries are created', () => {
+        let has = 0;
+        let nodes = fixture.debugElement.query(By.css('.card-columns')).nativeElement.childNodes;
+        for (let i = nodes.length - 1; i >= 0; i--) {
+            if (nodes[i].nodeName === 'JOURNAL-ENTRY') {
+                has++;
+            }
+        }
+        expect(has).toBe(component.entries.length);
+    });
+
+    // TODO
+    // Do a quick verification that all journal entries are displayed
 });
