@@ -20,38 +20,38 @@ import { TeacupimgComponent } from './teacupimg/teacupimg.component'
 
 describe('HgTeaComponent', () => {
     const numPrimaryElements = 2;
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        HgTeaComponent,
-        JournalComponent,
-        JournalEntryComponent,
-        DatabaseComponent,
-        DatabaseEntryComponent,
-        NaturalLanguageDatePipe,
-        TeacupimgComponent,
-      ],
-      imports: [
-          BrowserModule,
-          FormsModule,
-          HttpModule,
-          RoutingModule,
-      ]
-    }).compileComponents();
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                HgTeaComponent,
+                JournalComponent,
+                JournalEntryComponent,
+                DatabaseComponent,
+                DatabaseEntryComponent,
+                NaturalLanguageDatePipe,
+                TeacupimgComponent,
+            ],
+            imports: [
+                BrowserModule,
+                FormsModule,
+                HttpModule,
+                RoutingModule,
+            ]
+        }).compileComponents();
+    });
 
-  it('should create the app', async(() => {
-    let fixture = TestBed.createComponent(HgTeaComponent);
-    let app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+    it('should create the app', async(() => {
+        let fixture = TestBed.createComponent(HgTeaComponent);
+        let app = fixture.debugElement.componentInstance;
+        expect(app).toBeTruthy();
+    }));
 
-  xit(`should create a journal element`, async(() => {
-  }));
+    xit(`should create a journal element`, async(() => {
+    }));
 
-  xit('should create a database element', async(() => {
-  }));
+    xit('should create a database element', async(() => {
+    }));
 
-  xit('should not have more than the required elements', async(() => {
-  }));
+    xit('should not have more than the required elements', async(() => {
+    }));
 });
