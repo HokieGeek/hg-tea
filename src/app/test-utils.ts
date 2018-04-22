@@ -1,3 +1,6 @@
+import { Tea } from './tea'
+import { Entry } from './entry'
+
 export class TestUtils {
     private numRatingValues = 4;
     private maxNumFixins = 11;

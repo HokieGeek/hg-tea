@@ -228,4 +228,8 @@ describe('JournalEntryComponent', () => {
             expect(has).toBeNull();
         });
     }));
+
+    xit('check only expected elements are being rendered', () => {
+        // let has = fixture.debugElement;
+    });
 });
