@@ -50,6 +50,7 @@ export class Entry {
 
     get datetime(): Date {
         let datetime = new Date(this.date);
+        console.log('[entry]', this.date, datetime);
         let time_str = this.time.toString()
         datetime.setHours(parseInt(time_str.substring(0, time_str.length - 2), 10));
         datetime.setMinutes(parseInt(time_str.substring(time_str.length - 2), 10));

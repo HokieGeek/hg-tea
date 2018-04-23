@@ -116,7 +116,7 @@ describe('JournalEntryComponent', () => {
 
     it('entrydate title is correct', () => {
         let has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
-        console.log(new Date(has), component.entry.datetime);
+        console.log(has, new Date(has), component.entry.datetime);
         expect(+(new Date(has)) === +component.entry.datetime).toBeTruthy();
     });
 
