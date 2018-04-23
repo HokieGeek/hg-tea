@@ -7,16 +7,11 @@ import { JournalEntryComponent } from './journal-entry.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe'
 
-import { Tea } from '../tea'
-import { Entry } from '../entry'
+import { TestUtils } from '../test-utils'
 
 describe('JournalComponent', () => {
     let component: JournalComponent;
     let fixture: ComponentFixture<JournalComponent>;
-
-    const numRatingValues = 4;
-    const maxNumFixins = 11;
-    const maxNumSteepingVessels = 9;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -36,58 +31,9 @@ describe('JournalComponent', () => {
         fixture = TestBed.createComponent(JournalComponent);
         component = fixture.componentInstance;
 
-        let id = 0;
-
-        let now = new Date();
-        let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
-        let time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
-
-        let fixins: string;
-        for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
-            fixins += Math.floor(Math.random() * maxNumFixins);
-            fixins += ';';
-        }
-        fixins = fixins.slice(0, -1);
-
-        component.entries = [new Entry(
-            id, // teaId (HAS TO MATCH ARRAY POS)
-            'COMMENT', // comments
-            '12/30/2011 7:49:05', // timestamp
-            today, // date
-            time, // time
-            Math.floor(Math.random() * numRatingValues) + 1, // rating
-            '', // pictures
-            '1m 2s', // steeptime
-            Math.floor(Math.random() * maxNumSteepingVessels), // steepingvessel_idx
-            212, // steeptemperature
-            '', // sessioninstance
-            fixins // fixins_list
-        )];
-
-        component.teas = [new Tea(
-            id, // id
-            'Foobar', // name
-            '12/30/2011 7:49:05', // timestamp
-            today, // date
-            'Sheng', // type
-            'Yunnan', // region
-            (new Date()).getFullYear(), // year
-            0, // flush
-            'tea.awesome.site', // purchaselocation
-            today, // purchasedate
-            '99.99', // purchaseprice
-            '', // ratings
-            'COMMENT', // comments
-            [], // pictures
-            'China', // country
-            '', // leafgrade
-            '', // blendedteas
-            '', // blendratio
-            'Full Beeng', // size
-            true , // stocked
-            true , // aging
-            'loose' // packaging
-        )];
+        let dummyData = TestUtils.createDummyTeasWithEntries();
+        component.teas = dummyData.teas;
+        component.entries = dummyData.entries;
 
         fixture.detectChanges();
     });

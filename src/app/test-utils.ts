@@ -1,13 +1,24 @@
 import { Tea } from './tea'
 import { Entry } from './entry'
 
-export class TestUtils {
-    private numRatingValues = 4;
-    private maxNumFixins = 11;
-    private maxNumSteepingVessels = 9;
+export class TeasWithEntries {
+    public teas: Tea[] = [];
+    public entries: Entry[] = [];
+}
 
-    createDummyEntry(): Entry {
-        let id = 0;
+export class TestUtils {
+    public static numRatingValues = 4;
+    public static maxNumFixins = 11;
+    public static maxNumSteepingVessels = 9;
+
+    static createRandomId(): number {
+        return Math.floor(Math.random()) + 1;
+    }
+
+    static createDummyEntry(teaid?: number): Entry {
+        if (teaid === undefined) {
+            teaid = 0;
+        }
 
         let now = new Date();
         let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
@@ -21,7 +32,7 @@ export class TestUtils {
         fixins = fixins.slice(0, -1);
 
         return new Entry(
-            id, // teaId (HAS TO MATCH ARRAY POS)
+            teaid, // teaId (HAS TO MATCH ARRAY POS)
             'COMMENT', // comments
             '12/30/2011 7:49:05', // timestamp
             today, // date
@@ -36,8 +47,10 @@ export class TestUtils {
         );
     }
 
-    createDummyTea(): Tea {
-        let id = 0;
+    static createDummyTea(id?: number): Tea {
+        if (id === undefined) {
+            id = this.createRandomId();
+        }
 
         let now = new Date();
         let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
@@ -76,5 +89,23 @@ export class TestUtils {
             true , // aging
             'loose' // packaging
         );
+    }
+
+    static createDummyTeasWithEntries(): TeasWithEntries {
+        /*
+         * TODO
+         * For a random number of teas:
+         * - create sequential id
+         * - create a random number of entries with that id
+         */
+        let teasWithEntries = new TeasWithEntries();
+        let numTeas = Math.floor(Math.random() * 19); // From 1 - 20 teas
+        for (let id = 0; id < numTeas + 1; id++) {
+            teasWithEntries.teas.push(this.createDummyTea(id));
+            for (let e = Math.floor(Math.random() * 10); e >= 0; e--) {
+                teasWithEntries.entries.push(this.createDummyEntry(id));
+            }
+        }
+        return teasWithEntries;
     }
 }

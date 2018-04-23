@@ -6,16 +6,11 @@ import { JournalEntryComponent } from './journal-entry.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe'
 
-import { Tea } from '../tea'
-import { Entry } from '../entry'
+import { TestUtils } from '../test-utils'
 
 describe('JournalEntryComponent', () => {
     let component: JournalEntryComponent;
     let fixture: ComponentFixture<JournalEntryComponent>;
-
-    const numRatingValues = 4;
-    const maxNumFixins = 11;
-    const maxNumSteepingVessels = 9;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -34,58 +29,9 @@ describe('JournalEntryComponent', () => {
         fixture = TestBed.createComponent(JournalEntryComponent);
         component = fixture.componentInstance;
 
-        let id = Math.floor(Math.random()) + 1;
-
-        let now = new Date();
-        let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
-        let time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
-
-        let fixins: string;
-        for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
-            fixins += Math.floor(Math.random() * maxNumFixins);
-            fixins += ';';
-        }
-        fixins = fixins.slice(0, -1);
-
-        component.entry = new Entry(
-            id, // teaId
-            'COMMENT', // comments
-            '12/30/2011 7:49:05', // timestamp
-            today, // date
-            time, // time
-            Math.floor(Math.random() * numRatingValues) + 1, // rating
-            '', // pictures
-            '1m 2s', // steeptime
-            Math.floor(Math.random() * maxNumSteepingVessels), // steepingvessel_idx
-            212, // steeptemperature
-            '', // sessioninstance
-            fixins // fixins_list
-        );
-
-        component.tea = new Tea(
-            id, // id
-            'Foobar', // name
-            '12/30/2011 7:49:05', // timestamp
-            today, // date
-            'Sheng', // type
-            'Yunnan', // region
-            (new Date()).getFullYear(), // year
-            0, // flush
-            'tea.awesome.site', // purchaselocation
-            today, // purchasedate
-            '99.99', // purchaseprice
-            '', // ratings
-            'COMMENT', // comments
-            [], // pictures
-            'China', // country
-            '', // leafgrade
-            '', // blendedteas
-            '', // blendratio
-            'Full Beeng', // size
-            true , // stocked
-            true , // aging
-            'loose' // packaging
-        );
+        let id = TestUtils.createRandomId();
+        component.entry = TestUtils.createDummyEntry(id);
+        component.tea = TestUtils.createDummyTea(id);
 
         fixture.detectChanges();
     });
@@ -132,7 +78,7 @@ describe('JournalEntryComponent', () => {
 
     it('rating title is correct', () => {
         let has = fixture.debugElement.query(By.css('#rating')).properties['title'];
-        let expected = component.entry.rating + ' out of ' + numRatingValues;
+        let expected = component.entry.rating + ' out of ' + TestUtils.numRatingValues;
         expect(has).toBe(expected);
     });
 
@@ -146,7 +92,7 @@ describe('JournalEntryComponent', () => {
             }
         }
 
-        expect(has).toBe(numRatingValues);
+        expect(has).toBe(TestUtils.numRatingValues);
     });
 
     it('rating has images correctly displayed', () => {
@@ -165,7 +111,7 @@ describe('JournalEntryComponent', () => {
         }
 
         expect(hasSelected).toBe(component.entry.rating);
-        expect(hasUnselected).toBe(numRatingValues - component.entry.rating);
+        expect(hasUnselected).toBe(TestUtils.numRatingValues - component.entry.rating);
     });
 
     it('entrydate title is correct', () => {
