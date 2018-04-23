@@ -7,8 +7,7 @@ describe('TeacupimgComponent', () => {
     let component: TeacupimgComponent;
     let fixture: ComponentFixture<TeacupimgComponent>;
 
-    const defaultClass = 'ratingImg';
-    const unselectedClass = 'ratingImgUnselected';
+    const unselectedClass = 'unselected';
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -27,11 +26,6 @@ describe('TeacupimgComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('contains default class', () => {
-        let classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
-        expect(classes.contains(defaultClass)).toBeTruthy();
-    });
-
     it('does not have Unselected class when selected', async(() => {
         component.selected = 'true';
         fixture.detectChanges();
@@ -43,7 +37,7 @@ describe('TeacupimgComponent', () => {
         });
     }));
 
-    it('has Unselected class when not selected', async(() => {
+    it('has unselected class when not selected', async(() => {
         component.selected = 'false';
         fixture.detectChanges();
 

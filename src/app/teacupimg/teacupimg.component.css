@@ -1,11 +1,11 @@
-.ratingImg {
+img {
     height: auto;
     width: auto;
     max-height: 28px;
     max-width: 40px;
 }
 
-.ratingImgUnselected {
+.unselected {
     opacity: 0.4;
     filter: alpha(opacity=40); /* msie */
 }
