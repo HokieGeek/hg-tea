@@ -22,7 +22,6 @@ export class TestUtils {
 
         let now = new Date();
         let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
-        console.log('>>> today', today, new Date());
         let time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
 
         let fixins: string;
