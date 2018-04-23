@@ -115,9 +115,10 @@ describe('JournalEntryComponent', () => {
     });
 
     it('entrydate title is correct', () => {
-        pending('This fails sometimes, with invalid date...');
         let has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
-        expect(+(new Date(has)) === +component.entry.datetime).toBeTruthy();
+        // console.log((new Date(has)).getTime(), ';', component.entry.datetime.getTime());
+        // pending('This fails sometimes, with invalid date...');
+        expect((new Date(has)).getTime()).toBe(component.entry.datetime.getTime());
     });
 
     it('entrydate is being displayed naturally', () => {
