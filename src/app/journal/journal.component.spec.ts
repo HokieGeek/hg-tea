@@ -54,7 +54,10 @@ describe('JournalComponent', () => {
     });
 
     xit('verify all expected entries are listed', () => {
-        // TODO
+        let nodes = fixture.debugElement.query(By.css('.card-columns')).childNodes;
+        console.log(nodes);
+        // let has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
+        // TODO: need some way to verify an individual journal-entry as belonging to the list of entries...
     });
 
     it('check that there is only one top-level element', () => {
