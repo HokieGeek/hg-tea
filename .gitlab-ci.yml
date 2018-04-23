@@ -85,7 +85,6 @@ create-dev-container:
     - docker push $IMAGE_TAG
     - docker push $IMAGE_LATEST_TAG
   except:
-    - master
     - tags
 
 create-container:
