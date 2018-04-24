@@ -63,11 +63,11 @@ unit-node:latest:
     - npm run test
   allow_failure: true
 
-      # e2e-node:9:
-      #   stage: test
-      #   script:
-      #     - npm run e2e
-      #   allow_failure: true
+e2e-node:9:
+  stage: test
+  script:
+    - npm run e2e
+  allow_failure: true
 
 create-dev-container:
   stage: release
