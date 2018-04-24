@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'teacupimg',
+  selector: 'hg-teacupimg',
   templateUrl: './teacupimg.component.html',
   styleUrls: ['./teacupimg.component.css']
 })

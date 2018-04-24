@@ -46,7 +46,7 @@ describe('JournalComponent', () => {
         let has = 0;
         const nodes = fixture.debugElement.query(By.css('.card-columns')).nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'JOURNAL-ENTRY') {
+            if (nodes[i].nodeName === 'HG-JOURNAL-ENTRY') {
                 has++;
             }
         }
@@ -55,7 +55,7 @@ describe('JournalComponent', () => {
 
     it('verify all expected entries are listed', () => {
         // need some way to verify an individual journal-entry as belonging to the list of entries...
-        const entries = fixture.debugElement.queryAll(By.css('journal-entry'));
+        const entries = fixture.debugElement.queryAll(By.css('hg-journal-entry'));
         expect(entries.length).toBe(component.entries.length);
 
         // Build the list of entrydates (count dupes)
@@ -98,17 +98,17 @@ describe('JournalComponent', () => {
         /*
          * Expected schema
          * <div class="card-columns">
-         *  <journal-entry></journal-entry>
-         *  <journal-entry></journal-entry>
+         *  <hg-journal-entry></hg-journal-entry>
+         *  <hg-journal-entry></hg-journal-entry>
          *  ....
-         *  <journal-entry></journal-entry>
+         *  <hg-journal-entry></hg-journal-entry>
          * </div>
          */
         let notEntries = 0;
         const nodes = fixture.debugElement.query(By.css('.card-columns')).nativeElement.childNodes;
 
         for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName !== 'JOURNAL-ENTRY'
+            if (nodes[i].nodeName !== 'HG-JOURNAL-ENTRY'
                 && nodes[i].nodeName !== '#comment'
                 && nodes[i].nodeName !== '#text') {
 

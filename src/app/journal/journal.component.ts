@@ -4,7 +4,7 @@ import { Tea } from '../tea';
 import { Entry } from '../entry';
 
 @Component({
-    selector: 'journal',
+    selector: 'hg-journal',
     templateUrl: 'journal.component.html',
     styleUrls: ['./journal.component.css']
 })

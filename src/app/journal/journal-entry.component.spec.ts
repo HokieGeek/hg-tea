@@ -89,7 +89,7 @@ describe('JournalEntryComponent', () => {
         const nodes = fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes;
 
         for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'TEACUPIMG') {
+            if (nodes[i].nodeName === 'HG-TEACUPIMG') {
                 has++;
             }
         }
@@ -103,7 +103,7 @@ describe('JournalEntryComponent', () => {
 
         const nodes = fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'TEACUPIMG') {
+            if (nodes[i].nodeName === 'HG-TEACUPIMG') {
                 if (nodes[i].attributes.getNamedItem('ng-reflect-selected').value === 'true') {
                     hasSelected++;
                 } else {
@@ -294,7 +294,7 @@ describe('JournalEntryComponent', () => {
                 // let elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('#rating')).childNodes);
                 const elems = TestUtils.filterDebugNodes(cardBody.query(By.css('#rating')).childNodes);
                 for (const i in elems) {
-                    if (elems[i].name !== 'teacupimg') {
+                    if (elems[i].name !== 'hg-teacupimg') {
                         countNonTeacupElements++;
                     }
                 }

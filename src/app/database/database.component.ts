@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Tea } from '../tea';
 
 @Component({
-    selector: 'database',
+    selector: 'hg-database',
     templateUrl: 'database.component.html',
     styleUrls: ['./database.component.css']
 })

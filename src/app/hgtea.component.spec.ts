@@ -60,7 +60,7 @@ describe('HgTeaComponent', () => {
         let has = 0;
         const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'JOURNAL') {
+            if (nodes[i].nodeName === 'HG-JOURNAL') {
                 has++;
             }
         }
@@ -71,7 +71,7 @@ describe('HgTeaComponent', () => {
         let has = 0;
         const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'DATABASE') {
+            if (nodes[i].nodeName === 'HG-DATABASE') {
                 has++;
             }
         }

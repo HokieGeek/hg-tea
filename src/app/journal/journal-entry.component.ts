@@ -6,7 +6,7 @@ import { Entry } from '../entry';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
 @Component({
-    selector: 'journal-entry',
+    selector: 'hg-journal-entry',
     templateUrl: 'journal-entry.component.html',
     styleUrls: ['journal-entry.component.css'],
     providers: [ NaturalLanguageDatePipe ],
