@@ -7,10 +7,10 @@ import { RoutingModule } from './routing.module';
 
 import { HgTeaComponent } from './hgtea.component';
 import { JournalComponent } from './journal/journal.component';
-import { JournalEntryComponent }  from './journal/journal-entry.component'
-import { DatabaseComponent }  from './database/database.component'
-import { DatabaseEntryComponent }  from './database/database-entry.component'
-import { TeacupimgComponent } from './teacupimg/teacupimg.component'
+import { JournalEntryComponent } from './journal/journal-entry.component';
+import { DatabaseComponent } from './database/database.component';
+import { DatabaseEntryComponent } from './database/database-entry.component';
+import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 
@@ -27,7 +27,7 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
+        HttpModule, // TODO: HttpModule is deprecated
         RoutingModule,
     ],
     providers: [],

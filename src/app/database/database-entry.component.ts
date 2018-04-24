@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Tea } from '../tea'
+import { Tea } from '../tea';
 
 @Component({
     selector: 'database-entry',

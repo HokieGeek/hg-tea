@@ -1,7 +1,7 @@
 import { DebugElement, DebugNode } from '@angular/core';
 
-import { Tea } from './tea'
-import { Entry } from './entry'
+import { Tea } from './tea';
+import { Entry } from './entry';
 
 export class TeasWithEntries {
     public teas: Tea[] = [];
@@ -22,9 +22,9 @@ export class TestUtils {
             teaid = 0;
         }
 
-        let now = new Date();
-        let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
-        let time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
+        const now = new Date();
+        const today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
+        const time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
 
         let fixins: string;
         for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
@@ -54,8 +54,8 @@ export class TestUtils {
             id = this.createRandomId();
         }
 
-        let now = new Date();
-        let today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
+        const now = new Date();
+        const today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
         // let time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
 
         /*
@@ -100,8 +100,8 @@ export class TestUtils {
          * - create sequential id
          * - create a random number of entries with that id
          */
-        let teasWithEntries = new TeasWithEntries();
-        let numTeas = Math.floor(Math.random() * 19); // From 1 - 20 teas
+        const teasWithEntries = new TeasWithEntries();
+        const numTeas = Math.floor(Math.random() * 19); // From 1 - 20 teas
         for (let id = 0; id < numTeas + 1; id++) {
             teasWithEntries.teas.push(this.createDummyTea(id));
             for (let e = Math.floor(Math.random() * 10); e >= 0; e--) {
@@ -112,9 +112,9 @@ export class TestUtils {
     }
 
     static filterTextAndCommentNodes(nodes: DebugNode[]): DebugNode[] {
-        let filtered: DebugNode[] = [];
+        const filtered: DebugNode[] = [];
 
-        for (let i in nodes) {
+        for (const i in nodes) {
             if (nodes[i].nativeNode.nodeName === '#text' || nodes[i].nativeNode.nodeName === '#comment') {
                 continue;
             }
@@ -126,10 +126,9 @@ export class TestUtils {
     }
 
     static filterDebugNodes(nodes: DebugNode[]): DebugElement[] {
-        let filtered: DebugElement[] = [];
+        const filtered: DebugElement[] = [];
 
-        for (let i in nodes) {
-            // if (typeof nodes[i] === 'DebugElement') {
+        for (const i in nodes) {
             if (nodes[i] instanceof DebugElement) {
                 filtered.push(nodes[i] as DebugElement);
             }

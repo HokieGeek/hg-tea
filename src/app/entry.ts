@@ -9,10 +9,10 @@ var TeaPackagingTypes = ["Loose Leaf", "Bagged", "Tuo", "Beeng", "Brick", "Mushr
 enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Sugar', 'Brown Sugar', 'Raw Sugar',
                 'Honey', 'Vanilla Extract', 'Vanilla Bean',
-                'Maple Cream', 'Maple Sugar', 'Chai Goop'};
+                'Maple Cream', 'Maple Sugar', 'Chai Goop'}
 enum SteepingVessels {'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
                       'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
-                      'Cup', 'Bowl', 'Gaiwan', 'Other'};
+                      'Cup', 'Bowl', 'Gaiwan', 'Other'}
 
 export class Entry {
     constructor(
@@ -34,7 +34,7 @@ export class Entry {
     get fixins() {
         if (this.fixins_list.length > 0) {
             let fixins_str = '';
-            for (let fixin of this.fixins_list.split(';').map(f => TeaFixins[f])) {
+            for (const fixin of this.fixins_list.split(';').map(f => TeaFixins[f])) {
                 fixins_str += ', ' + fixin;
             }
             fixins_str = fixins_str.replace(/^, /, '');
@@ -49,8 +49,8 @@ export class Entry {
     }
 
     get datetime(): Date {
-        let datetime = new Date(this.date);
-        let time_str = this.time.toString()
+        const datetime = new Date(this.date);
+        const time_str = this.time.toString();
         datetime.setHours(parseInt(time_str.substring(0, time_str.length - 2), 10));
         datetime.setMinutes(parseInt(time_str.substring(time_str.length - 2), 10));
         return datetime;

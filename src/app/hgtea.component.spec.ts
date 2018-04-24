@@ -12,12 +12,12 @@ import { RoutingModule } from './routing.module';
 
 import { HgTeaComponent } from './hgtea.component';
 import { JournalComponent } from './journal/journal.component';
-import { JournalEntryComponent }  from './journal/journal-entry.component'
-import { DatabaseComponent }  from './database/database.component'
-import { DatabaseEntryComponent }  from './database/database-entry.component'
+import { JournalEntryComponent } from './journal/journal-entry.component';
+import { DatabaseComponent } from './database/database.component';
+import { DatabaseEntryComponent } from './database/database-entry.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
-import { TeacupimgComponent } from './teacupimg/teacupimg.component'
+import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 
 describe('HgTeaComponent', () => {
     let fixture: ComponentFixture<HgTeaComponent>;
@@ -38,7 +38,7 @@ describe('HgTeaComponent', () => {
             imports: [
                 BrowserModule,
                 FormsModule,
-                HttpModule,
+                HttpModule, // TODO: deprecated
                 RoutingModule,
             ]
         }).compileComponents();
@@ -52,13 +52,13 @@ describe('HgTeaComponent', () => {
     });
 
     it('should create the app', async(() => {
-        let app = fixture.debugElement.componentInstance;
+        const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
     }));
 
     it(`should create a journal element`, async(() => {
         let has = 0;
-        let nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
+        const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
             if (nodes[i].nodeName === 'JOURNAL') {
                 has++;
@@ -69,7 +69,7 @@ describe('HgTeaComponent', () => {
 
     it('should create a database element', async(() => {
         let has = 0;
-        let nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
+        const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
             if (nodes[i].nodeName === 'DATABASE') {
                 has++;
@@ -80,7 +80,7 @@ describe('HgTeaComponent', () => {
 
     it('should not have more than the required elements', async(() => {
         let has = 0;
-        let nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
+        const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
 
         for (let i = nodes.length - 1; i >= 0; i--) {
             if (nodes[i].nodeName !== '#comment' && nodes[i].nodeName !== '#text') {

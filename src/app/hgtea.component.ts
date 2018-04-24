@@ -1,8 +1,8 @@
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Tea } from './tea'
-import { Entry } from './entry'
-import { TeaDbService } from './teadb.service'
+import { Tea } from './tea';
+import { Entry } from './entry';
+import { TeaDbService } from './teadb.service';
 
 @Component({
     selector: 'hg-tea',
@@ -23,8 +23,8 @@ export class HgTeaComponent implements OnInit {
 
 
     ngOnInit() {
-        this.getTeaData()
-        this.getJournalEntries()
+        this.getTeaData();
+        this.getJournalEntries();
     }
 
     getTeaData() {

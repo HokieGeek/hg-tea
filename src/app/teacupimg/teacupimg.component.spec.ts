@@ -30,7 +30,7 @@ describe('TeacupimgComponent', () => {
         component.selected = 'true';
         fixture.detectChanges();
 
-        let classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
+        const classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
 
         fixture.whenStable().then(result => {
             expect(!classes.contains(unselectedClass)).toBeTruthy();
@@ -41,7 +41,7 @@ describe('TeacupimgComponent', () => {
         component.selected = 'false';
         fixture.detectChanges();
 
-        let classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
+        const classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
 
         fixture.whenStable().then(result => {
             expect(classes.contains(unselectedClass)).toBeTruthy();

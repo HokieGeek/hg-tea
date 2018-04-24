@@ -1,7 +1,7 @@
-import { NgModule }     from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { HgTeaComponent }    from './hgtea.component';
+import { HgTeaComponent } from './hgtea.component';
 
 @NgModule({
   imports: [

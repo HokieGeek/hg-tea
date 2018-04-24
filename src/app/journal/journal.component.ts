@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { Tea } from '../tea'
-import { Entry } from '../entry'
+import { Tea } from '../tea';
+import { Entry } from '../entry';
 
 @Component({
     selector: 'journal',

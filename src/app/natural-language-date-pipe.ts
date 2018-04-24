@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core'
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'naturalDate'})
 export class NaturalLanguageDatePipe implements PipeTransform {
@@ -12,7 +12,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
             h = 12;
         }
 
-        let m = date.getMinutes();
+        const m = date.getMinutes();
         let mpad = '';
         if (m < 10) {
             mpad = '0';
@@ -35,14 +35,14 @@ export class NaturalLanguageDatePipe implements PipeTransform {
     }
 
     transform(date: Date): string {
-        let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        let ahora = new Date();
-        let time = this.time_transform(date);
+        const ahora = new Date();
+        const time = this.time_transform(date);
 
         if (ahora.getFullYear() === date.getFullYear()) { // this year
-            let delta_ms = ahora.getTime() - date.getTime();
+            const delta_ms = ahora.getTime() - date.getTime();
             if (delta_ms <= (3600 * 1000)) { // within the last hour
                 if (delta_ms < (30 * 1000)) {
                     return 'Just now';
@@ -78,7 +78,7 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                             return 'Yesterday at ' + time;
                         }
                     } else { // a few days ago
-                        let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                         return days[date.getDay()] + ' at ' + time;
                     }
                 } else { // a few weeks ago

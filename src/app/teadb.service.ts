@@ -1,24 +1,24 @@
-import { Injectable }      from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Tea } from './tea'
-import { Entry } from './entry'
+import { Tea } from './tea';
+import { Entry } from './entry';
 
 @Injectable()
 export class TeaDbService {
-    private teaDb = 'https://spreadsheets.google.com/feeds/list/1-U45bMxRE4_n3hKRkTPTWHTkVKC8O3zcSmkjEyYFYOo/1/public/values?alt=json'
-    private journalDb = 'https://spreadsheets.google.com/feeds/list/1pHXWycR9_luPdHm32Fb2P1Pp7l29Vni3uFH_q3TsdbU/1/public/values?alt=json'
+    private teaDb = 'https://spreadsheets.google.com/feeds/list/1-U45bMxRE4_n3hKRkTPTWHTkVKC8O3zcSmkjEyYFYOo/1/public/values?alt=json';
+    private journalDb = 'https://spreadsheets.google.com/feeds/list/1pHXWycR9_luPdHm32Fb2P1Pp7l29Vni3uFH_q3TsdbU/1/public/values?alt=json';
 
-    constructor (private http: Http) { }
+    constructor (private http: Http) { } // TODO: Http is deprecated
 
     getTeaData(): Observable<Tea[]> {
         return this.http.get(this.teaDb)
                       .map((res: Response) => {
-                          let entries = this.extractSpreadsheetEntries<Tea>(res, this.convertJsonToTea)
+                          const entries = this.extractSpreadsheetEntries<Tea>(res, this.convertJsonToTea);
                           return entries || { };
                       })
                       .catch(this.handleError);
@@ -27,17 +27,17 @@ export class TeaDbService {
     getJournalEntries(): Observable<Entry[]> {
         return this.http.get(this.journalDb)
                       .map((res: Response) => {
-                          let entries = this.extractSpreadsheetEntries<Entry>(res, this.convertJsonToEntry)
+                          const entries = this.extractSpreadsheetEntries<Entry>(res, this.convertJsonToEntry);
                           return entries || { };
                       })
                       .catch(this.handleError);
     }
 
-    private extractSpreadsheetEntries<T>(res: Response,
+    private extractSpreadsheetEntries<T>(res: Response, // TODO: Response is deprecated
                                          converter: (json: Object) => T): T[] {
-        let body = res.json();
-        let entries: T[] = [];
-        for (let entry of body.feed.entry) {
+        const body = res.json();
+        const entries: T[] = [];
+        for (const entry of body.feed.entry) {
             entries.push(converter(entry));
         }
         return entries;
@@ -90,7 +90,7 @@ export class TeaDbService {
     private handleError (error: any) {
         // In a real world app, we might use a remote logging infrastructure
         // We'd also dig deeper into the error to get a better message
-        let errMsg = (error.message) ? error.message :
+        const errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
 
         console.error(errMsg); // log to console instead
