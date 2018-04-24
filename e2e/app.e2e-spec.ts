@@ -1,10 +1,10 @@
 import { HgPage } from './app.po';
 
-describe('ngtest App', function() {
-  let page: HgPage;
+describe('HgTea App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new HgPage();
+    page = new AppPage();
   });
 
   it('should display title', () => {
