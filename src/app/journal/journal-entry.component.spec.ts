@@ -1,3 +1,4 @@
+import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -177,7 +178,127 @@ describe('JournalEntryComponent', () => {
         });
     }));
 
-    xit('check only expected elements are being rendered', () => {
-        // let has = fixture.debugElement;
+
+    describe('check only expected elements created', () => {
+        // - Only one top-level element
+        // - one card with one body and one footer
+        //     the footer must be the entrydate
+        // - in the card-body
+        //    need an h4==card-title, h6==card-text and p==card-text
+        // - in the card-text  a bunch of spans:
+        //    steeptime, vessel, temperature, comments and ratings
+        // - ratings only has teacupimg elements
+        it('card is only top-level element', () => {
+            // > Check top element
+            let elems = TestUtils.filterDebugNodes(fixture.debugElement.childNodes);
+            for (let i in elems) {
+                if (elems[i].name !== 'div' || elems[i].attributes['class'] !== 'card') {
+                    fail('Found an unexpected element');
+                }
+            }
+            expect(elems.length).toBe(1);
+        });
+
+        it('children of card are only a card-body and a footer', () => {
+            // > One card with one body and one footer
+            let elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('.card')).childNodes);
+            expect(elems.length).toBe(2);
+
+            for (let i in elems) {
+                if (elems[i].attributes['class'].indexOf('card-body') < 0
+                    && elems[i].attributes['class'].indexOf('card-footer') < 0) {
+                    fail('Found an unexpected element');
+                }
+            }
+        });
+
+        describe('card-body composition', () => {
+            let cardBody: DebugElement;
+
+            const elemPosCardTitle = 0;
+            const elemPosCardSubtitle = 1;
+            const elemPosCardText = 2;
+
+            beforeEach(() => {
+                cardBody = fixture.debugElement.query(By.css('.card-body'));
+            });
+
+            it('expected number of subelements', () => {
+                let elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                expect(elems.length).toBe(3);
+            });
+
+            it('card-title exists and is first element', () => {
+                let elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                let elem = elems[elemPosCardTitle];
+                expect(elem.attributes['class'].indexOf('card-title')).not.toBeLessThan(0);
+                expect(elem.name).toBe('h4');
+            });
+
+            it('card-title has no child elements', () => {
+                let elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                let children = TestUtils.filterDebugNodes(elems[elemPosCardTitle].childNodes);
+                expect(children.length).toBe(0);
+            });
+
+            it('card-subtitle exists and is second element', () => {
+                let elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                let elem = elems[elemPosCardSubtitle];
+                expect(elem.attributes['class'].indexOf('card-subtitle')).not.toBeLessThan(0);
+                expect(elem.name).toBe('h6');
+            });
+
+            it('card-subtitle has no child elements', () => {
+                let elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                let children = TestUtils.filterDebugNodes(elems[elemPosCardSubtitle].childNodes);
+                expect(children.length).toBe(0);
+            });
+
+            it('card-text exists and is third element', () => {
+                let elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                let elem = elems[elemPosCardText];
+                expect(elem.attributes['class'].indexOf('card-text')).not.toBeLessThan(0);
+                expect(elem.name).toBe('p');
+            });
+
+            it('card-text has at least one child element', () => {
+                let elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                let children = TestUtils.filterDebugNodes(elems[elemPosCardText].childNodes);
+                expect(children.length).toBeGreaterThan(0);
+            });
+
+            it('card-text only has expected elements', () => {
+                let numExpectedElemChildren = 0;
+                let countNonExpectedElements = 0;
+                let elems = TestUtils.filterDebugNodes(cardBody.query(By.css('.card-text')).childNodes);
+                for (let i = elems.length - 1; i >= 0; i--) {
+                    switch (elems[i].attributes['id']) {
+                        case 'steeptime': numExpectedElemChildren = 0; break;
+                        case 'vessel': numExpectedElemChildren = 0; break;
+                        case 'temperature': numExpectedElemChildren = 0; break;
+                        case 'comments': numExpectedElemChildren = 2; break;
+                        case 'rating': numExpectedElemChildren = 4; break;
+                        default: countNonExpectedElements++; break;
+                    }
+
+                    let children = TestUtils.filterDebugNodes(elems[i].childNodes);
+                    expect(children.length).toBe(numExpectedElemChildren);
+                }
+
+                expect(countNonExpectedElements).toBe(0);
+            });
+
+            it('rating only contains teacupimg elements', () => {
+                let countNonTeacupElements = 0;
+                // let elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('#rating')).childNodes);
+                let elems = TestUtils.filterDebugNodes(cardBody.query(By.css('#rating')).childNodes);
+                for (let i in elems) {
+                    if (elems[i].name !== 'teacupimg') {
+                        countNonTeacupElements++;
+                    }
+                }
+                expect(countNonTeacupElements).toBe(0);
+            });
+        });
     });
 });

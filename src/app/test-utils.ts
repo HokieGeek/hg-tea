@@ -1,3 +1,5 @@
+import { DebugElement, DebugNode } from '@angular/core';
+
 import { Tea } from './tea'
 import { Entry } from './entry'
 
@@ -107,5 +109,32 @@ export class TestUtils {
             }
         }
         return teasWithEntries;
+    }
+
+    static filterTextAndCommentNodes(nodes: DebugNode[]): DebugNode[] {
+        let filtered: DebugNode[] = [];
+
+        for (let i in nodes) {
+            if (nodes[i].nativeNode.nodeName === '#text' || nodes[i].nativeNode.nodeName === '#comment') {
+                continue;
+            }
+
+            filtered.push(nodes[i]);
+        }
+
+        return filtered;
+    }
+
+    static filterDebugNodes(nodes: DebugNode[]): DebugElement[] {
+        let filtered: DebugElement[] = [];
+
+        for (let i in nodes) {
+            // if (typeof nodes[i] === 'DebugElement') {
+            if (nodes[i] instanceof DebugElement) {
+                filtered.push(nodes[i] as DebugElement);
+            }
+        }
+
+        return filtered;
     }
 }
