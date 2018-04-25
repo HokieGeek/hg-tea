@@ -1,9 +1,9 @@
-import { Entry } from './entry';
+import { Entry, SteepingVessels } from './entry';
 
 describe('entry', () => {
     const numRatingValues = 4;
     const maxNumFixins = 11;
-    const maxNumSteepingVessels = 9;
+    const maxNumSteepingVessels = 10;
 
     const now = new Date();
     const teaid = 0;
@@ -61,7 +61,7 @@ describe('entry', () => {
     });
 
     xit('check steeping vessel getter returns expected value', () => {
-        // get steepingvessel() { return SteepingVessels[this.steepingvessel_idx]; }
+        expect(val.steepingvessel).toBe(SteepingVessels[val.steepingvessel_idx]); // TODO: could be better
     });
 
     xit('check fixins getter returns expected value', () => {

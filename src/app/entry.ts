@@ -12,7 +12,7 @@ enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Maple Cream', 'Maple Sugar', 'Chai Goop'}
 enum SteepingVessels {'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
                       'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
-                      'Cup', 'Bowl', 'Gaiwan', 'Other'}
+                      'Cup', 'Bowl', 'Gaiwan', 'Other', 'Aberdeen Steeper'}
 
 export class Entry {
     constructor(
