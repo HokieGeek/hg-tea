@@ -2,6 +2,7 @@
 
 <div class="card-body">
     <!--img class="card-img-top" *ngIf="tea.pictures.length > 0" src="blah/{{tea.pictures[0]}}" alt="Card image cap" -->
+    <input type="hidden" name="id" value="{{tea.id}}" />
     <h4 class="card-title d-inline" [ngClass]="{notStocked: !tea.stocked}">{{tea.name}}</h4>
     <h6 class="card-subtitle text-muted d-inline" *ngIf="tea.country">
         <span *ngIf="tea.region"> {{tea.region}}, </span>
