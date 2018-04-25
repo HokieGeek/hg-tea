@@ -49,6 +49,7 @@ export class Entry {
     }
 
     get datetime(): Date {
+        console.log('datetime():', this.date, this.time, this.time.toString());
         const datetime = new Date(this.date);
         const time_str = this.time.toString();
         datetime.setHours(parseInt(time_str.substring(0, time_str.length - 2), 10));

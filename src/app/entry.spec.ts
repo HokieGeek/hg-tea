@@ -69,6 +69,7 @@ describe('entry', () => {
     });
 
     it('check datetime getter returns expected value', () => {
+        console.log('date+time:', date, time);
         const dt = val.datetime;
         const hasDate = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
         let mins = String(dt.getMinutes());
