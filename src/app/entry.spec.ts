@@ -76,13 +76,10 @@ describe('entry', () => {
         for (let f = list.length - 1; f >= 0; f--) {
             let found = false;
             if (list[f].length > 0) {
-                for (let fixin = TeaFixins.length - 1; fixin >= 0; fixin--) {
-                    if (list[f] === TeaFixins[fixin]) {
-                        found = true;
-                        break;
-                    }
-                    console.log(list[f], TeaFixins[fixin]);
+                if (list[f] as TeaFixins) { // === TeaFixins[fixin]) {
+                    found = true;
                 }
+                console.log(list[f]); // , ';', TeaFixins[list[f]]);
             }
             expect(found).toBe(true);
         }
