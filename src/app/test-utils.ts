@@ -24,7 +24,11 @@ export class TestUtils {
 
         const now = new Date();
         const today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
-        const time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
+        let mins = now.getMinutes().toString();
+        if (mins.length === 1) {
+            mins = '0' + mins;
+        }
+        const time = parseInt(now.getHours().toString() + mins, 10);
 
         let fixins: string;
         for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
