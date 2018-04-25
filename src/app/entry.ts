@@ -6,11 +6,11 @@ var TeaFlushTypes_Std = 0;
 var TeaFlushTypes_Indian = 1;
 var TeaPackagingTypes = ["Loose Leaf", "Bagged", "Tuo", "Beeng", "Brick", "Mushroom", "Square"];
 */
-enum TeaFixins {'Milk', 'Cream', 'Half & Half',
+export enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Sugar', 'Brown Sugar', 'Raw Sugar',
                 'Honey', 'Vanilla Extract', 'Vanilla Bean',
                 'Maple Cream', 'Maple Sugar', 'Chai Goop'}
-enum SteepingVessels {'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
+export enum SteepingVessels {'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
                       'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
                       'Cup', 'Bowl', 'Gaiwan', 'Other', 'Aberdeen Steeper'}
 
