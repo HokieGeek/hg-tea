@@ -72,11 +72,15 @@ describe('entry', () => {
         console.log('date+time:', date, time);
         const dt = val.datetime;
         const hasDate = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
-        let mins = dt.getMinutes().toString();
+        let hours = now.getHours().toString();
+        if (hours.length === 1) {
+            hours = '0' + hours;
+        }
+        let mins = now.getMinutes().toString();
         if (mins.length === 1) {
             mins = '0' + mins;
         }
-        const hasTime = parseInt(String(dt.getHours()) + mins, 10);
+        const hasTime = parseInt(hours + mins, 10);
 
         expect(hasDate).toBe(date);
         expect(hasTime).toBe(time);

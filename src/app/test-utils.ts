@@ -24,11 +24,15 @@ export class TestUtils {
 
         const now = new Date();
         const today = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
+        let hours = now.getHours().toString();
+        if (hours.length === 1) {
+            hours = '0' + hours;
+        }
         let mins = now.getMinutes().toString();
         if (mins.length === 1) {
             mins = '0' + mins;
         }
-        const time = parseInt(now.getHours().toString() + mins, 10);
+        const time = parseInt(hours + mins, 10);
 
         let fixins: string;
         for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
