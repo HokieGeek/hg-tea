@@ -1,6 +1,6 @@
 import { Entry } from './entry';
 
-describe('journal entry', () => {
+describe('entry', () => {
     const numRatingValues = 4;
     const maxNumFixins = 11;
     const maxNumSteepingVessels = 9;
@@ -71,7 +71,7 @@ describe('journal entry', () => {
     it('check datetime getter returns expected value', () => {
         const dt = val.datetime;
         const hasDate = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
-        const hasTime = parseInt(dt.getHours() + '' + dt.getMinutes(), 10);
+        const hasTime = parseInt(String(dt.getHours()) + String(dt.getMinutes()).padStart(2, 0), 10);
 
         expect(hasDate).toBe(date);
         expect(hasTime).toBe(time);
