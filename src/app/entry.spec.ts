@@ -71,7 +71,11 @@ describe('entry', () => {
     it('check datetime getter returns expected value', () => {
         const dt = val.datetime;
         const hasDate = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
-        const hasTime = parseInt(String(dt.getHours()) + String(dt.getMinutes()).padStart(2, 0), 10);
+        let mins = String(dt.getMinutes());
+        if (mins.length === 1) {
+            mins = '0' + mins;
+        }
+        const hasTime = parseInt(String(dt.getHours()) + mins, 10);
 
         expect(hasDate).toBe(date);
         expect(hasTime).toBe(time);
