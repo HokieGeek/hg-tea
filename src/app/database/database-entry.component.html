@@ -9,14 +9,14 @@
         </h6>
         <p class="card-text" *ngIf="tea.year">{{tea.flush}} {{tea.year}}</p>
         <p class="card-text" *ngIf="tea.purchaseprice">
-        Purchased
-        <span *ngIf="tea.size">a {{tea.size}}</span>
-        <span *ngIf="tea.purchaselocation">from {{tea.purchaselocation}}</span>
-        <span *ngIf="tea.purchasedate">on {{tea.purchasedate}}</span>
-        for {{tea.purchaseprice | currency:'USD':'$'}}
+            Purchased
+            <span *ngIf="tea.size">a {{tea.size}}</span>
+            <span *ngIf="tea.purchaselocation">from {{tea.purchaselocation}}</span>
+            <span *ngIf="tea.purchasedate">on {{tea.purchasedate}}</span>
+            for {{tea.purchaseprice | currency:'USD':'$'}}
         </p>
         <p class="card-text">
-        <span class="card-text teaComments" *ngIf="tea.comments">{{tea.comments}}</span>
+            <span class="card-text teaComments" *ngIf="tea.comments">{{tea.comments}}</span>
         </p>
 
         <p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
