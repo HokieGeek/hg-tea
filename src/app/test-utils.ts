@@ -34,14 +34,13 @@ export class TestUtils {
         }
         const time = parseInt(hours + mins, 10);
 
-        let fixins: string;
+        let fixins = '';
         for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
-            fixins += Math.floor(Math.random() * this.maxNumFixins);
-            fixins += ';';
+            fixins += String(Math.floor(Math.random() * this.maxNumFixins)) + ';';
         }
         fixins = fixins.slice(0, -1);
 
-        return new Entry(
+        const entry = new Entry(
             teaid, // teaId (HAS TO MATCH ARRAY POS)
             'COMMENT', // comments
             '12/30/2011 7:49:05', // timestamp
@@ -55,6 +54,8 @@ export class TestUtils {
             '', // sessioninstance
             fixins // fixins_list
         );
+
+        return entry;
     }
 
     static createDummyTea(id?: number): Tea {

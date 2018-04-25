@@ -1,4 +1,4 @@
-import { Entry, SteepingVessels } from './entry';
+import { Entry, SteepingVessels, TeaFixins } from './entry';
 
 describe('entry', () => {
     const numRatingValues = 4;
@@ -18,10 +18,9 @@ describe('entry', () => {
     }
     const time = parseInt(hours + mins, 10);
 
-    let fixins: string;
+    let fixins = '';
     for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
-        fixins += Math.floor(Math.random() * maxNumFixins);
-        fixins += ';';
+        fixins += String(Math.floor(Math.random() * maxNumFixins)) + ';';
     }
     fixins = fixins.slice(0, -1);
 
@@ -72,25 +71,38 @@ describe('entry', () => {
         expect(val.steepingvessel).toBe(SteepingVessels[val.steepingvessel_idx]); // TODO: could be better
     });
 
-    xit('check fixins getter returns expected value', () => {
+    it('check fixins getter returns expected value', () => {
+        const list = val.fixins.replace(/and|,/g, '').split(' ');
+        for (let f = list.length - 1; f >= 0; f--) {
+            let found = false;
+            if (list[f].length > 0) {
+                for (const fixin in TeaFixins) {
+                    if (list[f] === TeaFixins[fixin]) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            expect(found).toBe(true);
+        }
+        console.log('fixins:', val.fixins, list);
+
         // get fixins() {
     });
 
     it('check datetime getter returns expected value', () => {
-        console.log('date+time:', date, time);
-
         const dt = val.datetime;
         const hasDate = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
 
-        let hours = now.getHours().toString();
-        if (hours.length === 1) {
-            hours = '0' + hours;
+        let h = now.getHours().toString();
+        if (h.length === 1) {
+            h = '0' + h;
         }
-        let mins = now.getMinutes().toString();
-        if (mins.length === 1) {
-            mins = '0' + mins;
+        let m = now.getMinutes().toString();
+        if (m.length === 1) {
+            m = '0' + m;
         }
-        const hasTime = parseInt(hours + mins, 10);
+        const hasTime = parseInt(h + m, 10);
 
         expect(hasDate).toBe(date);
         expect(hasTime).toBe(time);
