@@ -8,7 +8,15 @@ describe('entry', () => {
     const now = new Date();
     const teaid = 0;
     const date = (now.getMonth() + 1) + '/' + now.getDate() + '/' + now.getFullYear();
-    const time = parseInt(now.getHours() + '' + now.getMinutes(), 10);
+    let hours = now.getHours().toString();
+    if (hours.length === 1) {
+        hours = '0' + hours;
+    }
+    let mins = now.getMinutes().toString();
+    if (mins.length === 1) {
+        mins = '0' + mins;
+    }
+    const time = parseInt(hours + mins, 10);
 
     let fixins: string;
     for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
@@ -60,7 +68,7 @@ describe('entry', () => {
         expect(val.fixins_list).toBe(fixins);
     });
 
-    xit('check steeping vessel getter returns expected value', () => {
+    it('check steeping vessel getter returns expected value', () => {
         expect(val.steepingvessel).toBe(SteepingVessels[val.steepingvessel_idx]); // TODO: could be better
     });
 
@@ -70,8 +78,10 @@ describe('entry', () => {
 
     it('check datetime getter returns expected value', () => {
         console.log('date+time:', date, time);
+
         const dt = val.datetime;
         const hasDate = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
+
         let hours = now.getHours().toString();
         if (hours.length === 1) {
             hours = '0' + hours;
