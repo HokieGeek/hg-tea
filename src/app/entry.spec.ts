@@ -74,7 +74,13 @@ describe('entry', () => {
     it('check fixins getter returns expected value', () => {
         const list = val.fixins.replace(/ and /g, ', ').split(', ');
         for (let f = list.length - 1; f >= 0; f--) {
-            expect((list[f].length > 0 && list[f] as TeaFixins) ? true : false).toBe(true);
+            let found = false;
+            for (const fixin in TeaFixins) {
+                if (list[f] === fixin) {
+                    found = true;
+                }
+            }
+            expect(found).toBe(true);
         }
     });
 
