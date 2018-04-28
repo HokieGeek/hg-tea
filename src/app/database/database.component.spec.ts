@@ -38,7 +38,7 @@ describe('DatabaseComponent', () => {
 
     it('correct number of entries are created', () => {
         let has = 0;
-        const nodes = fixture.debugElement.query(By.css('.card-columns')).nativeElement.childNodes;
+        const nodes = fixture.debugElement.query(By.css('.card-deck')).nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
             if (nodes[i].nodeName === 'HG-DATABASE-ENTRY') {
                 has++;
@@ -82,13 +82,13 @@ describe('DatabaseComponent', () => {
 
         expect(children.length).toBe(1);
         expect(children[0].nodeName).toBe('DIV');
-        expect(children[0].className).toBe('card-columns');
+        expect(children[0].className).toBe('card-deck');
     });
 
     it('check that only hg-database-entry elements are in the top component', () => {
         /*
          * Expected schema
-         * <div class="card-columns">
+         * <div class="card-deck">
          *  <hg-database-entry></hg-database-entry>
          *  <hg-database-entry></hg-database-entry>
          *  ....
@@ -96,7 +96,7 @@ describe('DatabaseComponent', () => {
          * </div>
          */
         let notEntries = 0;
-        const nodes = fixture.debugElement.query(By.css('.card-columns')).nativeElement.childNodes;
+        const nodes = fixture.debugElement.query(By.css('.card-deck')).nativeElement.childNodes;
 
         for (let i = nodes.length - 1; i >= 0; i--) {
             if (nodes[i].nodeName !== 'HG-DATABASE-ENTRY'
