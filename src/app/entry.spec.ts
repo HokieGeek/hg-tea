@@ -71,19 +71,11 @@ describe('entry', () => {
         expect(val.steepingvessel).toBe(SteepingVessels[val.steepingvessel_idx]); // TODO: could be better
     });
 
-    xit('check fixins getter returns expected value', () => {
-        const list = val.fixins.replace(/and|,/g, '').split(' ');
+    it('check fixins getter returns expected value', () => {
+        const list = val.fixins.replace(/ and /g, ', ').split(', ');
         for (let f = list.length - 1; f >= 0; f--) {
-            let found = false;
-            if (list[f].length > 0) {
-                if (list[f] as TeaFixins) { // === TeaFixins[fixin]) {
-                    found = true;
-                }
-                console.log(list[f]); // , ';', TeaFixins[list[f]]);
-            }
-            expect(found).toBe(true);
+            expect((list[f].length > 0 && list[f] as TeaFixins) ? true : false).toBe(true);
         }
-        console.log('fixins:', val.fixins, list);
     });
 
     it('check datetime getter returns expected value', () => {
