@@ -16,7 +16,7 @@
             for {{tea.purchaseprice | currency:'USD':'$'}}
         </p>
         <p class="card-text">
-            <span class="card-text teaComments" *ngIf="tea.comments">{{tea.comments}}</span>
+            <span class="card-text comments" *ngIf="tea.comments">{{tea.comments}}</span>
         </p>
 
         <p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>

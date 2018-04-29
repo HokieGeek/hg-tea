@@ -119,13 +119,46 @@ describe('DatabaseEntryComponent', () => {
         });
     });
 
-    xit('comments are set', () => {
+    it('comments are set', () => {
+        const nodes = fixture.debugElement.query(By.css('p.card-text > .comments')).childNodes;
+        let found = false;
+        for (const node in nodes) {
+            if (nodes[node].nativeNode.nodeName === '#text'
+                && nodes[node].nativeNode.nodeValue.includes(component.tea.comments)) {
+                found = true;
+                break;
+            }
+        }
+        expect(found).toBe(true);
     });
 
-    xit('entry date is correct', () => {
+    it('entry date is correct', () => {
+        const nodes = fixture.debugElement.queryAll(By.css('.card-text > small'));
+        let found = false;
+        for (let node = nodes.length - 1; node >= 0; node--) {
+            const children = nodes[node].childNodes;
+            for (const child in children) {
+                if (children[child].nativeNode.nodeName === '#text' &&
+                    children[child].nativeNode.nodeValue === 'Entered on ' + component.tea.date) {
+                        found = true;
+                    break;
+                }
+            }
+        }
+        expect(found).toBe(true);
     });
 
-    xit('tea type is correct', () => {
+    it('tea type is correct', () => {
+        const nodes = fixture.debugElement.query(By.css('.card-footer')).childNodes;
+        let found = false;
+        for (const node in nodes) {
+            if (nodes[node].nativeNode.nodeName === '#text'
+                && nodes[node].nativeNode.nodeValue.includes(component.tea.type)) {
+                found = true;
+                break;
+            }
+        }
+        expect(found).toBe(true);
     });
 
     describe('check only expected elements created', () => {
