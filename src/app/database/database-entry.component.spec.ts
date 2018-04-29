@@ -45,9 +45,9 @@ describe('DatabaseEntryComponent', () => {
         expect(has).toBe(component.tea.name);
     });
 
-    it('card title notStocked class matches if tea is stocked', () => {
+    xit('card title notStocked class matches if tea is stocked', () => {
         const has = fixture.debugElement.query(By.css('.card-title')).attributes['class'].includes('notStocked');
-        expect(has).not.toBe(component.tea.stocked);
+        expect(has).toBe(!component.tea.stocked);
     });
 
     xit('card title check notStocked is applied when not stocked?', async(() => {
@@ -64,7 +64,7 @@ describe('DatabaseEntryComponent', () => {
     }));
 
     it('entry country is set', () => {
-        const nodes = fixture.debugElement.query(By.css('.card-subtitle')).childNodes;
+        const nodes = fixture.debugElement.query(By.css('h6.card-subtitle')).childNodes;
         let found = false;
         for (const node in nodes) {
             if (nodes[node].nativeNode.nodeName === '#text'
@@ -77,7 +77,7 @@ describe('DatabaseEntryComponent', () => {
     });
 
     it('entry country is set with region', () => {
-        const nodes = fixture.debugElement.query(By.css('.card-subtitle > span')).childNodes;
+        const nodes = fixture.debugElement.query(By.css('h6.card-subtitle > span')).childNodes;
         let found = false;
         for (const node in nodes) {
             if (nodes[node].nativeNode.nodeName === '#text'
@@ -246,14 +246,75 @@ describe('DatabaseEntryComponent', () => {
     });
 
     describe('missing data', () => {
-        xit('entry country is set', () => {
-        });
+        it('entry country is not set', async(() => {
+            component.tea.country = '';
+            fixture.detectChanges();
 
-        xit('entry country is set with region', () => {
-        });
+            fixture.whenStable().then(result => {
+                const has = fixture.debugElement.query(By.css('h6.card-subtitle'));
+                expect(has).toBeNull();
+            });
+        }));
 
-        xit('tea year and flush', () => {
-        });
+        it('entry country is set but no region', async(() => {
+            component.tea.region = '';
+            fixture.detectChanges();
+
+            fixture.whenStable().then(result => {
+                const nodes = fixture.debugElement.queryAll(By.css('h6.card-subtitle > span'));
+                let found = false;
+                for (const node in nodes) {
+                    if (nodes[node].nativeNode.nodeName === '#text'
+                        && nodes[node].nativeNode.nodeValue.includes(component.tea.region)) {
+                        found = true;
+                        break;
+                    }
+                }
+                expect(found).toBe(false);
+            });
+        }));
+
+        it('no tea year', async(() => {
+            component.tea.year = null;
+            fixture.detectChanges();
+
+            fixture.whenStable().then(result => {
+                const nodes = fixture.debugElement.queryAll(By.css('.card-text'));
+                let found = false;
+                for (let node = nodes.length - 1; node >= 0; node--) {
+                    const children = nodes[node].childNodes;
+                    for (const child in children) {
+                        if (children[child].nativeNode.nodeName === '#text' &&
+                            children[child].nativeNode.nodeValue === component.tea.flush + ' ') {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                expect(found).toBe(false);
+            });
+        }));
+
+        it('have year but with no flush', async(() => {
+            component.tea.flush = null;
+            fixture.detectChanges();
+
+            fixture.whenStable().then(result => {
+                const nodes = fixture.debugElement.queryAll(By.css('.card-text'));
+                let found = false;
+                for (let node = nodes.length - 1; node >= 0; node--) {
+                    const children = nodes[node].childNodes;
+                    for (const child in children) {
+                        if (children[child].nativeNode.nodeName === '#text' &&
+                            children[child].nativeNode.nodeValue === component.tea.flush + ' ' + component.tea.year) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                expect(found).toBe(false);
+            });
+        }));
 
         describe('purchase information', () => {
             xit('size', () => {
@@ -269,13 +330,34 @@ describe('DatabaseEntryComponent', () => {
             });
         });
 
-        xit('comments are set', () => {
-        });
+        it('comments are not set', async(() => {
+            component.tea.comments = null;
+            fixture.detectChanges();
 
-        xit('entry date is correct', () => {
-        });
+            fixture.whenStable().then(result => {
+                const has = fixture.debugElement.query(By.css('p.card-text > .comments'));
+                expect(has).toBeNull();
+            });
+        }));
 
-        xit('tea type is correct', () => {
-        });
+        it('entry date is not set', async(() => {
+            component.tea.date = null;
+            fixture.detectChanges();
+
+            fixture.whenStable().then(result => {
+                const has = fixture.debugElement.queryAll(By.css('.card-text > small'));
+                expect(has.length).toBe(0);
+            });
+        }));
+
+        it('tea type is not set', async(() => {
+            component.tea.type = null;
+            fixture.detectChanges();
+
+            fixture.whenStable().then(result => {
+                const has = fixture.debugElement.query(By.css('.card-footer'));
+                expect(has).toBeNull();
+            });
+        }));
     });
 });
