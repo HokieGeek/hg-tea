@@ -82,12 +82,12 @@ export class TestUtils {
             '12/30/2011 7:49:05', // timestamp
             today, // date
             'Sheng', // type
-            'Yunnan', // region
+            'Lincang, Yunnan', // region
             (new Date()).getFullYear(), // year
             0, // flush
             'tea.awesome.site', // purchaselocation
             today, // purchasedate
-            '99.99', // purchaseprice
+            String((Math.random() * 1000) + Math.random()), // purchaseprice
             '', // ratings
             'COMMENT', // comments
             [], // pictures
@@ -95,9 +95,9 @@ export class TestUtils {
             '', // leafgrade
             '', // blendedteas
             '', // blendratio
-            'Full Beeng', // size
-            true , // stocked
-            true , // aging
+            String((Math.random() * 500) + 1) + 'g', // size
+            (Math.random() >= 0.5), // stocked
+            (Math.random() >= 0.5), // aging
             'loose' // packaging
         );
     }

@@ -35,22 +35,74 @@ describe('DatabaseEntryComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    xit('expected id', () => {
+    it('expected id', () => {
+        const has = parseInt(fixture.debugElement.query(By.css('input')).properties['value'], 10);
+        expect(has).toBe(component.tea.id);
     });
 
-    xit('card title is name', () => {
+    it('card title is name', () => {
+        const has = fixture.debugElement.query(By.css('.card-title')).childNodes[0].nativeNode.nodeValue;
+        expect(has).toBe(component.tea.name);
     });
 
-    xit('card title has notStocked class when not stocked', () => {
+    it('card title notStocked class matches if tea is stocked', () => {
+        const has = fixture.debugElement.query(By.css('.card-title')).attributes['class'].includes('notStocked');
+        expect(has).not.toBe(component.tea.stocked);
     });
 
-    xit('entry country is set', () => {
+    xit('card title check notStocked is applied when not stocked?', async(() => {
+        console.log(component.tea.stocked);
+        component.tea.stocked = false;
+        fixture.detectChanges();
+
+        fixture.whenStable().then(result => {
+            const has = fixture.debugElement.query(By.css('.card-title')).attributes['class'].includes('notStocked');
+            console.log(component.tea.stocked);
+            console.log(fixture.debugElement.query(By.css('.card-title')).attributes['class']);
+            expect(has).toBe(true);
+        });
+    }));
+
+    it('entry country is set', () => {
+        const nodes = fixture.debugElement.query(By.css('.card-subtitle')).childNodes;
+        let found = false;
+        for (const node in nodes) {
+            if (nodes[node].nativeNode.nodeName === '#text'
+                && nodes[node].nativeNode.nodeValue.includes(component.tea.country)) {
+                found = true;
+                break;
+            }
+        }
+        expect(found).toBe(true);
     });
 
-    xit('entry country is set with region', () => {
+    it('entry country is set with region', () => {
+        const nodes = fixture.debugElement.query(By.css('.card-subtitle > span')).childNodes;
+        let found = false;
+        for (const node in nodes) {
+            if (nodes[node].nativeNode.nodeName === '#text'
+                && nodes[node].nativeNode.nodeValue.includes(component.tea.region)) {
+                found = true;
+                break;
+            }
+        }
+        expect(found).toBe(true);
     });
 
-    xit('tea year and flush', () => {
+    it('tea year and flush', () => {
+        const nodes = fixture.debugElement.queryAll(By.css('.card-text'));
+        let found = false;
+        for (let node = nodes.length - 1; node >= 0; node--) {
+            const children = nodes[node].childNodes;
+            for (const child in children) {
+                if (children[child].nativeNode.nodeName === '#text' &&
+                    children[child].nativeNode.nodeValue === component.tea.flush + ' ' + component.tea.year) {
+                        found = true;
+                    break;
+                }
+            }
+        }
+        expect(found).toBe(true);
     });
 
     describe('purchase information', () => {
