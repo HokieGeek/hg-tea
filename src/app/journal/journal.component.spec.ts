@@ -117,4 +117,9 @@ describe('JournalComponent', () => {
         }
         expect(notEntries).toBe(0);
     });
+
+    xit('getReversedEntries', () => {
+        // TODO
+        // expect(component).toBeTruthy();
+    });
 });
