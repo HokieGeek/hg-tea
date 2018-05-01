@@ -71,7 +71,6 @@ describe('Pipe: naturalDate', () => {
 
             it('a few minutes ago', () => {
                 has.setMinutes(has.getMinutes() - ((Math.random() * 13) + 1));
-                console.log('[fmin] has: ', has);
                 expect(pipe.transform(has)).toBe('A few minutes ago');
             });
 
@@ -95,13 +94,11 @@ describe('Pipe: naturalDate', () => {
             it('a couple of hours ago', () => {
                 has.setHours(has.getHours() - 1);
                 has.setMinutes(has.getMinutes() - 55);
-                console.log('[couple] has: ', has);
                 expect(pipe.transform(has)).toBe('A couple of hours ago');
             });
 
             it('a few hours ago', () => {
-                has.setTime(has.getTime() - (((Math.random() * 2) + 1) * 3600 * 1000));
-                console.log('[fhours] has: ', has);
+                has.setHours(has.getHours() - ((Math.random() * 3) + 2));
                 expect(pipe.transform(has)).toBe('A few hours ago');
             });
 
@@ -192,7 +189,6 @@ describe('Pipe: naturalDate', () => {
                 // has.setMonth(has.getMonth() - ((Math.random() * 10) + 1));
                 has.setMonth(has.getMonth() - 2);
                 const want = months[has.getMonth()] + ' ' + has.getDate() + ' at ' + pipe.time_transform(has);
-                console.log('[>month] has: ', has);
                 expect(pipe.transform(has)).toBe(want);
             });
 

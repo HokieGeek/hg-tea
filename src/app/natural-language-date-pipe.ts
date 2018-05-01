@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NaturalLanguageDatePipe implements PipeTransform {
     day_of_year(date: Date): number {
         const start = new Date(date.getFullYear(), 0, 0);
-        const diff = (date - start) + ((start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000); // Account for TZ
+        const diff = (date.getTime() - start.getTime()) + ((start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000);
         return Math.floor(diff / (1000 * 60 * 60 * 24));
     }
 
@@ -63,10 +63,10 @@ export class NaturalLanguageDatePipe implements PipeTransform {
                 } else {
                     return 'An hour ago';
                 }
-            } else if ((ahora.getDate() === date.getDate()) && (ahora.getMonth() === date.getMonth()) { // on the same day
-                if (delta_ms <= (7200 * 1000)) {
+            } else if ((ahora.getDate() === date.getDate()) && (ahora.getMonth() === date.getMonth())) { // on the same day
+                if (delta_ms < (7200 * 1000)) { // < 1h 20m
                     return 'A couple of hours ago';
-                } else if (delta_ms < (14400 * 1000)) { // less than 6 hours ago
+                } else if (delta_ms < (21600 * 1000)) { // less than 6 hours ago
                     return 'A few hours ago';
                 } else if (delta_ms < (28800 * 1000)) { // less than 8 hours ago
                     if (date.getHours() < 12) {
