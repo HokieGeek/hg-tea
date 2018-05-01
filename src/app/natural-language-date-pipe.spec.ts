@@ -1,6 +1,6 @@
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 
-xdescribe('Pipe: naturalDate', () => {
+describe('Pipe: naturalDate', () => {
     let pipe: NaturalLanguageDatePipe;
     let has: Date;
 
@@ -10,6 +10,15 @@ xdescribe('Pipe: naturalDate', () => {
     beforeEach(() => {
         pipe = new NaturalLanguageDatePipe();
         has = new Date();
+    });
+
+    describe('day_of_year', () => {
+        it('simple', () => {
+            const numDays = 20;
+            has.setMonth(0);
+            has.setDate(numDays);
+            expect(pipe.day_of_year(has)).toBe(numDays);
+        });
     });
 
     describe('time_transform', () => {
@@ -91,7 +100,7 @@ xdescribe('Pipe: naturalDate', () => {
             });
 
             it('a few hours ago', () => {
-                has.setHours(has.getHours() - ((Math.random() * 2) + 1));
+                has.setTime(has.getTime() - (((Math.random() * 2) + 1) * 3600 * 1000));
                 console.log('[fhours] has: ', has);
                 expect(pipe.transform(has)).toBe('A few hours ago');
             });
@@ -147,13 +156,7 @@ xdescribe('Pipe: naturalDate', () => {
             });
         });
 
-        describe('dates on the same month', () => {
-            it('a few weeks ago', () => {
-                has.setDate(has.getDate() - 8);
-                const want = 'The ' + has.getDate() + pipe.ordinal_indicator(has.getDate()) + ' at ' + pipe.time_transform(has);
-                expect(pipe.transform(has)).toBe(want);
-            });
-
+        describe('dates on the same week', () => {
             it('last night', () => {
                 const ahora = new Date(has.getTime());
                 ahora.setHours(1); // Set to 1am to ensure it is still within the 24 hour thingy
@@ -176,11 +179,20 @@ xdescribe('Pipe: naturalDate', () => {
             });
         });
 
+        describe('dates on the same month', () => {
+            it('a few weeks ago', () => {
+                has.setDate(has.getDate() - 8);
+                const want = 'The ' + has.getDate() + pipe.ordinal_indicator(has.getDate()) + ' at ' + pipe.time_transform(has);
+                expect(pipe.transform(has)).toBe(want);
+            });
+        });
+
         describe('dates over a month ago', () => {
             it('a month or more ago', () => {
                 // has.setMonth(has.getMonth() - ((Math.random() * 10) + 1));
                 has.setMonth(has.getMonth() - 2);
                 const want = months[has.getMonth()] + ' ' + has.getDate() + ' at ' + pipe.time_transform(has);
+                console.log('[>month] has: ', has);
                 expect(pipe.transform(has)).toBe(want);
             });
 
