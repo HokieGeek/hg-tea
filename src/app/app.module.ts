@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { RoutingModule } from './routing.module';
-
 import { HgTeaComponent } from './hgtea.component';
 import { JournalComponent } from './journal/journal.component';
 import { JournalEntryComponent } from './journal/journal-entry.component';
@@ -28,7 +26,6 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
         BrowserModule,
         FormsModule,
         HttpModule, // TODO: HttpModule is deprecated
-        RoutingModule,
     ],
     providers: [],
     bootstrap: [HgTeaComponent]

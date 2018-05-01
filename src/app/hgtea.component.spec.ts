@@ -8,8 +8,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { RoutingModule } from './routing.module';
-
 import { HgTeaComponent } from './hgtea.component';
 import { JournalComponent } from './journal/journal.component';
 import { JournalEntryComponent } from './journal/journal-entry.component';
@@ -40,7 +38,6 @@ describe('HgTeaComponent', () => {
                 BrowserModule,
                 FormsModule,
                 HttpModule, // TODO: deprecated
-                RoutingModule,
             ]
         }).compileComponents();
     });
