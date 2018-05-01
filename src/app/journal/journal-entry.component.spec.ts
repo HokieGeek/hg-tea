@@ -9,7 +9,7 @@ import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
 import { TestUtils } from '../test-utils';
 
-describe('JournalEntryComponent', () => {
+fdescribe('JournalEntryComponent', () => {
     let component: JournalEntryComponent;
     let fixture: ComponentFixture<JournalEntryComponent>;
 

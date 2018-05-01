@@ -6,8 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./rating.component.css']
 })
 export class RatingComponent implements OnInit {
-    @Input() rating: number;
-    @Input() max: number;
+    @Input() rating: number = Math.random() * 4;
+    @Input() max: number = 4;
 
     constructor() { }
 
