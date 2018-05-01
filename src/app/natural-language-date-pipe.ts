@@ -34,11 +34,11 @@ export class NaturalLanguageDatePipe implements PipeTransform {
         return o;
     }
 
-    transform(date: Date): string {
+    transform(date: Date, ahora = new Date()): string {
+        // console.log('ahora> ', ahora);
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        const ahora = new Date();
         const time = this.time_transform(date);
 
         if (ahora.getFullYear() === date.getFullYear()) { // this year
@@ -58,16 +58,26 @@ export class NaturalLanguageDatePipe implements PipeTransform {
             } else if (ahora.getDate() === date.getDate()) { // on the same day
                 if (delta_ms <= (7200 * 1000)) {
                     return 'A couple of hours ago';
-                } else if (delta_ms <= (21600 * 1000)) { // less than 6 hours ago
+                } else if (delta_ms < (14400 * 1000)) { // less than 6 hours ago
                     return 'A few hours ago';
-                } else if (date.getHours() < 12 && ahora.getHours() >= 12) {
-                    if (ahora.getHours() > 5) {
-                        return 'This morning at ' + date.getHours();
-                    } else {
+                } else if (delta_ms < (28800 * 1000)) { // less than 8 hours ago
+                    if (date.getHours() < 12) {
                         return 'This morning';
+                    } else if (date.getHours() < 17) {
+                        return 'This afternoon';
+                    } else {
+                        return 'This evening';
+                    }
+                } else if (delta_ms < (43200 * 1000)) { // around 12 hours ago
+                    if (date.getHours() < 12) {
+                        return 'This morning at ' + date.getHours();
+                    } else if (date.getHours() === 12) {
+                        return 'Around noon';
+                    } else {
+                        return 'This afternoon at ' + (date.getHours() - 12);
                     }
                 } else {
-                    return time; // Use this until I can come up with something obvious to mean ">8 hours ago"
+                    return time; // Use this until I can come up with something obvious to mean ">12hours ago"
                 }
             } else if (ahora.getMonth() === date.getMonth()) { // this month
                 if ((ahora.getDate() - date.getDate()) < 7) { // this week
