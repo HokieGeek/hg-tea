@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { HgTeaComponent } from './hgtea.component';
 import { JournalComponent } from './journal/journal.component';
@@ -29,9 +29,9 @@ import { PurchaseInfoComponent } from './database/purchase-info/purchase-info.co
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule, // TODO: HttpModule is deprecated
+        HttpClientModule,
     ],
-    providers: [],
+    providers: [HttpClient],
     bootstrap: [HgTeaComponent]
 })
 export class HgTeaModule { }

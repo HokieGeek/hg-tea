@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,26 +13,51 @@ export class TeaDbService {
     private teaDb = 'https://spreadsheets.google.com/feeds/list/1-U45bMxRE4_n3hKRkTPTWHTkVKC8O3zcSmkjEyYFYOo/1/public/values?alt=json';
     private journalDb = 'https://spreadsheets.google.com/feeds/list/1pHXWycR9_luPdHm32Fb2P1Pp7l29Vni3uFH_q3TsdbU/1/public/values?alt=json';
 
-    constructor (private http: Http) { } // TODO: Http is deprecated
+    constructor (private http: HttpClient) { }
 
     getTeaData(): Observable<Tea[]> {
+        /*
         return this.http.get(this.teaDb)
                       .map((res: Response) => {
                           const entries = this.extractSpreadsheetEntries<Tea>(res, this.convertJsonToTea);
                           return entries || { };
                       })
                       .catch(this.handleError);
+         */
+        this.http.get<Object>(this.teaDb).subscribe(data => console.log(data));
+        return null;
+        /*
+        return this.http.get<Object>(this.teaDb)
+                      .map((res: Response) => {
+                          const entries = this.extractSpreadsheetEntries<Tea>(res, this.convertJsonToTea);
+                          return entries || { };
+                      })
+                      .catch(this.handleError);
+         */
     }
 
     getJournalEntries(): Observable<Entry[]> {
+        /*
         return this.http.get(this.journalDb)
-                      .map((res: Response) => {
+                      .map(resp => {
                           const entries = this.extractSpreadsheetEntries<Entry>(res, this.convertJsonToEntry);
                           return entries || { };
                       })
                       .catch(this.handleError);
+         */
+        this.http.get<Object>(this.journalDb).subscribe(data => console.log(data));
+        return null;
+        /*
+        return this.http.get<Object>(this.journalDb)
+                      .map(resp => {
+                          const entries = this.extractSpreadsheetEntries<Entry>(res, this.convertJsonToEntry);
+                          return entries || { };
+                      })
+                      .catch(this.handleError);
+         */
     }
 
+        /*
     private extractSpreadsheetEntries<T>(res: Response, // TODO: Response is deprecated
                                          converter: (json: Object) => T): T[] {
         const body = res.json();
@@ -42,6 +67,7 @@ export class TeaDbService {
         }
         return entries;
     }
+        */
 
     private convertJsonToTea(json: Object): Tea {
         // console.log(json)
