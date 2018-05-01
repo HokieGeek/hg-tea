@@ -24,8 +24,8 @@ describe('RatingComponent', () => {
         fixture = TestBed.createComponent(RatingComponent);
         component = fixture.componentInstance;
 
-        // component.max = Math.floor((Math.random() * 20) + 2);
-        // component.rating = Math.floor(Math.random() * component.rating);
+        component.max = 4; // Math.floor((Math.random() * 20) + 2);
+        component.rating = Math.floor(Math.random() * component.max);
 
         fixture.detectChanges();
     });
@@ -68,6 +68,7 @@ describe('RatingComponent', () => {
             }
         }
 
+        console.log(component);
         expect(hasSelected).toBe(component.rating);
         expect(hasUnselected).toBe(component.max - component.rating);
     });
