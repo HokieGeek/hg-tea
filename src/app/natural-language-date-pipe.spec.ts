@@ -20,7 +20,7 @@ describe('Pipe: naturalDate', () => {
         });
 
         it('padded minutes', () => {
-            has.setHours(Math.random() * 11);
+            has.setHours((Math.random() * 10) + 1);
             has.setMinutes(Math.random() * 9);
             expect(pipe.time_transform(has)).toBe(has.getHours() + ':0' + has.getMinutes() + 'a');
         });
