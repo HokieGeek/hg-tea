@@ -68,7 +68,6 @@ describe('RatingComponent', () => {
             }
         }
 
-        console.log(component);
         expect(hasSelected).toBe(component.rating);
         expect(hasUnselected).toBe(component.max - component.rating);
     });
