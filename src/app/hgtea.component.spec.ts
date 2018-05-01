@@ -21,6 +21,7 @@ import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 
 describe('HgTeaComponent', () => {
     let fixture: ComponentFixture<HgTeaComponent>;
+    let component: HgTeaComponent;
 
     const numPrimaryElements = 2;
 
@@ -46,7 +47,7 @@ describe('HgTeaComponent', () => {
 
     beforeEach(() => {
         fixture = TestBed.createComponent(HgTeaComponent);
-        // component = fixture.componentInstance;
+        component = fixture.componentInstance;
 
         fixture.detectChanges();
     });
