@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'hg-rating',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rating.component.css']
 })
 export class RatingComponent implements OnInit {
+    @Input() rating: number;
+    @Input() max: number;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
-
+    ngOnInit() {
+    }
 }

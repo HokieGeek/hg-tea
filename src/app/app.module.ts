@@ -9,9 +9,9 @@ import { JournalEntryComponent } from './journal/journal-entry.component';
 import { DatabaseComponent } from './database/database.component';
 import { DatabaseEntryComponent } from './database/database-entry.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
+import { RatingComponent } from './rating/rating.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
-import { RatingComponent } from './rating/rating.component';
 
 @NgModule({
     declarations: [
@@ -21,8 +21,8 @@ import { RatingComponent } from './rating/rating.component';
         DatabaseComponent,
         DatabaseEntryComponent,
         TeacupimgComponent,
-        NaturalLanguageDatePipe,
         RatingComponent,
+        NaturalLanguageDatePipe,
     ],
     imports: [
         BrowserModule,
