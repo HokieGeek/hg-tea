@@ -11,6 +11,7 @@ import { DatabaseEntryComponent } from './database/database-entry.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
+import { RatingComponent } from './rating/rating.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
         DatabaseEntryComponent,
         TeacupimgComponent,
         NaturalLanguageDatePipe,
+        RatingComponent,
     ],
     imports: [
         BrowserModule,
