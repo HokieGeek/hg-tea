@@ -13,6 +13,7 @@ import { JournalComponent } from './journal/journal.component';
 import { JournalEntryComponent } from './journal/journal-entry.component';
 import { DatabaseComponent } from './database/database.component';
 import { DatabaseEntryComponent } from './database/database-entry.component';
+import { PurchaseInfoComponent } from './database/purchase-info/purchase-info.component';
 
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
@@ -32,6 +33,7 @@ describe('HgTeaComponent', () => {
                 JournalEntryComponent,
                 DatabaseComponent,
                 DatabaseEntryComponent,
+                PurchaseInfoComponent,
                 NaturalLanguageDatePipe,
                 RatingComponent,
                 TeacupimgComponent,

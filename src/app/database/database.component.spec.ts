@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DatabaseComponent } from './database.component';
 import { DatabaseEntryComponent } from './database-entry.component';
+import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
 
 import { TestUtils } from '../test-utils';
 
@@ -16,7 +17,8 @@ describe('DatabaseComponent', () => {
             imports: [ FormsModule ],
             declarations: [
                 DatabaseComponent,
-                DatabaseEntryComponent
+                DatabaseEntryComponent,
+                PurchaseInfoComponent
             ]
         })
         .compileComponents();

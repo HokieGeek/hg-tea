@@ -8,13 +8,7 @@
             {{tea.country}}
         </h6>
         <p class="card-text" *ngIf="tea.year">{{tea.flush}} {{tea.year}}</p>
-        <p class="card-text purchase-info" *ngIf="tea.purchaseprice">
-            Purchased
-            <span *ngIf="tea.size">a {{tea.size}}</span>
-            <span *ngIf="tea.purchaselocation">from {{tea.purchaselocation}}</span>
-            <span *ngIf="tea.purchasedate">on {{tea.purchasedate}}</span>
-            for {{tea.purchaseprice | currency:'USD':'$'}}
-        </p>
+        <hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
         <p class="card-text">
             <span class="card-text comments" *ngIf="tea.comments">{{tea.comments}}</span>
         </p>

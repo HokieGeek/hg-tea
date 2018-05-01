@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Tea } from '../../tea';
 
 @Component({
   selector: 'hg-purchase-info',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./purchase-info.component.css']
 })
 export class PurchaseInfoComponent implements OnInit {
+    @Input() tea: Tea;
 
     constructor() { }
 

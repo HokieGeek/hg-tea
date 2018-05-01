@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { DatabaseEntryComponent } from './database-entry.component';
+import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
 
 import { TestUtils } from '../test-utils';
 
@@ -15,7 +16,8 @@ describe('DatabaseEntryComponent', () => {
         TestBed.configureTestingModule({
             imports: [ FormsModule ],
             declarations: [
-                DatabaseEntryComponent
+                DatabaseEntryComponent,
+                PurchaseInfoComponent
             ]
         })
         .compileComponents();
@@ -103,28 +105,6 @@ describe('DatabaseEntryComponent', () => {
             }
         }
         expect(found).toBe(true);
-    });
-
-    describe('purchase information', () => {
-        let purchaseComponent: DebugElement;
-
-        beforeEach(() => {
-            purchaseComponent = fixture.debugElement.query(By.css('p.purchase-info'));
-        });
-
-        xit('size', () => {
-            console.log(fixture.debugElement.query(By.css('p.purchase-info')));
-            // console.log(purchaseComponent);
-        });
-
-        xit('location', () => {
-        });
-
-        xit('date', () => {
-        });
-
-        xit('price', () => {
-        });
     });
 
     it('comments are set', () => {
@@ -323,20 +303,6 @@ describe('DatabaseEntryComponent', () => {
                 expect(found).toBe(false);
             });
         }));
-
-        describe('purchase information', () => {
-            xit('size', () => {
-            });
-
-            xit('location', () => {
-            });
-
-            xit('date', () => {
-            });
-
-            xit('price', () => {
-            });
-        });
 
         it('comments are not set', async(() => {
             component.tea.comments = null;

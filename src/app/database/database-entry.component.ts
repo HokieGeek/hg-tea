@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Tea } from '../tea';
+import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
 
 @Component({
     selector: 'hg-database-entry',
