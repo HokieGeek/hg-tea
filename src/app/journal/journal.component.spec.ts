@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { JournalComponent } from './journal.component';
 import { JournalEntryComponent } from './journal-entry.component';
+import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
@@ -19,6 +20,7 @@ describe('JournalComponent', () => {
             declarations: [
                 JournalComponent,
                 JournalEntryComponent,
+                RatingComponent,
                 TeacupimgComponent,
                 NaturalLanguageDatePipe
             ],

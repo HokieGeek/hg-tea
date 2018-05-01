@@ -7,9 +7,7 @@
             <span id="vessel" *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
             <span id="temperature" *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
             <span id="comments" class="card-text comments" *ngIf="entry.comments"><br /><br />{{entry.comments}}</span>
-            <hg-rating></hg-rating>
-            <!--hg-rating id="rating" class="float-right"></hg-rating-->
-            <!--hg-rating id="rating" class="float-right" rating="{{entry.rating}}" max=4></hg-rating-->
+            <hg-rating id="rating" class="float-right" rating="{{entry.rating}}" max=4></hg-rating>
         </p>
     </div>
     <div id="entrydate" class="card-footer text-muted" title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</div>

@@ -14,8 +14,9 @@ import { JournalEntryComponent } from './journal/journal-entry.component';
 import { DatabaseComponent } from './database/database.component';
 import { DatabaseEntryComponent } from './database/database-entry.component';
 
-import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
+import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
+import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 
 describe('HgTeaComponent', () => {
     let fixture: ComponentFixture<HgTeaComponent>;
@@ -32,6 +33,7 @@ describe('HgTeaComponent', () => {
                 DatabaseComponent,
                 DatabaseEntryComponent,
                 NaturalLanguageDatePipe,
+                RatingComponent,
                 TeacupimgComponent,
             ],
             imports: [

@@ -4,12 +4,13 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { JournalEntryComponent } from './journal-entry.component';
+import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
 import { TestUtils } from '../test-utils';
 
-fdescribe('JournalEntryComponent', () => {
+describe('JournalEntryComponent', () => {
     let component: JournalEntryComponent;
     let fixture: ComponentFixture<JournalEntryComponent>;
 
@@ -18,6 +19,7 @@ fdescribe('JournalEntryComponent', () => {
             imports: [ FormsModule ],
             declarations: [
                 NaturalLanguageDatePipe,
+                RatingComponent,
                 TeacupimgComponent,
                 JournalEntryComponent
             ],
@@ -76,44 +78,6 @@ fdescribe('JournalEntryComponent', () => {
     it('comments field is correct', () => {
         const has = fixture.debugElement.query(By.css('#comments')).nativeElement.childNodes.item(2).nodeValue;
         expect(has).toBe(component.entry.comments);
-    });
-
-    it('rating title is correct', () => {
-        const has = fixture.debugElement.query(By.css('#rating')).properties['title'];
-        const expected = component.entry.rating + ' out of ' + TestUtils.numRatingValues;
-        expect(has).toBe(expected);
-    });
-
-    it('rating has the correct number of images', () => {
-        let has = 0;
-        const nodes = fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes;
-
-        for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'HG-TEACUPIMG') {
-                has++;
-            }
-        }
-
-        expect(has).toBe(TestUtils.numRatingValues);
-    });
-
-    it('rating has images correctly displayed', () => {
-        let hasSelected = 0;
-        let hasUnselected = 0;
-
-        const nodes = fixture.debugElement.query(By.css('#rating')).nativeElement.childNodes;
-        for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'HG-TEACUPIMG') {
-                if (nodes[i].attributes.getNamedItem('ng-reflect-selected').value === 'true') {
-                    hasSelected++;
-                } else {
-                    hasUnselected++;
-                }
-            }
-        }
-
-        expect(hasSelected).toBe(component.entry.rating);
-        expect(hasUnselected).toBe(TestUtils.numRatingValues - component.entry.rating);
     });
 
     it('entrydate title is correct', () => {
@@ -278,7 +242,7 @@ fdescribe('JournalEntryComponent', () => {
                         case 'vessel': numExpectedElemChildren = 0; break;
                         case 'temperature': numExpectedElemChildren = 0; break;
                         case 'comments': numExpectedElemChildren = 2; break;
-                        case 'rating': numExpectedElemChildren = 4; break;
+                        case 'rating': numExpectedElemChildren = 1; break;
                         default: countNonExpectedElements++; break;
                     }
 
@@ -287,18 +251,6 @@ fdescribe('JournalEntryComponent', () => {
                 }
 
                 expect(countNonExpectedElements).toBe(0);
-            });
-
-            it('rating only contains teacupimg elements', () => {
-                let countNonTeacupElements = 0;
-                // let elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('#rating')).childNodes);
-                const elems = TestUtils.filterDebugNodes(cardBody.query(By.css('#rating')).childNodes);
-                for (const i in elems) {
-                    if (elems[i].name !== 'hg-teacupimg') {
-                        countNonTeacupElements++;
-                    }
-                }
-                expect(countNonTeacupElements).toBe(0);
             });
         });
     });
