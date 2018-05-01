@@ -8,7 +8,7 @@
             {{tea.country}}
         </h6>
         <p class="card-text" *ngIf="tea.year">{{tea.flush}} {{tea.year}}</p>
-        <p class="card-text" *ngIf="tea.purchaseprice">
+        <p class="card-text purchase-info" *ngIf="tea.purchaseprice">
             Purchased
             <span *ngIf="tea.size">a {{tea.size}}</span>
             <span *ngIf="tea.purchaselocation">from {{tea.purchaselocation}}</span>

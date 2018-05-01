@@ -106,7 +106,15 @@ describe('DatabaseEntryComponent', () => {
     });
 
     describe('purchase information', () => {
+        let purchaseComponent: DebugElement;
+
+        beforeEach(() => {
+            purchaseComponent = fixture.debugElement.query(By.css('p.purchase-info'));
+        });
+
         xit('size', () => {
+            console.log(fixture.debugElement.query(By.css('p.purchase-info')));
+            // console.log(purchaseComponent);
         });
 
         xit('location', () => {
