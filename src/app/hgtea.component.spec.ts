@@ -19,6 +19,8 @@ import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 
+import { TestUtils } from './test-utils';
+
 describe('HgTeaComponent', () => {
     let fixture: ComponentFixture<HgTeaComponent>;
     let component: HgTeaComponent;
@@ -82,15 +84,7 @@ describe('HgTeaComponent', () => {
     }));
 
     it('should not have more than the required elements', async(() => {
-        let has = 0;
-        const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
-
-        for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName !== '#comment' && nodes[i].nodeName !== '#text') {
-
-                has++;
-            }
-        }
-        expect(has).toBe(numPrimaryElements);
+        const nodes = TestUtils.filterTextAndCommentNodes(fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes);
+        expect(nodes.length).toBe(numPrimaryElements);
     }));
 });

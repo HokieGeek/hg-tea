@@ -120,16 +120,14 @@ export class TestUtils {
         return teasWithEntries;
     }
 
-    static filterTextAndCommentNodes(nodes: DebugNode[]): DebugNode[] {
-        const filtered: DebugNode[] = [];
+    static filterTextAndCommentNodes(nodes: DebugNode[]): DebugElement[] {
+        const filtered: DebugElement[] = [];
 
-        for (const i in nodes) {
-            if (nodes[i].nativeNode.nodeName === '#text' || nodes[i].nativeNode.nodeName === '#comment') {
-                continue;
+        nodes.forEach(node => {
+            if (node.nodeName !== '#text' && node.nodeName !== '#comment') {
+                filtered.push(node);
             }
-
-            filtered.push(nodes[i]);
-        }
+        });
 
         return filtered;
     }
@@ -137,11 +135,11 @@ export class TestUtils {
     static filterDebugNodes(nodes: DebugNode[]): DebugElement[] {
         const filtered: DebugElement[] = [];
 
-        for (const i in nodes) {
-            if (nodes[i] instanceof DebugElement) {
-                filtered.push(nodes[i] as DebugElement);
+        nodes.forEach(node => {
+            if (node instanceof DebugElement) {
+                filtered.push(node as DebugElement);
             }
-        }
+        });
 
         return filtered;
     }
