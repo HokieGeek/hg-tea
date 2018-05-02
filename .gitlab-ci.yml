@@ -63,7 +63,7 @@ unit-node:latest:
     - npm run test
   allow_failure: true
 
-e2e-node:9:
+.e2e-node:9:
   stage: test
   script:
     - npm run e2e
