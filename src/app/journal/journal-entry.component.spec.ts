@@ -76,7 +76,7 @@ describe('JournalEntryComponent', () => {
     });
 
     it('comments field is correct', () => {
-        const has = fixture.debugElement.query(By.css('#comments')).nativeElement.childNodes.item(2).nodeValue;
+        const has = fixture.debugElement.query(By.css('.comments')).nativeElement.childNodes.item(0).nodeValue;
         expect(has).toBe(component.entry.comments);
     });
 
@@ -138,7 +138,7 @@ describe('JournalEntryComponent', () => {
         fixture.detectChanges();
 
         fixture.whenStable().then(result => {
-            const has = fixture.debugElement.query(By.css('#comments'));
+            const has = fixture.debugElement.query(By.css('.comments'));
             expect(has).toBeNull();
         });
     }));
@@ -241,7 +241,7 @@ describe('JournalEntryComponent', () => {
                         case 'steeptime': numExpectedElemChildren = 0; break;
                         case 'vessel': numExpectedElemChildren = 0; break;
                         case 'temperature': numExpectedElemChildren = 0; break;
-                        case 'comments': numExpectedElemChildren = 2; break;
+                        case 'comments': numExpectedElemChildren = 0; break;
                         case 'rating': numExpectedElemChildren = 1; break;
                         default: countNonExpectedElements++; break;
                     }

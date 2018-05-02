@@ -1,5 +1,7 @@
 .comments {
     color: #5b5b5b;
+    display: block;
+    padding-top: 10px;
 }
 
 .card-footer {
