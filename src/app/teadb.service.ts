@@ -15,61 +15,30 @@ export class TeaDbService {
 
     constructor (private http: HttpClient) { }
 
-    getTeaData(): Observable<Tea[]> {
-        /*
-        return this.http.get(this.teaDb)
-                      .map((res: Response) => {
-                          const entries = this.extractSpreadsheetEntries<Tea>(res, this.convertJsonToTea);
-                          return entries || { };
-                      })
-                      .catch(this.handleError);
-         */
-        this.http.get<Object>(this.teaDb).subscribe(data => console.log(data));
-        return null;
-        /*
-        return this.http.get<Object>(this.teaDb)
-                      .map((res: Response) => {
-                          const entries = this.extractSpreadsheetEntries<Tea>(res, this.convertJsonToTea);
-                          return entries || { };
-                      })
-                      .catch(this.handleError);
-         */
-    }
-
     getJournalEntries(): Observable<Entry[]> {
-        /*
-        return this.http.get(this.journalDb)
-                      .map(resp => {
-                          const entries = this.extractSpreadsheetEntries<Entry>(res, this.convertJsonToEntry);
-                          return entries || { };
-                      })
-                      .catch(this.handleError);
-         */
-        this.http.get<Object>(this.journalDb).subscribe(data => console.log(data));
-        return null;
-        /*
-        return this.http.get<Object>(this.journalDb)
-                      .map(resp => {
-                          const entries = this.extractSpreadsheetEntries<Entry>(res, this.convertJsonToEntry);
-                          return entries || { };
-                      })
-                      .catch(this.handleError);
-         */
+        return this.http.get<any>(this.journalDb)
+                      .map(data => {
+                          return this.extractSpreadsheetEntries<Entry>(data, this.convertJsonToEntry);
+                      });
     }
 
-        /*
-    private extractSpreadsheetEntries<T>(res: Response, // TODO: Response is deprecated
-                                         converter: (json: Object) => T): T[] {
-        const body = res.json();
+    getTeaData(): Observable<Tea[]> {
+        return this.http.get<any>(this.teaDb)
+                      .map(data => {
+                          return this.extractSpreadsheetEntries<Tea>(data, this.convertJsonToTea);
+                      });
+    }
+
+    private extractSpreadsheetEntries<T>(data: any,
+                                         converter: (json: any) => T): T[] {
         const entries: T[] = [];
-        for (const entry of body.feed.entry) {
+        for (const entry of data.feed.entry) {
             entries.push(converter(entry));
         }
         return entries;
     }
-        */
 
-    private convertJsonToTea(json: Object): Tea {
+    private convertJsonToTea(json: any): Tea {
         // console.log(json)
         return new Tea(json['gsx$id']['$t'],
                        json['gsx$name']['$t'],
@@ -114,12 +83,10 @@ export class TeaDbService {
     }
 
     private handleError (error: any) {
-        // In a real world app, we might use a remote logging infrastructure
-        // We'd also dig deeper into the error to get a better message
         const errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
 
-        console.error(errMsg); // log to console instead
+        console.error(errMsg);
 
         return Observable.throw(errMsg);
     }
