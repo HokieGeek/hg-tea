@@ -120,11 +120,11 @@ export class TestUtils {
         return teasWithEntries;
     }
 
-    static filterTextAndCommentNodes(nodes: DebugNode[]): DebugElement[] {
-        const filtered: DebugElement[] = [];
+    static filterTextAndCommentNodes(nodes: DebugNode[]): DebugNode[] {
+        const filtered: DebugNode[] = [];
 
         nodes.forEach(node => {
-            if (node.nodeName !== '#text' && node.nodeName !== '#comment') {
+            if (node.nativeNode.nodeName !== '#text' && node.nativeNode.nodeName !== '#comment') {
                 filtered.push(node);
             }
         });

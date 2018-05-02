@@ -84,7 +84,7 @@ describe('HgTeaComponent', () => {
     }));
 
     it('should not have more than the required elements', async(() => {
-        const nodes = TestUtils.filterTextAndCommentNodes(fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes);
+        const nodes = TestUtils.filterTextAndCommentNodes(fixture.debugElement.query(By.css('.tab-content')).childNodes);
         expect(nodes.length).toBe(numPrimaryElements);
     }));
 });

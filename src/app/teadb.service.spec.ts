@@ -21,12 +21,14 @@ describe('TeaDbService', () => {
         httpMock = injector.get(HttpTestingController);
     });
 
-    it('handleError', () => {
+    /*
+    xit('handleError', () => {
         // Q&D testing
         expect(service.handleError('foo')).not.toBeNull();
         expect(service.handleError({ message: 'bar' })).not.toBeNull();
         expect(service.handleError({ status: 400, statusText: 'raboof' })).not.toBeNull();
     });
+     */
 
     /*
      * getJournalEntries
