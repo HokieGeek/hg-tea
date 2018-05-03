@@ -16,7 +16,6 @@ export class Tea {
         public purchaselocation: string,
         public purchasedate: string,
         public purchaseprice: string,
-        public ratings: string,
         public comments: string,
         public pictures: string[],
         public country: string,

@@ -16,7 +16,7 @@
     {{tea.country}}
 </p>
 
-<hg-rating class="float-right" rating="2" max=4></hg-rating>
+<!-- hg-rating class="float-right" rating="2" max=4></hg-rating -->
 
 
 <hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
@@ -24,8 +24,6 @@
 <p class="card-text comments">
     <span class="card-text" *ngIf="tea.comments">{{tea.comments}}</span>
 </p>
-
-<p class="card-text text-warning" *ngIf="!tea.stocked">This tea is no longer stocked</p>
 
 <!--
     blendedteas: string[]

@@ -16,7 +16,6 @@ describe('tea entry', () => {
     const purchaseLocation = 'tea.awesome.site';
     const purchaseDate = today;
     const purchasePrice = '99.99';
-    const ratings = '';
     const comments = 'COMMENT';
     const pictures = [];
     const country = 'China';
@@ -41,7 +40,6 @@ describe('tea entry', () => {
             purchaseLocation,
             purchaseDate,
             purchasePrice,
-            ratings,
             comments,
             pictures,
             country,
@@ -70,7 +68,6 @@ describe('tea entry', () => {
             purchaseLocation,
             purchaseDate,
             purchasePrice,
-            ratings,
             comments,
             pictures,
             country,
@@ -94,7 +91,6 @@ describe('tea entry', () => {
         expect(tea.purchaselocation).toBe(purchaseLocation);
         expect(tea.purchasedate).toBe(purchaseDate);
         expect(tea.purchaseprice).toBe(purchasePrice);
-        expect(tea.ratings).toBe(ratings);
         expect(tea.comments).toBe(comments);
         expect(tea.pictures).toBe(pictures);
         expect(tea.country).toBe(country);

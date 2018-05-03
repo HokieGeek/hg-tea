@@ -4,7 +4,7 @@
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#info-{{tea.id}}">info</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#stats-{{tea.id}}">stats</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link disabled" href="#stats-{{tea.id}}">stats</a></li>
         </ul>
     </div>
 
@@ -13,7 +13,8 @@
         <hg-stats id="stats-{{tea.id}}" class="tab-pane" [tea]="tea"></hg-stats>
     </div>
 
-    <div class="card-footer text-muted" *ngIf="tea.date" [ngClass]="{borderdanger: !tea.stocked}">
-        <p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
+    <div class="card-footer text-muted">
+        <span class="text-danger" *ngIf="!tea.stocked">Out of stock</span>
+        <span class="float-right" *ngIf="tea.date">Entered on {{tea.date}}</span>
     </div>
 </div>

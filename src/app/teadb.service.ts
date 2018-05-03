@@ -54,9 +54,8 @@ export class TeaDbService {
                        json['gsx$purchaselocation']['$t'],
                        json['gsx$purchasedate']['$t'],
                        json['gsx$purchaseprice']['$t'],
-                       json['gsx$ratings']['$t'],
                        json['gsx$comments']['$t'],
-                       'https://lh3.googleusercontent.com/6sYwzVJOWhdKhY3DQFsO2Z2KL8ef4CQtZi_Lwv8FZjGurj8JWbXWD5SpdWwr249fyUEEHbgbUmAMir-xvBR_hNhUXTIsygKMDOcyats1r2tWinD2-QlE4Oafb7etWke2zC1oSJIagEfaI9dXwbcbMZtsFiH8M4kI6SlJRWgPg8MsWyKnUFuAXDgtq4IpOM3oYYFJ3XXta2g2eie1kG4u65XawsKg3lZv3l1gNTUIlTGwaKqyztN-xDXA5bZGD6PVBeXEeh3b3b9QvdfchEy8LhcmlPpjVkCCCuZh_gqjqtP-IfyZz1hKdxCL2Kz3o3i7tIg1C5fp_6VkJcugIXr7ze7jeH1DI0Na3nDfJTfXQLTA7gIRFdaXKOk3ZCMFCkyUYQtkbYoC9TO7wGQ4Y21pB4MHRq2qFYgMnmkx50wmLzmw8oqF2MBQjAe78jzS6Ytgt7ez_cbgI8XeXRLeQZUayKwnheUkw0wrJOtqgQVskyHo9x5P0L99hT0LZRTBnIU_a3jhyviDUqSYs4zGTY2lxXxWK3GsoO8X8iNsBq8dMu2KHtKW9I-AtnTmQzNTjzF6xj74qCQ_69h0Dkm8pBGdzpp2-bRgDx7BNl2z5B5i;https://lh3.googleusercontent.com/YUSSniwSWzi-RijWyROyBqMtDSE5UE9BNiutw55aLN7j1SoJI1vr8iQCqb3AtFkWQwEHSQFKtCCYR49LAL72UEF5ntjJqU3-ZQhipjPe9rkuKpuueKNqSP4XEgeAYeee7q48W2UkOnkcHnlXouoJ5VGuy2GHbnPfwYqVNbXF0wI9bw4Ve2BT5OEDQ_JYnG7SzwigZBke9e56VndxG2amp1wub5QtQKLSPlkJ2JktP6oYET-soKpbnaCL1dh0zHvlpje85fslwto_njxLXEU1UpuLGx-Cws3hhXLRFf5Zdccl4HEgrvy2wGA2WAmxOUKzrHgpc3o5REkW-EL_2EqFmu9eSN3gIjHVRThFmHL3m5wplqrzHH011B5NhYIz7uHIuNkOxiwnv_zNitBTTHImrUAkvm2SwSJcuPJd3s7smANmcJSTnrCz0Zh7l1VfIi7CzHfWLaAKMcizik8krPCr69-zx0Se4SJAYR2YuAGY85rfwtCMSASHHn0oKkKSOBs4EIcZ8JIe_5OOryAUxZG5H9yvTIcTDAQz6KIgn_EinziRsaxCk1AoVd1IHfYw6GuVeO-vlhxVYAorLfjw7a1dgFRu7oRZkNWjXlnSDoPV'.split(';'),
+                       [],
                        json['gsx$country']['$t'],
                        json['gsx$leafgrade']['$t'],
                        json['gsx$blendedteas']['$t'],
@@ -67,6 +66,7 @@ export class TeaDbService {
                        json['gsx$packaging']['$t'],
                       );
         // json['gsx$pictures']['$t'].split(';'),
+        // 'https://lh3.googleusercontent.com/6sYwzVJOWhdKhY3DQFsO2Z2KL8ef4CQtZi_Lwv8FZjGurj8JWbXWD5SpdWwr249fyUEEHbgbUmAMir-xvBR_hNhUXTIsygKMDOcyats1r2tWinD2-QlE4Oafb7etWke2zC1oSJIagEfaI9dXwbcbMZtsFiH8M4kI6SlJRWgPg8MsWyKnUFuAXDgtq4IpOM3oYYFJ3XXta2g2eie1kG4u65XawsKg3lZv3l1gNTUIlTGwaKqyztN-xDXA5bZGD6PVBeXEeh3b3b9QvdfchEy8LhcmlPpjVkCCCuZh_gqjqtP-IfyZz1hKdxCL2Kz3o3i7tIg1C5fp_6VkJcugIXr7ze7jeH1DI0Na3nDfJTfXQLTA7gIRFdaXKOk3ZCMFCkyUYQtkbYoC9TO7wGQ4Y21pB4MHRq2qFYgMnmkx50wmLzmw8oqF2MBQjAe78jzS6Ytgt7ez_cbgI8XeXRLeQZUayKwnheUkw0wrJOtqgQVskyHo9x5P0L99hT0LZRTBnIU_a3jhyviDUqSYs4zGTY2lxXxWK3GsoO8X8iNsBq8dMu2KHtKW9I-AtnTmQzNTjzF6xj74qCQ_69h0Dkm8pBGdzpp2-bRgDx7BNl2z5B5i;https://lh3.googleusercontent.com/YUSSniwSWzi-RijWyROyBqMtDSE5UE9BNiutw55aLN7j1SoJI1vr8iQCqb3AtFkWQwEHSQFKtCCYR49LAL72UEF5ntjJqU3-ZQhipjPe9rkuKpuueKNqSP4XEgeAYeee7q48W2UkOnkcHnlXouoJ5VGuy2GHbnPfwYqVNbXF0wI9bw4Ve2BT5OEDQ_JYnG7SzwigZBke9e56VndxG2amp1wub5QtQKLSPlkJ2JktP6oYET-soKpbnaCL1dh0zHvlpje85fslwto_njxLXEU1UpuLGx-Cws3hhXLRFf5Zdccl4HEgrvy2wGA2WAmxOUKzrHgpc3o5REkW-EL_2EqFmu9eSN3gIjHVRThFmHL3m5wplqrzHH011B5NhYIz7uHIuNkOxiwnv_zNitBTTHImrUAkvm2SwSJcuPJd3s7smANmcJSTnrCz0Zh7l1VfIi7CzHfWLaAKMcizik8krPCr69-zx0Se4SJAYR2YuAGY85rfwtCMSASHHn0oKkKSOBs4EIcZ8JIe_5OOryAUxZG5H9yvTIcTDAQz6KIgn_EinziRsaxCk1AoVd1IHfYw6GuVeO-vlhxVYAorLfjw7a1dgFRu7oRZkNWjXlnSDoPV'.split(';'),
     }
 
     private convertJsonToEntry(json: Object): Entry {
