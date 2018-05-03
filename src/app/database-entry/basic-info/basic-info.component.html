@@ -1,32 +1,34 @@
 <input type="hidden" name="id" value="{{tea.id}}" />
-<h4 class="card-title d-inline" [ngClass]="{notStocked: !tea.stocked}">{{tea.name}}</h4>
-<h6 class="card-subtitle text-muted d-inline" *ngIf="tea.country">
-    <span *ngIf="tea.region"> {{tea.region}}, </span>
-    {{tea.country}}
-</h6>
-<p class="card-text" *ngIf="tea.year">{{tea.flush}} {{tea.year}}</p>
 
-<hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
+<h4 class="card-title d-inline">{{tea.name}}</h4>
+
+<h6 class="card-subtitle text-muted d-inline" *ngIf="tea.leafgrade || tea.year">
+    <span *ngIf="tea.leafgrade">{{tea.leafgrade}}<span *ngIf="tea.year">,</span></span>
+    <span *ngIf="tea.year">{{tea.flush}} {{tea.year}}</span>
+</h6>
+
+<p class="card-text type-country" *ngIf="tea.country || tea.type">
+    <span *ngIf="tea.type">
+        {{tea.type}}
+        <span *ngIf="tea.country"> from </span>
+    </span>
+    <span *ngIf="tea.region">{{tea.region}}, </span>
+    {{tea.country}}
+</p>
 
 <hg-rating class="float-right" rating="2" max=4></hg-rating>
 
-<p class="card-text">
-<span class="card-text comments" *ngIf="tea.comments">{{tea.comments}}</span>
+
+<hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
+
+<p class="card-text comments">
+    <span class="card-text" *ngIf="tea.comments">{{tea.comments}}</span>
 </p>
 
-<p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
+<p class="card-text text-warning" *ngIf="!tea.stocked">This tea is no longer stocked</p>
 
 <!--
-    pictures: string[]
-
-    leafgrade: string
-
     blendedteas: string[]
     blendratio: string[]
-
-    Not doing?:
     aging: boolean
-    packaging: string
-    ratings: string[]
 -->
-

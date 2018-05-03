@@ -12,7 +12,7 @@ describe('tea entry', () => {
     const teatype = 'Sheng';
     const region = 'Yunnan';
     const year = (new Date()).getFullYear();
-    const flush = 0;
+    const flush_idx = 0;
     const purchaseLocation = 'tea.awesome.site';
     const purchaseDate = today;
     const purchasePrice = '99.99';
@@ -37,7 +37,7 @@ describe('tea entry', () => {
             teatype,
             region,
             year,
-            flush,
+            flush_idx,
             purchaseLocation,
             purchaseDate,
             purchasePrice,
@@ -66,7 +66,7 @@ describe('tea entry', () => {
             teatype,
             region,
             year,
-            flush,
+            flush_idx,
             purchaseLocation,
             purchaseDate,
             purchasePrice,
@@ -90,7 +90,7 @@ describe('tea entry', () => {
         expect(tea.type).toBe(teatype);
         expect(tea.region).toBe(region);
         expect(tea.year).toBe(year);
-        expect(tea.flush).toBe(flush);
+        expect(tea.flush_idx).toBe(flush_idx); // TODO
         expect(tea.purchaselocation).toBe(purchaseLocation);
         expect(tea.purchasedate).toBe(purchaseDate);
         expect(tea.purchaseprice).toBe(purchasePrice);

@@ -4,5 +4,17 @@
 
 .comments {
     color: #5b5b5b;
+    display: block;
+    margin-top: 10px;
 }
 
+hg-purchase-info,
+hg-rating
+{
+    display: block;
+    margin-top: 5px;
+}
+
+.type-country {
+    font-size: .95em;
+}

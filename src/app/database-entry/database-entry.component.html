@@ -13,5 +13,7 @@
         <hg-stats id="stats-{{tea.id}}" class="tab-pane" [tea]="tea"></hg-stats>
     </div>
 
-    <div class="card-footer text-muted" *ngIf="tea.type">{{tea.type}}</div>
+    <div class="card-footer text-muted" *ngIf="tea.date" [ngClass]="{borderdanger: !tea.stocked}">
+        <p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
+    </div>
 </div>
