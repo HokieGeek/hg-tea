@@ -1,12 +1,5 @@
 <div class="card">
-        <!-- *ngIf="tea.pictures.length > 0" -->
-    <hg-database-entry-images [tea]="tea"></hg-database-entry-images>
-    <!--
-    <img class="card-img-top"
-         src="
-https://lh3.googleusercontent.com/YUSSniwSWzi-RijWyROyBqMtDSE5UE9BNiutw55aLN7j1SoJI1vr8iQCqb3AtFkWQwEHSQFKtCCYR49LAL72UEF5ntjJqU3-ZQhipjPe9rkuKpuueKNqSP4XEgeAYeee7q48W2UkOnkcHnlXouoJ5VGuy2GHbnPfwYqVNbXF0wI9bw4Ve2BT5OEDQ_JYnG7SzwigZBke9e56VndxG2amp1wub5QtQKLSPlkJ2JktP6oYET-soKpbnaCL1dh0zHvlpje85fslwto_njxLXEU1UpuLGx-Cws3hhXLRFf5Zdccl4HEgrvy2wGA2WAmxOUKzrHgpc3o5REkW-EL_2EqFmu9eSN3gIjHVRThFmHL3m5wplqrzHH011B5NhYIz7uHIuNkOxiwnv_zNitBTTHImrUAkvm2SwSJcuPJd3s7smANmcJSTnrCz0Zh7l1VfIi7CzHfWLaAKMcizik8krPCr69-zx0Se4SJAYR2YuAGY85rfwtCMSASHHn0oKkKSOBs4EIcZ8JIe_5OOryAUxZG5H9yvTIcTDAQz6KIgn_EinziRsaxCk1AoVd1IHfYw6GuVeO-vlhxVYAorLfjw7a1dgFRu7oRZkNWjXlnSDoPV"
-         alt="Card image cap" />
-    -->
+    <hg-database-entry-images [tea]="tea" *ngIf="tea.pictures.length > 0"></hg-database-entry-images>
 
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
