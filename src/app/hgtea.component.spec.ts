@@ -14,6 +14,8 @@ import { JournalEntryComponent } from './journal-entry/journal-entry.component';
 import { DatabaseComponent } from './database/database.component';
 import { DatabaseEntryComponent } from './database-entry/database-entry.component';
 import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
+import { BasicInfoComponent } from './database-entry/basic-info/basic-info.component';
+import { StatsComponent } from './database-entry/stats/stats.component';
 
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
@@ -39,6 +41,8 @@ describe('HgTeaComponent', () => {
                 NaturalLanguageDatePipe,
                 RatingComponent,
                 TeacupimgComponent,
+                BasicInfoComponent,
+                StatsComponent,
             ],
             imports: [
                 BrowserModule,

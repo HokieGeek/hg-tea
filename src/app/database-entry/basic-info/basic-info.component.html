@@ -1,0 +1,32 @@
+<input type="hidden" name="id" value="{{tea.id}}" />
+<h4 class="card-title d-inline" [ngClass]="{notStocked: !tea.stocked}">{{tea.name}}</h4>
+<h6 class="card-subtitle text-muted d-inline" *ngIf="tea.country">
+    <span *ngIf="tea.region"> {{tea.region}}, </span>
+    {{tea.country}}
+</h6>
+<p class="card-text" *ngIf="tea.year">{{tea.flush}} {{tea.year}}</p>
+
+<hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
+
+<hg-rating class="float-right" rating="2" max=4></hg-rating>
+
+<p class="card-text">
+<span class="card-text comments" *ngIf="tea.comments">{{tea.comments}}</span>
+</p>
+
+<p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
+
+<!--
+    pictures: string[]
+
+    leafgrade: string
+
+    blendedteas: string[]
+    blendratio: string[]
+
+    Not doing?:
+    aging: boolean
+    packaging: string
+    ratings: string[]
+-->
+

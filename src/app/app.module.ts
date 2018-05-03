@@ -4,15 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { HgTeaComponent } from './hgtea.component';
+import { TeacupimgComponent } from './teacupimg/teacupimg.component';
+import { RatingComponent } from './rating/rating.component';
 import { JournalComponent } from './journal/journal.component';
 import { JournalEntryComponent } from './journal-entry/journal-entry.component';
 import { DatabaseComponent } from './database/database.component';
 import { DatabaseEntryComponent } from './database-entry/database-entry.component';
-import { TeacupimgComponent } from './teacupimg/teacupimg.component';
-import { RatingComponent } from './rating/rating.component';
+import { BasicInfoComponent } from './database-entry/basic-info/basic-info.component';
+import { StatsComponent } from './database-entry/stats/stats.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
+import { DatabaseEntryImagesComponent } from './database-entry-images/database-entry-images.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +28,9 @@ import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
         RatingComponent,
         NaturalLanguageDatePipe,
         PurchaseInfoComponent,
+        BasicInfoComponent,
+        StatsComponent,
+        DatabaseEntryImagesComponent,
     ],
     imports: [
         BrowserModule,

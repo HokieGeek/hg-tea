@@ -2,14 +2,6 @@
     max-width: 450px;
 }
 
-.notStocked {
-    color: #999999;
-}
-
-.comments {
-    color: #5b5b5b;
-}
-
 .card-footer {
     font-size: .8em;
 }
