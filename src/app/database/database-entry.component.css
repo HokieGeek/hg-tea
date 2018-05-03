@@ -1,3 +1,7 @@
+.card {
+    max-width: 450px;
+}
+
 .notStocked {
     color: #999999;
 }

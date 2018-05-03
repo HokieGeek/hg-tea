@@ -1,7 +1,11 @@
 <div class="card">
+        <!-- *ngIf="tea.pictures.length > 0" -->
+    <img class="card-img-top"
+         src="
+https://lh3.googleusercontent.com/YUSSniwSWzi-RijWyROyBqMtDSE5UE9BNiutw55aLN7j1SoJI1vr8iQCqb3AtFkWQwEHSQFKtCCYR49LAL72UEF5ntjJqU3-ZQhipjPe9rkuKpuueKNqSP4XEgeAYeee7q48W2UkOnkcHnlXouoJ5VGuy2GHbnPfwYqVNbXF0wI9bw4Ve2BT5OEDQ_JYnG7SzwigZBke9e56VndxG2amp1wub5QtQKLSPlkJ2JktP6oYET-soKpbnaCL1dh0zHvlpje85fslwto_njxLXEU1UpuLGx-Cws3hhXLRFf5Zdccl4HEgrvy2wGA2WAmxOUKzrHgpc3o5REkW-EL_2EqFmu9eSN3gIjHVRThFmHL3m5wplqrzHH011B5NhYIz7uHIuNkOxiwnv_zNitBTTHImrUAkvm2SwSJcuPJd3s7smANmcJSTnrCz0Zh7l1VfIi7CzHfWLaAKMcizik8krPCr69-zx0Se4SJAYR2YuAGY85rfwtCMSASHHn0oKkKSOBs4EIcZ8JIe_5OOryAUxZG5H9yvTIcTDAQz6KIgn_EinziRsaxCk1AoVd1IHfYw6GuVeO-vlhxVYAorLfjw7a1dgFRu7oRZkNWjXlnSDoPV=w1239-h929-no"
+         alt="Card image cap" />
     <div class="card-body">
         <input type="hidden" name="id" value="{{tea.id}}" />
-        <!--img class="card-img-top" *ngIf="tea.pictures.length > 0" src="blah/{{tea.pictures[0]}}" alt="Card image cap" -->
         <h4 class="card-title d-inline" [ngClass]="{notStocked: !tea.stocked}">{{tea.name}}</h4>
         <h6 class="card-subtitle text-muted d-inline" *ngIf="tea.country">
             <span *ngIf="tea.region"> {{tea.region}}, </span>
@@ -12,6 +16,7 @@
         <p class="card-text">
             <span class="card-text comments" *ngIf="tea.comments">{{tea.comments}}</span>
         </p>
+        <hg-rating class="float-right" rating="2" max=4></hg-rating>
 
         <p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
 
