@@ -3,8 +3,10 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { DatabaseComponent } from './database.component';
-import { DatabaseEntryComponent } from './database-entry.component';
-import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
+import { DatabaseEntryComponent } from './entry/database-entry.component';
+import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
+import { RatingComponent } from '../rating/rating.component';
+import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 
 import { TestUtils } from '../test-utils';
 
@@ -16,6 +18,8 @@ describe('DatabaseComponent', () => {
         TestBed.configureTestingModule({
             imports: [ FormsModule ],
             declarations: [
+                RatingComponent,
+                TeacupimgComponent,
                 DatabaseComponent,
                 DatabaseEntryComponent,
                 PurchaseInfoComponent

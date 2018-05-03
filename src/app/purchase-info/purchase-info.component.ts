@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Tea } from '../../tea';
+import { Tea } from '../tea';
 
 @Component({
   selector: 'hg-purchase-info',

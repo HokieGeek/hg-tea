@@ -4,9 +4,11 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { DatabaseEntryComponent } from './database-entry.component';
-import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
+import { PurchaseInfoComponent } from '../../purchase-info/purchase-info.component';
+import { RatingComponent } from '../../rating/rating.component';
+import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
 
-import { TestUtils } from '../test-utils';
+import { TestUtils } from '../../test-utils';
 
 describe('DatabaseEntryComponent', () => {
     let component: DatabaseEntryComponent;
@@ -16,6 +18,8 @@ describe('DatabaseEntryComponent', () => {
         TestBed.configureTestingModule({
             imports: [ FormsModule ],
             declarations: [
+                RatingComponent,
+                TeacupimgComponent,
                 DatabaseEntryComponent,
                 PurchaseInfoComponent
             ]
@@ -170,11 +174,12 @@ describe('DatabaseEntryComponent', () => {
         it('children of card are only a card-body and a footer', () => {
             // > One card with one body and one footer
             const elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('.card')).childNodes);
-            expect(elems.length).toBe(2);
+            expect(elems.length).toBe(3);
 
             for (const i in elems) {
                 if (elems[i].attributes['class'].indexOf('card-body') < 0
-                    && elems[i].attributes['class'].indexOf('card-footer') < 0) {
+                    && elems[i].attributes['class'].indexOf('card-footer') < 0
+                    && elems[i].attributes['class'].indexOf('card-img-top') < 0) {
                     fail('Found an unexpected element');
                 }
             }
@@ -193,7 +198,7 @@ describe('DatabaseEntryComponent', () => {
 
             it('expected number of subelements', () => {
                 const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
-                expect(elems.length).toBe(7);
+                expect(elems.length).toBe(8);
             });
 
             it('id hidden input exists', () => {

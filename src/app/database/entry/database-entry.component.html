@@ -12,11 +12,14 @@ https://lh3.googleusercontent.com/YUSSniwSWzi-RijWyROyBqMtDSE5UE9BNiutw55aLN7j1S
             {{tea.country}}
         </h6>
         <p class="card-text" *ngIf="tea.year">{{tea.flush}} {{tea.year}}</p>
+
         <hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
+
+        <hg-rating class="float-right" rating="2" max=4></hg-rating>
+
         <p class="card-text">
             <span class="card-text comments" *ngIf="tea.comments">{{tea.comments}}</span>
         </p>
-        <hg-rating class="float-right" rating="2" max=4></hg-rating>
 
         <p class="card-text float-right" *ngIf="tea.date"><small class="text-muted">Entered on {{tea.date}}</small></p>
 

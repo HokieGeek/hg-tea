@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { PurchaseInfoComponent } from './purchase-info.component';
 
-import { TestUtils } from '../../test-utils';
+import { TestUtils } from '../test-utils';
 
 describe('PurchaseInfoComponent', () => {
     let component: PurchaseInfoComponent;

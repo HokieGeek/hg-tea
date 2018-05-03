@@ -16,10 +16,7 @@ export class HgTeaComponent implements OnInit {
     errorMsg: string;
     mode = 'Observable';
 
-    constructor(private teaDbService: TeaDbService,
-                // private route: ActivatedRoute,
-                // private router: Router
-                ) {}
+    constructor(private teaDbService: TeaDbService) {}
 
 
     ngOnInit() {
