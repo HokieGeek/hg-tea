@@ -4,11 +4,11 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { DatabaseEntryComponent } from './database-entry.component';
-import { PurchaseInfoComponent } from '../../purchase-info/purchase-info.component';
-import { RatingComponent } from '../../rating/rating.component';
-import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
+import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
+import { RatingComponent } from '../rating/rating.component';
+import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 
-import { TestUtils } from '../../test-utils';
+import { TestUtils } from '../test-utils';
 
 describe('DatabaseEntryComponent', () => {
     let component: DatabaseEntryComponent;

@@ -5,9 +5,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { HgTeaComponent } from './hgtea.component';
 import { JournalComponent } from './journal/journal.component';
-import { JournalEntryComponent } from './journal/entry/journal-entry.component';
+import { JournalEntryComponent } from './journal-entry/journal-entry.component';
 import { DatabaseComponent } from './database/database.component';
-import { DatabaseEntryComponent } from './database/entry/database-entry.component';
+import { DatabaseEntryComponent } from './database-entry/database-entry.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { RatingComponent } from './rating/rating.component';
 

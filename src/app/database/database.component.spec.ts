@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { DatabaseComponent } from './database.component';
-import { DatabaseEntryComponent } from './entry/database-entry.component';
+import { DatabaseEntryComponent } from '../database-entry/database-entry.component';
 import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';

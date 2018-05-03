@@ -4,11 +4,11 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { JournalEntryComponent } from './journal-entry.component';
-import { RatingComponent } from '../../rating/rating.component';
-import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
-import { NaturalLanguageDatePipe } from '../../natural-language-date-pipe';
+import { RatingComponent } from '../rating/rating.component';
+import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
+import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
-import { TestUtils } from '../../test-utils';
+import { TestUtils } from '../test-utils';
 
 describe('JournalEntryComponent', () => {
     let component: JournalEntryComponent;
