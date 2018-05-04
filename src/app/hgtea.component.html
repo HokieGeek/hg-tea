@@ -1,10 +1,36 @@
-<div role="navigation">
-    <ul class="nav nav-tabs nav-justified">
-          <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#hg-tea-journal">Journal</a></li>
-          <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#hg-tea-database">Teas</a></li>
-    </ul>
-    <div class="tab-content">
-        <hg-journal id="hg-tea-journal" class="tab-pane active" [entries]="journal_entries" [teas]="tea_database">loading journal...</hg-journal>
-        <hg-database id="hg-tea-database" class="tab-pane" [teas]="tea_database">loading database...</hg-database>
+<nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <hg-teacupimg width="30" height="30" class="d-inline-block align-top" alt="hokiegeek.net/tea"></hg-teacupimg>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav nav mr-auto">
+            <li class="nav-item active">
+                <a data-toggle="tab" class="nav-link" href="#hg-tea-journal">Journal<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link" href="#hg-tea-database">Teas</a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" class="nav-link disabled" href="#">Trends</a>
+            </li>
+        </ul>
     </div>
-</div>
+</nav>
+
+<main role="main">
+    <div class="alert alert-danger" role="alert" *ngIf="errorMsg">
+        Server error: {{errorMsg}}
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="hg-tea-journal">
+            <hg-journal [entries]="journal_entries" [teas]="tea_database"></hg-journal>
+        </div>
+        <div class="tab-pane" id="hg-tea-database">
+            <hg-database [teas]="tea_database"></hg-database>
+        </div>
+    </div>
+</main>

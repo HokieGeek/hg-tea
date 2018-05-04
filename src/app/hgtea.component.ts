@@ -13,11 +13,10 @@ import { TeaDbService } from './teadb.service';
 export class HgTeaComponent implements OnInit {
     tea_database: Tea[];
     journal_entries: Entry[];
-    errorMsg: string;
+    errorMsg: string = null;
     mode = 'Observable';
 
     constructor(private teaDbService: TeaDbService) {}
-
 
     ngOnInit() {
         this.getTeaData();
