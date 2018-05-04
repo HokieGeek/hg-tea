@@ -1,12 +1,9 @@
 // tslint:disable:max-line-length
 
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 
 import { Tea } from './tea';
 import { Entry } from './entry';
@@ -20,16 +17,16 @@ export class TeaDbService {
 
     getJournalEntries(): Observable<Entry[]> {
         return this.http.get<any>(this.journalDb)
-                      .map(data => {
+                      .pipe(map(data => {
                           return this.extractSpreadsheetEntries<Entry>(data, this.convertJsonToEntry);
-                      });
+                      }));
     }
 
     getTeaData(): Observable<Tea[]> {
         return this.http.get<any>(this.teaDb)
-                      .map(data => {
+                      .pipe(map(data => {
                           return this.extractSpreadsheetEntries<Tea>(data, this.convertJsonToTea);
-                      });
+                      }));
     }
 
     private extractSpreadsheetEntries<T>(data: any,
@@ -92,6 +89,6 @@ export class TeaDbService {
 
         console.error(errMsg);
 
-        return Observable.throw(errMsg);
+        return observableThrowError(errMsg);
     }
 }

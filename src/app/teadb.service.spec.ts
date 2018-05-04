@@ -1,8 +1,7 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
+import { throwError as observableThrowError,  Observable } from 'rxjs';
 
 import { TeaDbService } from './teadb.service';
 
