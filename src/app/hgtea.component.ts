@@ -11,8 +11,8 @@ import { TeaDbService } from './teadb.service';
     providers: [ TeaDbService ]
 })
 export class HgTeaComponent implements OnInit {
-    tea_database: Tea[];
-    journal_entries: Entry[];
+    tea_database: Tea[] = [];
+    journal_entries: Entry[] = [];
     errorMsg: string = null;
     selectedTab = 'journal';
 
