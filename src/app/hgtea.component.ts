@@ -14,7 +14,7 @@ export class HgTeaComponent implements OnInit {
     tea_database: Tea[];
     journal_entries: Entry[];
     errorMsg: string = null;
-    mode = 'Observable';
+    selectedTab = 'journal';
 
     constructor(private teaDbService: TeaDbService) {}
 

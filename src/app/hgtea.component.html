@@ -8,14 +8,14 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav nav mr-auto">
-            <li class="nav-item active">
-                <a data-toggle="tab" class="nav-link" href="#hg-tea-journal">Journal<span class="sr-only">(current)</span></a>
+            <li class="nav-item" [ngClass]="{active: selectedTab === 'journal'}">
+                <a data-toggle="tab" class="nav-link" href="#hg-tea-journal" (click)="selectedTab = 'journal'">Journal</a>
             </li>
-            <li class="nav-item">
-                <a data-toggle="tab" class="nav-link" href="#hg-tea-database">Teas</a>
+            <li class="nav-item" [ngClass]="{active: selectedTab === 'database'}">
+                <a data-toggle="tab" class="nav-link" href="#hg-tea-database" (click)="selectedTab = 'database'">Teas</a>
             </li>
-            <li class="nav-item">
-                <a data-toggle="tab" class="nav-link disabled" href="#">Trends</a>
+            <li class="nav-item" [ngClass]="{active: selectedTab === 'trends'}">
+                <a data-toggle="tab" class="nav-link disabled" href="#hg-tea-trends" (click)="selectedTab = 'trends'">Trends</a>
             </li>
         </ul>
     </div>
