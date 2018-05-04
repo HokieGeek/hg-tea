@@ -7,6 +7,9 @@ import { DatabaseEntryComponent } from '../database-entry/database-entry.compone
 import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
+import { BasicInfoComponent } from '../database-entry/basic-info/basic-info.component';
+import { StatsComponent } from '../database-entry/stats/stats.component';
+import { DatabaseEntryImagesComponent } from '../database-entry-images/database-entry-images.component';
 
 import { TestUtils } from '../test-utils';
 
@@ -22,7 +25,10 @@ describe('DatabaseComponent', () => {
                 TeacupimgComponent,
                 DatabaseComponent,
                 DatabaseEntryComponent,
-                PurchaseInfoComponent
+                PurchaseInfoComponent,
+                BasicInfoComponent,
+                StatsComponent,
+                DatabaseEntryImagesComponent,
             ]
         })
         .compileComponents();

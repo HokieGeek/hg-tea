@@ -20,6 +20,7 @@ import { StatsComponent } from './database-entry/stats/stats.component';
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
+import { DatabaseEntryImagesComponent } from './database-entry-images/database-entry-images.component';
 
 import { TestUtils } from './test-utils';
 
@@ -43,6 +44,7 @@ describe('HgTeaComponent', () => {
                 TeacupimgComponent,
                 BasicInfoComponent,
                 StatsComponent,
+                DatabaseEntryImagesComponent,
             ],
             imports: [
                 BrowserModule,
@@ -66,29 +68,24 @@ describe('HgTeaComponent', () => {
     }));
 
     it(`should create a journal element`, async(() => {
-        let has = 0;
-        const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
-        for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'HG-JOURNAL') {
-                has++;
-            }
-        }
-        expect(has).toBe(1);
+        const has = fixture.debugElement.queryAll(By.css('hg-journal'));
+        expect(has).not.toBeNull();
+        expect(has.length).toBe(1);
     }));
 
     it('should create a database element', async(() => {
-        let has = 0;
-        const nodes = fixture.debugElement.query(By.css('.tab-content')).nativeElement.childNodes;
-        for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'HG-DATABASE') {
-                has++;
-            }
-        }
-        expect(has).toBe(1);
+        const has = fixture.debugElement.queryAll(By.css('hg-database'));
+        expect(has).not.toBeNull();
+        expect(has.length).toBe(1);
     }));
 
     it('should not have more than the required elements', async(() => {
         const nodes = TestUtils.filterTextAndCommentNodes(fixture.debugElement.query(By.css('.tab-content')).childNodes);
         expect(nodes.length).toBe(numPrimaryElements);
     }));
+
+    xdescribe('navigation', () => {
+        xit('TODO', () => {
+        });
+    });
 });

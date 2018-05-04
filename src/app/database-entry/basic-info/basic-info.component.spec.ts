@@ -142,6 +142,19 @@ xdescribe('BasicInfoComponent', () => {
             }
             expect(found).toBe(true);
         });
+
+        xit('tea type is correct', () => {
+            const nodes = fixture.debugElement.query(By.css('.card-footer')).childNodes;
+            let found = false;
+            for (const node in nodes) {
+                if (nodes[node].nativeNode.nodeName === '#text'
+                    && nodes[node].nativeNode.nodeValue.includes(component.tea.type)) {
+                    found = true;
+                    break;
+                }
+            }
+            expect(found).toBe(true);
+        });
     });
 
     describe('check only expected elements created', () => {
@@ -292,5 +305,14 @@ xdescribe('BasicInfoComponent', () => {
             });
         }));
 
+        xit('tea type is not set', async(() => {
+            component.tea.type = null;
+            fixture.detectChanges();
+
+            fixture.whenStable().then(result => {
+                const has = fixture.debugElement.query(By.css('.card-footer'));
+                expect(has).toBeNull();
+            });
+        }));
     });
 });
