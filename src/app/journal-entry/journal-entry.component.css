@@ -11,3 +11,14 @@
 hg-rating {
     padding-left: 20px;
 }
+
+.card {
+    background-color: #f9f9f9;
+}
+
+.card-footer {
+    color: #ffffff;
+    background-image: url('../../assets/vines-muted.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+}
