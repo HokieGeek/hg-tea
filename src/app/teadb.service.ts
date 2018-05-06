@@ -1,4 +1,4 @@
-import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -16,14 +16,55 @@ export class TeaDbService {
     getJournalEntries(): Observable<Entry[]> {
         return this.http.get<any>(this.journalDb)
                       .pipe(map(data => {
-                          return this.extractSpreadsheetEntries<Entry>(data, this.convertJsonToEntry);
+                          return this.extractSpreadsheetEntries<Entry>(data,
+                              (json: Object): Entry => {
+                                  // console.log(json)
+                                  return new Entry(json['gsx$tea']['$t'],
+                                      json['gsx$comments']['$t'],
+                                      json['gsx$timestamp']['$t'],
+                                      json['gsx$date']['$t'],
+                                      json['gsx$time']['$t'],
+                                      json['gsx$rating']['$t'],
+                                      json['gsx$pictures']['$t'],
+                                      json['gsx$steeptime']['$t'],
+                                      json['gsx$steepingvessel']['$t'],
+                                      json['gsx$steeptemperature']['$t'],
+                                      json['gsx$sessioninstance']['$t'],
+                                      json['gsx$fixins']['$t'],
+                                  );
+                              });
                       }));
     }
 
     getTeaData(): Observable<Tea[]> {
         return this.http.get<any>(this.teaDb)
                       .pipe(map(data => {
-                          return this.extractSpreadsheetEntries<Tea>(data, this.convertJsonToTea);
+                          return this.extractSpreadsheetEntries<Tea>(data,
+                              (json: any): Tea => {
+                                  // console.log(json)
+                                  return new Tea(json['gsx$id']['$t'],
+                                      json['gsx$name']['$t'],
+                                      json['gsx$timestamp']['$t'],
+                                      json['gsx$date']['$t'],
+                                      json['gsx$type']['$t'],
+                                      json['gsx$region']['$t'],
+                                      json['gsx$year']['$t'],
+                                      json['gsx$flush']['$t'],
+                                      json['gsx$purchaselocation']['$t'],
+                                      json['gsx$purchasedate']['$t'],
+                                      json['gsx$purchaseprice']['$t'],
+                                      json['gsx$comments']['$t'],
+                                      json['gsx$pictures']['$t'].split(';'),
+                                      json['gsx$country']['$t'],
+                                      json['gsx$leafgrade']['$t'],
+                                      json['gsx$blendedteas']['$t'],
+                                      json['gsx$blendratio']['$t'],
+                                      json['gsx$size']['$t'],
+                                      (json['gsx$stocked']['$t'] === 'TRUE'),
+                                      (json['gsx$aging']['$t'] === 'TRUE'),
+                                      json['gsx$packaging']['$t'],
+                                  );
+                              });
                       }));
     }
 
@@ -34,57 +75,5 @@ export class TeaDbService {
             entries.push(converter(entry));
         }
         return entries;
-    }
-
-    private convertJsonToTea(json: any): Tea {
-        // console.log(json)
-        return new Tea(json['gsx$id']['$t'],
-                       json['gsx$name']['$t'],
-                       json['gsx$timestamp']['$t'],
-                       json['gsx$date']['$t'],
-                       json['gsx$type']['$t'],
-                       json['gsx$region']['$t'],
-                       json['gsx$year']['$t'],
-                       json['gsx$flush']['$t'],
-                       json['gsx$purchaselocation']['$t'],
-                       json['gsx$purchasedate']['$t'],
-                       json['gsx$purchaseprice']['$t'],
-                       json['gsx$comments']['$t'],
-                       json['gsx$pictures']['$t'].split(';'),
-                       json['gsx$country']['$t'],
-                       json['gsx$leafgrade']['$t'],
-                       json['gsx$blendedteas']['$t'],
-                       json['gsx$blendratio']['$t'],
-                       json['gsx$size']['$t'],
-                       (json['gsx$stocked']['$t'] === 'TRUE'),
-                       (json['gsx$aging']['$t'] === 'TRUE'),
-                       json['gsx$packaging']['$t'],
-                      );
-    }
-
-    private convertJsonToEntry(json: Object): Entry {
-        // console.log(json)
-        return new Entry(json['gsx$tea']['$t'],
-                         json['gsx$comments']['$t'],
-                         json['gsx$timestamp']['$t'],
-                         json['gsx$date']['$t'],
-                         json['gsx$time']['$t'],
-                         json['gsx$rating']['$t'],
-                         json['gsx$pictures']['$t'],
-                         json['gsx$steeptime']['$t'],
-                         json['gsx$steepingvessel']['$t'],
-                         json['gsx$steeptemperature']['$t'],
-                         json['gsx$sessioninstance']['$t'],
-                         json['gsx$fixins']['$t'],
-                        );
-    }
-
-    private handleError (error: any) {
-        const errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-
-        console.error(errMsg);
-
-        return observableThrowError(errMsg);
     }
 }

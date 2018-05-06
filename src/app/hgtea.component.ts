@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { Tea } from './tea';
 import { Entry } from './entry';
@@ -19,19 +21,16 @@ export class HgTeaComponent implements OnInit {
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
-        this.getTeaData();
-        this.getJournalEntries();
-    }
-
-    getTeaData() {
-        this.teaDbService.getTeaData().subscribe(
-            tea_data => this.tea_database = tea_data,
-            err => this.errorMsg = <any>err);
-    }
-
-    getJournalEntries() {
-        this.teaDbService.getJournalEntries().subscribe(
-            journal_entries => this.journal_entries = journal_entries,
-            err => this.errorMsg = <any>err);
+        forkJoin(
+            this.teaDbService.getTeaData(),
+            this.teaDbService.getJournalEntries()
+        )
+        .subscribe(
+            ([tea_data, journal_entries]) => {
+                this.tea_database = tea_data;
+                this.journal_entries = journal_entries;
+            },
+            err => this.errorMsg = err
+        );
     }
 }
