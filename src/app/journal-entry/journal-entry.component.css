@@ -12,13 +12,14 @@ hg-rating {
     padding-left: 20px;
 }
 
+/*comp2*/
 .card {
-    background-color: #f9f9f9;
+    color: #1e0e0e;
+    border-color: #abb6c1;
+    background-color: #eaefec;
 }
 
 .card-footer {
-    color: #ffffff;
-    background-image: url('../../assets/vines-muted.png');
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
+    color: #c0c8d0;
+    background-color: #586e83;
 }

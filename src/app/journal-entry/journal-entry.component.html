@@ -1,14 +1,14 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title d-inline" title="{{tea.type}} from {{tea.country}}">{{tea.name}}</h4>
-        <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">with&nbsp;{{entry.fixins | lowercase}}</h6>
+        <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{entry.fixins | lowercase}}</h6>
         <p class="card-text">
             <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime}}</span>
-            <span id="vessel" *ngIf="entry.steepingvessel">in a {{entry.steepingvessel | lowercase}}</span>
+            <span id="vessel" *ngIf="entry.steepingvessel"> using the {{entry.steepingvessel | lowercase}}</span>
             <span id="temperature" *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
             <span id="comments" class="card-text comments" *ngIf="entry.comments">{{entry.comments}}</span>
             <hg-rating id="rating" class="float-right" rating="{{entry.rating}}" max=4></hg-rating>
         </p>
     </div>
-    <div id="entrydate" class="card-footer text-muted" title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</div>
+    <div id="entrydate" class="card-footer" title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</div>
 </div>
