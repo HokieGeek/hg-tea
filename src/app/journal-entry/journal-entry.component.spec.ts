@@ -55,7 +55,7 @@ describe('JournalEntryComponent', () => {
 
     it('fixins list makes sense', () => {
         const has = fixture.debugElement.query(By.css('h6')).nativeElement.innerHTML;
-        const expected = document.createElement('h6').innerHTML = 'with&nbsp;'
+        const expected = document.createElement('h6').innerHTML = '&nbsp;with&nbsp;'
             + component.entry.fixins.replace(/&/gi, '&amp;').toLowerCase();
         expect(has).toBe(expected);
     });
@@ -67,7 +67,7 @@ describe('JournalEntryComponent', () => {
 
     it('steeping vessel is correct', () => {
         const has = fixture.debugElement.query(By.css('#vessel')).nativeElement.innerText;
-        expect(has).toBe('in a ' + component.entry.steepingvessel.toLowerCase());
+        expect(has).toBe(' using the ' + component.entry.steepingvessel.toLowerCase());
     });
 
     it('temperature is correct', () => {
