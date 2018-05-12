@@ -22,10 +22,10 @@ describe('tea entry', () => {
     const leafgrade = '';
     const blendedteas = '';
     const blendratio = '';
-    const size = 'Full Beeng';
+    const size = '250g';
     const stocked = true ;
     const aging = true ;
-    const packaging = 'loose';
+    const packaging_idx = 0;
 
     it('should create', () => {
         const tea = new Tea(
@@ -49,7 +49,7 @@ describe('tea entry', () => {
             size,
             stocked,
             aging,
-            packaging
+            packaging_idx
         );
 
         expect(tea).toBeTruthy();
@@ -77,7 +77,7 @@ describe('tea entry', () => {
             size,
             stocked,
             aging,
-            packaging
+            packaging_idx
         );
 
         expect(tea.id).toBe(id);
@@ -100,6 +100,6 @@ describe('tea entry', () => {
         expect(tea.size).toBe(size);
         expect(tea.stocked).toBe(stocked);
         expect(tea.aging).toBe(aging);
-        expect(tea.packaging).toBe(packaging);
+        expect(tea.packaging_idx).toBe(packaging_idx); // TODO
     });
 });

@@ -1,11 +1,3 @@
-/*
-var TeaProductRatings = ["Value", "Leaf Aroma", "Brewed Aroma"];
-var TeaFlushTypes = [ ["Spring", "Summer", "Fall", "Winter"],
-                      ["1st Flush", "2nd Flush", "Monsoon Flush", "Autumn Flush"] ];
-var TeaFlushTypes_Std = 0;
-var TeaFlushTypes_Indian = 1;
-var TeaPackagingTypes = ["Loose Leaf", "Bagged", "Tuo", "Beeng", "Brick", "Mushroom", "Square"];
-*/
 export enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Sugar', 'Brown Sugar', 'Raw Sugar',
                 'Honey', 'Vanilla Extract', 'Vanilla Bean',
@@ -31,6 +23,7 @@ export class Entry {
     ) { }
 
     get steepingvessel() { return SteepingVessels[this.steepingvessel_idx]; }
+
     get fixins() {
         if (this.fixins_list.length > 0) {
             let fixins_str = '';

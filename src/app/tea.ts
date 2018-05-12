@@ -1,8 +1,11 @@
+import { Entry } from './entry';
+
+enum teaPackagingTypes {'Loose Leaf', 'Bagged', 'Tuo', 'Beeng', 'Brick', 'Mushroom', 'Square'}
+enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
+enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush'}
+
 export class Tea {
-    private teaFlushTypes = {
-                      'default': ['Spring', 'Summer', 'Fall', 'Winter'],
-                      'indian' : ['1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush']
-                      };
+    private entries: Entry[] = [];
 
     constructor(
         public id: number,
@@ -25,14 +28,22 @@ export class Tea {
         public size: string,
         public stocked: boolean,
         public aging: boolean,
-        public packaging: string
+        public packaging_idx: number
     ) {}
+
+    addEntry(entry: Entry) {
+        this.entries.push(entry);
+    }
 
     get flush() {
         if (this.country.toLowerCase() === 'india') {
-            return this.teaFlushTypes['indian'][this.flush_idx];
+            return teaFlushTypesIndian[this.flush_idx - 1];
         } else {
-            return this.teaFlushTypes['default'][this.flush_idx];
+            return teaFlushTypesDefault[this.flush_idx - 1];
         }
+    }
+
+    get packaging() {
+        return teaPackagingTypes[this.packaging_idx - 1];
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Tea } from '../tea';
 
@@ -8,6 +8,11 @@ import { Tea } from '../tea';
     styleUrls: ['./database.component.css']
 })
 
-export class DatabaseComponent {
+export class DatabaseComponent implements OnInit {
     @Input() teas: Tea[];
+
+    constructor() { }
+
+    ngOnInit() {
+    }
 }
