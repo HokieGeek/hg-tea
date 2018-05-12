@@ -17,12 +17,19 @@ export class DatabaseComponent implements OnInit {
     }
 
     get sortedTeas() {
-        return this.teas;
-        /*
-        if (this.teas) {
-            return this.teas.slice().reverse();
-        }
-        return [];
-         */
+        return this.teas.sort((t1, t2) => {
+            if (t1.latestEntry == null && t2.latestEntry == null) {
+                return 0;
+            } else if (t1.latestEntry == null && t2.latestEntry != null) {
+                return 1;
+            } else if (t1.latestEntry != null && t2.latestEntry == null) {
+                return -1;
+            } else {
+                // Sort newest to oldest
+                return t2.latestEntry.datetime.getTime() - t1.latestEntry.datetime.getTime();
+                // Sort oldest to newest
+                // return t1.latestEntry.datetime.getTime() - t2.latestEntry.datetime.getTime();
+            }
+        });
     }
 }

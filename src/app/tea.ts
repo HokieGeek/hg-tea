@@ -7,6 +7,8 @@ enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flu
 export class Tea {
     public entries: Entry[] = [];
 
+    private _latestEntry: Entry = null;
+
     constructor(
         public id: number,
         public name: string,
@@ -32,7 +34,14 @@ export class Tea {
     ) {}
 
     addEntry(entry: Entry) {
+        if (this._latestEntry == null || entry.datetime.getTime() > this._latestEntry.datetime.getTime()) {
+            this._latestEntry = entry;
+        }
         this.entries.push(entry);
+    }
+
+    get latestEntry() {
+        return this._latestEntry;
     }
 
     get flush() {
