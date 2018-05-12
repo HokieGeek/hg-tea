@@ -1,14 +1,23 @@
 <div class="card">
-    <div class="card-body">
-        <!--h4 class="card-title d-inline" title="{{tea.type}} from {{tea.country}}">{{tea.name}}</h4-->
-        <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{entry.fixins | lowercase}}</h6>
-        <p class="card-text">
-            <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime}}</span>
-            <span id="vessel" *ngIf="entry.steepingvessel"> using the {{entry.steepingvessel | lowercase}}</span>
-            <span id="temperature" *ngIf="entry.steeptemperature">at {{entry.steeptemperature}} &deg;F</span>
-            <span id="comments" class="card-text comments" *ngIf="entry.comments">{{entry.comments}}</span>
-            <hg-rating id="rating" class="float-right" rating="{{entry.rating}}" max=4></hg-rating>
-            <span id="entrydate" class="card-text" title="{{entry.datetime}}">{{entry.datetime | naturalDate}}</span>
-        </p>
+    <div class="card-body container">
+            <div class="row card-title">
+                <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime}}</span>
+                <span id="vessel" *ngIf="entry.steepingvessel">&nbsp;using the {{entry.steepingvessel | lowercase}}</span>
+                <span id="temperature" *ngIf="entry.steeptemperature">&nbsp;at {{entry.steeptemperature}} &deg;F</span>
+            </div>
+
+            <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{entry.fixins | lowercase}}</h6>
+
+            <div class="row">
+                <span id="comments" class="card-text d-block p-t-1" *ngIf="entry.comments">{{entry.comments}}</span>
+            </div>
+
+            <div class="row">
+                <span id="entrydate" class="card-text text-muted small d-block" title="{{entry.datetime}}">
+                    {{entry.datetime | naturalDate}}
+                </span>
+            </div>
+
+            <hg-rating id="rating" class="float-right p-l-3" rating="{{entry.rating}}" max=4></hg-rating>
     </div>
 </div>

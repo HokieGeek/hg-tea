@@ -3,31 +3,15 @@
 }
 
 #entrydate {
-    display: block;
-}
-
-.comments {
-    color: #5b5b5b;
-    display: block;
-    padding-top: 2px;
-}
-
-.card-footer {
     font-size: .8em;
 }
 
-hg-rating {
-    padding-left: 20px;
+#comments {
+    color: #5b5b5b;
 }
 
-/*comp2*/
 .card {
     color: #1e0e0e;
     border-color: #abb6c1;
     background-color: #eaefec;
-}
-
-.card-footer {
-    color: #c0c8d0;
-    background-color: #586e83;
 }
