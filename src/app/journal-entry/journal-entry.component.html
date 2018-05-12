@@ -1,15 +1,14 @@
-<div class="card">
+<div class="card mb-2">
     <div class="card-body container">
-            <div class="row card-title">
+            <h5 class="row card-title">
                 <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime}}</span>
                 <span id="vessel" *ngIf="entry.steepingvessel">&nbsp;using the {{entry.steepingvessel | lowercase}}</span>
                 <span id="temperature" *ngIf="entry.steeptemperature">&nbsp;at {{entry.steeptemperature}} &deg;F</span>
-            </div>
-
+            </h5>
             <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{entry.fixins | lowercase}}</h6>
 
             <div class="row">
-                <span id="comments" class="card-text d-block p-t-1" *ngIf="entry.comments">{{entry.comments}}</span>
+                <span id="comments" class="card-text d-block pt-1" *ngIf="entry.comments">{{entry.comments}}</span>
             </div>
 
             <div class="row">
@@ -18,6 +17,6 @@
                 </span>
             </div>
 
-            <hg-rating id="rating" class="float-right p-l-3" rating="{{entry.rating}}" max=4></hg-rating>
+            <hg-rating id="rating" class="float-right pl-3" rating="{{entry.rating}}" max=4></hg-rating>
     </div>
 </div>
