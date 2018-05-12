@@ -1,6 +1,10 @@
-.card {
+.teacard {
     max-width: 450px;
     border-color: #586e83;
+}
+
+.nav-link {
+    color: #477099;
 }
 
 /*

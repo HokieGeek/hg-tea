@@ -20,7 +20,7 @@ export class Tea {
         public flush_idx: number,
         public purchaselocation: string,
         public purchasedate: string,
-        public purchaseprice: string,
+        public purchaseprice: number,
         public comments: string,
         public pictures: string[],
         public country: string,

@@ -1,21 +1,19 @@
-<div class="container">
-    <div class="col" *ngIf="entries.length > 0">
-        <hg-journal-entry [entry]="entries[entries.length-1]"></hg-journal-entry>
+<hg-journal-entry [entry]="entries[entries.length-1]"></hg-journal-entry>
 
-        <div class="collapse" id="moreEntries">
-            <hg-journal-entry *ngFor="let entry of sortedEntries" [entry]="entry"></hg-journal-entry>
-        </div>
-
-        <button class="btn btn-outline-secondary btn-sm btn-block"
-                type="button"
-                data-toggle="collapse"
-                data-target="#moreEntries"
-                aria-expanded="false"
-                aria-controls="moreEntries"
-                (click)="expanded = !expanded">
-
-                <span *ngIf="!expanded">more</span>
-                <span *ngIf="expanded">less</span>
-        </button>
+<span *ngIf="entries.length > 1">
+    <div class="collapse" id="moreEntries">
+        <hg-journal-entry *ngFor="let entry of sortedEntries" [entry]="entry"></hg-journal-entry>
     </div>
-</div>
+
+    <button class="btn btn-outline-secondary btn-sm"
+            type="button"
+            data-toggle="collapse"
+            data-target="#moreEntries"
+            aria-expanded="false"
+            aria-controls="moreEntries"
+            (click)="expanded = !expanded">
+
+        <span *ngIf="!expanded">more</span>
+        <span *ngIf="expanded">less</span>
+    </button>
+</span>

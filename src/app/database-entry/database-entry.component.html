@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card teacard">
     <hg-database-entry-images [tea]="tea" *ngIf="tea.pictures.length > 0"></hg-database-entry-images>
 
     <div class="card-body">
@@ -16,16 +16,16 @@
 
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#journal-{{tea.id}}">journal</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#info-{{tea.id}}">info</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#stats-{{tea.id}}">stats</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link active" *ngIf="tea.entries.length > 0" href="#journal-{{tea.id}}">journal</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" [ngClass]="{'active': tea.entries.length == 0}" href="#info-{{tea.id}}">info</a></li>
+            <!--li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#stats-{{tea.id}}">stats</a></li-->
         </ul>
     </div>
 
     <div class="card-body tab-content">
-        <hg-journal id="journal-{{tea.id}}" class="tab-pane active" [entries]="tea.entries" [teaId]="tea.id"></hg-journal>
-        <hg-basic-info id="info-{{tea.id}}" class="tab-pane" [tea]="tea"></hg-basic-info>
-        <hg-stats id="stats-{{tea.id}}" class="tab-pane" [tea]="tea"></hg-stats>
+        <hg-journal id="journal-{{tea.id}}" class="tab-pane active text-center" *ngIf="tea.entries.length > 0" [entries]="tea.entries" [teaId]="tea.id"></hg-journal>
+        <hg-basic-info id="info-{{tea.id}}" class="tab-pane" [ngClass]="{'active': tea.entries.length == 0}" [tea]="tea"></hg-basic-info>
+        <!--hg-stats id="stats-{{tea.id}}" class="tab-pane active" [tea]="tea"></hg-stats-->
     </div>
 
     <div class="card-footer text-muted small">

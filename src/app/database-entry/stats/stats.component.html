@@ -1,3 +1,17 @@
-<p>
-  stats works!
-</p>
+<div class="card-columns">
+    <div class="card" *ngIf="tea.entries.length > 0 && tea.purchaseprice > 0">
+        <div class="card-body">
+            <div class="card-text">
+                {{ tea.purchaseprice / tea.entries.length | currency }}
+                <span class="text-nowrap">per&nbsp;cup</span>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="card" *ngIf="tea.entries.length > 0 && tea.purchaseprice > 0">
+        <div class="card-body">
+            foo
+        </div>
+    </div>
+    -->
+</div>

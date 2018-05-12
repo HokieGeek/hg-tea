@@ -87,7 +87,7 @@ export class TestUtils {
             0, // flush
             'tea.awesome.site', // purchaselocation
             today, // purchasedate
-            String((Math.random() * 1000) + Math.random()), // purchaseprice
+            (Math.random() * 1000) + Math.random(), // purchaseprice
             'COMMENT', // comments
             [], // pictures
             'China', // country
