@@ -29,9 +29,8 @@ export class HgTeaComponent implements OnInit {
                 this.tea_database = tea_data;
 
                 const teaIdMap: Map<number, number> = new Map();
-                // for (const i in this.tea_database) {
                 for (let i = this.tea_database.length - 1; i >= 0; i--) {
-                    teaIdMap.set(this.tea_database[i].id, parseInt(i, 10));
+                    teaIdMap.set(this.tea_database[i].id, i);
                 }
 
                 for (const e of journal_entries) {
