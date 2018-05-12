@@ -14,9 +14,8 @@ import { TeaDbService } from './teadb.service';
 })
 export class HgTeaComponent implements OnInit {
     tea_database: Tea[] = [];
-    journal_entries: Entry[] = [];
     errorMsg: string = null;
-    selectedTab = 'journal';
+    selectedTab = 'database';
 
     constructor(private teaDbService: TeaDbService) {}
 
@@ -28,7 +27,16 @@ export class HgTeaComponent implements OnInit {
         .subscribe(
             ([tea_data, journal_entries]) => {
                 this.tea_database = tea_data;
-                this.journal_entries = journal_entries;
+
+                const teaIdMap: Map<number, number> = new Map();
+                // for (const i in this.tea_database) {
+                for (let i = this.tea_database.length - 1; i >= 0; i--) {
+                    teaIdMap.set(this.tea_database[i].id, parseInt(i, 10));
+                }
+
+                for (const e of journal_entries) {
+                    this.tea_database[teaIdMap.get(e.teaId)].addEntry(e);
+                }
             },
             err => this.errorMsg = err
         );

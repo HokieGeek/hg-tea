@@ -14,5 +14,4 @@ import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
 export class JournalEntryComponent {
     @Input() entry: Entry;
-    @Input() tea: Tea;
 }

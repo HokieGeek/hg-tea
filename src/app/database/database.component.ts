@@ -15,4 +15,14 @@ export class DatabaseComponent implements OnInit {
 
     ngOnInit() {
     }
+
+    get sortedTeas() {
+        return this.teas;
+        /*
+        if (this.teas) {
+            return this.teas.slice().reverse();
+        }
+        return [];
+         */
+    }
 }

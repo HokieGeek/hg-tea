@@ -14,5 +14,4 @@ export class BasicInfoComponent implements OnInit {
 
     ngOnInit() {
     }
-
 }

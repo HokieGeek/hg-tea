@@ -1,9 +1,9 @@
 <p class="card-text purchase-info" *ngIf="tea.purchaseprice">
     Purchased
     <span *ngIf="tea.size">a {{tea.size}}</span>
-    <span *ngIf="tea.purchaselocation">from {{tea.purchaselocation | lowercase}}</span>
-    <span *ngIf="tea.purchasedate">on {{tea.purchasedate}}</span>
-    for {{tea.purchaseprice | currency:'USD':'$'}}
+    <span *ngIf="tea.purchaselocation"> from {{tea.purchaselocation | lowercase}}</span>
+    <span *ngIf="tea.purchasedate"> on {{tea.purchasedate}}</span>
+     for {{tea.purchaseprice | currency:'USD':'$'}}
     <!--
     packaging: string
     -->

@@ -8,9 +8,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav nav mr-auto">
-            <li class="nav-item" [ngClass]="{active: selectedTab === 'journal'}">
-                <a data-toggle="tab" class="nav-link" href="#hg-tea-journal" (click)="selectedTab = 'journal'">Journal</a>
-            </li>
             <li class="nav-item" [ngClass]="{active: selectedTab === 'database'}">
                 <a data-toggle="tab" class="nav-link" href="#hg-tea-database" (click)="selectedTab = 'database'">Teas</a>
             </li>
@@ -23,15 +20,12 @@
         Server error: {{errorMsg}}
     </div>
 
-    <div class="progress" *ngIf="tea_database.length == 0 || journal_entries.length == 0">
+    <div class="progress" *ngIf="tea_database.length == 0">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
     </div>
 
     <div class="tab-content pt-10 px-1">
-        <div class="tab-pane active" id="hg-tea-journal">
-            <hg-journal [entries]="journal_entries" [teas]="tea_database"></hg-journal>
-        </div>
-        <div class="tab-pane" id="hg-tea-database">
+        <div class="tab-pane active" id="hg-tea-database">
             <hg-database [teas]="tea_database"></hg-database>
         </div>
     </div>

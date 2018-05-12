@@ -9,10 +9,11 @@ import { Entry } from '../entry';
     styleUrls: ['./journal.component.css']
 })
 export class JournalComponent {
+    @Input() teaId: number;
     @Input() entries: Entry[];
-    @Input() teas: Tea[];
+    private expanded = false;
 
-    get reversedEntries() {
+    get sortedEntries() {
         if (this.entries) {
             return this.entries.slice().reverse();
         }

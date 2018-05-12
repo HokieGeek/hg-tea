@@ -12,4 +12,8 @@ import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component'
 
 export class DatabaseEntryComponent {
     @Input() tea: Tea;
+
+    entriesAvgRating(): number {
+        return 3;
+    }
 }

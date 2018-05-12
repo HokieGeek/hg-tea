@@ -1,15 +1,30 @@
 <div class="card">
     <hg-database-entry-images [tea]="tea" *ngIf="tea.pictures.length > 0"></hg-database-entry-images>
 
+    <div class="card-body">
+        <div class="w-100">
+            <h4 class="card-title d-inline" title="{{tea.type}} from {{tea.country}}">{{tea.name}} </h4>
+
+            <h6 class="card-subtitle text-muted d-inline" *ngIf="tea.leafgrade || tea.year">
+                <span *ngIf="tea.leafgrade">{{tea.leafgrade}}<span *ngIf="tea.year">,</span></span>
+                <span *ngIf="tea.year">{{tea.flush}} {{tea.year}}</span>
+            </h6>
+        </div>
+
+        <hg-rating class="float-right" [rating]="entriesAvgRating()" max=4></hg-rating>
+    </div>
+
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#info-{{tea.id}}">info</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#journal-{{tea.id}}">journal</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#info-{{tea.id}}">info</a></li>
             <li class="nav-item"><a data-toggle="tab" class="nav-link disabled" href="#stats-{{tea.id}}">stats</a></li>
         </ul>
     </div>
 
     <div class="card-body tab-content">
-        <hg-basic-info id="info-{{tea.id}}" class="tab-pane active" [tea]="tea"></hg-basic-info>
+        <hg-journal id="journal-{{tea.id}}" class="tab-pane active" [entries]="tea.entries" [teaId]="tea.id"></hg-journal>
+        <hg-basic-info id="info-{{tea.id}}" class="tab-pane" [tea]="tea"></hg-basic-info>
         <hg-stats id="stats-{{tea.id}}" class="tab-pane" [tea]="tea"></hg-stats>
     </div>
 

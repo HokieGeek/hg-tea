@@ -1,12 +1,5 @@
 <input type="hidden" name="id" value="{{tea.id}}" />
 
-<h4 class="card-title d-inline">{{tea.name}}</h4>
-
-<h6 class="card-subtitle text-muted d-inline" *ngIf="tea.leafgrade || tea.year">
-    <span *ngIf="tea.leafgrade">{{tea.leafgrade}}<span *ngIf="tea.year">,</span></span>
-    <span *ngIf="tea.year">{{tea.flush}} {{tea.year}}</span>
-</h6>
-
 <p class="card-text type-country" *ngIf="tea.country || tea.type">
     <span *ngIf="tea.type">
         {{tea.type}}
@@ -15,9 +8,6 @@
     <span *ngIf="tea.region">{{tea.region}}, </span>
     {{tea.country}}
 </p>
-
-<!-- hg-rating class="float-right" rating="2" max=4></hg-rating -->
-
 
 <hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
 

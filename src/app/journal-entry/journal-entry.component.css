@@ -1,7 +1,15 @@
+.card {
+    margin-bottom: 5px;
+}
+
+#entrydate {
+    display: block;
+}
+
 .comments {
     color: #5b5b5b;
     display: block;
-    padding-top: 10px;
+    padding-top: 2px;
 }
 
 .card-footer {

@@ -5,7 +5,7 @@ enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
 enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush'}
 
 export class Tea {
-    private entries: Entry[] = [];
+    public entries: Entry[] = [];
 
     constructor(
         public id: number,
