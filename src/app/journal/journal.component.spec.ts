@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { JournalComponent } from './journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
@@ -16,7 +17,10 @@ describe('JournalComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ FormsModule ],
+            imports: [
+                NgbModule.forRoot(),
+                FormsModule
+            ],
             declarations: [
                 JournalComponent,
                 JournalEntryComponent,
@@ -34,7 +38,6 @@ describe('JournalComponent', () => {
         component = fixture.componentInstance;
 
         const dummyData = TestUtils.createDummyTeasWithEntries();
-        component.teas = dummyData.teas;
         component.entries = dummyData.entries;
 
         fixture.detectChanges();
@@ -45,20 +48,14 @@ describe('JournalComponent', () => {
     });
 
     it('correct number of entries are created', () => {
-        let has = 0;
-        const nodes = fixture.debugElement.query(By.css('.card-deck')).nativeElement.childNodes;
-        for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName === 'HG-JOURNAL-ENTRY') {
-                has++;
-            }
-        }
-        expect(has).toBe(component.entries.length);
+        // need some way to verify an individual journal-entry as belonging to the list of entries...
+        const entries = fixture.debugElement.queryAll(By.css('hg-journal-entry'));
+        expect(entries.length).toBe(component.entries.length);
     });
 
     it('verify all expected entries are listed', () => {
         // need some way to verify an individual journal-entry as belonging to the list of entries...
         const entries = fixture.debugElement.queryAll(By.css('hg-journal-entry'));
-        expect(entries.length).toBe(component.entries.length);
 
         // Build the list of entrydates (count dupes)
         const expectedDates: Map<number, number> = new Map();
@@ -89,14 +86,20 @@ describe('JournalComponent', () => {
     });
 
     it('check that there is only one top-level element', () => {
-        const children = fixture.debugElement.nativeElement.children;
-
-        expect(children.length).toBe(1);
-        expect(children[0].nodeName).toBe('DIV');
-        expect(children[0].className).toBe('card-deck');
+        let notExpected = 0;
+        // const nodes = TestUtils.filterTextAndCommentNodes(fixture.debugElement.nativeElement.childNodes);
+        const nodes = fixture.debugElement.nativeElement.childNodes;
+        for (let i = nodes.length - 1; i >= 0; i--) {
+            if (nodes[i].nodeName !== 'HG-JOURNAL-ENTRY' && nodes[i].nodeName !== 'SPAN'
+                && nodes[i].nodeName !== '#comment' && nodes[i].nodeName !== '#text') {
+                notExpected++;
+                console.log('Found an unexpected element', nodes[i]);
+            }
+        }
+        expect(notExpected).toBe(0);
     });
 
-    it('check that only journal-entry elements are in the top component', () => {
+    xit('check that only journal-entry elements are in the top component', () => {
         /*
          * Expected schema
          * <div class="card-deck">

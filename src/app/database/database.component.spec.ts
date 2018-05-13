@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DatabaseComponent } from './database.component';
 import { DatabaseEntryComponent } from '../database-entry/database-entry.component';
@@ -10,6 +11,9 @@ import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { BasicInfoComponent } from '../database-entry/basic-info/basic-info.component';
 import { StatsComponent } from '../database-entry/stats/stats.component';
 import { DatabaseEntryImagesComponent } from '../database-entry-images/database-entry-images.component';
+import { JournalComponent } from '../journal/journal.component';
+import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
+import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
 import { TestUtils } from '../test-utils';
 
@@ -19,7 +23,10 @@ describe('DatabaseComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ FormsModule ],
+            imports: [
+                NgbModule.forRoot(),
+                FormsModule
+            ],
             declarations: [
                 RatingComponent,
                 TeacupimgComponent,
@@ -29,7 +36,11 @@ describe('DatabaseComponent', () => {
                 BasicInfoComponent,
                 StatsComponent,
                 DatabaseEntryImagesComponent,
-            ]
+                JournalComponent,
+                JournalEntryComponent,
+                NaturalLanguageDatePipe
+            ],
+            providers: [ NaturalLanguageDatePipe ]
         })
         .compileComponents();
     }));

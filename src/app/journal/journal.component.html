@@ -2,7 +2,7 @@
 
 <span *ngIf="entries.length > 1">
     <div class="collapse" id="moreEntries-{{teaId}}" [ngbCollapse]="isCollapsed">
-        <hg-journal-entry *ngFor="let entry of sortedEntries" [entry]="entry"></hg-journal-entry>
+        <hg-journal-entry *ngFor="let entry of sortedEntries.slice(1)" [entry]="entry"></hg-journal-entry>
     </div>
 
     <button type="button"

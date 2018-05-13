@@ -2,6 +2,7 @@ import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DatabaseEntryComponent } from './database-entry.component';
 import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
@@ -10,6 +11,9 @@ import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { DatabaseEntryImagesComponent } from '../database-entry-images/database-entry-images.component';
 import { BasicInfoComponent } from './basic-info/basic-info.component';
 import { StatsComponent } from './stats/stats.component';
+import { JournalComponent } from '../journal/journal.component';
+import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
+import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
 import { Tea } from '../tea';
 import { Entry } from '../entry';
@@ -21,7 +25,10 @@ describe('DatabaseEntryComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ FormsModule ],
+            imports: [
+                NgbModule.forRoot(),
+                FormsModule
+            ],
             declarations: [
                 RatingComponent,
                 TeacupimgComponent,
@@ -30,7 +37,11 @@ describe('DatabaseEntryComponent', () => {
                 DatabaseEntryComponent,
                 BasicInfoComponent,
                 StatsComponent,
-            ]
+                JournalComponent,
+                JournalEntryComponent,
+                NaturalLanguageDatePipe
+            ],
+            providers: [ NaturalLanguageDatePipe ]
         })
         .compileComponents();
     }));
@@ -60,7 +71,7 @@ describe('DatabaseEntryComponent', () => {
             // > Check top element
             const elems = TestUtils.filterDebugNodes(fixture.debugElement.childNodes);
             for (const i in elems) {
-                if (elems[i].name !== 'div' || elems[i].attributes['class'] !== 'card') {
+                if (elems[i].name !== 'div' || elems[i].attributes['class'].indexOf('card') < 0) {
                     fail('Found an unexpected element');
                 }
             }
@@ -70,7 +81,7 @@ describe('DatabaseEntryComponent', () => {
         it('children of card are only a card-body and a footer', () => {
             // > One card with one body and one footer
             const elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('.card')).childNodes);
-            expect(elems.length).toBe(3);
+            expect(elems.length).toBe(4);
 
             for (const i in elems) {
                 if (elems[i].attributes['class'].indexOf('card-body') < 0
@@ -80,6 +91,16 @@ describe('DatabaseEntryComponent', () => {
                     fail('Found an unexpected element');
                 }
             }
+        });
+
+        xit('name is set correctly', () => {
+            expect(fixture.debugElement.query(By.css('h4')).nativeElement.innerText).toBe(component.tea.name);
+        });
+
+        xit('name title is set correctly', () => {
+            const has = fixture.debugElement.query(By.css('h4')).properties['title'];
+            const expected = component.tea.type + ' from ' + component.tea.country;
+            expect(has).toBe(expected);
         });
     });
 
