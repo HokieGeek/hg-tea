@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Tea } from '../tea';
+import { Filter } from '../filter.service';
 
 @Component({
     selector: 'hg-database',
@@ -10,26 +11,35 @@ import { Tea } from '../tea';
 
 export class DatabaseComponent implements OnInit {
     @Input() teas: Tea[];
+    @Input() filter: Filter;
 
     constructor() { }
 
     ngOnInit() {
     }
 
-    get sortedTeas() {
-        return this.teas.sort((t1, t2) => {
-            if (t1.latestEntry == null && t2.latestEntry == null) {
-                return 0;
-            } else if (t1.latestEntry == null && t2.latestEntry != null) {
-                return 1;
-            } else if (t1.latestEntry != null && t2.latestEntry == null) {
-                return -1;
-            } else {
-                // Sort newest to oldest
-                return t2.latestEntry.datetime.getTime() - t1.latestEntry.datetime.getTime();
-                // Sort oldest to newest
-                // return t1.latestEntry.datetime.getTime() - t2.latestEntry.datetime.getTime();
-            }
-        });
+    get filteredTeas(): Tea[] {
+        return this.teas.filter(t => this.filter.isMatch(t));
+    }
+
+        /*
+    teasFilter(tea: Tea): boolean {
+        return this.filter.isMatch(tea);
+    }
+         */
+
+    entriesSorter(t1, t2: Tea): number {
+        if (t1.latestEntry == null && t2.latestEntry == null) {
+            return 0;
+        } else if (t1.latestEntry == null && t2.latestEntry != null) {
+            return 1;
+        } else if (t1.latestEntry != null && t2.latestEntry == null) {
+            return -1;
+        } else {
+            // Sort newest to oldest
+            return t2.latestEntry.datetime.getTime() - t1.latestEntry.datetime.getTime();
+            // Sort oldest to newest
+            // return t1.latestEntry.datetime.getTime() - t2.latestEntry.datetime.getTime();
+        }
     }
 }

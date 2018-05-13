@@ -46,7 +46,7 @@ export class TeaDbService {
                                       json['gsx$name']['$t'],
                                       json['gsx$timestamp']['$t'],
                                       json['gsx$date']['$t'],
-                                      json['gsx$type']['$t'],
+                                      json['gsx$type']['$t'].toLowerCase(),
                                       json['gsx$region']['$t'],
                                       json['gsx$year']['$t'],
                                       json['gsx$flush']['$t'],

@@ -1,2 +1,10 @@
-<!--hg-teas-sidebar [teas]="teas"></hg-teas-sidebar-->
-<hg-database [teas]="teas"></hg-database>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <aside class="col-12 col-md-2 p-0">
+            <hg-teas-sidebar [teas]="teas"></hg-teas-sidebar>
+        </aside>
+        <main class="col">
+            <hg-database [filter]="filters.active" [teas]="teas"></hg-database>
+        </main>
+    </div>
+</div>

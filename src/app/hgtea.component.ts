@@ -5,19 +5,20 @@ import { catchError } from 'rxjs/operators';
 import { Tea } from './tea';
 import { Entry } from './entry';
 import { TeaDbService } from './teadb.service';
+import { FilterService, Filter } from './filter.service';
 
 @Component({
     selector: 'hg-tea',
     templateUrl: './hgtea.component.html',
     styleUrls: ['hgtea.component.css'],
-    providers: [ TeaDbService ]
+    providers: [ TeaDbService, FilterService ]
 })
 export class HgTeaComponent implements OnInit {
     tea_database: Tea[] = [];
     errorMsg: string = null;
     selectedTab = 'database';
 
-    constructor(private teaDbService: TeaDbService) {}
+    constructor(private teaDbService: TeaDbService, private filterService: FilterService) {}
 
     ngOnInit() {
         forkJoin(
