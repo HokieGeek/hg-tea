@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Tea } from '../tea';
 
 @Component({
     selector: 'hg-teas-sidebar',
@@ -6,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./teas-sidebar.component.css']
 })
 export class TeasSidebarComponent implements OnInit {
+    @Input() teas: Tea[];
 
     constructor() { }
 
     ngOnInit() {
     }
-
 }
