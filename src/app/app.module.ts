@@ -17,6 +17,8 @@ import { StatsComponent } from './database-entry/stats/stats.component';
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
 import { DatabaseEntryImagesComponent } from './database-entry-images/database-entry-images.component';
+import { TeasComponent } from './teas/teas.component';
+import { TeasSidebarComponent } from './teas-sidebar/teas-sidebar.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +34,8 @@ import { DatabaseEntryImagesComponent } from './database-entry-images/database-e
         BasicInfoComponent,
         StatsComponent,
         DatabaseEntryImagesComponent,
+        TeasComponent,
+        TeasSidebarComponent,
     ],
     imports: [
         NgbModule.forRoot(),
