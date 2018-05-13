@@ -3,8 +3,13 @@
     border-color: #586e83;
 }
 
-.nav-link {
-    color: #477099;
+.nav-pills .nav-link.active {
+    background-color: #835858;
+    color: #ffffff;
+}
+
+.nav-pills .nav-link {
+    color: #652f2f;
 }
 
 /*
