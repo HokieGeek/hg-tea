@@ -1,23 +1,16 @@
 <hg-journal-entry [entry]="entries[entries.length-1]"></hg-journal-entry>
 
 <span *ngIf="entries.length > 1">
-    <div class="collapse" id="moreEntries-{{teaId}}">
+    <div class="collapse" id="moreEntries-{{teaId}}" [ngbCollapse]="isCollapsed">
         <hg-journal-entry *ngFor="let entry of sortedEntries" [entry]="entry"></hg-journal-entry>
     </div>
 
-    <button class="btn btn-outline-secondary btn-sm"
-            type="button"
-            data-toggle="collapse"
-            aria-expanded="false"
-            aria-controls="moreEntries"
-            (click)="$('#moreEntries-'+{{teaId}}).collapse(expanded ? 'hide' : 'show'); expanded = !expanded; ">
-
-            <span *ngIf="!expanded">{{ entries.length - 1 }} more</span>
-            <span *ngIf="expanded">less</span>
-        <!--
-            (click)="entriesToggle()">
-            {{ collapseButtonText }}
-            {{ entries.length - 1 }} more
-          -->
+    <button type="button"
+            class="btn btn-outline-secondary btn-sm"
+            (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="moreEntries">
+            <span *ngIf="isCollapsed">{{ entries.length - 1 }} more</span>
+            <span *ngIf="!isCollapsed">less</span>
     </button>
 </span>
