@@ -1,12 +1,12 @@
 {
   "name": "hg-tea",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href . --prod --build-optimizer --environment=prod",
+    "build": "ng build --base-href . --prod --build-optimizer --configuration production",
     "test": "ng test --browsers PhantomJS --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"

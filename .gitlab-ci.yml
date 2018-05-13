@@ -1,4 +1,4 @@
-image: node:9
+image: node:10
 
 stages:
     - build
@@ -23,14 +23,14 @@ lint:
   script:
     - npm run lint
   only:
-    - master
+    - tags
 
 lint-warn:
   stage: build
   script:
     - npm run lint
   except:
-    - master
+    - tags
   allow_failure: true
 
 unit-node:8:
@@ -40,6 +40,12 @@ unit-node:8:
     - npm run test
 
 unit-node:9:
+  stage: test
+  image: node:9
+  script:
+    - npm run test
+
+unit-node:10:
   stage: test
   script:
     - npm run test
