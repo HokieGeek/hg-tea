@@ -1,12 +1,9 @@
-<nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
         <hg-teacupimg width="30" height="30" class="d-inline-block align-top" alt="hokiegeek.net/tea"></hg-teacupimg>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div>
         <ul class="navbar-nav nav mr-auto">
             <li class="nav-item" [ngClass]="{active: selectedTab === 'database'}">
                 <a data-toggle="tab" class="nav-link" href="#hg-tea-database" (click)="selectedTab = 'database'">Teas</a>

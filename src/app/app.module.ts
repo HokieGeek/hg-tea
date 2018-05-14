@@ -19,6 +19,7 @@ import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
 import { DatabaseEntryImagesComponent } from './database-entry-images/database-entry-images.component';
 import { TeasComponent } from './teas/teas.component';
 import { TeasSidebarComponent } from './teas-sidebar/teas-sidebar.component';
+import { FilterComponent } from './teas-sidebar/filter/filter.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { TeasSidebarComponent } from './teas-sidebar/teas-sidebar.component';
         DatabaseEntryImagesComponent,
         TeasComponent,
         TeasSidebarComponent,
+        FilterComponent,
     ],
     imports: [
         NgbModule.forRoot(),

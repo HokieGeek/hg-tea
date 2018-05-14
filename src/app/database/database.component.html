@@ -2,6 +2,7 @@
     <hg-database-entry *ngFor="let tea of filteredTeas.sort(entriesSorter)" [tea]="tea"></hg-database-entry>
 </div>
 <!--
-    <hg-database-entry *ngFor="let tea of teas.filter(teasFilter).sort(entriesSorter)" [tea]="tea"></hg-database-entry>
+    <hg-database-entry *ngFor="let tea of filteredTeas.sort(entriesSorter)" [tea]="tea"></hg-database-entry>
     <hg-database-entry *ngFor="let tea of teas.filter(filter.isMatch).sort(entriesSorter)" [tea]="tea"></hg-database-entry>
+    <hg-database-entry *ngFor="let tea of teas.filter(teasFilter).sort(entriesSorter)" [tea]="tea"></hg-database-entry>
     -->

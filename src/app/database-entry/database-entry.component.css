@@ -1,3 +1,7 @@
+.card {
+    display: inline-block;
+}
+
 .teacard {
     max-width: 450px;
     border-color: #586e83;

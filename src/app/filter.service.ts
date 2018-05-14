@@ -28,6 +28,10 @@ export class Filter {
         }
         return true;
     }
+
+    get isEmpty(): boolean {
+        return (this._teaTypes.length === 0);
+    }
 }
 
 @Injectable({

@@ -1,0 +1,33 @@
+<h5>Filters</h5>
+<div class="container">
+    <div class="row">
+        <div id="teaTypes" class="container">
+            <div class="row">
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-secondary btn-sm" id="dropdownTeaTypes" ngbDropdownToggle>Tea type</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownTeaTypes">
+                        <button class="dropdown-item text-capitalize"
+                                *ngFor="let type of teaTypes"
+                                (click)="filters.active.withTeaType(type)">
+                            {{type}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <ul *ngIf="!filters.active.isEmpty">
+                    <li *ngFor="let type of filters.active.teaTypes" class="text-capitalize">
+                        {{type}}
+                        <button type="button"
+                                class="close"
+                                aria-label="Remove"
+                                (click)="filters.active.withoutTeaType(type)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </li>
+                </ul>
+                <div *ngIf="filters.active.isEmpty">None</div>
+            </div>
+        </div>
+    </div>
+</div>
