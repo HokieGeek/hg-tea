@@ -1,8 +1,6 @@
 .card {
     display: inline-block;
-}
-
-.teacard {
+    margin: 10px;
     max-width: 450px;
     border-color: #586e83;
 }
