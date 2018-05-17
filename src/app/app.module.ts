@@ -20,6 +20,8 @@ import { DatabaseEntryImagesComponent } from './database-entry-images/database-e
 import { TeasComponent } from './teas/teas.component';
 import { TeasSidebarComponent } from './teas-sidebar/teas-sidebar.component';
 import { FilterComponent } from './teas-sidebar/filter/filter.component';
+import { StringFieldComponent } from './teas-sidebar/filter/string-field/string-field.component';
+import { FlagFieldComponent } from './teas-sidebar/filter/flag-field/flag-field.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +40,8 @@ import { FilterComponent } from './teas-sidebar/filter/filter.component';
         TeasComponent,
         TeasSidebarComponent,
         FilterComponent,
+        StringFieldComponent,
+        FlagFieldComponent,
     ],
     imports: [
         NgbModule.forRoot(),

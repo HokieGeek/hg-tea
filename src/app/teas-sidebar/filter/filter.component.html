@@ -1,60 +1,10 @@
 <h6>Filters</h6>
 <hr />
 <div class="container">
-    <div class="row">
+    <div class="col">
+        <hg-string-field label="Tea Type" [name]="filterTeaTypes" [values]="teaTypes" [filter]="filters.active"></hg-string-field>
 
-        <div id="teaTypes" class="container">
-            <div class="row">
-                <div ngbDropdown class="d-inline-block">
-                    <button id="dropdownTeaTypes"
-                        class="btn btn-sm"
-                        [ngClass]="{'btn-success': filter.hasStrings(filterTeaTypes), 'btn-outline-secondary': !filter.hasStrings(filterTeaTypes)}"
-                        ngbDropdownToggle>Tea type(2)</button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownTeaTypes">
-                        <button class="dropdown-item text-capitalize"
-                                *ngFor="let type of teaTypes"
-                                (click)="filter.withString(filterTeaTypes, type)">
-                            {{type}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <ul *ngIf="filter.hasStrings(filterTeaTypes)">
-                    <li *ngFor="let type of filter.stringField(filterTeaTypes)" class="text-capitalize">
-                        {{type}}
-                        <button type="button"
-                                class="close"
-                                aria-label="Remove"
-                                title="Remove this tea type"
-                                (click)="filter.withoutString(filterTeaTypes, type)">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="stocked" class="container">
-            <div class="row">
-                <label>Stocked</label>
-                <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                    <label class="btn"
-                           [ngClass]="{'btn-success': filter.flagOnly(filterStocked), 'btn-outline-secondary': !filter.flagOnly(filterStocked)}"
-                           (click)="filter.withFlagOnly(filterStocked)">
-                        <input type="radio" name="stockedFilter" id="stockedFilterOnly"
-                                                                 autocomplete="off"> Only
-                    </label>
-                    <label class="btn"
-                           [ngClass]="{'btn-success': filter.flagExcluded(filterStocked), 'btn-outline-secondary': !filter.flagExcluded(filterStocked)}"
-                           (click)="filter.withFlagExcluded(filterStocked)">
-                        <input type="radio" name="stockedFilter" id="stockedFilterExcluded"
-                                                                 autocomplete="off"> Excluded
-                    </label>
-                </div>
-            </div>
-        </div>
-
+        <hg-flag-field label="Stocked" [name]="filterStocked" [filter]="filters.active"></hg-flag-field>
     </div>
     <!-- TODO
         has entries

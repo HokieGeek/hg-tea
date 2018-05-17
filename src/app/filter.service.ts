@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Tea } from './tea';
 
 export enum FilterFlag { 'UNSET', 'ONLY', 'EXCLUDED' }
-// export enum FilterField { 'TeaTypes', 'IsStocked', 'HasEntries' }
 
 export class Filter {
     private strings: Map<string, string[]> = new Map<string, string[]>();

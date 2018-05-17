@@ -1,0 +1,7 @@
+button.close span {
+    padding-left: 20px;
+}
+
+button.close span:hover {
+    color: red;
+}

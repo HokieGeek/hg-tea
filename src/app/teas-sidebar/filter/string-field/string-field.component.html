@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div ngbDropdown class="d-inline-block">
+            <button id="dropdown-foo"
+                    class="btn btn-sm"
+                    [ngClass]="{'btn-success': filter.hasStrings(name), 'btn-outline-secondary': !filter.hasStrings(name)}"
+                    ngbDropdownToggle>{{label}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdown-foo">
+                <button class="dropdown-item text-capitalize"
+                        *ngFor="let value of values"
+                        (click)="filter.withString(name, value)">
+                    {{value}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ul *ngIf="filter.hasStrings(name)">
+            <li *ngFor="let value of filter.stringField(name)" class="text-capitalize">
+                {{value}}
+                <button type="button"
+                        class="close"
+                        aria-label="Remove"
+                        title="Remove this value"
+                        (click)="filter.withoutString(name, value)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>

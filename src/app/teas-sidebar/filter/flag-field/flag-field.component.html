@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <label>{{label}}</label>
+        <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+            <label class="btn"
+                   [ngClass]="{'btn-success': filter.flagOnly(name), 'btn-outline-secondary': !filter.flagOnly(name)}"
+                   (click)="filter.withFlagOnly(name)">
+                <input type="radio" name="stockedFilter" id="stockedFilterOnly"
+                                                         autocomplete="off"> Only
+            </label>
+            <label class="btn"
+                   [ngClass]="{'btn-success': filter.flagExcluded(name), 'btn-outline-secondary': !filter.flagExcluded(name)}"
+                   (click)="filter.withFlagExcluded(name)">
+                <input type="radio" name="stockedFilter" id="stockedFilterExcluded"
+                                                         autocomplete="off"> Excluded
+            </label>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@ import { FilterService, Filter, FilterFlag } from '../../filter.service';
 })
 export class FilterComponent implements OnInit {
     private _teas: Tea[];
-    private teaTypes: string[] = null;
+    private teaTypes: string[] = [];
 
     private filterTeaTypes = 'TeaTypes';
     private filterStocked = 'Stocked';
