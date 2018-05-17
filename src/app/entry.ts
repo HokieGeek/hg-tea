@@ -2,9 +2,9 @@ export enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Sugar', 'Brown Sugar', 'Raw Sugar',
                 'Honey', 'Vanilla Extract', 'Vanilla Bean',
                 'Maple Cream', 'Maple Sugar', 'Chai Goop'}
-export enum SteepingVessels {'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
+export enum SteepingVessels {'Other', 'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
                       'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
-                      'Cup', 'Bowl', 'Gaiwan', 'Other', 'Aberdeen Steeper'}
+                      'Cup', 'Bowl', 'Gaiwan', 'Aberdeen Steeper'}
 
 export class Entry {
     constructor(

@@ -2,36 +2,120 @@ import { Injectable } from '@angular/core';
 
 import { Tea } from './tea';
 
-export class Filter {
+export enum FilterFlag { 'UNSET', 'ONLY', 'EXCLUDED' }
+// export enum FilterField { 'TeaTypes', 'IsStocked', 'HasEntries' }
 
-    private _teaTypes: string[] = [];
+export class Filter {
+    private strings: Map<string, string[]> = new Map<string, string[]>();
+    private flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
+    private matchers: Map<string, any> = new Map<string, any>();
 
     constructor() { }
 
-    get teaTypes(): string[] {
-        return this._teaTypes;
+    addStringField(field: string, matcher: (strings: string[], tea: Tea) => boolean) {
+        this.strings.set(field, []);
+        this.matchers.set(field, matcher);
     }
 
-    withTeaType(teaType: string): Filter {
-        this._teaTypes.push(teaType);
+    addFlagField(field: string, matcher: (flag: FilterFlag, tea: Tea) => boolean) {
+        this.flags.set(field, FilterFlag.UNSET);
+        this.matchers.set(field, matcher);
+    }
+
+    // String fields
+    stringField(field: string): string[] {
+        if (this.strings.has(field)) {
+            return this.strings.get(field);
+        }
+        return null;
+    }
+
+    withString(field: string, value: string): Filter {
+        if (this.strings.has(field)) {
+            console.log(field, value);
+            this.strings.get(field).push(value);
+        } else {
+            console.log('shit');
+        }
         return this;
     }
 
-    withoutTeaType(teaType: string): Filter {
-        this._teaTypes = this._teaTypes.filter(t => t !== teaType);
+    withoutString(field: string, value: string): Filter {
+        if (this.strings.has(field)) {
+            this.strings.set(field, this.strings.get(field).filter(v => v !== value));
+        }
         return this;
+    }
+
+    hasStrings(field: string): boolean {
+        return this.strings.has(field) && this.strings.get(field).length !== 0;
+    }
+
+
+    // FilterFlag fields
+    private flagCompare(field: string, state: FilterFlag): boolean {
+        if (this.flags.has(field)) {
+            return this.flags.get(field) === state;
+        }
+        return false;
+    }
+
+    flagOnly(field: string): boolean {
+        return this.flagCompare(field, FilterFlag.ONLY);
+    }
+
+    flagExcluded(field: string): boolean {
+        return this.flagCompare(field, FilterFlag.EXCLUDED);
+    }
+
+    withFlag(field: string, flag: FilterFlag): Filter {
+        if (this.flags.has(field)) {
+            this.flags.set(field, flag);
+        }
+        return this;
+    }
+
+    withFlagOnly(field: string): Filter {
+        return this.withFlag(field, FilterFlag.ONLY);
+    }
+
+    withFlagExcluded(field: string): Filter {
+        return this.withFlag(field, FilterFlag.EXCLUDED);
+    }
+
+    withoutFlag(field: string): Filter {
+        if (this.flags.has(field)) {
+            this.flags.set(field, FilterFlag.UNSET);
+        }
+        return this;
+    }
+
+    hasFlag(field: string): boolean {
+        return this.flags.has(field) && this.flags.get(field) !== FilterFlag.UNSET;
     }
 
     isMatch(tea: Tea): boolean {
-        if (this._teaTypes.length > 0 && !this._teaTypes.includes(tea.type)) {
-            return false;
-        }
-        return true;
+        let isMatch = true;
+        this.matchers.forEach((matcher: any, field: string) => {
+            if (this.strings.has(field)) {
+                if (!matcher(this.strings.get(field), tea)) {
+                    isMatch = false;
+                }
+            } else if (this.flags.has(field)) {
+                if (!matcher(this.flags.get(field), tea)) {
+                    isMatch = false;
+                }
+            }
+        });
+
+        return isMatch;
     }
 
+        /*
     get isEmpty(): boolean {
-        return (this._teaTypes.length === 0);
+        return !this.hasTeaTypes;
     }
+        */
 }
 
 @Injectable({
