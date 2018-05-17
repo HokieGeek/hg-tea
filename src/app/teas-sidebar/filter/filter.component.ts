@@ -48,8 +48,4 @@ export class FilterComponent implements OnInit {
     populateFields() {
         this.teaTypes = this.teas.map(t => t.type.toLowerCase()).filter((value, index, self) => self.indexOf(value) === index);
     }
-
-    get filter(): Filter {
-        return this.filters.active;
-    }
 }
