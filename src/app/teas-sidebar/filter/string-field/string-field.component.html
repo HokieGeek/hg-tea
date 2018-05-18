@@ -17,7 +17,7 @@
     <div class="row">
         <ul *ngIf="filter.hasStrings(name)">
             <li *ngFor="let value of filter.stringField(name)" class="text-capitalize">
-                {{value}}
+                <small>{{value}}</small>
                 <button type="button"
                         class="close"
                         aria-label="Remove"

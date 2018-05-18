@@ -17,19 +17,13 @@ export class FlagFieldComponent implements OnInit {
     ngOnInit() {
     }
 
-    onlyToggle() {
-        if (this.filter.flagOnly(this.name)) {
-            this.filter.withoutFlag(this.name);
-        } else {
+    toggle() {
+        if (!this.filter.hasFlag(this.name)) {
             this.filter.withFlagOnly(this.name);
-        }
-    }
-
-    excludedToggle() {
-        if (this.filter.flagExcluded(this.name)) {
-            this.filter.withoutFlag(this.name);
-        } else {
+        } else if (this.filter.flagOnly(this.name)) {
             this.filter.withFlagExcluded(this.name);
+        } else {
+            this.filter.withoutFlag(this.name);
         }
     }
 }
