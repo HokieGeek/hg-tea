@@ -8,7 +8,7 @@ export class Filter {
     private strings: Map<string, string[]> = new Map<string, string[]>();
     private flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
     private matchers: Map<string, any> = new Map<string, any>();
-    public changed: EventEmitter = new EventEmitter();
+    public changed: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 
