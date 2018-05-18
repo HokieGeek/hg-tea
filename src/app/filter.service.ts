@@ -31,10 +31,7 @@ export class Filter {
 
     withString(field: string, value: string): Filter {
         if (this.strings.has(field)) {
-            console.log(field, value);
             this.strings.get(field).push(value);
-        } else {
-            console.log('shit');
         }
         return this;
     }
@@ -96,25 +93,22 @@ export class Filter {
     isMatch(tea: Tea): boolean {
         let isMatch = true;
         this.matchers.forEach((matcher: any, field: string) => {
-            if (this.strings.has(field)) {
-                if (!matcher(this.strings.get(field), tea)) {
-                    isMatch = false;
-                }
-            } else if (this.flags.has(field)) {
-                if (!matcher(this.flags.get(field), tea)) {
-                    isMatch = false;
+            if (isMatch) {
+                if (this.strings.has(field)) {
+                    const strings = this.strings.get(field);
+                    if (strings.length !== 0 && !matcher(strings, tea)) {
+                        isMatch = false;
+                    }
+                } else if (this.flags.has(field)) {
+                    const flag = this.flags.get(field);
+                    if (flag !== FilterFlag.UNSET && !matcher(flag, tea)) {
+                        isMatch = false;
+                    }
                 }
             }
         });
-
         return isMatch;
     }
-
-        /*
-    get isEmpty(): boolean {
-        return !this.hasTeaTypes;
-    }
-        */
 }
 
 @Injectable({

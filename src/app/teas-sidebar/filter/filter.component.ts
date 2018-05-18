@@ -15,23 +15,23 @@ export class FilterComponent implements OnInit {
 
     private filterTeaTypes = 'TeaTypes';
     private filterStocked = 'Stocked';
+    private filterEntries = 'Entries';
 
     constructor(private filters: FilterService) { }
 
     ngOnInit() {
-        this.filters.active.addStringField(this.filterTeaTypes, (types: string[], tea: Tea): boolean => {
-            if (types.length !== 0 && !types.includes(tea.type)) {
-                return false;
-            }
-            return true;
+        this.filters.active.addStringField(this.filterTeaTypes, (strings: string[], tea: Tea): boolean => {
+            return strings.includes(tea.type);
         });
 
-        this.filters.active.addFlagField(this.filterStocked, (stocked: FilterFlag, tea: Tea): boolean => {
-            if ((stocked === FilterFlag.ONLY && tea.stocked !== true)
-                || (stocked === FilterFlag.EXCLUDED && tea.stocked === true)) {
-                return false;
-            }
-            return true;
+        this.filters.active.addFlagField(this.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
+            return ((flag === FilterFlag.ONLY && tea.stocked)
+                || (flag === FilterFlag.EXCLUDED && !tea.stocked));
+        });
+
+        this.filters.active.addFlagField(this.filterEntries, (flag: FilterFlag, tea: Tea): boolean => {
+            return ((flag === FilterFlag.ONLY && tea.entries.length > 0)
+                || (flag === FilterFlag.EXCLUDED && tea.entries.length === 0));
         });
     }
 

@@ -1,17 +1,22 @@
-<div class="container">
+<!--div class="container">
     <div class="row">
-        <label>{{label}}</label>
-        <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-            <label class="btn"
-                   [ngClass]="{'btn-success': filter.flagOnly(name), 'btn-outline-secondary': !filter.flagOnly(name)}"
-                   (click)="onlyToggle()">
-                <input type="radio" name="flag-{{name}}" autocomplete="off"> Only
-            </label>
-            <label class="btn"
-                   [ngClass]="{'btn-success': filter.flagExcluded(name), 'btn-outline-secondary': !filter.flagExcluded(name)}"
-                   (click)="excludedToggle()">
-                <input type="radio" name="flag-{{name}}" autocomplete="off"> Excluded
-            </label>
+        <div class="col">
+            <label>{{label}}</label>
         </div>
+        <div class="col"-->
+            <label>{{label}}</label>
+            <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+                <label class="btn"
+                       [ngClass]="{'btn-success': filter.flagOnly(name), 'btn-outline-secondary': !filter.flagOnly(name)}"
+                       (click)="onlyToggle()">
+                    <input type="radio" name="flag-{{name}}" autocomplete="off"> Only
+                </label>
+                <label class="btn"
+                       [ngClass]="{'btn-success': filter.flagExcluded(name), 'btn-outline-secondary': !filter.flagExcluded(name)}"
+                       (click)="excludedToggle()">
+                    <input type="radio" name="flag-{{name}}" autocomplete="off"> Excluded
+                </label>
+            </div>
+        <!--/div>
     </div>
-</div>
+</div-->
