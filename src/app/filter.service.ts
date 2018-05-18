@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import { Tea } from './tea';
 
@@ -8,17 +8,20 @@ export class Filter {
     private strings: Map<string, string[]> = new Map<string, string[]>();
     private flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
     private matchers: Map<string, any> = new Map<string, any>();
+    public changed: EventEmitter = new EventEmitter();
 
     constructor() { }
 
     addStringField(field: string, matcher: (strings: string[], tea: Tea) => boolean) {
         this.strings.set(field, []);
         this.matchers.set(field, matcher);
+        this.changed.emit();
     }
 
     addFlagField(field: string, matcher: (flag: FilterFlag, tea: Tea) => boolean) {
         this.flags.set(field, FilterFlag.UNSET);
         this.matchers.set(field, matcher);
+        this.changed.emit();
     }
 
     // String fields
@@ -32,6 +35,7 @@ export class Filter {
     withString(field: string, value: string): Filter {
         if (this.strings.has(field)) {
             this.strings.get(field).push(value);
+            this.changed.emit();
         }
         return this;
     }
@@ -39,6 +43,7 @@ export class Filter {
     withoutString(field: string, value: string): Filter {
         if (this.strings.has(field)) {
             this.strings.set(field, this.strings.get(field).filter(v => v !== value));
+            this.changed.emit();
         }
         return this;
     }
@@ -67,6 +72,7 @@ export class Filter {
     withFlag(field: string, flag: FilterFlag): Filter {
         if (this.flags.has(field)) {
             this.flags.set(field, flag);
+            this.changed.emit();
         }
         return this;
     }
@@ -82,6 +88,7 @@ export class Filter {
     withoutFlag(field: string): Filter {
         if (this.flags.has(field)) {
             this.flags.set(field, FilterFlag.UNSET);
+            this.changed.emit();
         }
         return this;
     }
