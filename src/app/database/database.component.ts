@@ -12,7 +12,7 @@ import { Filter } from '../filter.service';
 export class DatabaseComponent implements OnInit, OnChanges {
     @Input() teas: Tea[];
     @Input() filter: Filter;
-    private processedTeas: Tea[];
+    private _processedTeas: Tea[];
 
     constructor() { }
 
@@ -24,8 +24,12 @@ export class DatabaseComponent implements OnInit, OnChanges {
         this.updateTeas();
     }
 
+    get processedTeas(): Tea[] {
+        return this._processedTeas;
+    }
+
     updateTeas(): void {
-        this.processedTeas = this.teas
+        this._processedTeas = this.teas
             .filter(t => this.filter.isMatch(t))
             .sort((t1, t2: Tea): number => {
                 if (t1.latestEntry == null && t2.latestEntry == null) {

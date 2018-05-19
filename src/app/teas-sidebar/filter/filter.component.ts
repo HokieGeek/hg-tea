@@ -10,13 +10,13 @@ import { FilterService, Filter, FilterFlag } from '../../filter.service';
 })
 export class FilterComponent implements OnInit {
     private _teas: Tea[];
-    private teaTypes: string[] = [];
+    private _teaTypes: string[] = [];
 
-    private filterTeaTypes = 'TeaTypes';
-    private filterStocked = 'Stocked';
-    private filterEntries = 'Entries';
+    public filterTeaTypes = 'TeaTypes';
+    public filterStocked = 'Stocked';
+    public filterEntries = 'Entries';
 
-    constructor(private filters: FilterService) { }
+    constructor(public filters: FilterService) { }
 
     ngOnInit() {
         this.filters.active.addStringField(this.filterTeaTypes, (strings: string[], tea: Tea): boolean => {
@@ -34,6 +34,10 @@ export class FilterComponent implements OnInit {
         });
     }
 
+    get teaTypes(): string[] {
+        return this._teaTypes;
+    }
+
     get teas(): Tea[] {
         return this._teas;
     }
@@ -45,6 +49,6 @@ export class FilterComponent implements OnInit {
     }
 
     populateFields() {
-        this.teaTypes = this.teas.map(t => t.type.toLowerCase()).filter((value, index, self) => self.indexOf(value) === index);
+        this._teaTypes = this.teas.map(t => t.type.toLowerCase()).filter((value, index, self) => self.indexOf(value) === index);
     }
 }

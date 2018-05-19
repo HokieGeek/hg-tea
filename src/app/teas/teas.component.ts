@@ -9,9 +9,9 @@ import { FilterService, Filter } from '../filter.service';
   styleUrls: ['./teas.component.css']
 })
 export class TeasComponent implements OnInit {
-    @Input() teas: Tea[];
+    @Input() public teas: Tea[];
 
-    constructor(private filters: FilterService) { }
+    constructor(public filters: FilterService) { }
 
     ngOnInit() {
     }
