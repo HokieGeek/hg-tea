@@ -1,15 +1,21 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-        <hg-teacupimg width="30" height="30" class="d-inline-block align-top" alt="hokiegeek.net/tea"></hg-teacupimg>
-    </a>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="d-flex flex-row">
+        <a class="navbar-brand" href="#">
+            <hg-teacupimg width="30" height="30" class="d-inline-block align-top" alt="hokiegeek.net/tea"></hg-teacupimg>
+        </a>
 
-    <div>
-        <ul class="navbar-nav nav mr-auto">
-            <li class="nav-item" [ngClass]="{active: selectedTab === 'database'}">
-                <a data-toggle="tab" class="nav-link" href="#hg-tea-database" (click)="selectedTab = 'database'">Teas</a>
-            </li>
-        </ul>
+        <span>
+            <ul class="navbar-nav nav mr-auto">
+                <li class="nav-item" [ngClass]="{active: selectedTab === 'database'}">
+                    <a data-toggle="tab" class="nav-link" href="#hg-tea-database" (click)="selectedTab = 'database'">Teas</a>
+                </li>
+            </ul>
+        </span>
     </div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 </nav>
 
 <main role="main">
