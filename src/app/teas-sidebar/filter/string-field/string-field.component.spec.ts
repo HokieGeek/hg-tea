@@ -2,24 +2,37 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StringFieldComponent } from './string-field.component';
 
+import { Filter } from '../../../filter.service';
+
 describe('StringFieldComponent', () => {
-  let component: StringFieldComponent;
-  let fixture: ComponentFixture<StringFieldComponent>;
+    let component: StringFieldComponent;
+    let fixture: ComponentFixture<StringFieldComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StringFieldComponent ]
-    })
-    .compileComponents();
-  }));
+    const dummyLabel = 'Dummy';
+    const dummyName = 'Dummy';
+    const dummyValues = ['Dummy1', 'Dummy2'];
+    const dummyFilter = new Filter();
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(StringFieldComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ StringFieldComponent ]
+        })
+        .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(StringFieldComponent);
+        component = fixture.componentInstance;
+
+        component.label = dummyLabel;
+        component.name = dummyName;
+        component.values = dummyValues;
+        component.filter = dummyFilter;
+
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

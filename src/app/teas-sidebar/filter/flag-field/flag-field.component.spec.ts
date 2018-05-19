@@ -2,24 +2,35 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FlagFieldComponent } from './flag-field.component';
 
+import { Filter } from '../../../filter.service';
+
 describe('FlagFieldComponent', () => {
-  let component: FlagFieldComponent;
-  let fixture: ComponentFixture<FlagFieldComponent>;
+    let component: FlagFieldComponent;
+    let fixture: ComponentFixture<FlagFieldComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FlagFieldComponent ]
-    })
-    .compileComponents();
-  }));
+    const dummyLabel = 'Dummy';
+    const dummyName = 'Dummy';
+    const dummyFilter = new Filter();
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FlagFieldComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ FlagFieldComponent ]
+        })
+        .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FlagFieldComponent);
+        component = fixture.componentInstance;
+
+        component.label = dummyLabel;
+        component.name = dummyName;
+        component.filter = dummyFilter;
+
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

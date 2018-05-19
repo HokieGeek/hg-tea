@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Tea } from '../../tea';
 import { FilterService, Filter, FilterFlag } from '../../filter.service';
-// export enum FilterField { 'TeaTypes', 'IsStocked', 'HasEntries' }
 
 @Component({
   selector: 'hg-filter',
