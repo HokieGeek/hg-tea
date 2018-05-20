@@ -9,6 +9,8 @@ import { TeasSidebarComponent } from './teas-sidebar.component';
 import { FilterComponent } from './filter/filter.component';
 import { StringFieldComponent } from './filter/string-field/string-field.component';
 import { FlagFieldComponent } from './filter/flag-field/flag-field.component';
+import { SorterComponent } from './sorter/sorter.component';
+import { CriteriaComponent } from './sorter/criteria/criteria.component';
 
 import { TestUtils } from '../test-utils';
 
@@ -27,6 +29,8 @@ describe('TeasSidebarComponent', () => {
                 FilterComponent,
                 StringFieldComponent,
                 FlagFieldComponent,
+                SorterComponent,
+                CriteriaComponent,
             ]
         })
         .compileComponents();

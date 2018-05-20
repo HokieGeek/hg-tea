@@ -22,6 +22,8 @@ import { TeasSidebarComponent } from './teas-sidebar/teas-sidebar.component';
 import { FilterComponent } from './teas-sidebar/filter/filter.component';
 import { StringFieldComponent } from './teas-sidebar/filter/string-field/string-field.component';
 import { FlagFieldComponent } from './teas-sidebar/filter/flag-field/flag-field.component';
+import { SorterComponent } from './teas-sidebar/sorter/sorter.component';
+import { CriteriaComponent } from './teas-sidebar/sorter/criteria/criteria.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +44,8 @@ import { FlagFieldComponent } from './teas-sidebar/filter/flag-field/flag-field.
         FilterComponent,
         StringFieldComponent,
         FlagFieldComponent,
+        SorterComponent,
+        CriteriaComponent,
     ],
     imports: [
         NgbModule.forRoot(),
