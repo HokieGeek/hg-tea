@@ -14,29 +14,12 @@ enum ratingTypeEnum {'AVG', 'MEAN'}
 
 export class DatabaseEntryComponent {
     @Input() tea: Tea;
-    private ratingType: ratingTypeEnum = ratingTypeEnum.AVG;
-
-    entriesAvgRating(): number {
-        let total = 0;
-        for (const entry of this.tea.entries) {
-            total += +entry.rating;
-        }
-        return Math.floor(total / this.tea.entries.length);
-    }
-
-    entriesMeanRating(): number {
-        const ratings: number[] = [];
-        for (const entry of this.tea.entries) {
-            ratings.push(+entry.rating);
-        }
-
-        return ratings[Math.floor(this.tea.entries.length / 2)];
-    }
+    private ratingType: ratingTypeEnum = ratingTypeEnum.MEAN;
 
     entriesRating(): number {
         switch (this.ratingType) {
-            case ratingTypeEnum.AVG: return this.entriesAvgRating();
-            case ratingTypeEnum.MEAN: return this.entriesMeanRating();
+            case ratingTypeEnum.AVG: return this.tea.ratingAvg;
+            case ratingTypeEnum.MEAN: return this.tea.ratingMean;
         }
     }
 }

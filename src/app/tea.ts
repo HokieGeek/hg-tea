@@ -55,4 +55,21 @@ export class Tea {
     get packaging() {
         return teaPackagingTypes[this.packaging_idx - 1];
     }
+
+    get ratingAvg(): number {
+        let total = 0;
+        for (const entry of this.entries) {
+            total += +entry.rating;
+        }
+        return Math.floor(total / this.entries.length);
+    }
+
+    get ratingMean(): number {
+        const ratings: number[] = [];
+        for (const entry of this.entries) {
+            ratings.push(+entry.rating);
+        }
+
+        return ratings[Math.floor(this.entries.length / 2)];
+    }
 }
