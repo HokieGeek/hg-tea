@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SortField, SortDirection } from '../../../sorter.service';
+import { Sorter, SortField, SortDirection } from '../../../sorter.service';
 
 @Component({
     selector: 'hg-sort-field',
@@ -9,7 +9,8 @@ import { SortField, SortDirection } from '../../../sorter.service';
 })
 export class SortFieldComponent implements OnInit {
     SortDirection = SortDirection;
-    @Input() field: SortField;
+    @Input() name: string;
+    @Input() sorter: Sorter;
 
     constructor() { }
 
@@ -17,6 +18,6 @@ export class SortFieldComponent implements OnInit {
     }
 
     label() {
-        return this.field.name + ' ' + SortDirection[this.field.sortDirection];
+        return this.name + ' ' + (this.sorter.getSortDirection(this.name) === SortDirection.DESC ? '↓' : '↑');
     }
 }

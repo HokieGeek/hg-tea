@@ -4,7 +4,7 @@ import { Tea } from './tea';
 
 export enum SortDirection { 'ASC', 'DESC' }
 
-export class SortField {
+class SortField {
     constructor(private _name: string, private _comparator: any, private direction: SortDirection) {}
 
     get name(): string {
@@ -47,12 +47,16 @@ export class Sorter {
             if (!this._assignedFields.includes(field)) {
                 this._assignedFields.push(field);
             }
-            this.fields.get(field).sortDirection = dir;
+            this.getField(field).sortDirection = dir;
             this.changed.emit();
             return true;
         } else {
             return false;
         }
+    }
+
+    get assignedFields(): string[] {
+        return this._assignedFields;
     }
 
     getField(field: string): SortField {
@@ -72,15 +76,26 @@ export class Sorter {
         }
     }
 
-    get assignedFields(): string[] {
-        return this._assignedFields;
+    getSortDirection(field: string): SortDirection {
+        if (this.fields.has(field)) {
+            return this.getField(field).sortDirection;
+        } else {
+            return null;
+        }
+    }
+
+    toggleSortDirection(field: string) {
+        if (this.fields.has(field)) {
+            this.getField(field).toggleSortDirection();
+            this.changed.emit();
+        }
     }
 
     compare(t1, t2: Tea): number {
         let ret = 0;
         this._assignedFields.forEach((fieldName: string) => {
             if (ret === 0) {
-                const field = this.fields.get(fieldName);
+                const field = this.getField(fieldName);
                 ret = field.comparator(t1, t2, field.sortDirection);
             }
         });

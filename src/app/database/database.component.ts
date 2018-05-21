@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 
 import { Tea } from '../tea';
 import { Filter } from '../filter.service';
@@ -10,7 +10,7 @@ import { Sorter } from '../sorter.service';
     styleUrls: ['./database.component.css']
 })
 
-export class DatabaseComponent implements OnInit, OnChanges {
+export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() teas: Tea[];
     @Input() filter: Filter;
     @Input() sorter: Sorter;
@@ -18,7 +18,9 @@ export class DatabaseComponent implements OnInit, OnChanges {
 
     constructor() { }
 
-    ngOnInit() {
+    ngOnInit() { }
+
+    ngAfterViewInit() {
         this.filter.changed.subscribe(() => this.updateTeas());
         this.sorter.changed.subscribe(() => this.updateTeas());
     }
