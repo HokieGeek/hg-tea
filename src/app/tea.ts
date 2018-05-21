@@ -64,7 +64,7 @@ export class Tea {
         return Math.floor(total / this.entries.length);
     }
 
-    get ratingMean(): number {
+    get ratingMedian(): number {
         const ratings: number[] = [];
         for (const entry of this.entries) {
             ratings.push(+entry.rating);

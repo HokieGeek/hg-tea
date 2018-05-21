@@ -4,7 +4,7 @@ import { Tea } from '../tea';
 import { Entry } from '../entry';
 import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
 
-enum ratingTypeEnum {'AVG', 'MEAN'}
+enum ratingTypeEnum {'AVG', 'MEDIAN'}
 
 @Component({
     selector: 'hg-database-entry',
@@ -14,12 +14,12 @@ enum ratingTypeEnum {'AVG', 'MEAN'}
 
 export class DatabaseEntryComponent {
     @Input() tea: Tea;
-    private ratingType: ratingTypeEnum = ratingTypeEnum.MEAN;
+    private ratingType: ratingTypeEnum = ratingTypeEnum.MEDIAN;
 
     entriesRating(): number {
         switch (this.ratingType) {
             case ratingTypeEnum.AVG: return this.tea.ratingAvg;
-            case ratingTypeEnum.MEAN: return this.tea.ratingMean;
+            case ratingTypeEnum.MEDIAN: return this.tea.ratingMedian;
         }
     }
 }

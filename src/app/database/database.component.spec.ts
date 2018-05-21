@@ -16,6 +16,7 @@ import { JournalEntryComponent } from '../journal-entry/journal-entry.component'
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
 import { Filter } from '../filter.service';
+import { Sorter } from '../sorter.service';
 
 import { TestUtils } from '../test-utils';
 
@@ -24,6 +25,7 @@ describe('DatabaseComponent', () => {
     let fixture: ComponentFixture<DatabaseComponent>;
 
     const dummyFilter = new Filter();
+    const dummySorter = new Sorter();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -56,6 +58,7 @@ describe('DatabaseComponent', () => {
         const dummyData = TestUtils.createDummyTea();
         component.teas = [dummyData];
         component.filter = dummyFilter;
+        component.sorter = dummySorter;
 
         fixture.detectChanges();
     });

@@ -7,7 +7,7 @@ import { SorterService } from '../sorter.service';
 @Component({
   selector: 'hg-teas',
   templateUrl: './teas.component.html',
-  styleUrls: ['./teas.component.css']
+  styleUrls: ['./teas.component.css'],
   providers: [ FilterService, SorterService ]
 })
 export class TeasComponent implements OnInit {

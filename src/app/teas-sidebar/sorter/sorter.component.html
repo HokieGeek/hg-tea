@@ -2,6 +2,8 @@
 <hr />
 <div class="container">
     <div class="col">
-        TODO
+        <hg-sort-field *ngFor="let field of sorters.active.assignedFields"
+            [field]="sorters.active.getField(field)">
+        </hg-sort-field>
     </div>
 </div>

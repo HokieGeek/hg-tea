@@ -20,7 +20,7 @@ import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 import { SorterComponent } from '../teas-sidebar/sorter/sorter.component';
-import { CriteriaComponent } from '../teas-sidebar/sorter/criteria/criteria.component';
+import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field.component';
 
 import { TestUtils } from '../test-utils';
 import { FilterService } from '../filter.service';
@@ -54,7 +54,7 @@ describe('TeasComponent', () => {
                 JournalEntryComponent,
                 NaturalLanguageDatePipe,
                 SorterComponent,
-                CriteriaComponent,
+                SortFieldComponent,
             ],
             providers: [
                 FilterService,

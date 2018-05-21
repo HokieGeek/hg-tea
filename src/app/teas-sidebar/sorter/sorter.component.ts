@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SorterService, Sorter } from '../../sorter.service';
+import { Tea } from '../../tea';
+import { SorterService, Sorter, SortDirection } from '../../sorter.service';
 
 @Component({
     selector: 'hg-sorter',
@@ -8,14 +9,16 @@ import { SorterService, Sorter } from '../../sorter.service';
     styleUrls: ['./sorter.component.css']
 })
 export class SorterComponent implements OnInit {
-    private _teas: Tea[];
+    @Input() teas: Tea[];
 
-    const sorterRecentEntries = 'RecentEntries';
+    private sorterRecentEntries = 'Recent entries';
+    // private sorterRatingsAvg = 'Average ratings';
+    // private sorterRatingsMedian = 'Median ratings';
 
-    constructor(public sorter: SorterService) { }
+    constructor(public sorters: SorterService) { }
 
     ngOnInit() {
-        this.sorter.active.addFieldComparator(this.sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
+        this.sorters.active.addFieldComparator(this.sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
             // TODO: make use of dir
             if (t1.latestEntry == null && t2.latestEntry == null) {
                 return 0;
@@ -24,21 +27,13 @@ export class SorterComponent implements OnInit {
             } else if (t1.latestEntry != null && t2.latestEntry == null) {
                 return -1;
             } else {
-                // Sort newest to oldest
-                return t2.latestEntry.datetime.getTime() - t1.latestEntry.datetime.getTime();
-                // Sort oldest to newest
-                // return t1.latestEntry.datetime.getTime() - t2.latestEntry.datetime.getTime();
+                if (dir === SortDirection.DESC) { // Sort newest to oldest
+                    return t2.latestEntry.datetime.getTime() - t1.latestEntry.datetime.getTime();
+                } else { // Sort oldest to newest
+                    return t1.latestEntry.datetime.getTime() - t2.latestEntry.datetime.getTime();
+                }
             }
         });
-        this.sorter.active.assignField(this.sorterRecentEntries);
-    }
-
-    get teas(): Tea[] {
-        return this._teas;
-    }
-
-    @Input()
-    set teas(_teas) {
-        this._teas = _teas;
+        this.sorters.active.assignField(this.sorterRecentEntries, SortDirection.DESC);
     }
 }

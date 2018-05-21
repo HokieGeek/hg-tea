@@ -24,7 +24,7 @@ import { FilterComponent } from './teas-sidebar/filter/filter.component';
 import { StringFieldComponent } from './teas-sidebar/filter/string-field/string-field.component';
 import { FlagFieldComponent } from './teas-sidebar/filter/flag-field/flag-field.component';
 import { SorterComponent } from './teas-sidebar/sorter/sorter.component';
-import { CriteriaComponent } from './teas-sidebar/sorter/criteria/criteria.component';
+import { SortFieldComponent } from './teas-sidebar/sorter/sort-field/sort-field.component';
 
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
@@ -59,7 +59,7 @@ describe('HgTeaComponent', () => {
                 StringFieldComponent,
                 FlagFieldComponent,
                 SorterComponent,
-                CriteriaComponent,
+                SortFieldComponent,
             ],
             imports: [
                 NgbModule.forRoot(),

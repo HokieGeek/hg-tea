@@ -10,7 +10,7 @@ import { FilterComponent } from './filter/filter.component';
 import { StringFieldComponent } from './filter/string-field/string-field.component';
 import { FlagFieldComponent } from './filter/flag-field/flag-field.component';
 import { SorterComponent } from './sorter/sorter.component';
-import { CriteriaComponent } from './sorter/criteria/criteria.component';
+import { SortFieldComponent } from './sorter/sort-field/sort-field.component';
 
 import { TestUtils } from '../test-utils';
 
@@ -30,7 +30,7 @@ describe('TeasSidebarComponent', () => {
                 StringFieldComponent,
                 FlagFieldComponent,
                 SorterComponent,
-                CriteriaComponent,
+                SortFieldComponent,
             ]
         })
         .compileComponents();
