@@ -6,19 +6,20 @@ import { Tea } from './tea';
 import { Entry } from './entry';
 import { TeaDbService } from './teadb.service';
 import { FilterService, Filter } from './filter.service';
+import { SorterService } from './sorter.service';
 
 @Component({
     selector: 'hg-tea',
     templateUrl: './hgtea.component.html',
     styleUrls: ['hgtea.component.css'],
-    providers: [ TeaDbService, FilterService ]
+    providers: [ TeaDbService ]
 })
 export class HgTeaComponent implements OnInit {
     tea_database: Tea[] = [];
     errorMsg: string = null;
     selectedTab = 'database';
 
-    constructor(private teaDbService: TeaDbService, private filterService: FilterService) {}
+    constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
         forkJoin(

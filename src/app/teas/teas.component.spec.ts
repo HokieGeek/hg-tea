@@ -24,6 +24,7 @@ import { CriteriaComponent } from '../teas-sidebar/sorter/criteria/criteria.comp
 
 import { TestUtils } from '../test-utils';
 import { FilterService } from '../filter.service';
+import { SorterService } from '../sorter.service';
 
 describe('TeasComponent', () => {
     let component: TeasComponent;
@@ -57,6 +58,7 @@ describe('TeasComponent', () => {
             ],
             providers: [
                 FilterService,
+                SorterService,
                 NaturalLanguageDatePipe
             ]
         })

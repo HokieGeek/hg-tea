@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 import { Tea } from '../tea';
 import { Filter } from '../filter.service';
+import { Sorter } from '../sorter.service';
 
 @Component({
     selector: 'hg-database',
@@ -12,12 +13,14 @@ import { Filter } from '../filter.service';
 export class DatabaseComponent implements OnInit, OnChanges {
     @Input() teas: Tea[];
     @Input() filter: Filter;
+    @Input() sorter: Sorter;
     private _processedTeas: Tea[];
 
     constructor() { }
 
     ngOnInit() {
         this.filter.changed.subscribe(() => this.updateTeas());
+        this.sorter.changed.subscribe(() => this.updateTeas());
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -31,19 +34,6 @@ export class DatabaseComponent implements OnInit, OnChanges {
     updateTeas(): void {
         this._processedTeas = this.teas
             .filter(t => this.filter.isMatch(t))
-            .sort((t1, t2: Tea): number => {
-                if (t1.latestEntry == null && t2.latestEntry == null) {
-                    return 0;
-                } else if (t1.latestEntry == null && t2.latestEntry != null) {
-                    return 1;
-                } else if (t1.latestEntry != null && t2.latestEntry == null) {
-                    return -1;
-                } else {
-                    // Sort newest to oldest
-                    return t2.latestEntry.datetime.getTime() - t1.latestEntry.datetime.getTime();
-                    // Sort oldest to newest
-                    // return t1.latestEntry.datetime.getTime() - t2.latestEntry.datetime.getTime();
-                }
-            });
+            .sort((t1, t2) => this.sorter.compare(t1, t2));
     }
 }

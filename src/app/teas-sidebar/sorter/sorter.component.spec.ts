@@ -2,15 +2,18 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SorterComponent } from './sorter.component';
 
+import { SorterService } from '../../sorter.service';
+
 describe('SorterComponent', () => {
     let component: SorterComponent;
     let fixture: ComponentFixture<SorterComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ SorterComponent ]
+            declarations: [ SorterComponent ],
+            providers: [ SorterService ]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {
