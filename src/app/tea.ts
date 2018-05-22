@@ -70,6 +70,6 @@ export class Tea {
             ratings.push(+entry.rating);
         }
 
-        return ratings[Math.floor(this.entries.length / 2)];
+        return ratings.sort()[Math.floor(this.entries.length / 2)];
     }
 }

@@ -1,0 +1,13 @@
+button.close span {
+    padding-left: 8px;
+    opacity: 0.2;
+}
+
+button.close span:hover {
+    color: red;
+    opacity: 1;
+}
+
+li {
+    list-style-type: none;
+}

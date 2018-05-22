@@ -34,16 +34,16 @@ class SortField {
 }
 
 export class Sorter {
-    private fields: Map<string, SortField> = new Map<string, SortField>();
+    private _fields: Map<string, SortField> = new Map<string, SortField>();
     private _assignedFields: string[] = [];
     public changed: EventEmitter<any> = new EventEmitter();
 
     addFieldComparator(fieldName: string, comparator: (tea1, tea2: Tea, dir: SortDirection) => number) {
-        this.fields.set(fieldName, new SortField(fieldName, comparator, SortDirection.DESC));
+        this._fields.set(fieldName, new SortField(fieldName, comparator, SortDirection.DESC));
     }
 
     assignField(field: string, dir: SortDirection): boolean {
-        if (this.fields.has(field)) {
+        if (this._fields.has(field)) {
             if (!this._assignedFields.includes(field)) {
                 this._assignedFields.push(field);
             }
@@ -59,16 +59,21 @@ export class Sorter {
         return this._assignedFields;
     }
 
+    get fields(): string[] {
+        return Array.from(this._fields.keys());
+    }
+
     getField(field: string): SortField {
-        if (this.fields.has(field)) {
-            return this.fields.get(field);
+        if (this._fields.has(field)) {
+            return this._fields.get(field);
         } else {
             return null;
         }
     }
 
     removeField(field: string): boolean {
-        if (this.fields.delete(field)) {
+        if (this._fields.delete(field)) {
+            this._assignedFields.splice(this._assignedFields.indexOf(field), 1);
             this.changed.emit();
             return true;
         } else {
@@ -77,7 +82,7 @@ export class Sorter {
     }
 
     getSortDirection(field: string): SortDirection {
-        if (this.fields.has(field)) {
+        if (this._fields.has(field)) {
             return this.getField(field).sortDirection;
         } else {
             return null;
@@ -85,7 +90,7 @@ export class Sorter {
     }
 
     toggleSortDirection(field: string) {
-        if (this.fields.has(field)) {
+        if (this._fields.has(field)) {
             this.getField(field).toggleSortDirection();
             this.changed.emit();
         }
@@ -95,8 +100,18 @@ export class Sorter {
         let ret = 0;
         this._assignedFields.forEach((fieldName: string) => {
             if (ret === 0) {
-                const field = this.getField(fieldName);
-                ret = field.comparator(t1, t2, field.sortDirection);
+                if (t1 == null && t2 == null) {
+                    ret = 0;
+                } else if (t1 == null && t2 != null) {
+                    ret = 1;
+                } else if (t1 != null && t2 == null) {
+                    ret = -1;
+                } else {
+                    const field = this.getField(fieldName);
+                    if (field !== null) {
+                        ret = field.comparator(t1, t2, field.sortDirection);
+                    }
+                }
             }
         });
         return ret;

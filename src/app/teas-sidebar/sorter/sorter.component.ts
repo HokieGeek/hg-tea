@@ -11,20 +11,19 @@ import { SorterService, Sorter, SortDirection } from '../../sorter.service';
 export class SorterComponent implements OnInit {
     @Input() teas: Tea[];
 
-    private sorterRecentEntries = 'Recent entries';
-    // private sorterRatingsAvg = 'Average ratings';
-    // private sorterRatingsMedian = 'Median ratings';
-
     constructor(public sorters: SorterService) { }
 
     ngOnInit() {
-        this.sorters.active.addFieldComparator(this.sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
-            // TODO: make use of dir
+        const sorterRecentEntries = 'Recent entries';
+
+        this.sorters.active.addFieldComparator(sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
             if (t1.latestEntry == null && t2.latestEntry == null) {
                 return 0;
             } else if (t1.latestEntry == null && t2.latestEntry != null) {
+                // TODO: make use of dir
                 return 1;
             } else if (t1.latestEntry != null && t2.latestEntry == null) {
+                // TODO: make use of dir
                 return -1;
             } else {
                 if (dir === SortDirection.DESC) { // Sort newest to oldest
@@ -34,6 +33,30 @@ export class SorterComponent implements OnInit {
                 }
             }
         });
-        this.sorters.active.assignField(this.sorterRecentEntries, SortDirection.DESC);
+        this.assign(sorterRecentEntries);
+
+        this.sorters.active.addFieldComparator('Ratings (Median)', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) {
+                return t2.ratingMedian - t1.ratingMedian;
+            } else {
+                return t1.ratingMedian - t2.ratingMedian;
+            }
+        });
+
+        this.sorters.active.addFieldComparator('Ratings (Average)', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) {
+                return t2.ratingAvg - t1.ratingAvg;
+            } else {
+                return t1.ratingAvg - t2.ratingAvg;
+            }
+        });
+    }
+
+    availableFields(): string[] {
+        return this.sorters.active.fields.filter(f => !this.sorters.active.assignedFields.includes(f));
+    }
+
+    assign(field: string) {
+        this.sorters.active.assignField(field, SortDirection.DESC);
     }
 }

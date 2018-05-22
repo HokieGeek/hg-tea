@@ -2,14 +2,34 @@
 <hr />
 <div class="container">
     <div class="col">
-        <hg-sort-field *ngFor="let field of sorters.active.assignedFields"
-            [name]="field"
-            [sorter]="sorters.active">
-        </hg-sort-field>
+        <div class="row">
+            <ul>
+                <li *ngFor="let field of sorters.active.assignedFields">
+                    <hg-sort-field [name]="field" [sorter]="sorters.active"></hg-sort-field>
+                    <button type="button"
+                            class="close"
+                            aria-label="Remove"
+                            title="Remove this field"
+                            (click)="sorters.active.removeField(field)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
 
-        <input type="button"
-               class="btn btn-sm btn-outline-secondary"
-               (click)="sorter.toggleSortDirection(name)"
-               value="+">
+        <div class="row" *ngIf="availableFields().length > 0">
+            <div ngbDropdown>
+                <button id="dropdown-more" class="btn btn-sm btn-outline-secondary" ngbDropdownToggle>
+                    <span style="font-size: 1.35em">+</span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdown-more">
+                    <button class="dropdown-item"
+                            *ngFor="let field of availableFields()"
+                            (click)="assign(field)">
+                        {{field}}
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
