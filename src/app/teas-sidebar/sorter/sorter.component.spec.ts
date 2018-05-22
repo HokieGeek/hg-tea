@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SorterComponent } from './sorter.component';
+import { SortFieldComponent } from './sort-field/sort-field.component';
 
-import { SorterService } from '../../sorter.service';
+import { SorterService, Sorter } from '../../sorter.service';
+import { TestUtils } from '../../test-utils';
 
 describe('SorterComponent', () => {
     let component: SorterComponent;
@@ -10,7 +12,10 @@ describe('SorterComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ SorterComponent ],
+            declarations: [
+                SorterComponent,
+                SortFieldComponent
+            ],
             providers: [ SorterService ]
         })
         .compileComponents();
@@ -19,6 +24,10 @@ describe('SorterComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(SorterComponent);
         component = fixture.componentInstance;
+
+        const dummyData = TestUtils.createDummyTea();
+        component.teas = [dummyData];
+
         fixture.detectChanges();
     });
 

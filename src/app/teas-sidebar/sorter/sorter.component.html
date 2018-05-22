@@ -6,5 +6,10 @@
             [name]="field"
             [sorter]="sorters.active">
         </hg-sort-field>
+
+        <input type="button"
+               class="btn btn-sm btn-outline-secondary"
+               (click)="sorter.toggleSortDirection(name)"
+               value="+">
     </div>
 </div>
