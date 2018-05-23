@@ -43,7 +43,7 @@ unit-node:9:
   stage: test
   image: node:9-alpine
   variables:
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
   before_script:
     - apk update && apk upgrade && \
       echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
