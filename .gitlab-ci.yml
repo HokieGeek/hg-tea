@@ -40,16 +40,19 @@ unit-node:8:
     - npm run test
   allow_failure: true
 
+.installChromium: &installChromium |
+    apk update && apk upgrade &&
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories &&
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
+    apk add --no-cache chromium@edge nss@edge
+
 unit-node:9:
   stage: test
   image: node:9-alpine
   variables:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
   before_script:
-    - apk update && apk upgrade
-    - echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
-    - echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories
-    - apk add --no-cache chromium@edge nss@edge
+    - *installChromium
   script:
     - npm run test
   allow_failure: true
