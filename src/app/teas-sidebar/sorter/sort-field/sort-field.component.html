@@ -2,3 +2,11 @@
        class="btn btn-sm btn-outline-secondary"
        (click)="sorter.toggleSortDirection(name)"
        [value]="label()">
+
+<button type="button"
+        class="close"
+        aria-label="Remove"
+        title="Remove this field"
+        (click)="sorter.removeField(name)">
+    <span aria-hidden="true">&times;</span>
+</button>
