@@ -11,8 +11,8 @@ stages:
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
     apk add --no-cache chromium@edge nss@edge
 
-before_script:
-  - npm install
+#before_script:
+#  - npm install
 
 variables:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
@@ -26,6 +26,7 @@ cache:
 build-app:
   stage: build
   script:
+    - npm install
     - npm run build
 
 lint:
