@@ -33,6 +33,9 @@ describe('entry', () => {
     const steeptemperature = 212;
     const sessioninstance = '';
 
+    console.log('dummy date = ', date);
+    console.log('dummy time = ', time);
+
     const val = new Entry(
         teaid, // (HAS TO MATCH ARRAY POS)
         comments,
@@ -86,6 +89,7 @@ describe('entry', () => {
 
     it('check datetime getter returns expected value', () => {
         const dt = val.datetime;
+        console.log('dt = ', dt);
         const hasDate = (dt.getMonth() + 1) + '/' + dt.getDate() + '/' + dt.getFullYear();
 
         let h = now.getHours().toString();
