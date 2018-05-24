@@ -73,7 +73,7 @@ describe('JournalEntryComponent', () => {
 
     it('entrydate title is correct', () => {
         const has = fixture.debugElement.query(By.css('#entrydate')).properties['title'];
-        console.log((new Date(has)).getTime(), ';', component.entry.datetime.getTime());
+        console.log('DATE:', has, (new Date()).getTime(), (new Date(has)).getTime(), component.entry.datetime.getTime());
         // pending('This fails sometimes, with invalid date...');
         expect((new Date(has)).getTime()).toBe(component.entry.datetime.getTime());
     });
