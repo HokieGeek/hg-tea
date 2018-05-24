@@ -1,4 +1,4 @@
-image: node:10
+image: node:10-alpine
 
 stages:
     - build
@@ -45,7 +45,7 @@ lint-warn:
 
 unit-node:8:
   stage: test
-  image: node:8
+  image: node:8-alpine
   before_script:
     - *installChromium
   script:
@@ -68,11 +68,12 @@ unit-node:10:
 
 unit-node:latest:
   stage: test
-  image: node:latest
+  image: node:alpine
   before_script:
     - *installChromium
   script:
     - npm run test
+  allow_failure: true
 
 .e2e-node:9:
   stage: test
