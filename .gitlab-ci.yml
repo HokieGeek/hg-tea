@@ -5,8 +5,17 @@ stages:
     - test
     - release
 
+.installChromium: &installChromium |
+    apk update && apk upgrade &&
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories &&
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
+    apk add --no-cache chromium@edge nss@edge
+
 before_script:
   - npm install
+
+variables:
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
 
 cache:
   paths:
@@ -36,39 +45,33 @@ lint-warn:
 unit-node:8:
   stage: test
   image: node:8
-  script:
-    - npm run test
-  allow_failure: true
-
-.installChromium: &installChromium |
-    apk update && apk upgrade &&
-    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories &&
-    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
-    apk add --no-cache chromium@edge nss@edge
-
-unit-node:9:
-  stage: test
-  image: node:9-alpine
-  variables:
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
   before_script:
     - *installChromium
   script:
     - npm run test
-  allow_failure: true
+
+unit-node:9:
+  stage: test
+  image: node:9-alpine
+  before_script:
+    - *installChromium
+  script:
+    - npm run test
 
 unit-node:10:
   stage: test
+  before_script:
+    - *installChromium
   script:
     - npm run test
-  allow_failure: true
 
 unit-node:latest:
   stage: test
   image: node:latest
+  before_script:
+    - *installChromium
   script:
     - npm run test
-  allow_failure: true
 
 .e2e-node:9:
   stage: test
