@@ -119,17 +119,18 @@ create-container:
   except:
     - branches
 
-.build-evaluate:
+build-evaluate:
   stage: test
   image: registry.gitlab.com/hokiegeek/nexus-lifecycle-gitlab:latest
   variables:
     IQ_APPID: subdomain1
+    IQ_STAGE: build
   script:
     - evaluate
   after_script:
-    - gitlab
-  only:
-    - tags
+    - gitlab --no-issues
+      #   only:
+      #     - tags
   allow_failure: true
 
 .restart-dev-service:
