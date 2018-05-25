@@ -15,7 +15,6 @@ export class SorterComponent implements OnInit {
 
     ngOnInit() {
         const sorterRecentEntries = 'Recent entries';
-
         this.sorters.active.addFieldComparator(sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
             if (t1.latestEntry == null && t2.latestEntry == null) {
                 return 0;
@@ -48,6 +47,30 @@ export class SorterComponent implements OnInit {
                 return t2.ratingAvg - t1.ratingAvg;
             } else {
                 return t1.ratingAvg - t2.ratingAvg;
+            }
+        });
+
+        this.sorters.active.addFieldComparator('Year', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) {
+                return t2.year - t1.year;
+            } else {
+                return t1.year - t2.year;
+            }
+        });
+
+        this.sorters.active.addFieldComparator('Number of entries', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) { // Sort newest to oldest
+                return t2.entries.length - t1.entries.length;
+            } else { // Sort oldest to newest
+                return t1.entries.length - t2.entries.length;
+            }
+        });
+
+        this.sorters.active.addFieldComparator('Purchase price', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) { // Sort newest to oldest
+                return t2.purchaseprice - t1.purchaseprice;
+            } else { // Sort oldest to newest
+                return t1.purchaseprice - t2.purchaseprice;
             }
         });
     }
