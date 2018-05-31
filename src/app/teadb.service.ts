@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -35,7 +36,7 @@ export class TeaDbService {
                       }));
     }
 
-    getTeaData(): Observable<Tea[]> {
+    getTeas(): Observable<Tea[]> {
         return this.http.get<any>(this.teaDb)
                       .pipe(map(data => {
                           return this.extractSpreadsheetEntries<Tea>(data,
@@ -66,6 +67,32 @@ export class TeaDbService {
                                   );
                               });
                       }));
+    }
+
+    getTeasWithEntries(): Observable<Tea[]> {
+        const _self = this;
+        return Observable.create((observer) => {
+            forkJoin(
+                _self.getTeas(),
+                _self.getJournalEntries()
+            )
+            .subscribe(
+                ([tea_data, journal_entries]) => {
+                    const teaIdMap: Map<number, number> = new Map();
+                    for (let i = tea_data.length - 1; i >= 0; i--) {
+                        teaIdMap.set(tea_data[i].id, i);
+                    }
+
+                    for (const e of journal_entries) {
+                        tea_data[teaIdMap.get(e.teaId)].addEntry(e);
+                    }
+
+                    observer.next(tea_data);
+                    observer.complete();
+                } // ,
+                // err => observer.next(err);
+            );
+        });
     }
 
     private extractSpreadsheetEntries<T>(data: any,

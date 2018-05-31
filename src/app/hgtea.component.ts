@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 import { Tea, Entry } from './tea';
 import { TeaDbService } from './teadb.service';
-import { FilterService, Filter } from './filter.service';
-import { SorterService } from './sorter.service';
 
 @Component({
     selector: 'hg-tea',
@@ -21,23 +17,8 @@ export class HgTeaComponent implements OnInit {
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
-        forkJoin(
-            this.teaDbService.getTeaData(),
-            this.teaDbService.getJournalEntries()
-        )
-        .subscribe(
-            ([tea_data, journal_entries]) => {
-                this.tea_database = tea_data;
-
-                const teaIdMap: Map<number, number> = new Map();
-                for (let i = this.tea_database.length - 1; i >= 0; i--) {
-                    teaIdMap.set(this.tea_database[i].id, i);
-                }
-
-                for (const e of journal_entries) {
-                    this.tea_database[teaIdMap.get(e.teaId)].addEntry(e);
-                }
-            },
+        this.teaDbService.getTeasWithEntries().subscribe(
+            teas => this.tea_database = teas,
             err => this.errorMsg = err
         );
     }
