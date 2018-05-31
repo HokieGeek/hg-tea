@@ -17,6 +17,7 @@ export class FilterComponent implements OnInit {
     public filterStocked = 'Stocked';
     public filterEntries = 'Entries';
     public filterCountries = 'Countries';
+    public filterSample = 'Sample';
 
     constructor(public filters: FilterService) { }
 
@@ -37,6 +38,11 @@ export class FilterComponent implements OnInit {
 
         this.filters.active.addStringField(this.filterCountries, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.country.toLowerCase());
+        });
+
+        this.filters.active.addFlagField(this.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
+            return ((flag === FilterFlag.ONLY && tea.sample)
+                || (flag === FilterFlag.EXCLUDED && !tea.sample));
         });
     }
 

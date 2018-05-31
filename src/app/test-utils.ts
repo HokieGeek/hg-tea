@@ -96,7 +96,8 @@ export class TestUtils {
             String((Math.random() * 500) + 1) + 'g', // size
             (Math.random() >= 0.5), // stocked
             (Math.random() >= 0.5), // aging
-            0 // packaging
+            0, // packaging
+            false // sample
         );
     }
 

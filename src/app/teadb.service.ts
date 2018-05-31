@@ -62,6 +62,7 @@ export class TeaDbService {
                                       (json['gsx$stocked']['$t'] === 'TRUE'),
                                       (json['gsx$aging']['$t'] === 'TRUE'),
                                       json['gsx$packaging']['$t'],
+                                      (json['gsx$sample']['$t'] === 'TRUE'),
                                   );
                               });
                       }));

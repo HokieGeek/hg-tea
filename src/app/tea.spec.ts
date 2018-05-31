@@ -30,6 +30,7 @@ describe('tea entry', () => {
         const stocked = true ;
         const aging = true ;
         const packaging_idx = 0;
+        const sample = false;
 
         it('should create', () => {
             const tea = new Tea(
@@ -53,7 +54,8 @@ describe('tea entry', () => {
                 size,
                 stocked,
                 aging,
-                packaging_idx
+                packaging_idx,
+                sample
             );
 
             expect(tea).toBeTruthy();

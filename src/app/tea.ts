@@ -80,7 +80,8 @@ export class Tea {
         public size: string,
         public stocked: boolean,
         public aging: boolean,
-        public packaging_idx: number
+        public packaging_idx: number,
+        public sample: boolean
     ) {}
 
     addEntry(entry: Entry) {
