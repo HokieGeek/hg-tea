@@ -1,7 +1,6 @@
 import { DebugElement, DebugNode } from '@angular/core';
 
-import { Tea } from './tea';
-import { Entry } from './entry';
+import { Tea, Entry } from './tea';
 
 export class TeasWithEntries {
     public teas: Tea[] = [];

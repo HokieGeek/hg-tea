@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Tea } from './tea';
-import { Entry } from './entry';
+import { Tea, Entry } from './tea';
 import { TeaDbService } from './teadb.service';
 import { FilterService, Filter } from './filter.service';
 import { SorterService } from './sorter.service';

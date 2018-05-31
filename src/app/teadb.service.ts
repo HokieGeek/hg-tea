@@ -3,8 +3,7 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
-import { Tea } from './tea';
-import { Entry } from './entry';
+import { Tea, Entry } from './tea';
 
 @Injectable()
 export class TeaDbService {

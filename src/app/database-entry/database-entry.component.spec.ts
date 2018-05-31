@@ -15,8 +15,7 @@ import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
-import { Tea } from '../tea';
-import { Entry } from '../entry';
+import { Tea, Entry } from '../tea';
 import { TestUtils } from '../test-utils';
 
 describe('DatabaseEntryComponent', () => {

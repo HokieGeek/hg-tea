@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Tea } from '../tea';
-import { Entry } from '../entry';
+import { Tea, Entry } from '../tea';
 import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
 
 enum ratingTypeEnum {'AVG', 'MEDIAN'}
