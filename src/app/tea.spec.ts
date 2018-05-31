@@ -83,7 +83,8 @@ describe('tea entry', () => {
                 size,
                 stocked,
                 aging,
-                packaging_idx
+                packaging_idx,
+                sample
             );
 
             expect(tea.id).toBe(id);
