@@ -37,8 +37,8 @@ describe('JournalComponent', () => {
         fixture = TestBed.createComponent(JournalComponent);
         component = fixture.componentInstance;
 
-        const dummyData = TestUtils.createDummyTeasWithEntries();
-        component.entries = dummyData.entries;
+        // TODO: make better
+        component.entries = [TestUtils.createDummyEntry()];
 
         fixture.detectChanges();
     });

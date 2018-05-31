@@ -75,6 +75,8 @@ describe('HgTeaComponent', () => {
         fixture = TestBed.createComponent(HgTeaComponent);
         component = fixture.componentInstance;
 
+        component.tea_database = TestUtils.createDummyTeasWithEntries();
+
         fixture.detectChanges();
     });
 

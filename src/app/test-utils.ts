@@ -101,22 +101,23 @@ export class TestUtils {
         );
     }
 
-    static createDummyTeasWithEntries(): TeasWithEntries {
+    static createDummyTeasWithEntries(): Tea[] {
         /*
          * TODO
          * For a random number of teas:
          * - create sequential id
          * - create a random number of entries with that id
          */
-        const teasWithEntries = new TeasWithEntries();
+        const teas: Tea[] = [];
         const numTeas = Math.floor(Math.random() * 19); // From 1 - 20 teas
         for (let id = 0; id < numTeas + 1; id++) {
-            teasWithEntries.teas.push(this.createDummyTea(id));
+            const tea = this.createDummyTea(id);
             for (let e = Math.floor(Math.random() * 10); e >= 0; e--) {
-                teasWithEntries.entries.push(this.createDummyEntry(id));
+                tea.addEntry(this.createDummyEntry(id));
             }
+            teas.push(tea);
         }
-        return teasWithEntries;
+        return teas;
     }
 
     static filterTextAndCommentNodes(nodes: DebugNode[]): DebugNode[] {
