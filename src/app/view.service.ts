@@ -234,20 +234,58 @@ export class Sorter {
     }
 }
 
+class View {
+    public filter: Filter = new Filter();
+    public sorter: Sorter = new Sorter();
+}
+
 @Injectable({
     providedIn: 'root',
 })
 export class ViewService {
-    private activeFilter: Filter = new Filter();
-    private activeSorter: Sorter = new Sorter();
+    private storageKey = 'hg-tea-views';
+    private active: View = new View();
+    private views: Map<string, View> = new Map<string, View>();
 
-    constructor() { }
+    constructor() {
+        this.retrieveViews();
+    }
+
+    private storeViews(): void {
+        try {
+            localStorage.setItem(this.storageKey, JSON.stringify(Array.from(this.views.entries())));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    private retrieveViews(): void {
+        this.views = new Map<string, View>(JSON.parse(localStorage.getItem(this.storageKey)));
+    }
+
+    save(name: string): boolean {
+        this.views.set(name, this.active);
+        this.storeViews();
+        return true;
+    }
+
+    load(name: string): boolean {
+        if (this.views.has(name)) {
+            this.active = this.views.get(name);
+            return true;
+        }
+        return false;
+    }
+
+    list(): string[] {
+        return Array.from(this.views.keys());
+    }
 
     get filter(): Filter {
-        return this.activeFilter;
+        return this.active.filter;
     }
 
     get sorter(): Sorter {
-        return this.activeSorter;
+        return this.active.sorter;
     }
 }
