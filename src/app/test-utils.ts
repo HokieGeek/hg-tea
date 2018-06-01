@@ -2,11 +2,6 @@ import { DebugElement, DebugNode } from '@angular/core';
 
 import { Tea, Entry } from './tea';
 
-export class TeasWithEntries {
-    public teas: Tea[] = [];
-    public entries: Entry[] = [];
-}
-
 export class TestUtils {
     public static numRatingValues = 4;
     public static maxNumFixins = 11;

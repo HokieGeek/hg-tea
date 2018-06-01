@@ -17,7 +17,7 @@ export class HgTeaComponent implements OnInit {
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
-        this.teaDbService.getTeasWithEntries().subscribe(
+        this.teaDbService.teasWithEntries.subscribe(
             teas => this.tea_database = teas,
             err => this.errorMsg = err
         );

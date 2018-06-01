@@ -13,7 +13,7 @@ export class TeaDbService {
 
     constructor (private http: HttpClient) { }
 
-    getJournalEntries(): Observable<Entry[]> {
+    get journalEntries(): Observable<Entry[]> {
         return this.http.get<any>(this.journalDb)
                       .pipe(map(data => {
                           return this.extractSpreadsheetEntries<Entry>(data,
@@ -36,7 +36,7 @@ export class TeaDbService {
                       }));
     }
 
-    getTeas(): Observable<Tea[]> {
+    get teas(): Observable<Tea[]> {
         return this.http.get<any>(this.teaDb)
                       .pipe(map(data => {
                           return this.extractSpreadsheetEntries<Tea>(data,
@@ -69,12 +69,12 @@ export class TeaDbService {
                       }));
     }
 
-    getTeasWithEntries(): Observable<Tea[]> {
+    get teasWithEntries(): Observable<Tea[]> {
         const _self = this;
         return Observable.create((observer) => {
             forkJoin(
-                _self.getTeas(),
-                _self.getJournalEntries()
+                _self.teas,
+                _self.journalEntries
             )
             .subscribe(
                 ([tea_data, journal_entries]) => {

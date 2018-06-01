@@ -10,7 +10,7 @@ import { Filter, Sorter } from '../view.service';
 })
 
 export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
-    @Input() teas: Tea[];
+    @Input() teas: Tea[] = [];
     @Input() filter: Filter;
     @Input() sorter: Sorter;
     private _processedTeas: Tea[];
