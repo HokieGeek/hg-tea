@@ -8,7 +8,6 @@ describe('StringFieldComponent', () => {
     let component: StringFieldComponent;
     let fixture: ComponentFixture<StringFieldComponent>;
 
-    const dummyLabel = 'Dummy';
     const dummyName = 'Dummy';
     const dummyValues = ['Dummy1', 'Dummy2'];
     const dummyFilter = new Filter();
@@ -24,7 +23,6 @@ describe('StringFieldComponent', () => {
         fixture = TestBed.createComponent(StringFieldComponent);
         component = fixture.componentInstance;
 
-        component.label = dummyLabel;
         component.name = dummyName;
         component.values = dummyValues;
         component.filter = dummyFilter;

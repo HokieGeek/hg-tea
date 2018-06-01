@@ -8,7 +8,6 @@ describe('FlagFieldComponent', () => {
     let component: FlagFieldComponent;
     let fixture: ComponentFixture<FlagFieldComponent>;
 
-    const dummyLabel = 'Dummy';
     const dummyName = 'Dummy';
     const dummyFilter = new Filter();
 
@@ -23,7 +22,6 @@ describe('FlagFieldComponent', () => {
         fixture = TestBed.createComponent(FlagFieldComponent);
         component = fixture.componentInstance;
 
-        component.label = dummyLabel;
         component.name = dummyName;
         component.filter = dummyFilter;
 
