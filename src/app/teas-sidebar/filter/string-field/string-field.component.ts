@@ -8,7 +8,6 @@ import { Filter } from '../../../filter.service';
     styleUrls: ['./string-field.component.css']
 })
 export class StringFieldComponent implements OnInit {
-    @Input() label: string;
     @Input() name: string;
     @Input() values: string[];
     @Input() filter: Filter;

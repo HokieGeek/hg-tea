@@ -4,7 +4,7 @@
             <button id="dropdown-foo"
                     class="btn btn-sm"
                     [ngClass]="{'btn-success': filter.hasStrings(name), 'btn-outline-secondary': !filter.hasStrings(name)}"
-                    ngbDropdownToggle>{{label}}</button>
+                    ngbDropdownToggle>{{name}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdown-foo">
                 <button class="dropdown-item text-capitalize"
                         *ngFor="let value of values"

@@ -10,14 +10,16 @@ import { FilterService, Filter, FilterFlag } from '../../filter.service';
 })
 export class FilterComponent implements OnInit {
     private _teas: Tea[];
-    private _teaTypes: string[] = [];
-    private _countries: string[] = [];
+    private teaTypes: string[] = [];
+    private countries: string[] = [];
+    private purchaseLocations: string[] = [];
 
-    public filterTeaTypes = 'TeaTypes';
+    public filterTeaTypes = 'Tea Type';
     public filterStocked = 'Stocked';
-    public filterEntries = 'Entries';
+    public filterEntries = 'With entries';
     public filterCountries = 'Countries';
     public filterSample = 'Sample';
+    public filterPurchaseLocation = 'Purchase location';
 
     constructor(public filters: FilterService) { }
 
@@ -44,14 +46,10 @@ export class FilterComponent implements OnInit {
             return ((flag === FilterFlag.ONLY && tea.sample)
                 || (flag === FilterFlag.EXCLUDED && !tea.sample));
         });
-    }
 
-    get teaTypes(): string[] {
-        return this._teaTypes;
-    }
-
-    get countries(): string[] {
-        return this._countries;
+        this.filters.active.addStringField(this.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
+            return strings.includes(tea.purchaselocation.toLowerCase());
+        });
     }
 
     get teas(): Tea[] {
@@ -64,8 +62,13 @@ export class FilterComponent implements OnInit {
         this.populateFields();
     }
 
+    private teaFields(m: (t) => any): string[] {
+        return this.teas.map(m).filter((value, index, self) => self.indexOf(value) === index);
+    }
+
     populateFields() {
-        this._teaTypes = this.teas.map(t => t.type.toLowerCase()).filter((value, index, self) => self.indexOf(value) === index);
-        this._countries = this.teas.map(t => t.country.toLowerCase()).filter((value, index, self) => self.indexOf(value) === index);
+        this.teaTypes = this.teaFields(t => t.type.toLowerCase());
+        this.countries = this.teaFields(t => t.country.toLowerCase());
+        this.purchaseLocations = this.teaFields(t => t.purchaselocation.toLowerCase());
     }
 }

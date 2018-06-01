@@ -8,7 +8,6 @@ import { Filter } from '../../../filter.service';
     styleUrls: ['./flag-field.component.css']
 })
 export class FlagFieldComponent implements OnInit {
-    @Input() label: string;
     @Input() name: string;
     @Input() filter: Filter;
 
