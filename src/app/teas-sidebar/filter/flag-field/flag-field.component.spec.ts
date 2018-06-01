@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FlagFieldComponent } from './flag-field.component';
 
-import { Filter } from '../../../filter.service';
+import { Filter } from '../../../view.service';
 
 describe('FlagFieldComponent', () => {
     let component: FlagFieldComponent;

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Tea } from '../../tea';
-import { SorterService, Sorter, SortDirection } from '../../sorter.service';
+import { ViewService, Sorter, SortDirection } from '../../view.service';
 
 @Component({
     selector: 'hg-sorter',
@@ -11,11 +11,11 @@ import { SorterService, Sorter, SortDirection } from '../../sorter.service';
 export class SorterComponent implements OnInit {
     @Input() teas: Tea[];
 
-    constructor(public sorters: SorterService) { }
+    constructor(public view: ViewService) { }
 
     ngOnInit() {
         const sorterRecentEntries = 'Recent entries';
-        this.sorters.active.addFieldComparator(sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
+        this.view.sorter.addFieldComparator(sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
             if (t1.latestEntry == null && t2.latestEntry == null) {
                 return 0;
             } else if (t1.latestEntry == null && t2.latestEntry != null) {
@@ -34,7 +34,7 @@ export class SorterComponent implements OnInit {
         });
         this.assign(sorterRecentEntries);
 
-        this.sorters.active.addFieldComparator('Ratings (Median)', (t1, t2: Tea, dir: SortDirection): number => {
+        this.view.sorter.addFieldComparator('Ratings (Median)', (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.ratingMedian - t1.ratingMedian;
             } else {
@@ -42,7 +42,7 @@ export class SorterComponent implements OnInit {
             }
         });
 
-        this.sorters.active.addFieldComparator('Ratings (Average)', (t1, t2: Tea, dir: SortDirection): number => {
+        this.view.sorter.addFieldComparator('Ratings (Average)', (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.ratingAvg - t1.ratingAvg;
             } else {
@@ -50,7 +50,7 @@ export class SorterComponent implements OnInit {
             }
         });
 
-        this.sorters.active.addFieldComparator('Year', (t1, t2: Tea, dir: SortDirection): number => {
+        this.view.sorter.addFieldComparator('Year', (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.year - t1.year;
             } else {
@@ -58,7 +58,7 @@ export class SorterComponent implements OnInit {
             }
         });
 
-        this.sorters.active.addFieldComparator('Number of entries', (t1, t2: Tea, dir: SortDirection): number => {
+        this.view.sorter.addFieldComparator('Number of entries', (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.entries.length - t1.entries.length;
             } else { // Sort oldest to newest
@@ -66,7 +66,7 @@ export class SorterComponent implements OnInit {
             }
         });
 
-        this.sorters.active.addFieldComparator('Purchase price', (t1, t2: Tea, dir: SortDirection): number => {
+        this.view.sorter.addFieldComparator('Purchase price', (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.purchaseprice - t1.purchaseprice;
             } else { // Sort oldest to newest
@@ -76,10 +76,10 @@ export class SorterComponent implements OnInit {
     }
 
     availableFields(): string[] {
-        return this.sorters.active.fields.filter(f => !this.sorters.active.assignedFields.includes(f));
+        return this.view.sorter.fields.filter(f => !this.view.sorter.assignedFields.includes(f));
     }
 
     assign(field: string) {
-        this.sorters.active.assignField(field, SortDirection.DESC);
+        this.view.sorter.assignField(field, SortDirection.DESC);
     }
 }

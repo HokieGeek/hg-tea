@@ -24,6 +24,7 @@ import { StringFieldComponent } from './teas-sidebar/filter/string-field/string-
 import { FlagFieldComponent } from './teas-sidebar/filter/flag-field/flag-field.component';
 import { SorterComponent } from './teas-sidebar/sorter/sorter.component';
 import { SortFieldComponent } from './teas-sidebar/sorter/sort-field/sort-field.component';
+import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { SortFieldComponent } from './teas-sidebar/sorter/sort-field/sort-field.
         FlagFieldComponent,
         SorterComponent,
         SortFieldComponent,
+        ViewManagerComponent,
     ],
     imports: [
         NgbModule.forRoot(),

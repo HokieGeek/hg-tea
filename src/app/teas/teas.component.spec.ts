@@ -21,10 +21,10 @@ import { JournalEntryComponent } from '../journal-entry/journal-entry.component'
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 import { SorterComponent } from '../teas-sidebar/sorter/sorter.component';
 import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field.component';
+import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
 
 import { TestUtils } from '../test-utils';
-import { FilterService } from '../filter.service';
-import { SorterService } from '../sorter.service';
+import { ViewService } from '../view.service';
 
 describe('TeasComponent', () => {
     let component: TeasComponent;
@@ -55,10 +55,10 @@ describe('TeasComponent', () => {
                 NaturalLanguageDatePipe,
                 SorterComponent,
                 SortFieldComponent,
+                ViewManagerComponent,
             ],
             providers: [
-                FilterService,
-                SorterService,
+                ViewService,
                 NaturalLanguageDatePipe
             ]
         })

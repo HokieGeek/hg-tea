@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StringFieldComponent } from './string-field.component';
 
-import { Filter } from '../../../filter.service';
+import { Filter } from '../../../view.service';
 
 describe('StringFieldComponent', () => {
     let component: StringFieldComponent;

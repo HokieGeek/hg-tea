@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SorterComponent } from './sorter.component';
 import { SortFieldComponent } from './sort-field/sort-field.component';
 
-import { SorterService, Sorter } from '../../sorter.service';
+import { ViewService, Sorter } from '../../view.service';
 import { TestUtils } from '../../test-utils';
 
 describe('SorterComponent', () => {
@@ -16,7 +16,7 @@ describe('SorterComponent', () => {
                 SorterComponent,
                 SortFieldComponent
             ],
-            providers: [ SorterService ]
+            providers: [ ViewService ]
         })
         .compileComponents();
     }));

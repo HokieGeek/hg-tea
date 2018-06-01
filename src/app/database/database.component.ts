@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 
 import { Tea } from '../tea';
-import { Filter } from '../filter.service';
-import { Sorter } from '../sorter.service';
+import { Filter, Sorter } from '../view.service';
 
 @Component({
     selector: 'hg-database',

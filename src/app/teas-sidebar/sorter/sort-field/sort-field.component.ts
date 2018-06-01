@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Sorter, SortDirection } from '../../../sorter.service';
+import { Sorter, SortDirection } from '../../../view.service';
 
 @Component({
     selector: 'hg-sort-field',

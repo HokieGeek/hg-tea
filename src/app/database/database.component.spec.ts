@@ -15,8 +15,7 @@ import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
-import { Filter } from '../filter.service';
-import { Sorter } from '../sorter.service';
+import { Filter, Sorter } from '../view.service';
 
 import { TestUtils } from '../test-utils';
 

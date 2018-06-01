@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Filter } from '../../../filter.service';
+import { Filter } from '../../../view.service';
 
 @Component({
     selector: 'hg-flag-field',

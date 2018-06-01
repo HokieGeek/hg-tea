@@ -5,7 +5,7 @@ import { FilterComponent } from './filter.component';
 import { StringFieldComponent } from './string-field/string-field.component';
 import { FlagFieldComponent } from './flag-field/flag-field.component';
 
-import { FilterService } from '../../filter.service';
+import { ViewService } from '../../view.service';
 
 describe('FilterComponent', () => {
     let component: FilterComponent;
@@ -18,7 +18,7 @@ describe('FilterComponent', () => {
                 StringFieldComponent,
                 FlagFieldComponent,
             ],
-            providers: [ FilterService ]
+            providers: [ ViewService ]
         })
             .compileComponents();
     }));

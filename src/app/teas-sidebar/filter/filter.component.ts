@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Tea } from '../../tea';
-import { FilterService, Filter, FilterFlag } from '../../filter.service';
+import { ViewService, Filter, FilterFlag } from '../../view.service';
 
 @Component({
   selector: 'hg-filter',
@@ -21,33 +21,33 @@ export class FilterComponent implements OnInit {
     public filterSample = 'Sample';
     public filterPurchaseLocation = 'Purchase location';
 
-    constructor(public filters: FilterService) { }
+    constructor(public view: ViewService) { }
 
     ngOnInit() {
-        this.filters.active.addStringField(this.filterTeaTypes, (strings: string[], tea: Tea): boolean => {
+        this.view.filter.addStringField(this.filterTeaTypes, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.type);
         });
 
-        this.filters.active.addFlagField(this.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
+        this.view.filter.addFlagField(this.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.stocked)
                 || (flag === FilterFlag.EXCLUDED && !tea.stocked));
         });
 
-        this.filters.active.addFlagField(this.filterEntries, (flag: FilterFlag, tea: Tea): boolean => {
+        this.view.filter.addFlagField(this.filterEntries, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.entries.length > 0)
                 || (flag === FilterFlag.EXCLUDED && tea.entries.length === 0));
         });
 
-        this.filters.active.addStringField(this.filterCountries, (strings: string[], tea: Tea): boolean => {
+        this.view.filter.addStringField(this.filterCountries, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.country.toLowerCase());
         });
 
-        this.filters.active.addFlagField(this.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
+        this.view.filter.addFlagField(this.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.sample)
                 || (flag === FilterFlag.EXCLUDED && !tea.sample));
         });
 
-        this.filters.active.addStringField(this.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
+        this.view.filter.addStringField(this.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.purchaselocation.toLowerCase());
         });
     }

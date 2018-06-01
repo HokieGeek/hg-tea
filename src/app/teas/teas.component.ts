@@ -1,19 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Tea } from '../tea';
-import { FilterService, Filter } from '../filter.service';
-import { SorterService } from '../sorter.service';
+import { ViewService } from '../view.service';
 
 @Component({
   selector: 'hg-teas',
   templateUrl: './teas.component.html',
   styleUrls: ['./teas.component.css'],
-  providers: [ FilterService, SorterService ]
+  providers: [ ViewService ]
 })
 export class TeasComponent implements OnInit {
     @Input() public teas: Tea[];
 
-    constructor(public filters: FilterService, public sorters: SorterService) { }
+    constructor(public view: ViewService) { }
 
     ngOnInit() {
     }

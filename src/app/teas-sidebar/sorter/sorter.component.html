@@ -2,8 +2,8 @@
 <hr />
 <div class="container">
     <div class="col">
-        <div class="row" *ngFor="let field of sorters.active.assignedFields" >
-            <hg-sort-field [name]="field" [sorter]="sorters.active"></hg-sort-field>
+        <div class="row" *ngFor="let field of view.sorter.assignedFields" >
+            <hg-sort-field [name]="field" [sorter]="view.sorter"></hg-sort-field>
         </div>
 
         <div class="row" *ngIf="availableFields().length > 0">
