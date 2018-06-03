@@ -23,9 +23,6 @@ describe('DatabaseComponent', () => {
     let component: DatabaseComponent;
     let fixture: ComponentFixture<DatabaseComponent>;
 
-    const dummyFilter = new Filter();
-    const dummySorter = new Sorter();
-
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -56,8 +53,6 @@ describe('DatabaseComponent', () => {
 
         const dummyData = TestUtils.createDummyTea();
         component.teas = [dummyData];
-        component.filter = dummyFilter;
-        component.sorter = dummySorter;
 
         fixture.detectChanges();
     });

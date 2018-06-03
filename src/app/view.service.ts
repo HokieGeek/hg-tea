@@ -5,9 +5,9 @@ import { Tea } from './tea';
 export enum FilterFlag { 'UNSET', 'ONLY', 'EXCLUDED' }
 
 export class Filter {
-    private strings: Map<string, string[]> = new Map<string, string[]>();
-    private flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
-    private matchers: Map<string, any> = new Map<string, any>();
+    public strings: Map<string, string[]> = new Map<string, string[]>();
+    public flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
+    public matchers: Map<string, any> = new Map<string, any>();
     public changed: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
@@ -51,7 +51,6 @@ export class Filter {
     hasStrings(field: string): boolean {
         return this.strings.has(field) && this.strings.get(field).length !== 0;
     }
-
 
     // FilterFlag fields
     private flagCompare(field: string, state: FilterFlag): boolean {
@@ -150,8 +149,8 @@ class SortField {
 }
 
 export class Sorter {
-    private _fields: Map<string, SortField> = new Map<string, SortField>();
-    private _assignedFields: string[] = [];
+    public _fields: Map<string, SortField> = new Map<string, SortField>();
+    public _assignedFields: string[] = [];
     public changed: EventEmitter<any> = new EventEmitter();
 
     addFieldComparator(fieldName: string, comparator: (tea1, tea2: Tea, dir: SortDirection) => number) {
@@ -167,6 +166,7 @@ export class Sorter {
             this.changed.emit();
             return true;
         } else {
+            console.log('crap');
             return false;
         }
     }
@@ -235,8 +235,50 @@ export class Sorter {
 }
 
 class View {
-    public filter: Filter = new Filter();
-    public sorter: Sorter = new Sorter();
+    // public filter: Filter = new Filter();
+    // public sorter: Sorter = new Sorter();
+    constructor(public filter: Filter, public sorter: Sorter) { }
+}
+
+class StoredView {
+    public filterStrings: string;
+    public filterFlag: string;
+    public filterMatchers: string;
+    public sorterFields: string;
+    public sorterAssignedFields: string;
+
+    parse(obj: object): StoredView {
+        this.filterStrings = obj['filterStrings'];
+        this.filterFlag = obj['filterFlag'];
+        this.filterMatchers = obj['filterMatchers'];
+        this.sorterFields = obj['sorterFields'];
+        this.sorterAssignedFields = obj['sorterAssignedFields'];
+        return this;
+    }
+
+    parseView(view: View): StoredView {
+        this.filterStrings = JSON.stringify(Array.from(view.filter.strings.entries()));
+        this.filterFlag = JSON.stringify(Array.from(view.filter.flags.entries()));
+        // this.filterMatchers = JSON.stringify(Array.from(view.filter.matchers.entries()));
+        const matchers = new Map<string, string>();
+        view.filter.matchers.forEach((matcher, field) => {
+            matchers.set(field, JSON.stringify(matcher));
+        });
+        this.filterMatchers = JSON.stringify(Array.from(matchers));
+        this.sorterFields = JSON.stringify(Array.from(view.sorter._fields));
+        this.sorterAssignedFields = JSON.stringify(view.sorter.assignedFields);
+        return this;
+    }
+
+    createView(): View {
+        const v = new View(new Filter(), new Sorter());
+        v.filter.strings = new Map<string, string[]>(JSON.parse(this.filterStrings));
+        v.filter.flags = new Map<string, FilterFlag>(JSON.parse(this.filterFlag));
+        v.filter.matchers = new Map<string, any>(JSON.parse(this.filterMatchers));
+        v.sorter._fields = new Map<string, SortField>(JSON.parse(this.sorterFields));
+        v.sorter._assignedFields = JSON.parse(this.sorterAssignedFields);
+        return v;
+    }
 }
 
 @Injectable({
@@ -244,40 +286,66 @@ class View {
 })
 export class ViewService {
     private storageKey = 'hg-tea-views';
-    private active: View = new View();
+    private active: View;
     private views: Map<string, View> = new Map<string, View>();
+    public changed: EventEmitter<any> = new EventEmitter();
 
     constructor() {
+        // localStorage.removeItem(this.storageKey);
+        this.setActiveView(new View(new Filter(), new Sorter()));
         this.retrieveViews();
     }
 
     private storeViews(): void {
-        try {
-            localStorage.setItem(this.storageKey, JSON.stringify(Array.from(this.views.entries())));
-        } catch (e) {
-            console.log(e);
-        }
+        const stored: Map<string, StoredView> = new Map<string, StoredView>();
+        this.views.forEach((view, name) => {
+            stored.set(name, new StoredView().parseView(view));
+        });
+        console.log('storing: ', Array.from(stored.entries()));
+        localStorage.setItem(this.storageKey, JSON.stringify(Array.from(stored.entries())));
     }
 
     private retrieveViews(): void {
-        this.views = new Map<string, View>(JSON.parse(localStorage.getItem(this.storageKey)));
+        this.views.clear();
+        const stored = new Map<string, object>(JSON.parse(localStorage.getItem(this.storageKey)));
+        stored.forEach((sv, name) => {
+            console.log(new StoredView().parse(sv).createView());
+            this.views.set(name, new StoredView().parse(sv).createView());
+        });
+    }
+
+    private setActiveView(view: View): void {
+        // console.log('setActiveView():', view);
+        this.active = view;
+        this.active.filter.changed.subscribe(() => this.changed.emit());
+        this.active.sorter.changed.subscribe(() => this.changed.emit());
     }
 
     save(name: string): boolean {
-        this.views.set(name, this.active);
+        this.views.set(name, { ...this.active });
         this.storeViews();
         return true;
     }
 
     load(name: string): boolean {
         if (this.views.has(name)) {
-            this.active = this.views.get(name);
+            console.log('load');
+            this.setActiveView(this.views.get(name));
+            this.changed.emit();
             return true;
         }
         return false;
     }
 
-    list(): string[] {
+    remove(name: string): boolean {
+        if (this.views.delete(name)) {
+            this.storeViews();
+            return true;
+        }
+        return false;
+    }
+
+    get list(): string[] {
         return Array.from(this.views.keys());
     }
 

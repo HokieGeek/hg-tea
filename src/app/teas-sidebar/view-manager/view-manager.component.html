@@ -1,3 +1,32 @@
-<p>
-  view-manager works!
-</p>
+<hr />
+<div>
+    <button type="button"
+            class="btn btn-sm btn-block btn-outline-secondary"
+            (click)="save()">
+        Save
+    </button>
+
+    <div ngbDropdown class="d-inline-block">
+        <button id="dropdown-view-load"
+                class="btn btn-sm btn-block btn-outline-secondary"
+                [disabled]="view.list.length === 0"
+                ngbDropdownToggle>Load</button>
+        <div ngbDropdownMenu aria-labelledby="dropdown-view-load">
+            <button class="dropdown-item" *ngFor="let name of view.list" (click)="view.load(name)">
+                {{name}}
+            </button>
+        </div>
+    </div>
+
+    <div ngbDropdown class="d-inline-block">
+        <button id="dropdown-view-del"
+                class="btn btn-sm btn-block btn-outline-secondary"
+                [disabled]="view.list.length === 0"
+                ngbDropdownToggle>Delete</button>
+        <div ngbDropdownMenu aria-labelledby="dropdown-view-del">
+            <button class="dropdown-item" *ngFor="let name of view.list" (click)="view.remove(name)">
+                {{name}}
+            </button>
+        </div>
+    </div>
+</div>

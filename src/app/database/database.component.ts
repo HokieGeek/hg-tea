@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 
 import { Tea } from '../tea';
-import { Filter, Sorter } from '../view.service';
+import { ViewService } from '../view.service';
 
 @Component({
     selector: 'hg-database',
@@ -11,17 +11,14 @@ import { Filter, Sorter } from '../view.service';
 
 export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() teas: Tea[] = [];
-    @Input() filter: Filter;
-    @Input() sorter: Sorter;
     private _processedTeas: Tea[];
 
-    constructor() { }
+    constructor(public view: ViewService) { }
 
     ngOnInit() { }
 
     ngAfterViewInit() {
-        this.filter.changed.subscribe(() => this.updateTeas());
-        this.sorter.changed.subscribe(() => this.updateTeas());
+        this.view.changed.subscribe(() => this.updateTeas());
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -34,7 +31,7 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
 
     updateTeas(): void {
         this._processedTeas = this.teas
-            .filter(t => this.filter.isMatch(t))
-            .sort((t1, t2) => this.sorter.compare(t1, t2));
+            .filter(t => this.view.filter.isMatch(t))
+            .sort((t1, t2) => this.view.sorter.compare(t1, t2));
     }
 }

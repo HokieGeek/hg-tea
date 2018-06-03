@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Filter } from '../../../view.service';
+import { ViewService, Filter } from '../../../view.service';
 
 @Component({
     selector: 'hg-string-field',
@@ -10,10 +10,13 @@ import { Filter } from '../../../view.service';
 export class StringFieldComponent implements OnInit {
     @Input() name: string;
     @Input() values: string[];
-    @Input() filter: Filter;
 
-    constructor() { }
+    constructor(public view: ViewService) { }
 
     ngOnInit() {
+    }
+
+    get filter(): Filter {
+        return this.view.filter;
     }
 }

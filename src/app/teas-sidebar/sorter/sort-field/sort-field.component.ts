@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Sorter, SortDirection } from '../../../view.service';
+import { ViewService, Sorter, SortDirection } from '../../../view.service';
 
 @Component({
     selector: 'hg-sort-field',
@@ -10,14 +10,17 @@ import { Sorter, SortDirection } from '../../../view.service';
 export class SortFieldComponent implements OnInit {
     SortDirection = SortDirection;
     @Input() name: string;
-    @Input() sorter: Sorter;
 
-    constructor() { }
+    constructor(public view: ViewService) { }
 
     ngOnInit() {
     }
 
     label() {
         return this.name + ' ' + (this.sorter.getSortDirection(this.name) === SortDirection.DESC ? '↓' : '↑');
+    }
+
+    get sorter(): Sorter {
+        return this.view.sorter;
     }
 }

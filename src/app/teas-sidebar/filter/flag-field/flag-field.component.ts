@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Filter } from '../../../view.service';
+import { ViewService, Filter } from '../../../view.service';
 
 @Component({
     selector: 'hg-flag-field',
@@ -9,9 +9,8 @@ import { Filter } from '../../../view.service';
 })
 export class FlagFieldComponent implements OnInit {
     @Input() name: string;
-    @Input() filter: Filter;
 
-    constructor() { }
+    constructor(public view: ViewService) { }
 
     ngOnInit() {
     }
@@ -24,5 +23,9 @@ export class FlagFieldComponent implements OnInit {
         } else {
             this.filter.withoutFlag(this.name);
         }
+    }
+
+    get filter(): Filter {
+        return this.view.filter;
     }
 }
