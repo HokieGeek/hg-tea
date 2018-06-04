@@ -5,6 +5,11 @@ import { Tea } from './tea';
 export enum FilterFlag { 'UNSET', 'ONLY', 'EXCLUDED' }
 
 export class Filter {
+    static Stored = class {
+        public strings: string;
+        public flags: string;
+    };
+
     public strings: Map<string, string[]> = new Map<string, string[]>();
     public flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
     public matchers: Map<string, any> = new Map<string, any>();
@@ -52,6 +57,10 @@ export class Filter {
         return this.strings.has(field) && this.strings.get(field).length !== 0;
     }
 
+    get stringFields(): string[] {
+        return Array.from(this.strings.keys());
+    }
+
     // FilterFlag fields
     private flagCompare(field: string, state: FilterFlag): boolean {
         if (this.flags.has(field)) {
@@ -96,6 +105,10 @@ export class Filter {
         return this.flags.has(field) && this.flags.get(field) !== FilterFlag.UNSET;
     }
 
+    get flagFields(): string[] {
+        return Array.from(this.flags.keys());
+    }
+
     isMatch(tea: Tea): boolean {
         let isMatch = true;
         this.matchers.forEach((matcher: any, field: string) => {
@@ -114,6 +127,21 @@ export class Filter {
             }
         });
         return isMatch;
+    }
+
+    stringify(): string {
+        const s = new Filter.Stored();
+        s.strings = JSON.stringify(Array.from(this.strings.entries()));
+        s.flags = JSON.stringify(Array.from(this.flags.entries()));
+        // console.log('stringify', s.flags);
+        return JSON.stringify(s);
+    }
+
+    parse(f: string) {
+        const s = JSON.parse(f);
+        this.strings = new Map<string, string[]>(JSON.parse(s.strings));
+        this.flags = new Map<string, FilterFlag>(JSON.parse(s.flags));
+        // console.log('parsed', this.flags);
     }
 }
 
@@ -149,6 +177,11 @@ class SortField {
 }
 
 export class Sorter {
+    static Stored = class {
+        public fields: string;
+        public assignedFields: string;
+    };
+
     public _fields: Map<string, SortField> = new Map<string, SortField>();
     public _assignedFields: string[] = [];
     public changed: EventEmitter<any> = new EventEmitter();
@@ -166,7 +199,6 @@ export class Sorter {
             this.changed.emit();
             return true;
         } else {
-            console.log('crap');
             return false;
         }
     }
@@ -232,54 +264,182 @@ export class Sorter {
         });
         return ret;
     }
+
+    stringify(): string {
+        const s = new Sorter.Stored();
+        s.fields = JSON.stringify(Array.from(this._fields));
+        s.assignedFields = JSON.stringify(this.assignedFields);
+        return JSON.stringify(s);
+    }
+
+    parse(s: string) {
+        const ss = JSON.parse(s);
+        this._fields = new Map<string, SortField>(JSON.parse(ss.fields));
+        this._assignedFields = JSON.parse(ss.assignedFields);
+    }
 }
 
 class View {
-    // public filter: Filter = new Filter();
-    // public sorter: Sorter = new Sorter();
-    constructor(public filter: Filter, public sorter: Sorter) { }
+    static Stored = class {
+        public filter: string;
+        public sorter: string;
+    };
+
+    constructor(public filter: Filter, public sorter: Sorter) {
+        this.addFilters(filter);
+        this.addSorters(sorter);
+    }
+
+    private addFilters(f: Filter) {
+        f.addStringField('Tea Type', (strings: string[], tea: Tea): boolean => {
+            return strings.includes(tea.type);
+        });
+
+        f.addFlagField('Stocked', (flag: FilterFlag, tea: Tea): boolean => {
+            return ((flag === FilterFlag.ONLY && tea.stocked)
+                || (flag === FilterFlag.EXCLUDED && !tea.stocked));
+        });
+
+        f.addFlagField('With entries', (flag: FilterFlag, tea: Tea): boolean => {
+            return ((flag === FilterFlag.ONLY && tea.entries.length > 0)
+                || (flag === FilterFlag.EXCLUDED && tea.entries.length === 0));
+        });
+
+        f.addStringField('Countries', (strings: string[], tea: Tea): boolean => {
+            return strings.includes(tea.country.toLowerCase());
+        });
+
+        f.addFlagField('Sample', (flag: FilterFlag, tea: Tea): boolean => {
+            return ((flag === FilterFlag.ONLY && tea.sample)
+                || (flag === FilterFlag.EXCLUDED && !tea.sample));
+        });
+
+        f.addStringField('Purchase location', (strings: string[], tea: Tea): boolean => {
+            return strings.includes(tea.purchaselocation.toLowerCase());
+        });
+    }
+
+    private addSorters(s: Sorter) {
+        const sorterRecentEntries = 'Recent entries';
+        s.addFieldComparator(sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
+            if (t1.latestEntry == null && t2.latestEntry == null) {
+                return 0;
+            } else if (t1.latestEntry == null && t2.latestEntry != null) {
+                // TODO: make use of dir
+                return 1;
+            } else if (t1.latestEntry != null && t2.latestEntry == null) {
+                // TODO: make use of dir
+                return -1;
+            } else {
+                if (dir === SortDirection.DESC) { // Sort newest to oldest
+                    return t2.latestEntry.datetime.getTime() - t1.latestEntry.datetime.getTime();
+                } else { // Sort oldest to newest
+                    return t1.latestEntry.datetime.getTime() - t2.latestEntry.datetime.getTime();
+                }
+            }
+        });
+        s.assignField(sorterRecentEntries, SortDirection.DESC);
+
+        s.addFieldComparator('Ratings (Median)', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) {
+                return t2.ratingMedian - t1.ratingMedian;
+            } else {
+                return t1.ratingMedian - t2.ratingMedian;
+            }
+        });
+
+        s.addFieldComparator('Ratings (Average)', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) {
+                return t2.ratingAvg - t1.ratingAvg;
+            } else {
+                return t1.ratingAvg - t2.ratingAvg;
+            }
+        });
+
+        s.addFieldComparator('Year', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) {
+                return t2.year - t1.year;
+            } else {
+                return t1.year - t2.year;
+            }
+        });
+
+        s.addFieldComparator('Number of entries', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) { // Sort newest to oldest
+                return t2.entries.length - t1.entries.length;
+            } else { // Sort oldest to newest
+                return t1.entries.length - t2.entries.length;
+            }
+        });
+
+        s.addFieldComparator('Purchase price', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) { // Sort newest to oldest
+                return t2.purchaseprice - t1.purchaseprice;
+            } else { // Sort oldest to newest
+                return t1.purchaseprice - t2.purchaseprice;
+            }
+        });
+    }
+
+    stringify(): string {
+        const v = new View.Stored();
+        v.filter = this.filter.stringify();
+        v.sorter = this.sorter.stringify();
+        return JSON.stringify(v);
+    }
+
+    parse(v: string): View {
+        const s = JSON.parse(v);
+        this.filter.parse(s.filter);
+        this.sorter.parse(s.sorter);
+        return this;
+    }
 }
 
+    /*
 class StoredView {
-    public filterStrings: string;
-    public filterFlag: string;
-    public filterMatchers: string;
+    public filter: string;
+    public sorter: string;
+
+    // public filterStrings: string;
+    // public filterFlag: string;
     public sorterFields: string;
     public sorterAssignedFields: string;
 
     parse(obj: object): StoredView {
-        this.filterStrings = obj['filterStrings'];
-        this.filterFlag = obj['filterFlag'];
-        this.filterMatchers = obj['filterMatchers'];
-        this.sorterFields = obj['sorterFields'];
-        this.sorterAssignedFields = obj['sorterAssignedFields'];
+        this.filter = obj['filter'];
+        this.sorter = obj['sorter'];
+
+        // this.filterStrings = obj['filterStrings'];
+        // this.filterFlag = obj['filterFlag'];
+        // this.sorterFields = obj['sorterFields'];
+        // this.sorterAssignedFields = obj['sorterAssignedFields'];
         return this;
     }
 
     parseView(view: View): StoredView {
-        this.filterStrings = JSON.stringify(Array.from(view.filter.strings.entries()));
-        this.filterFlag = JSON.stringify(Array.from(view.filter.flags.entries()));
-        // this.filterMatchers = JSON.stringify(Array.from(view.filter.matchers.entries()));
-        const matchers = new Map<string, string>();
-        view.filter.matchers.forEach((matcher, field) => {
-            matchers.set(field, JSON.stringify(matcher));
-        });
-        this.filterMatchers = JSON.stringify(Array.from(matchers));
-        this.sorterFields = JSON.stringify(Array.from(view.sorter._fields));
-        this.sorterAssignedFields = JSON.stringify(view.sorter.assignedFields);
+        this.filter = view.filter.stringify();
+        this.sorter = view.sorter.stringify();
+
+        // this.filterStrings = JSON.stringify(Array.from(view.filter.strings.entries()));
+        // this.filterFlag = JSON.stringify(Array.from(view.filter.flags.entries()));
+        // this.sorterFields = JSON.stringify(Array.from(view.sorter._fields));
+        // this.sorterAssignedFields = JSON.stringify(view.sorter.assignedFields);
         return this;
     }
 
     createView(): View {
         const v = new View(new Filter(), new Sorter());
-        v.filter.strings = new Map<string, string[]>(JSON.parse(this.filterStrings));
-        v.filter.flags = new Map<string, FilterFlag>(JSON.parse(this.filterFlag));
-        v.filter.matchers = new Map<string, any>(JSON.parse(this.filterMatchers));
-        v.sorter._fields = new Map<string, SortField>(JSON.parse(this.sorterFields));
-        v.sorter._assignedFields = JSON.parse(this.sorterAssignedFields);
+        v.filter.parse(this.filter);
+        v.sorter.parse(this.sorter);
+        // v.filter.strings = new Map<string, string[]>(JSON.parse(this.filterStrings));
+        // v.filter.flags = new Map<string, FilterFlag>(JSON.parse(this.filterFlag));
+        // v.sorter._fields = new Map<string, SortField>(JSON.parse(this.sorterFields));
+        // v.sorter._assignedFields = JSON.parse(this.sorterAssignedFields);
         return v;
     }
 }
+    */
 
 @Injectable({
     providedIn: 'root',
@@ -297,9 +457,14 @@ export class ViewService {
     }
 
     private storeViews(): void {
-        const stored: Map<string, StoredView> = new Map<string, StoredView>();
+        console.log('crap', this.active);
+        const stored: Map<string, string> = new Map<string, string>();
+        console.log('views', this.views);
         this.views.forEach((view, name) => {
-            stored.set(name, new StoredView().parseView(view));
+            const v: View = view;
+            console.log('storeViews', name, view);
+            // stored.set(name, new StoredView().parseView(view));
+            stored.set(name, v.stringify());
         });
         console.log('storing: ', Array.from(stored.entries()));
         localStorage.setItem(this.storageKey, JSON.stringify(Array.from(stored.entries())));
@@ -307,22 +472,22 @@ export class ViewService {
 
     private retrieveViews(): void {
         this.views.clear();
-        const stored = new Map<string, object>(JSON.parse(localStorage.getItem(this.storageKey)));
+        const stored = new Map<string, string>(JSON.parse(localStorage.getItem(this.storageKey)));
         stored.forEach((sv, name) => {
-            console.log(new StoredView().parse(sv).createView());
-            this.views.set(name, new StoredView().parse(sv).createView());
+            console.log('sv', sv);
+            // this.views.set(name, new StoredView().parse(sv).createView());
+            this.views.set(name, new View(new Filter(), new Sorter()).parse(sv));
         });
     }
 
     private setActiveView(view: View): void {
-        // console.log('setActiveView():', view);
         this.active = view;
         this.active.filter.changed.subscribe(() => this.changed.emit());
         this.active.sorter.changed.subscribe(() => this.changed.emit());
     }
 
     save(name: string): boolean {
-        this.views.set(name, { ...this.active });
+        this.views.set(name, this.active);
         this.storeViews();
         return true;
     }

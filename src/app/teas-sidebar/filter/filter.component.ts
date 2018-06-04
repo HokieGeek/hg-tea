@@ -14,42 +14,18 @@ export class FilterComponent implements OnInit {
     private countries: string[] = [];
     private purchaseLocations: string[] = [];
 
+    /*
     public filterTeaTypes = 'Tea Type';
+    public filterCountries = 'Countries';
+    public filterPurchaseLocation = 'Purchase location';
+    public filterSample = 'Sample';
     public filterStocked = 'Stocked';
     public filterEntries = 'With entries';
-    public filterCountries = 'Countries';
-    public filterSample = 'Sample';
-    public filterPurchaseLocation = 'Purchase location';
+    */
 
     constructor(public view: ViewService) { }
 
     ngOnInit() {
-        this.view.filter.addStringField(this.filterTeaTypes, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.type);
-        });
-
-        this.view.filter.addFlagField(this.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
-            return ((flag === FilterFlag.ONLY && tea.stocked)
-                || (flag === FilterFlag.EXCLUDED && !tea.stocked));
-        });
-
-        this.view.filter.addFlagField(this.filterEntries, (flag: FilterFlag, tea: Tea): boolean => {
-            return ((flag === FilterFlag.ONLY && tea.entries.length > 0)
-                || (flag === FilterFlag.EXCLUDED && tea.entries.length === 0));
-        });
-
-        this.view.filter.addStringField(this.filterCountries, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.country.toLowerCase());
-        });
-
-        this.view.filter.addFlagField(this.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
-            return ((flag === FilterFlag.ONLY && tea.sample)
-                || (flag === FilterFlag.EXCLUDED && !tea.sample));
-        });
-
-        this.view.filter.addStringField(this.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.purchaselocation.toLowerCase());
-        });
     }
 
     get teas(): Tea[] {
@@ -70,5 +46,21 @@ export class FilterComponent implements OnInit {
         this.teaTypes = this.teaFields(t => t.type.toLowerCase());
         this.countries = this.teaFields(t => t.country.toLowerCase());
         this.purchaseLocations = this.teaFields(t => t.purchaselocation.toLowerCase());
+    }
+
+    filteredTeaData(field: string): string[] {
+        switch (field) {
+        case 'Tea Type': return this.teaTypes;
+        case 'Countries': return this.countries;
+        case 'Purchase location': return this.purchaseLocations;
+        }
+    }
+
+    get flags(): string[] {
+        return this.view.filter.flagFields;
+    }
+
+    get strings(): string[] {
+        return this.view.filter.stringFields;
     }
 }

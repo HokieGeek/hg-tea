@@ -5,7 +5,7 @@ enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flu
 export enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Sugar', 'Brown Sugar', 'Raw Sugar',
                 'Honey', 'Vanilla Extract', 'Vanilla Bean',
-                'Maple Cream', 'Maple Sugar', 'Chai Goop'}
+                'Maple Cream', 'Maple Sugar', 'Chai Goop', 'Ice'}
 export enum SteepingVessels {'Other', 'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
                       'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
                       'Cup', 'Bowl', 'Gaiwan', 'Aberdeen Steeper'}

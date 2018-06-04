@@ -2,11 +2,15 @@
 <hr />
 <div class="container">
     <div class="col">
-        <hg-string-field class="row" [name]="filterTeaTypes" [values]="teaTypes"></hg-string-field>
-        <hg-string-field class="row" [name]="filterCountries" [values]="countries"></hg-string-field>
-        <hg-string-field class="row" [name]="filterPurchaseLocation" [values]="purchaseLocations"></hg-string-field>
-        <hg-flag-field class="row" [name]="filterStocked"></hg-flag-field>
-        <hg-flag-field class="row" [name]="filterEntries"></hg-flag-field>
-        <hg-flag-field class="row" [name]="filterSample"></hg-flag-field>
+        <hg-string-field
+            class="row"
+            *ngFor="let name of strings"
+            [name]="name"
+            [values]="filteredTeaData(name)"></hg-string-field>
+
+        <hg-flag-field
+            class="row"
+            *ngFor="let name of flags"
+            [name]="name"></hg-flag-field>
     </div>
 </div>
