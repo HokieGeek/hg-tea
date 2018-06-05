@@ -154,59 +154,25 @@ export class Filter {
 
 export enum SortDirection { 'ASC', 'DESC' }
 
-class SortField {
-    constructor(private _name: string, private _comparator: any, private direction: SortDirection) {}
-
-    get name(): string {
-        return this._name;
-    }
-
-    get comparator(): any {
-        return this._comparator;
-    }
-
-    get sortDirection(): SortDirection {
-        return this.direction;
-    }
-
-    set sortDirection(dir: SortDirection) {
-        this.direction = dir;
-    }
-
-    toggleSortDirection() {
-        if (this.direction === SortDirection.ASC) {
-            this.direction = SortDirection.DESC;
-        } else {
-            this.direction = SortDirection.ASC;
-        }
-    }
-
-    clone(): SortField {
-        return new SortField(this._name, this._comparator, this.direction);
-        // constructor(private _name: string, private _comparator: any, private direction: SortDirection) {}
-    }
-}
-
 export class Sorter {
     static Stored = class {
         public assignedFields: string;
     };
 
     // TODO: assignedFields needs to include the SortDirection
-    public _fields: Map<string, SortField> = new Map<string, SortField>();
-    public _assignedFields: string[] = [];
+    public _fields: Map<string, any> = new Map<string, any>();
+    public _assignedFields: Map<string, SortDirection> = new Map<string, SortDirection>();
     public changed: EventEmitter<any> = new EventEmitter();
 
     addFieldComparator(fieldName: string, comparator: (tea1, tea2: Tea, dir: SortDirection) => number) {
-        this._fields.set(fieldName, new SortField(fieldName, comparator, SortDirection.DESC));
+        if (fieldName !== null && comparator !== null) {
+            this._fields.set(fieldName, comparator);
+        }
     }
 
     assignField(field: string, dir: SortDirection): boolean {
         if (this._fields.has(field)) {
-            if (!this._assignedFields.includes(field)) {
-                this._assignedFields.push(field);
-            }
-            this.getField(field).sortDirection = dir;
+            this._assignedFields.set(field, dir);
             this.changed.emit();
             return true;
         } else {
@@ -215,14 +181,14 @@ export class Sorter {
     }
 
     get assignedFields(): string[] {
-        return this._assignedFields;
+        return Array.from(this._assignedFields.keys());
     }
 
     get fields(): string[] {
         return Array.from(this._fields.keys());
     }
 
-    getField(field: string): SortField {
+    getField(field: string): any {
         if (this._fields.has(field)) {
             return this._fields.get(field);
         } else {
@@ -232,7 +198,7 @@ export class Sorter {
 
     removeField(field: string): boolean {
         if (this._fields.delete(field)) {
-            this._assignedFields.splice(this._assignedFields.indexOf(field), 1);
+            this._assignedFields.delete(field);
             this.changed.emit();
             return true;
         } else {
@@ -241,23 +207,27 @@ export class Sorter {
     }
 
     getSortDirection(field: string): SortDirection {
-        if (this._fields.has(field)) {
-            return this.getField(field).sortDirection;
+        if (this._assignedFields.has(field)) {
+            return this._assignedFields.get(field);
         } else {
             return null;
         }
     }
 
     toggleSortDirection(field: string) {
-        if (this._fields.has(field)) {
-            this.getField(field).toggleSortDirection();
+        if (this._assignedFields.has(field)) {
+            if (this._assignedFields.get(field) === SortDirection.ASC) {
+                this._assignedFields.set(field, SortDirection.DESC);
+            } else {
+                this._assignedFields.set(field, SortDirection.ASC);
+            }
             this.changed.emit();
         }
     }
 
     compare(t1, t2: Tea): number {
         let ret = 0;
-        this._assignedFields.forEach((fieldName: string) => {
+        this._assignedFields.forEach((dir: SortDirection, fieldName: string) => {
             if (ret === 0) {
                 if (t1 == null && t2 == null) {
                     ret = 0;
@@ -266,10 +236,11 @@ export class Sorter {
                 } else if (t1 != null && t2 == null) {
                     ret = -1;
                 } else {
-                    const field = this.getField(fieldName);
-                    if (field !== null) {
-                        ret = field.comparator(t1, t2, field.sortDirection);
+                    const comparator = this.getField(fieldName);
+                    if (comparator !== null) {
+                        ret = comparator(t1, t2, dir);
                     }
+                    // ret = this.getField(fieldName)(t1, t2, dir);
                 }
             }
         });
@@ -279,11 +250,7 @@ export class Sorter {
     clone(): Sorter {
         const s: Sorter = new Sorter();
         s._assignedFields = Object.assign([], this._assignedFields);
-        // public _fields: Map<string, SortField> = new Map<string, SortField>();
-        s._fields = new Map<string, SortField>();
-        this._fields.forEach((field, name) => {
-            s._fields.set(name, field.clone());
-        });
+        s._fields = new Map<string, any>(this._fields);
         return s;
     }
 
