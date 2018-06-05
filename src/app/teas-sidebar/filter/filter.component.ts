@@ -13,15 +13,7 @@ export class FilterComponent implements OnInit {
     private teaTypes: string[] = [];
     private countries: string[] = [];
     private purchaseLocations: string[] = [];
-
-    /*
-    public filterTeaTypes = 'Tea Type';
-    public filterCountries = 'Countries';
-    public filterPurchaseLocation = 'Purchase location';
-    public filterSample = 'Sample';
-    public filterStocked = 'Stocked';
-    public filterEntries = 'With entries';
-    */
+    private regions: string[] = [];
 
     constructor(public view: ViewService) { }
 
@@ -39,13 +31,14 @@ export class FilterComponent implements OnInit {
     }
 
     private teaFields(m: (t) => any): string[] {
-        return this.teas.map(m).filter((value, index, self) => self.indexOf(value) === index);
+        return this.teas.map(m).filter((value, index, self) => self.indexOf(value) === index); // TODO: filter out blanks
     }
 
     populateFields() {
         this.teaTypes = this.teaFields(t => t.type.toLowerCase());
         this.countries = this.teaFields(t => t.country.toLowerCase());
         this.purchaseLocations = this.teaFields(t => t.purchaselocation.toLowerCase());
+        this.regions = this.teaFields(t => t.region.toLowerCase());
     }
 
     filteredTeaData(field: string): string[] {
@@ -53,6 +46,7 @@ export class FilterComponent implements OnInit {
         case 'Tea Type': return this.teaTypes;
         case 'Countries': return this.countries;
         case 'Purchase location': return this.purchaseLocations;
+        case 'Region': return this.regions;
         }
     }
 

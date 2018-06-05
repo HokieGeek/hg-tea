@@ -343,6 +343,14 @@ class View {
         f.addStringField('Purchase location', (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.purchaselocation.toLowerCase());
         });
+
+        f.addStringField('Purchase location', (strings: string[], tea: Tea): boolean => {
+            return strings.includes(tea.purchaselocation.toLowerCase());
+        });
+
+        f.addStringField('Region', (strings: string[], tea: Tea): boolean => {
+            return strings.includes(tea.region.toLowerCase());
+        });
     }
 
     private addSorters(s: Sorter) {
@@ -442,14 +450,11 @@ export class ViewService {
     }
 
     private storeViews(): void {
-        console.log('crap', this.active);
         const stored: Map<string, string> = new Map<string, string>();
-        console.log('views', this.views);
         this.views.forEach((view, name) => {
             const v: View = view;
             stored.set(name, v.stringify());
         });
-        console.log('storing: ', Array.from(stored.entries()));
         localStorage.setItem(this.storageKey, JSON.stringify(Array.from(stored.entries())));
     }
 
