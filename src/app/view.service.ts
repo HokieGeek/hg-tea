@@ -10,6 +10,7 @@ export class Filter {
         public flags: string;
     };
 
+    // TODO: not public
     public strings: Map<string, string[]> = new Map<string, string[]>();
     public flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
     public matchers: Map<string, any> = new Map<string, any>();
@@ -129,11 +130,18 @@ export class Filter {
         return isMatch;
     }
 
+    clone(): Filter {
+        const f: Filter = new Filter();
+        f.strings = new Map<string, string[]>(this.strings);
+        f.flags = new Map<string, FilterFlag>(this.flags);
+        f.matchers = new Map<string, any>(this.matchers);
+        return f;
+    }
+
     stringify(): string {
         const s = new Filter.Stored();
         s.strings = JSON.stringify(Array.from(this.strings.entries()));
         s.flags = JSON.stringify(Array.from(this.flags.entries()));
-        // console.log('stringify', s.flags);
         return JSON.stringify(s);
     }
 
@@ -141,7 +149,6 @@ export class Filter {
         const s = JSON.parse(f);
         this.strings = new Map<string, string[]>(JSON.parse(s.strings));
         this.flags = new Map<string, FilterFlag>(JSON.parse(s.flags));
-        // console.log('parsed', this.flags);
     }
 }
 
@@ -174,14 +181,18 @@ class SortField {
         }
     }
 
+    clone(): SortField {
+        return new SortField(this._name, this._comparator, this.direction);
+        // constructor(private _name: string, private _comparator: any, private direction: SortDirection) {}
+    }
 }
 
 export class Sorter {
     static Stored = class {
-        public fields: string;
         public assignedFields: string;
     };
 
+    // TODO: assignedFields needs to include the SortDirection
     public _fields: Map<string, SortField> = new Map<string, SortField>();
     public _assignedFields: string[] = [];
     public changed: EventEmitter<any> = new EventEmitter();
@@ -265,16 +276,25 @@ export class Sorter {
         return ret;
     }
 
+    clone(): Sorter {
+        const s: Sorter = new Sorter();
+        s._assignedFields = Object.assign([], this._assignedFields);
+        // public _fields: Map<string, SortField> = new Map<string, SortField>();
+        s._fields = new Map<string, SortField>();
+        this._fields.forEach((field, name) => {
+            s._fields.set(name, field.clone());
+        });
+        return s;
+    }
+
     stringify(): string {
         const s = new Sorter.Stored();
-        s.fields = JSON.stringify(Array.from(this._fields));
         s.assignedFields = JSON.stringify(this.assignedFields);
         return JSON.stringify(s);
     }
 
     parse(s: string) {
         const ss = JSON.parse(s);
-        this._fields = new Map<string, SortField>(JSON.parse(ss.fields));
         this._assignedFields = JSON.parse(ss.assignedFields);
     }
 }
@@ -285,9 +305,15 @@ class View {
         public sorter: string;
     };
 
-    constructor(public filter: Filter, public sorter: Sorter) {
-        this.addFilters(filter);
-        this.addSorters(sorter);
+    constructor(public filter?: Filter, public sorter?: Sorter) {
+        if (this.filter === undefined) {
+            this.filter = new Filter();
+            this.addFilters(this.filter);
+        }
+        if (this.sorter === undefined) {
+            this.sorter = new Sorter();
+            this.addSorters(this.sorter);
+        }
     }
 
     private addFilters(f: Filter) {
@@ -381,6 +407,10 @@ class View {
         });
     }
 
+    clone(): View {
+        return new View(this.filter.clone(), this.sorter.clone());
+    }
+
     stringify(): string {
         const v = new View.Stored();
         v.filter = this.filter.stringify();
@@ -396,51 +426,6 @@ class View {
     }
 }
 
-    /*
-class StoredView {
-    public filter: string;
-    public sorter: string;
-
-    // public filterStrings: string;
-    // public filterFlag: string;
-    public sorterFields: string;
-    public sorterAssignedFields: string;
-
-    parse(obj: object): StoredView {
-        this.filter = obj['filter'];
-        this.sorter = obj['sorter'];
-
-        // this.filterStrings = obj['filterStrings'];
-        // this.filterFlag = obj['filterFlag'];
-        // this.sorterFields = obj['sorterFields'];
-        // this.sorterAssignedFields = obj['sorterAssignedFields'];
-        return this;
-    }
-
-    parseView(view: View): StoredView {
-        this.filter = view.filter.stringify();
-        this.sorter = view.sorter.stringify();
-
-        // this.filterStrings = JSON.stringify(Array.from(view.filter.strings.entries()));
-        // this.filterFlag = JSON.stringify(Array.from(view.filter.flags.entries()));
-        // this.sorterFields = JSON.stringify(Array.from(view.sorter._fields));
-        // this.sorterAssignedFields = JSON.stringify(view.sorter.assignedFields);
-        return this;
-    }
-
-    createView(): View {
-        const v = new View(new Filter(), new Sorter());
-        v.filter.parse(this.filter);
-        v.sorter.parse(this.sorter);
-        // v.filter.strings = new Map<string, string[]>(JSON.parse(this.filterStrings));
-        // v.filter.flags = new Map<string, FilterFlag>(JSON.parse(this.filterFlag));
-        // v.sorter._fields = new Map<string, SortField>(JSON.parse(this.sorterFields));
-        // v.sorter._assignedFields = JSON.parse(this.sorterAssignedFields);
-        return v;
-    }
-}
-    */
-
 @Injectable({
     providedIn: 'root',
 })
@@ -452,7 +437,7 @@ export class ViewService {
 
     constructor() {
         // localStorage.removeItem(this.storageKey);
-        this.setActiveView(new View(new Filter(), new Sorter()));
+        this.setActiveView(new View());
         this.retrieveViews();
     }
 
@@ -462,8 +447,6 @@ export class ViewService {
         console.log('views', this.views);
         this.views.forEach((view, name) => {
             const v: View = view;
-            console.log('storeViews', name, view);
-            // stored.set(name, new StoredView().parseView(view));
             stored.set(name, v.stringify());
         });
         console.log('storing: ', Array.from(stored.entries()));
@@ -474,9 +457,8 @@ export class ViewService {
         this.views.clear();
         const stored = new Map<string, string>(JSON.parse(localStorage.getItem(this.storageKey)));
         stored.forEach((sv, name) => {
-            console.log('sv', sv);
-            // this.views.set(name, new StoredView().parse(sv).createView());
-            this.views.set(name, new View(new Filter(), new Sorter()).parse(sv));
+            const v = new View().parse(sv);
+            this.views.set(name, v);
         });
     }
 
@@ -494,8 +476,7 @@ export class ViewService {
 
     load(name: string): boolean {
         if (this.views.has(name)) {
-            console.log('load');
-            this.setActiveView(this.views.get(name));
+            this.setActiveView(this.views.get(name).clone());
             this.changed.emit();
             return true;
         }
