@@ -10,7 +10,6 @@ describe('StringFieldComponent', () => {
 
     const dummyName = 'Dummy';
     const dummyValues = ['Dummy1', 'Dummy2'];
-    const dummyFilter = new Filter();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -25,7 +24,6 @@ describe('StringFieldComponent', () => {
 
         component.name = dummyName;
         component.values = dummyValues;
-        component.filter = dummyFilter;
 
         fixture.detectChanges();
     });

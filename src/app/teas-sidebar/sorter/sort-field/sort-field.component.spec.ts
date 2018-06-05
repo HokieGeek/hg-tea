@@ -9,7 +9,6 @@ describe('SortFieldComponent', () => {
     let fixture: ComponentFixture<SortFieldComponent>;
 
     const dummyName = 'dummyName';
-    const dummySorter = new Sorter();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -23,7 +22,6 @@ describe('SortFieldComponent', () => {
         component = fixture.componentInstance;
 
         component.name = dummyName;
-        component.sorter = dummySorter;
 
         fixture.detectChanges();
     });

@@ -9,7 +9,6 @@ describe('FlagFieldComponent', () => {
     let fixture: ComponentFixture<FlagFieldComponent>;
 
     const dummyName = 'Dummy';
-    const dummyFilter = new Filter();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -23,7 +22,6 @@ describe('FlagFieldComponent', () => {
         component = fixture.componentInstance;
 
         component.name = dummyName;
-        component.filter = dummyFilter;
 
         fixture.detectChanges();
     });
