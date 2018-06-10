@@ -12,8 +12,4 @@ export class ViewManagerComponent implements OnInit {
 
     ngOnInit() {
     }
-
-    save() {
-        this.view.save('foobar');
-    }
 }

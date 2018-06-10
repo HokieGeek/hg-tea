@@ -249,30 +249,37 @@ export class Sorter {
 
     clone(): Sorter {
         const s: Sorter = new Sorter();
-        s._assignedFields = Object.assign([], this._assignedFields);
+        s._assignedFields = new Map<string, SortDirection>(this._assignedFields);
         s._fields = new Map<string, any>(this._fields);
         return s;
     }
 
     stringify(): string {
         const s = new Sorter.Stored();
-        s.assignedFields = JSON.stringify(this.assignedFields);
+        s.assignedFields = JSON.stringify(Array.from(this._assignedFields.entries()));
         return JSON.stringify(s);
     }
 
     parse(s: string) {
         const ss = JSON.parse(s);
-        this._assignedFields = JSON.parse(ss.assignedFields);
+        this._assignedFields = new Map<string, SortDirection>(JSON.parse(ss.assignedFields));
     }
 }
 
 class View {
     static Stored = class {
+        public name: string;
         public filter: string;
         public sorter: string;
     };
 
-    constructor(public filter?: Filter, public sorter?: Sorter) {
+    constructor(public name?: string, public filter?: Filter, public sorter?: Sorter) {
+        /*
+        if (this.name === undefined) {
+            this.name = "";
+        }
+            */
+
         if (this.filter === undefined) {
             this.filter = new Filter();
             this.addFilters(this.filter);
@@ -383,11 +390,12 @@ class View {
     }
 
     clone(): View {
-        return new View(this.filter.clone(), this.sorter.clone());
+        return new View(this.name, this.filter.clone(), this.sorter.clone());
     }
 
     stringify(): string {
         const v = new View.Stored();
+        v.name = this.name;
         v.filter = this.filter.stringify();
         v.sorter = this.sorter.stringify();
         return JSON.stringify(v);
@@ -395,6 +403,7 @@ class View {
 
     parse(v: string): View {
         const s = JSON.parse(v);
+        this.name = s.name;
         this.filter.parse(s.filter);
         this.sorter.parse(s.sorter);
         return this;
@@ -412,7 +421,7 @@ export class ViewService {
 
     constructor() {
         // localStorage.removeItem(this.storageKey);
-        this.setActiveView(new View());
+        this.setActiveView(new View(''));
         this.retrieveViews();
     }
 
@@ -430,20 +439,27 @@ export class ViewService {
         const stored = new Map<string, string>(JSON.parse(localStorage.getItem(this.storageKey)));
         stored.forEach((sv, name) => {
             const v = new View().parse(sv);
+            // console.log('retrieved view:', v);
             this.views.set(name, v);
+            // this.views.set(name, new View().parse(sv));
         });
     }
 
     private setActiveView(view: View): void {
         this.active = view;
+        // console.log('active view:', this.active);
         this.active.filter.changed.subscribe(() => this.changed.emit());
         this.active.sorter.changed.subscribe(() => this.changed.emit());
     }
 
-    save(name: string): boolean {
-        this.views.set(name, this.active);
-        this.storeViews();
-        return true;
+    save(): boolean {
+        if (this.active.name.length > 0) {
+            // console.log('current view:', this.active);
+            this.views.set(this.active.name, this.active.clone());
+            this.storeViews();
+            return true;
+        }
+        return false;
     }
 
     load(name: string): boolean {
@@ -461,6 +477,15 @@ export class ViewService {
             return true;
         }
         return false;
+    }
+
+    get name(): string {
+        return this.active.name;
+    }
+
+    set name(n: string) {
+        this.active.name = n;
+        this.changed.emit();
     }
 
     get list(): string[] {

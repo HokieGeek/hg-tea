@@ -12,7 +12,7 @@ describe('ViewManagerComponent', () => {
             imports: [ FormsModule ],
             declarations: [ ViewManagerComponent ]
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {
