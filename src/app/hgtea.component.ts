@@ -20,12 +20,10 @@ export class HgTeaComponent implements OnInit {
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
-        this.tea_database = TestUtils.createDummyTeasWithEntries();
-        /*
+        // this.tea_database = TestUtils.createDummyTeasWithEntries();
         this.teaDbService.teasWithEntries.subscribe(
             teas => this.tea_database = teas,
             err => this.errorMsg = err
         );
-         */
     }
 }
