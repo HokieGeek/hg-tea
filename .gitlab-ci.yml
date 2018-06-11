@@ -4,6 +4,7 @@ stages:
     - build
     - test
     - release
+    - deploy
 
 .installChromium: &installChromium |
     apk update && apk upgrade &&
@@ -134,13 +135,16 @@ build-evaluate:
       #     - tags
   allow_failure: true
 
-.restart-dev-service:
+restart-dev-service:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache curl
+    - apk add --no-cache ssh
+    - mkdir -p ~/.ssh && echo $DO_SSH_KEY > ~/.ssh/do
   script:
-    - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea-dev.service"
+    - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
+    - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
+    # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea-dev.service"
   only:
     - branches
 
@@ -148,8 +152,10 @@ build-evaluate:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache curl
+    - apk add --no-cache ssh
+    - mkdir -p ~/.ssh && echo $DO_SSH_KEY > ~/.ssh/do
   script:
-    - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea.service"
+    - ssh -i ~/.ssh/do core@hokiegeek.net "sudo systemctl restart hgtea.service"
+      # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea.service"
   only:
     - tags
