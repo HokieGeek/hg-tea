@@ -12,8 +12,7 @@ stages:
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
     apk add --no-cache chromium@edge nss@edge
 
-#before_script:
-#  - npm install
+    # .processSshKey: &processSshKey |
 
 variables:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
@@ -80,13 +79,56 @@ unit-node:latest:
     - npm run test
   allow_failure: true
 
-.e2e-node:9:
+e2e-node:10:
   stage: test
+  before_script:
+    - *installChromium
   script:
     - npm run e2e
+  only:
+    - tags
   allow_failure: true
 
-create-dev-container:
+evaluate-build:
+  stage: test
+  image: registry.gitlab.com/sonatype-nexus-community/nexus-lifecycle-gitlab:latest
+  variables:
+    IQ_STAGE: build
+  script:
+    - evaluate
+  after_script:
+    - gitlab --no-issues
+  only:
+    - branches
+  allow_failure: true
+
+evaluate-stage:
+  stage: test
+  image: registry.gitlab.com/sonatype-nexus-community/nexus-lifecycle-gitlab:latest
+  variables:
+    IQ_STAGE: stage-release
+  script:
+    - evaluate
+  after_script:
+    - gitlab --no-issues
+  only:
+    - master
+  allow_failure: true
+
+evaluate-release:
+  stage: test
+  image: registry.gitlab.com/sonatype-nexus-community/nexus-lifecycle-gitlab:latest
+  variables:
+    IQ_STAGE: release
+  script:
+    - evaluate
+  after_script:
+    - gitlab --no-issues
+  only:
+    - tags
+  allow_failure: true
+
+create-container-dev:
   stage: release
   image: docker:git
   variables:
@@ -124,49 +166,7 @@ create-container:
   except:
     - branches
 
-build-evaluate:
-  stage: test
-  image: registry.gitlab.com/hokiegeek/nexus-lifecycle-gitlab:latest
-  variables:
-    IQ_APPID: subdomain1
-    IQ_STAGE: build
-  script:
-    - evaluate
-  after_script:
-    - gitlab --no-issues
-  only:
-    - branches
-  allow_failure: true
-
-stage-evaluate:
-  stage: test
-  image: registry.gitlab.com/hokiegeek/nexus-lifecycle-gitlab:latest
-  variables:
-    IQ_APPID: subdomain1
-    IQ_STAGE: stage-release
-  script:
-    - evaluate
-  after_script:
-    - gitlab --no-issues
-  only:
-    - master
-  allow_failure: true
-
-release-evaluate:
-  stage: test
-  image: registry.gitlab.com/hokiegeek/nexus-lifecycle-gitlab:latest
-  variables:
-    IQ_APPID: subdomain1
-    IQ_STAGE: release
-  script:
-    - evaluate
-  after_script:
-    - gitlab --no-issues
-  only:
-    - tags
-  allow_failure: true
-
-restart-dev-service:
+restart-service-dev:
   stage: deploy
   image: alpine:latest
   before_script:
@@ -174,6 +174,7 @@ restart-dev-service:
       # - echo $DO_SSH_KEY > /tmp/dokey
     - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
     - chmod 0600 /tmp/dokey
+    - cat /tmp/dokey
   script:
     - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
     - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
