@@ -143,10 +143,12 @@ restart-dev-service:
   image: alpine:latest
   before_script:
     - apk add --update --no-cache openssh
-    - mkdir -p ~/.ssh && echo $DO_SSH_KEY > ~/.ssh/do
+    - echo $DO_SSH_KEY > /tmp/dokey
+    - cat /tmp/dokey
+    - echo $DO_USERNAME@hokiegeek.net
   script:
-    - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
-    - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
+    - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
+    - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
       # - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgteadev.service"
     # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea-dev.service"
   environment:
@@ -165,5 +167,7 @@ restart-dev-service:
       # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea.service"
   environment:
     name: production
+  except:
+    - branches
   only:
     - tags
