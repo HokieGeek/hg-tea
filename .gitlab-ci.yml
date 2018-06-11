@@ -52,6 +52,7 @@ unit-node:8:
     - *installChromium
   script:
     - npm run test
+  retry: 2
 
 unit-node:9:
   stage: test
@@ -60,6 +61,7 @@ unit-node:9:
     - *installChromium
   script:
     - npm run test
+  retry: 2
 
 unit-node:10:
   stage: test
@@ -67,6 +69,7 @@ unit-node:10:
     - *installChromium
   script:
     - npm run test
+  retry: 2
 
 unit-node:latest:
   stage: test
@@ -139,12 +142,15 @@ restart-dev-service:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache ssh
+    - apk add --update --no-cache openssh
     - mkdir -p ~/.ssh && echo $DO_SSH_KEY > ~/.ssh/do
   script:
     - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
     - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
+      # - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgteadev.service"
     # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea-dev.service"
+  environment:
+    name: production
   only:
     - branches
 
@@ -152,10 +158,12 @@ restart-dev-service:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache ssh
+    - apk add --update --no-cache openssh
     - mkdir -p ~/.ssh && echo $DO_SSH_KEY > ~/.ssh/do
   script:
     - ssh -i ~/.ssh/do core@hokiegeek.net "sudo systemctl restart hgtea.service"
       # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea.service"
+  environment:
+    name: production
   only:
     - tags
