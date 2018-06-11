@@ -175,8 +175,8 @@ restart-service-dev:
     - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
     - chmod 0600 /tmp/dokey
   script:
-    - cat /tmp/dokey
-    - ssh -i /tmp/dokey core@hokiegeek.net "sudo systemctl restart hgtea.service"
+      # - cat /tmp/dokey
+    - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
     - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
       # - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgteadev.service"
     # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea-dev.service"
