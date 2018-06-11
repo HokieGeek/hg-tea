@@ -134,8 +134,36 @@ build-evaluate:
     - evaluate
   after_script:
     - gitlab --no-issues
-      #   only:
-      #     - tags
+  only:
+    - branches
+  allow_failure: true
+
+stage-evaluate:
+  stage: test
+  image: registry.gitlab.com/hokiegeek/nexus-lifecycle-gitlab:latest
+  variables:
+    IQ_APPID: subdomain1
+    IQ_STAGE: stage-release
+  script:
+    - evaluate
+  after_script:
+    - gitlab --no-issues
+  only:
+    - master
+  allow_failure: true
+
+release-evaluate:
+  stage: test
+  image: registry.gitlab.com/hokiegeek/nexus-lifecycle-gitlab:latest
+  variables:
+    IQ_APPID: subdomain1
+    IQ_STAGE: release
+  script:
+    - evaluate
+  after_script:
+    - gitlab --no-issues
+  only:
+    - tags
   allow_failure: true
 
 restart-dev-service:
@@ -143,9 +171,9 @@ restart-dev-service:
   image: alpine:latest
   before_script:
     - apk add --update --no-cache openssh
-    - echo $DO_SSH_KEY > /tmp/dokey
-    - cat /tmp/dokey
-    - echo $DO_USERNAME@hokiegeek.net
+      # - echo $DO_SSH_KEY > /tmp/dokey
+    - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
+    - chmod 0600 /tmp/dokey
   script:
     - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
     - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
