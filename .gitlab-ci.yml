@@ -176,8 +176,8 @@ restart-service-dev:
     - chmod 0600 /tmp/dokey
   script:
       # - cat /tmp/dokey
-    - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
-    - ssh -i /tmp/dokey $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
+    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
+    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
       # - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgteadev.service"
     # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea-dev.service"
   environment:
