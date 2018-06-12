@@ -12,11 +12,6 @@ stages:
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
     apk add --no-cache chromium@edge nss@edge
 
-.processSshKey: &processSshKey |
-    echo $DO_SSH_KEY
-    # echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey &&
-    # chmod 0600 /tmp/dokey
-
 variables:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
     CHROME_BIN: "/usr/bin/chromium-browser"
@@ -32,6 +27,7 @@ build-app:
     - npm install
     - npm run build
 
+## Linting
 lint:
   stage: build
   script:
@@ -47,6 +43,7 @@ lint-warn:
     - tags
   allow_failure: true
 
+## Unit testing
 .node-unit-test: &node-unit-test
   stage: test
   before_script:
@@ -54,6 +51,7 @@ lint-warn:
   script:
     - npm run test
   retry: 2
+      # coverage: /TODO/
 
 unit-node:8:
   <<: *node-unit-test
@@ -71,180 +69,94 @@ unit-node:latest:
   image: node:alpine
   allow_failure: true
 
-  # unit-node:8:
-  #   stage: test
-  #   image: node:8-alpine
-  #   before_script:
-  #     - *installChromium
-  #   script:
-  #     - npm run test
-  #   retry: 2
-  # 
-  # unit-node:9:
-  #   stage: test
-  #   image: node:9-alpine
-  #   before_script:
-  #     - *installChromium
-  #   script:
-  #     - npm run test
-  #   retry: 2
-  # 
-  # unit-node:10:
-  #   stage: test
-  #   before_script:
-  #     - *installChromium
-  #   script:
-  #     - npm run test
-  #   retry: 2
-  # 
-  # unit-node:latest:
-  #   stage: test
-  #   image: node:alpine
-  #   before_script:
-  #     - *installChromium
-  #   script:
-  #     - npm run test
-  #   allow_failure: true
-  # 
-  # e2e-node:10:
-  #   stage: test
-  #   before_script:
-  #     - *installChromium
-  #   script:
-  #     - npm run e2e
-  #   only:
-  #     - tags
-  #   allow_failure: true
+## Lifecycle Evaluation
+.lifecycle-evaluation: &lifecycle-evaluation
+  stage: test
+  image: registry.gitlab.com/sonatype-nexus-community/nexus-lifecycle-gitlab:latest
+  script:
+    - evaluate
+  after_script:
+    - gitlab --no-issues
+  allow_failure: true
 
 evaluate-build:
-  stage: test
-  image: registry.gitlab.com/sonatype-nexus-community/nexus-lifecycle-gitlab:latest
+  <<: *lifecycle-evaluation
   variables:
     IQ_STAGE: build
-  script:
-    - evaluate
-  after_script:
-    - gitlab --no-issues
   only:
     - branches
-  allow_failure: true
 
 evaluate-stage:
-  stage: test
-  image: registry.gitlab.com/sonatype-nexus-community/nexus-lifecycle-gitlab:latest
+  <<: *lifecycle-evaluation
   variables:
     IQ_STAGE: stage-release
-  script:
-    - evaluate
-  after_script:
-    - gitlab --no-issues
   only:
     - master
-  allow_failure: true
 
 evaluate-release:
-  stage: test
-  image: registry.gitlab.com/sonatype-nexus-community/nexus-lifecycle-gitlab:latest
+  <<: *lifecycle-evaluation
   variables:
     IQ_STAGE: release
-  script:
-    - evaluate
-  after_script:
-    - gitlab --no-issues
   only:
     - tags
-  allow_failure: true
 
-create-container-dev:
+## Create container
+.build-docker-image: &build-docker-image
   stage: release
   image: docker:git
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:SNAPSHOT
-    IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   services:
     - docker:dind
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
     - docker build -t $IMAGE_TAG .
-    - docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
     - docker push $IMAGE_TAG
-    - docker push $IMAGE_LATEST_TAG
+    - [ -z ${IMAGE_LATEST_TAG+x} ] && docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
+    - [ -z ${IMAGE_LATEST_TAG+x} ] && docker push $IMAGE_LATEST_TAG
+
+create-container-dev:
+  <<: *build-docker-image
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:SNAPSHOT
   except:
     - tags
 
 create-container:
-  stage: release
-  image: docker:git
+  <<: *build-docker-image
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
     IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  script:
-    - docker build -t $IMAGE_TAG .
-    - docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
-    - docker push $IMAGE_TAG
-    - docker push $IMAGE_LATEST_TAG
   only:
     - tags
   except:
     - branches
 
+## Service restarter
 .service-restarter: &service-restarter
   stage: deploy
   image: alpine:latest
   before_script:
     - apk add --update --no-cache openssh
-      # - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
       # - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
     - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
     - chmod 0600 /tmp/dokey
   script:
-    - cat /tmp/dokey
+      # - cat /tmp/dokey
     - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart $SERVICE"
-      # - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "echo $(date)': tea'" >> ~/restart.log"
 
 restart-service-dev:
   <<: *service-restarter
   variables:
-      SERVICE: hgtea.service
+    SERVICE: hgtea.service
   environment:
     name: staging
   only:
     - branches
 
-      # .restart-service-dev:
-      #   stage: deploy
-      #   image: alpine:latest
-      #   variables:
-      #       SERVICE: hgtea.service
-      #   before_script:
-      #     - apk add --update --no-cache openssh
-      #     - *processSshKey
-      #       # - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
-      #       # - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
-      #       # - chmod 0600 /tmp/dokey
-      #   script:
-      #       # - cat /tmp/dokey
-      #     - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart $SERVICE"
-      #       # - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "echo $(date)': tea'" >> ~/restart.log"
-      #   environment:
-      #     name: staging
-      #   only:
-      #     - branches
-
 .restart-service:
-  stage: deploy
-  image: alpine:latest
-  before_script:
-    - apk add --update --no-cache openssh
-    - *processSshKey
-  script:
-    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
-      # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea.service"
+  <<: *service-restarter
+  variables:
+    SERVICE: hgtea.service
   environment:
     name: production
     url: http://hokiegeek.net/tea
