@@ -13,8 +13,9 @@ stages:
     apk add --no-cache chromium@edge nss@edge
 
 .processSshKey: &processSshKey |
-    echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey &&
-    chmod 0600 /tmp/dokey
+    echo $DO_SSH_KEY
+    # echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey &&
+    # chmod 0600 /tmp/dokey
 
 variables:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
@@ -171,14 +172,17 @@ create-container:
 restart-service-dev:
   stage: deploy
   image: alpine:latest
+  variables:
+      SERVICE: hgtea.service
   before_script:
     - apk add --update --no-cache openssh
-      # - *processSshKey
+    - *processSshKey
       # - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
     - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
     - chmod 0600 /tmp/dokey
   script:
-    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
+    - cat /tmp/dokey
+    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart $SERVICE"
       # - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "echo $(date)': tea'" >> ~/restart.log"
   environment:
     name: staging
