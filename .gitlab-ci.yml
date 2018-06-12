@@ -165,6 +165,9 @@ create-container:
     - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
     - chmod 0600 /tmp/dokey
   script:
+    - scp -i /tmp/dokey -o StrictHostKeyChecking=no ./${SERVICE} $DO_USERNAME@hokiegeek.net:/tmp
+    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo mv /tmp/${SERVICE} /etc/systemd/system/ && sudo systemctl daemon-reload"
+    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
     - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart $SERVICE"
 
 restart-service-dev:
