@@ -15,31 +15,79 @@ cache:
     - node_modules/
     - dist/
 
-build:
+.build-template: &build-template
   stage: build
-  script:
+  before_script:
     - npm install
-    - npm run build
-
-.version-inserter: &version-inserter |
-    version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json);
-    sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${dev_branch:+":${dev_branch}"}'" />' dist/index.html
-
-insert-version:
-  stage: build
   script:
-    - *version-inserter
+    - npm run ng build
+  after_script:
+    - version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json)
+    - sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
+
+build-snapshot:
+  <<: *build-template
+  variables:
+    version_suffix: "SNAPSHOT"
+  except:
+    - tags
+    - branches
+
+build-branch:
+  <<: *build-template
+  variables:
+    version_suffix: $CI_COMMIT_REF_NAME
+  only:
+    - branches
+
+build-release:
+  <<: *build-template
+  script:
+    - npm run build # Run optimized build
   only:
     - tags
 
-insert-version-dev:
-  stage: build
-  script:
-    - dev_branch=${CI_COMMIT_REF_NAME}
-    - *version-inserter
-    - head dist/index.html
-  only:
-    - branches
+      # .version-inserter: &version-inserter |
+      #     version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json);
+      #     sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
+
+      # build-release:
+      #   stage: build
+      #   before_script:
+      #     - npm install
+      #   script:
+      #     - npm run build
+      #   after_script:
+      #     - *version-inserter
+      #   only:
+      #     - tags
+      # 
+      # build-snapshot:
+      #   stage: build
+      #   variables:
+      #     version_suffix: "SNAPSHOT"
+      #   before_script:
+      #     - npm install
+      #   script:
+      #     - npm run ng build
+      #   after_script:
+      #     - *version-inserter
+      #   except:
+      #     - tags
+      #     - branches
+      # 
+      # build-branch:
+      #   stage: build
+      #   variables:
+      #     version_suffix: ${CI_COMMIT_REF_NAME}
+      #   before_script:
+      #     - npm install
+      #   script:
+      #     - npm run ng build
+      #   after_script:
+      #     - *version-inserter
+      #   only:
+      #     - branches
 
 ## Linting
 lint:
