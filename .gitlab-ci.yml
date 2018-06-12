@@ -47,50 +47,74 @@ lint-warn:
     - tags
   allow_failure: true
 
-unit-node:8:
+.node-unit-test: &node-unit-test
   stage: test
-  image: node:8-alpine
   before_script:
     - *installChromium
   script:
     - npm run test
   retry: 2
+
+unit-node:8:
+  <<: *node-unit-test
+  image: node:8-alpine
 
 unit-node:9:
-  stage: test
+  <<: *node-unit-test
   image: node:9-alpine
-  before_script:
-    - *installChromium
-  script:
-    - npm run test
-  retry: 2
 
 unit-node:10:
-  stage: test
-  before_script:
-    - *installChromium
-  script:
-    - npm run test
-  retry: 2
+  <<: *node-unit-test
 
 unit-node:latest:
-  stage: test
+  <<: *node-unit-test
   image: node:alpine
-  before_script:
-    - *installChromium
-  script:
-    - npm run test
   allow_failure: true
 
-e2e-node:10:
-  stage: test
-  before_script:
-    - *installChromium
-  script:
-    - npm run e2e
-  only:
-    - tags
-  allow_failure: true
+  # unit-node:8:
+  #   stage: test
+  #   image: node:8-alpine
+  #   before_script:
+  #     - *installChromium
+  #   script:
+  #     - npm run test
+  #   retry: 2
+  # 
+  # unit-node:9:
+  #   stage: test
+  #   image: node:9-alpine
+  #   before_script:
+  #     - *installChromium
+  #   script:
+  #     - npm run test
+  #   retry: 2
+  # 
+  # unit-node:10:
+  #   stage: test
+  #   before_script:
+  #     - *installChromium
+  #   script:
+  #     - npm run test
+  #   retry: 2
+  # 
+  # unit-node:latest:
+  #   stage: test
+  #   image: node:alpine
+  #   before_script:
+  #     - *installChromium
+  #   script:
+  #     - npm run test
+  #   allow_failure: true
+  # 
+  # e2e-node:10:
+  #   stage: test
+  #   before_script:
+  #     - *installChromium
+  #   script:
+  #     - npm run e2e
+  #   only:
+  #     - tags
+  #   allow_failure: true
 
 evaluate-build:
   stage: test
@@ -175,7 +199,8 @@ create-container:
   before_script:
     - apk add --update --no-cache openssh
       # - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
-    - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
+      # - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
+    - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
     - chmod 0600 /tmp/dokey
   script:
     - cat /tmp/dokey
