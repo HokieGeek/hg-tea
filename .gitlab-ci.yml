@@ -12,7 +12,9 @@ stages:
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
     apk add --no-cache chromium@edge nss@edge
 
-    # .processSshKey: &processSshKey |
+.processSshKey: &processSshKey |
+    echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey &&
+    chmod 0600 /tmp/dokey
 
 variables:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
@@ -171,17 +173,15 @@ restart-service-dev:
   image: alpine:latest
   before_script:
     - apk add --update --no-cache openssh
-      # - echo $DO_SSH_KEY > /tmp/dokey
-    - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
-    - chmod 0600 /tmp/dokey
+    - *processSshKey
+      # - echo $DO_SSH_KEY | sed -r -e 's/ ?-{5}(BEGIN|END) RSA PRIVATE KEY-{5} ?//g;s/ /\n/g' -e '1 i\-----BEGIN RSA PRIVATE KEY-----' -e '$ a\-----END RSA PRIVATE KEY-----' > /tmp/dokey
+      # - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
+      # - chmod 0600 /tmp/dokey
   script:
-      # - cat /tmp/dokey
     - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
-    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "date >> ~/restart.log"
-      # - ssh -i ~/.ssh/do $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgteadev.service"
-    # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea-dev.service"
+      # - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "echo $(date)': tea'" >> ~/restart.log"
   environment:
-    name: production
+    name: staging
   only:
     - branches
 
@@ -190,12 +190,13 @@ restart-service-dev:
   image: alpine:latest
   before_script:
     - apk add --update --no-cache openssh
-    - mkdir -p ~/.ssh && echo $DO_SSH_KEY > ~/.ssh/do
+    - *processSshKey
   script:
-    - ssh -i ~/.ssh/do core@hokiegeek.net "sudo systemctl restart hgtea.service"
+    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart hgtea.service"
       # - curl "http://hokiegeek.net:8081/ServiceRestart?id=$SERVICE_RESTARTER_ID&service=hgtea.service"
   environment:
     name: production
+    url: http://hokiegeek.net/tea
   except:
     - branches
   only:
