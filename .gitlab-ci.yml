@@ -48,17 +48,19 @@ build-release:
     - tags
 
 ## Linting
-lint:
+.lint-template: &lint-template
   stage: build
   script:
+    - npm install
     - npm run lint
+
+lint:
+  <<: *lint-template
   only:
     - tags
 
 lint-warn:
-  stage: build
-  script:
-    - npm run lint
+  <<: *lint-template
   except:
     - tags
   allow_failure: true
