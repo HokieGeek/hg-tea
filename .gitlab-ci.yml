@@ -6,12 +6,6 @@ stages:
     - release
     - deploy
 
-.installChromium: &installChromium |
-    apk update && apk upgrade &&
-    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories &&
-    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories &&
-    apk add --no-cache chromium@edge nss@edge
-
 variables:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
     CHROME_BIN: "/usr/bin/chromium-browser"
@@ -47,7 +41,10 @@ lint-warn:
 .node-unit-test: &node-unit-test
   stage: test
   before_script:
-    - *installChromium
+    - apk update && apk upgrade
+    - echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
+    - echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories
+    - apk add --no-cache chromium@edge nss@edge
   script:
     - npm run test
   retry: 2
