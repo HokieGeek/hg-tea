@@ -15,11 +15,30 @@ cache:
     - node_modules/
     - dist/
 
-build-app:
+build:
   stage: build
   script:
     - npm install
     - npm run build
+
+.version-inserter: &version-inserter |
+    version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json) &&
+    sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${dev_branch:+"-${dev_branch}"}'" />' dist/index.html
+
+insert-version:
+  stage: build
+  script:
+    - *version-inserter
+  only:
+    - tags
+
+insert-version-dev:
+  stage: build
+  script:
+    - dev_branch=${CI_COMMIT_REF_NAME}
+    - *version-inserter
+  only:
+    - branches
 
 ## Linting
 lint:
@@ -113,8 +132,8 @@ create-container-dev:
   <<: *build-docker-image
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:SNAPSHOT
-  except:
-    - tags
+  only:
+    - branches
 
 create-container:
   <<: *build-docker-image
