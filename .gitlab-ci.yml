@@ -20,7 +20,7 @@ cache:
   before_script:
     - npm install
   script:
-    - npm run ng build
+    - npm run ng build --base-href .
   after_script:
     - version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json)
     - sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
@@ -142,6 +142,7 @@ unit-node:latest:
     - evaluate
   after_script:
     - gitlab --no-issues
+  retry: 1
   allow_failure: true
 
 evaluate-build:
