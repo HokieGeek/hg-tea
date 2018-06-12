@@ -145,13 +145,13 @@ create-container:
 restart-service-dev:
   <<: *service-restarter
   variables:
-    SERVICE: hgtea.service
+    SERVICE: hgteadev.service
   environment:
     name: staging
   only:
     - branches
 
-.restart-service:
+restart-service:
   <<: *service-restarter
   variables:
     SERVICE: hgtea.service
