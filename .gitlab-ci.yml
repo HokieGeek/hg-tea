@@ -111,8 +111,6 @@ evaluate-release:
   script:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
-    - [ -z ${IMAGE_LATEST_TAG+x} ] && docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
-    - [ -z ${IMAGE_LATEST_TAG+x} ] && docker push $IMAGE_LATEST_TAG
 
 create-container-dev:
   <<: *build-docker-image
@@ -126,6 +124,9 @@ create-container:
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
     IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
+  after_script:
+    - docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
+    - docker push $IMAGE_LATEST_TAG
   only:
     - tags
   except:
