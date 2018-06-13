@@ -54,6 +54,7 @@ build-release:
   script:
     - npm install
     - npm run lint
+  retry: 1
 
 lint:
   <<: *lint-template
@@ -139,13 +140,15 @@ evaluate-release:
     - head dist/index.html
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
+  retry: 1
 
 create-container-dev:
   <<: *build-docker-image
   variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:SNAPSHOT
-  only:
-    - branches
+  except:
+    - tags
+    - master
 
 create-container:
   <<: *build-docker-image
@@ -172,6 +175,7 @@ create-container:
     - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./${SERVICE} $ADMIN_USER@hokiegeek.net:/tmp
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo mv /tmp/${SERVICE} /etc/systemd/system/ && sudo systemctl daemon-reload"
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
+  retry: 1
 
 restart-service-dev:
   <<: *service-restarter
@@ -179,8 +183,9 @@ restart-service-dev:
     SERVICE: hgteadev.service
   environment:
     name: staging
-  only:
-    - branches
+  except:
+    - tags
+    - master
 
 restart-service:
   <<: *service-restarter
@@ -189,7 +194,7 @@ restart-service:
   environment:
     name: production
     url: http://hokiegeek.net/tea
-  except:
-    - branches
   only:
     - tags
+  except:
+    - branches
