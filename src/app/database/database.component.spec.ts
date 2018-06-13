@@ -51,7 +51,7 @@ describe('DatabaseComponent', () => {
         fixture = TestBed.createComponent(DatabaseComponent);
         component = fixture.componentInstance;
 
-        component.teas = [TestUtils.createDummyTeasWithEntries()];
+        component.teas = TestUtils.createDummyTeasWithEntries();
 
         fixture.detectChanges();
     });
