@@ -38,6 +38,6 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
 
     get numEntries(): number {
         return this.processedTeas.map(t => t.entries.length)
-                                 .reduce((acc, num) => acc + num);
+                                 .reduce((acc, num) => acc + num, 0);
     }
 }
