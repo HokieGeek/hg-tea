@@ -24,6 +24,7 @@ cache:
   after_script:
     - version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json)
     - sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
+    - head dist/index.html
 
 build-snapshot:
   <<: *build-template
@@ -135,6 +136,7 @@ evaluate-release:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
+    - head dist/index.html
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
 
@@ -164,13 +166,12 @@ create-container:
   image: alpine:latest
   before_script:
     - apk add --update --no-cache openssh
-    - echo $DO_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/dokey
-    - chmod 0600 /tmp/dokey
+    - echo $HOST_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/sshkey
+    - chmod 0600 /tmp/sshkey
   script:
-    - scp -i /tmp/dokey -o StrictHostKeyChecking=no ./${SERVICE} $DO_USERNAME@hokiegeek.net:/tmp
-    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo mv /tmp/${SERVICE} /etc/systemd/system/ && sudo systemctl daemon-reload"
-    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
-    - ssh -i /tmp/dokey -o StrictHostKeyChecking=no $DO_USERNAME@hokiegeek.net "sudo systemctl restart $SERVICE"
+    - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./${SERVICE} $ADMIN_USER@hokiegeek.net:/tmp
+    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo mv /tmp/${SERVICE} /etc/systemd/system/ && sudo systemctl daemon-reload"
+    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
 
 restart-service-dev:
   <<: *service-restarter
