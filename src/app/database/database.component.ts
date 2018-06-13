@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Tea } from '../tea';
 import { ViewService } from '../view.service';
@@ -13,9 +14,12 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() teas: Tea[] = [];
     private _processedTeas: Tea[] = [];
 
-    constructor(public view: ViewService) { }
+    constructor(private route: ActivatedRoute, public view: ViewService) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        const teaid = +this.route.snapshot.paramMap.get('id');
+        console.log('teaid', teaid);
+    }
 
     ngAfterViewInit() {
         this.view.changed.subscribe(() => this.updateTeas());
