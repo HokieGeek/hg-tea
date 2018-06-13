@@ -25,7 +25,8 @@ import { FlagFieldComponent } from './teas-sidebar/filter/flag-field/flag-field.
 import { SorterComponent } from './teas-sidebar/sorter/sorter.component';
 import { SortFieldComponent } from './teas-sidebar/sorter/sort-field/sort-field.component';
 import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.component';
-import { AppRoutingModule } from './/app-routing.module';
+
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
     declarations: [
