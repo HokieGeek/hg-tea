@@ -11,7 +11,7 @@ import { ViewService } from '../view.service';
 
 export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() teas: Tea[] = [];
-    private _processedTeas: Tea[];
+    private _processedTeas: Tea[] = [];
 
     constructor(public view: ViewService) { }
 
@@ -34,5 +34,10 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
         this._processedTeas = this.teas
             .filter(t => this.view.filter.isMatch(t))
             .sort((t1, t2) => this.view.sorter.compare(t1, t2));
+    }
+
+    get numEntries(): number {
+        return this.processedTeas.map(t => t.entries.length)
+                                 .reduce((acc, num) => acc + num);
     }
 }
