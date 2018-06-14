@@ -31,6 +31,9 @@ import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 
+import { APP_BASE_HREF } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
+
 import { TestUtils } from './test-utils';
 
 describe('HgTeaComponent', () => {
@@ -68,8 +71,12 @@ describe('HgTeaComponent', () => {
                 BrowserModule,
                 FormsModule,
                 HttpClientModule,
+                AppRoutingModule,
             ],
-            providers: [HttpClient]
+            providers: [
+                HttpClient,
+                {provide: APP_BASE_HREF, useValue : '/' }
+            ]
         }).compileComponents();
     });
 

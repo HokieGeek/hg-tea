@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TeasComponent } from './teas.component';
 
+import { HgTeaComponent } from '../hgtea.component';
 import { TeasSidebarComponent } from '../teas-sidebar/teas-sidebar.component';
 import { FilterComponent } from '../teas-sidebar/filter/filter.component';
 import { StringFieldComponent } from '../teas-sidebar/filter/string-field/string-field.component';
@@ -26,6 +27,9 @@ import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
 
+import { APP_BASE_HREF } from '@angular/common';
+import { AppRoutingModule } from '../app-routing.module';
+
 describe('TeasComponent', () => {
     let component: TeasComponent;
     let fixture: ComponentFixture<TeasComponent>;
@@ -34,7 +38,8 @@ describe('TeasComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 NgbModule.forRoot(),
-                FormsModule
+                FormsModule,
+                AppRoutingModule,
             ],
             declarations: [
                 TeasComponent,
@@ -56,10 +61,13 @@ describe('TeasComponent', () => {
                 SorterComponent,
                 SortFieldComponent,
                 ViewManagerComponent,
+
+                HgTeaComponent,
             ],
             providers: [
                 ViewService,
-                NaturalLanguageDatePipe
+                NaturalLanguageDatePipe,
+                {provide: APP_BASE_HREF, useValue : '/' }
             ]
         })
             .compileComponents();
