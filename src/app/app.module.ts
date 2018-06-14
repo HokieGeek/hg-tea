@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AppComponent } from './app.component';
 import { HgTeaComponent } from './hgtea.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { RatingComponent } from './rating/rating.component';
@@ -29,7 +30,15 @@ import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.c
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
+    imports: [
+        NgbModule.forRoot(),
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+    ],
     declarations: [
+        AppComponent,
         HgTeaComponent,
         JournalComponent,
         JournalEntryComponent,
@@ -51,14 +60,7 @@ import { AppRoutingModule } from './app-routing.module';
         SortFieldComponent,
         ViewManagerComponent,
     ],
-    imports: [
-        NgbModule.forRoot(),
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        AppRoutingModule,
-    ],
     providers: [HttpClient],
-    bootstrap: [HgTeaComponent]
+    bootstrap: [AppComponent]
 })
 export class HgTeaModule { }
