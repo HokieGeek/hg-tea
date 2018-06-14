@@ -15,7 +15,20 @@ import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
+import { HgTeaComponent } from '../hgtea.component';
+import { TeasComponent } from '../teas/teas.component';
+import { TeasSidebarComponent } from '../teas-sidebar/teas-sidebar.component';
+import { FilterComponent } from '../teas-sidebar/filter/filter.component';
+import { StringFieldComponent } from '../teas-sidebar/filter/string-field/string-field.component';
+import { FlagFieldComponent } from '../teas-sidebar/filter/flag-field/flag-field.component';
+import { SorterComponent } from '../teas-sidebar/sorter/sorter.component';
+import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field.component';
+import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
+
 import { Filter, Sorter } from '../view.service';
+
+import { APP_BASE_HREF } from '@angular/common';
+import { AppRoutingModule } from '../app-routing.module';
 
 import { TestUtils } from '../test-utils';
 
@@ -27,7 +40,8 @@ describe('DatabaseComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 NgbModule.forRoot(),
-                FormsModule
+                FormsModule,
+                AppRoutingModule,
             ],
             declarations: [
                 RatingComponent,
@@ -41,8 +55,21 @@ describe('DatabaseComponent', () => {
                 JournalComponent,
                 JournalEntryComponent,
                 NaturalLanguageDatePipe
+
+                HgTeaComponent,
+                TeasComponent,
+                TeasSidebarComponent,
+                FilterComponent,
+                StringFieldComponent,
+                FlagFieldComponent,
+                SorterComponent,
+                SortFieldComponent,
+                ViewManagerComponent,
             ],
-            providers: [ NaturalLanguageDatePipe ]
+            providers: [
+                NaturalLanguageDatePipe,
+                {provide: APP_BASE_HREF, useValue : '/' }
+            ]
         })
         .compileComponents();
     }));
