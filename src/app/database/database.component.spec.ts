@@ -54,7 +54,7 @@ describe('DatabaseComponent', () => {
                 DatabaseEntryImagesComponent,
                 JournalComponent,
                 JournalEntryComponent,
-                NaturalLanguageDatePipe
+                NaturalLanguageDatePipe,
 
                 HgTeaComponent,
                 TeasComponent,

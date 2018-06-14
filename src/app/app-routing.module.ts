@@ -5,7 +5,7 @@ import { HgTeaComponent } from './hgtea.component';
 
 const routes: Routes = [
     { path: '', component: HgTeaComponent },
-    { path: ':id', component: HgTeaComponent }
+    // { path: ':id', component: HgTeaComponent }
 ];
 
 @NgModule({
