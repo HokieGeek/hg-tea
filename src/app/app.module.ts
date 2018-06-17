@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from './app.component';
 import { HgTeaComponent } from './hgtea.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { RatingComponent } from './rating/rating.component';
@@ -38,7 +37,6 @@ import { AppRoutingModule } from './app-routing.module';
         AppRoutingModule,
     ],
     declarations: [
-        AppComponent,
         HgTeaComponent,
         JournalComponent,
         JournalEntryComponent,
@@ -61,6 +59,6 @@ import { AppRoutingModule } from './app-routing.module';
         ViewManagerComponent,
     ],
     providers: [HttpClient],
-    bootstrap: [AppComponent]
+    bootstrap: [HgTeaComponent]
 })
 export class HgTeaModule { }

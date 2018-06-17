@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { TeasComponent } from './teas.component';
 
@@ -37,6 +38,7 @@ describe('TeasComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
+                HttpClientModule,
                 NgbModule.forRoot(),
                 FormsModule,
                 AppRoutingModule,
@@ -65,20 +67,20 @@ describe('TeasComponent', () => {
                 HgTeaComponent,
             ],
             providers: [
+                HttpClient,
                 ViewService,
                 NaturalLanguageDatePipe,
                 {provide: APP_BASE_HREF, useValue : '/' }
             ]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(TeasComponent);
         component = fixture.componentInstance;
 
-        const dummyData = TestUtils.createDummyTea();
-        component.teas = [dummyData];
+        component.teas = TestUtils.createDummyTeasWithEntries();
 
         fixture.detectChanges();
     });
