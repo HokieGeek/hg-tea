@@ -1,3 +1,13 @@
 hg-database-entry {
     padding-top: 20px;
 }
+
+view-options-link:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 499px) {
+    .collapse-sm {
+        display: none;
+    }
+}
