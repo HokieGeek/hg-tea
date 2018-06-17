@@ -23,13 +23,17 @@
         Server error: {{errorMsg}}
     </div>
 
-    <div class="progress" *ngIf="tea_database.length == 0">
+    <!--div class="progress" *ngIf="tea_database.length == 0"-->
+    <!--div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-    </div>
+    </div-->
 
-    <div class="tab-content pt-10" *ngIf="tea_database.length > 0">
+    <!--div class="tab-content pt-10" *ngIf="tea_database.length > 0"-->
+    <div class="tab-content pt-10">
+        <!--router-outlet></router-outlet-->
         <div class="tab-pane active" id="hg-tea-database">
-            <hg-teas [teas]="tea_database"></hg-teas>
+            <hg-teas></hg-teas>
+            <!--hg-teas [teas]="tea_database"></hg-teas-->
         </div>
     </div>
 </main>
