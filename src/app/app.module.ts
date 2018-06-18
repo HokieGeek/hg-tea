@@ -28,6 +28,7 @@ import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.c
 import { PaginatorComponent } from './paginator/paginator.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
     imports: [
@@ -59,6 +60,7 @@ import { AppRoutingModule } from './app-routing.module';
         SortFieldComponent,
         ViewManagerComponent,
         PaginatorComponent,
+        InputComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]
