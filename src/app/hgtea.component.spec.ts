@@ -79,6 +79,10 @@ describe('HgTeaComponent', () => {
                 EnumValuesPipe,
                 SteepTimeComponent,
                 PaginatorComponent,
+
+                InputComponent,
+                NewSessionComponent,
+                ContinueSessionComponent,
             ],
             imports: [
                 NgbModule.forRoot(),
