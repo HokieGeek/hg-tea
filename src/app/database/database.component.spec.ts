@@ -25,6 +25,9 @@ import { SorterComponent } from '../teas-sidebar/sorter/sorter.component';
 import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field.component';
 import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
+import { InputComponent } from '../input/input.component';
+import { NewSessionComponent } from '../input/new-session/new-session.component';
+import { ContinueSessionComponent } from '../input/continue-session/continue-session.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -67,6 +70,9 @@ describe('DatabaseComponent', () => {
                 SortFieldComponent,
                 ViewManagerComponent,
                 PaginatorComponent,
+                InputComponent,
+                NewSessionComponent,
+                ContinueSessionComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,

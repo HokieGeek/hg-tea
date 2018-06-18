@@ -32,6 +32,11 @@ import { ViewService } from '../view.service';
 import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 
+import { InputComponent } from '../input/input.component';
+import { NewSessionComponent } from '../input/new-session/new-session.component';
+import { ContinueSessionComponent } from '../input/continue-session/continue-session.component';
+
+
 describe('TeasComponent', () => {
     let component: TeasComponent;
     let fixture: ComponentFixture<TeasComponent>;
@@ -67,6 +72,10 @@ describe('TeasComponent', () => {
                 PaginatorComponent,
 
                 HgTeaComponent,
+
+                InputComponent,
+                NewSessionComponent,
+                ContinueSessionComponent,
             ],
             providers: [
                 HttpClient,

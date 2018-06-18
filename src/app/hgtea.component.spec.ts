@@ -28,6 +28,10 @@ import { SortFieldComponent } from './teas-sidebar/sorter/sort-field/sort-field.
 import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 
+import { InputComponent } from './input/input.component';
+import { NewSessionComponent } from './input/new-session/new-session.component';
+import { ContinueSessionComponent } from './input/continue-session/continue-session.component';
+
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
@@ -67,6 +71,10 @@ describe('HgTeaComponent', () => {
                 SortFieldComponent,
                 ViewManagerComponent,
                 PaginatorComponent,
+
+                InputComponent,
+                NewSessionComponent,
+                ContinueSessionComponent,
             ],
             imports: [
                 NgbModule.forRoot(),
