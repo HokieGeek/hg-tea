@@ -135,6 +135,7 @@ describe('tea entry', () => {
         const steepingvessel = Math.floor(Math.random() * maxNumSteepingVessels);
         const steeptemperature = 212;
         const sessioninstance = '';
+        const sessionclosed = true;
 
         console.log('dummy date = ', date);
         console.log('dummy time = ', time);
@@ -151,6 +152,7 @@ describe('tea entry', () => {
             steepingvessel,
             steeptemperature,
             sessioninstance,
+            sessionclosed,
             fixins
         );
 

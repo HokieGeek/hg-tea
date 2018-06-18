@@ -46,6 +46,7 @@ export class TestUtils {
             Math.floor(Math.random() * this.maxNumSteepingVessels), // steepingvessel_idx
             212, // steeptemperature
             '', // sessioninstance
+            true, // sessionclosed
             fixins // fixins_list
         );
 

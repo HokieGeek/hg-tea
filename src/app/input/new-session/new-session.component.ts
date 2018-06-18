@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Tea } from '../../tea';
 
 @Component({
     selector: 'hg-new-session',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./new-session.component.css']
 })
 export class NewSessionComponent implements OnInit {
+    @Input() public teas: Tea[] = [];
 
     constructor() { }
 

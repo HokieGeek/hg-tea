@@ -23,6 +23,7 @@ export class Entry {
         public steepingvessel_idx: number,
         public steeptemperature: number,
         public sessioninstance: string,
+        public sessionclosed: boolean,
         public fixins_list: string,
     ) { }
 

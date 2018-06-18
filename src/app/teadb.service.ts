@@ -30,6 +30,7 @@ export class TeaDbService {
                                       json['gsx$steepingvessel']['$t'],
                                       json['gsx$steeptemperature']['$t'],
                                       json['gsx$sessioninstance']['$t'],
+                                      (json['gsx$sessionclosed']['$t'] === 'TRUE'),
                                       json['gsx$fixins']['$t'],
                                   );
                               });
