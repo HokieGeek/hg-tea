@@ -1,6 +1,7 @@
 <div class="small text-secondary d-flex justify-content-between">
-    <div id="view-options-link" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
-        <span class="collapse-sm">view </span>options
+    <div id="view-options-link" title="View options" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+        <!--span class="collapse-sm">view </span>options -->
+        <i class="fa fa-bars"></i>
     </div>
     <div>
         <span class="collapse-sm">Displaying&nbsp;</span>{{processedTeas.length}}&nbsp;tea<span *ngIf="processedTeas.length > 1">s</span>&nbsp;with {{numEntries}} entries
