@@ -1,8 +1,4 @@
-hg-database-entry {
-    padding-top: 20px;
-}
-
-view-options-link:hover {
+#view-options-link:hover {
     cursor: pointer;
 }
 
