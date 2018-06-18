@@ -38,6 +38,8 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { InputComponent } from './input/input.component';
+import { NewSessionComponent } from './input/new-session/new-session.component';
+import { ContinueSessionComponent } from './input/continue-session/continue-session.component';
 
 @NgModule({
     imports: [
@@ -77,6 +79,8 @@ import { InputComponent } from './input/input.component';
         SteepTimeComponent,
         PaginatorComponent,
         InputComponent,
+        NewSessionComponent,
+        ContinueSessionComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]
