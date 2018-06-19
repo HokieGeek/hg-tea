@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { NewSessionComponent } from './new-session.component';
+
+import { RatingComponent } from '../../rating/rating.component';
+import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
 
 describe('NewSessionComponent', () => {
     let component: NewSessionComponent;
@@ -8,7 +12,12 @@ describe('NewSessionComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ NewSessionComponent ]
+            imports: [ FormsModule ],
+            declarations: [
+                NewSessionComponent,
+                RatingComponent,
+                TeacupimgComponent,
+            ]
         })
         .compileComponents();
     }));
