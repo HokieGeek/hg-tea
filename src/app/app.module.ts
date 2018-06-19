@@ -31,6 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { InputComponent } from './input/input.component';
 import { NewSessionComponent } from './input/new-session/new-session.component';
 import { ContinueSessionComponent } from './input/continue-session/continue-session.component';
+import { EnumValuesPipe } from './enum-values.pipe';
 
 @NgModule({
     imports: [
@@ -65,6 +66,7 @@ import { ContinueSessionComponent } from './input/continue-session/continue-sess
         InputComponent,
         NewSessionComponent,
         ContinueSessionComponent,
+        EnumValuesPipe,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]

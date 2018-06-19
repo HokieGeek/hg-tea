@@ -2,20 +2,33 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Tea, Entry, TeaFixins, SteepingVessels } from '../../tea';
 
+import { EnumValuesPipe } from '../../enum-values.pipe';
+
+class PickerTime {
+    public hour: number;
+    public minute: number;
+
+    constructor(d: Date) {
+        console.log(d);
+        this.hour = d.getHours();
+        this.minute = d.getMinutes();
+    }
+}
+
 @Component({
     selector: 'hg-new-session',
     templateUrl: './new-session.component.html',
     styleUrls: ['./new-session.component.css']
 })
 export class NewSessionComponent implements OnInit {
-    // TeaFixins = TeaFixins;
-    // SteepingVessels = SteepingVessels;
+    TeaFixins = TeaFixins;
+    SteepingVessels = SteepingVessels;
 
     @Input() public teas: Tea[] = [];
     // private entry: Entry = null;
 
-    private _tea: Tea;
-    private dateTime = new Date();
+    private _tea: Tea = null;
+    private dateTime = Date.now();
     private steeptime = '';
     private rating = 0;
     private vessel = SteepingVessels['Aberdeen Steeper'];
@@ -26,9 +39,21 @@ export class NewSessionComponent implements OnInit {
 
     // @Output() valueChange:EventEmitter<number> = new EventEmitter<number>();
 
+    get tea(): Tea {
+        return this._tea;
+    }
+
     set tea(t: Tea) {
         this._tea = t;
         // TODO: set a vessel and temperature
+    }
+
+    get time(): PickerTime {
+        return new PickerTime(this.dateTime);
+    }
+
+    set time(t: PickerTime) {
+        // TODO
     }
 
     constructor() { }
