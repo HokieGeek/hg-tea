@@ -24,4 +24,9 @@ export class InputComponent implements OnInit {
             err => this.errorMsg = err
         );
     }
+
+    createEntry() {
+        console.log('createEntry() TODO');
+        // TODO: don't forget the timestamp and the session instance
+    }
 }

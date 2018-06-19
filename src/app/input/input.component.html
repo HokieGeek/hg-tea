@@ -1,2 +1,16 @@
-<hg-continue-session [teas]="teas"></hg-continue-session>
-<hg-new-session [teas]="teas"></hg-new-session>
+<div class="container pl-0 ml-1">
+    <div class="row">
+        <div class="col">
+            <hg-continue-session [teas]="teas"></hg-continue-session>
+            <hg-new-session [teas]="teas"></hg-new-session>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input type="button"
+                   class="btn btn-sm btn-block btn-outline-secondary"
+                   (click)="createEntry()"
+                   value="Create">
+        </div>
+    </div>
+</div>
