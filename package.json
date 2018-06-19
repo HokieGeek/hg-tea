@@ -26,6 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.1.0",
     "bootstrap": "^4.1.1",
     "font-awesome": "^4.7.0",
+    "ng-pick-datetime": "^6.0.5",
     "rxjs": "6.2.0",
     "tether": "^1.4.4",
     "ts-helpers": "^1.1.1",

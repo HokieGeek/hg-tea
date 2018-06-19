@@ -28,7 +28,7 @@ export class NewSessionComponent implements OnInit {
     // private entry: Entry = null;
 
     private _tea: Tea = null;
-    private dateTime = Date.now();
+    private dateTime = new Date();
     private steeptime = '';
     private rating = 0;
     private vessel = SteepingVessels['Aberdeen Steeper'];
@@ -48,13 +48,18 @@ export class NewSessionComponent implements OnInit {
         // TODO: set a vessel and temperature
     }
 
+    // time = {hour: 13, minute: 30};
+
+    /*
     get time(): PickerTime {
-        return new PickerTime(this.dateTime);
+        return {hour: 13, minute: 30};
+        // return new PickerTime(this.dateTime);
     }
 
     set time(t: PickerTime) {
         // TODO
     }
+     */
 
     constructor() { }
 

@@ -27,8 +27,9 @@
     <div class="d-flex flex-row">
             <div class="input-group input-group-sm mb-3">
                 <input class="form-control" type="date" [disabled]="tea === null" />
+                <input class="form-control" type="time" [disabled]="tea === null" />
                 <!--ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker-->
-                <ngb-timepicker [(ngModel)]="time" [disabled]="tea === null" ></ngb-timepicker>
+                <!--ngb-timepicker [(ngModel)]="time"></ngb-timepicker-->
             </div>
 
             <div class="input-group input-group-sm mb-3">
