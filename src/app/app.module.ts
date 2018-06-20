@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { HgTeaComponent } from './hgtea.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
@@ -37,9 +39,12 @@ import { EnumValuesPipe } from './enum-values.pipe';
     imports: [
         NgbModule.forRoot(),
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
     ],
     declarations: [
         HgTeaComponent,
