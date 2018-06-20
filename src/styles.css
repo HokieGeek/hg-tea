@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+.btn-outline-secondary {
+    background-color: #835858;
+    color: #ffffff;
+}
+
+@media (max-width: 499px) {
+    .collapse-sm {
+        display: none;
+    }
+}
+
+@media (min-width: 500px) {
+    .collapse-lg {
+        display: none;
+    }
+}
+
+button.close span {
+    padding-left: 8px;
+    opacity: 0.2;
+}
+
+button.close span:hover {
+    color: red;
+    opacity: 1;
+}
