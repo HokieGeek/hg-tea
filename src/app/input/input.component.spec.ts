@@ -12,6 +12,8 @@ import { SteepTimeComponent } from './steep-time/steep-time.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 
+import { EnumValuesPipe } from '../enum-values.pipe';
+
 describe('InputComponent', () => {
     let component: InputComponent;
     let fixture: ComponentFixture<InputComponent>;
@@ -31,7 +33,10 @@ describe('InputComponent', () => {
                 RatingComponent,
                 TeacupimgComponent,
                 EnumValuesPipe,
+<<<<<<< HEAD
                 SteepTimeComponent,
+=======
+>>>>>>> And this is just the GUI. Still need to figure out how to insert into the DB
             ],
             providers: [
                 HttpClient,

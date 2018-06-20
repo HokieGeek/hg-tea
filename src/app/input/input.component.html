@@ -84,14 +84,15 @@
             <button id="dropdown-fixins"
                     class="btn btn-sm btn-block btn-outline-secondary"
                     ngbDropdownToggle>
-                <span *ngIf="input.fixins.length === 0">with</span>
-                <span *ngIf="input.fixins.length > 0">and</span>
+                <span *ngIf="fixins.length === 0">with</span>
+                <span *ngIf="fixins.length > 0">and</span>
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdown-fixins">
-                <button class="dropdown-item"
+                <button class="dropdown-item text-capitalize"
                         *ngFor="let f of TeaFixins | enumValues"
-                        (click)="addFixin(f)">
-                        {{f | lowercase }}
+                        (click)="addFixin(f)"
+                        >
+                        {{f}}
                 </button>
             </div>
         </div>

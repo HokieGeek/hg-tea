@@ -81,8 +81,7 @@ describe('HgTeaComponent', () => {
                 PaginatorComponent,
 
                 InputComponent,
-                NewSessionComponent,
-                ContinueSessionComponent,
+                EnumValuesPipe,
             ],
             imports: [
                 NgbModule.forRoot(),

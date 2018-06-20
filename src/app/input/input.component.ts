@@ -38,6 +38,18 @@ export class InputComponent implements OnInit {
     private input = new InputEntry();
     errorMsg: string = null;
 
+    private _tea: Tea = null;
+    private dateTime = new Date();
+    private steeptime = '';
+    private rating = 0;
+    private vessel = SteepingVessels['Aberdeen Steeper'];
+    private fixins: TeaFixins[] = [];
+    private temperature = 212;
+    private comments = '';
+    private sessionClosed = true;
+
+    private continuedSession = false;
+
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
@@ -46,6 +58,10 @@ export class InputComponent implements OnInit {
             teas => this.teas = teas,
             err => this.errorMsg = err
         );
+
+        /*
+         * TODO: only show buttons when a tea or session is selected
+         */
     }
 
     get stockedTeas(): Tea[] {
