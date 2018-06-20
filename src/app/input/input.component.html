@@ -80,7 +80,7 @@
             </div>
         </div>&nbsp;
         at
-        <div class="input-group input-group-sm col-2">
+        <div class="input-group input-group-sm col-2 temperature">
             <input type="text" class="form-control" aria-label="Temperature in F" [(ngModel)]="temperature">
             <div class="input-group-append">
                 <span class="input-group-text">&deg;F</span>
@@ -118,7 +118,8 @@
 
     <!-- -->
     <div class="d-flex flex-row mb-3">
-        <hg-rating rating="0" max=4 clickable=true></hg-rating>
+        <hg-rating [(rating)]="rating" max="4" editable=true></hg-rating>
+        <div>{{ rating }}</div>
     </div>
 
     <!-- -->

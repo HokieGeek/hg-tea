@@ -6,3 +6,8 @@
     cursor: pointer;
     color: #ff0000;
 }
+
+.temperature {
+    flex: 0 0 10%;
+    max-width: 10%;
+}

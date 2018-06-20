@@ -125,8 +125,8 @@ export class Tea {
         return ratings.sort()[Math.floor(this.entries.length / 2)];
     }
 
-    private countFields(m: Map<any, number>): any[] {
-        const counted: new Map<any, number> = m.reduce((prev, cur) => {
+    private countFields(m: any[]): any[] {
+        const counted: Map<any, number> = m.reduce((prev, cur) => {
                                                 prev.set(cur, (prev.get(cur) || 0) + 1);
                                                 return prev;
                                               }, new Map<any, number>());

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'hg-rating',
@@ -6,17 +6,29 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./rating.component.css']
 })
 export class RatingComponent implements OnInit {
+    private range: number[] = [];
     @Input() _rating: number;
-    @Input() max: number;
-    @Input() clickable = false;
+    @Input() editable = false;
 
     @Input()
     set rating(r: number) {
         this._rating = r;
+        this.valueChange.emit(this._rating);
     }
 
     get rating(): number {
         return this._rating;
+    }
+
+    @Output() valueChange:EventEmitter<number> = new EventEmitter<number>();
+
+    @Input()
+    set max(m: number) {
+        this.range = Array(+m).fill(0).map((x,i) => i+1);
+    }
+
+    get max(): number {
+        return this.range.length;
     }
 
     constructor() { }
