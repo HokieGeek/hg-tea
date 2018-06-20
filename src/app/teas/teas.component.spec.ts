@@ -1,7 +1,10 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { TeasComponent } from './teas.component';
 
@@ -33,9 +36,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 
 import { InputComponent } from '../input/input.component';
-import { NewSessionComponent } from '../input/new-session/new-session.component';
-import { ContinueSessionComponent } from '../input/continue-session/continue-session.component';
-
+import { EnumValuesPipe } from '../enum-values.pipe';
 
 describe('TeasComponent', () => {
     let component: TeasComponent;
@@ -44,10 +45,14 @@ describe('TeasComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserModule,
+                BrowserAnimationsModule,
                 HttpClientModule,
                 NgbModule.forRoot(),
                 FormsModule,
                 AppRoutingModule,
+                OwlDateTimeModule,
+                OwlNativeDateTimeModule,
             ],
             declarations: [
                 TeasComponent,
@@ -74,8 +79,7 @@ describe('TeasComponent', () => {
                 HgTeaComponent,
 
                 InputComponent,
-                NewSessionComponent,
-                ContinueSessionComponent,
+                EnumValuesPipe,
             ],
             providers: [
                 HttpClient,

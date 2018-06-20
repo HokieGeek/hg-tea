@@ -1,4 +1,4 @@
-<div class="container pl-0 ml-1">
+<!--div class="container pl-0 ml-1">
     <div class="row">
         <div class="col">
             <hg-continue-session [teas]="teas"></hg-continue-session>
@@ -7,10 +7,150 @@
     </div>
     <div class="row">
         <div class="col">
-            <input type="button"
+            <div class="btn-group btn-group-toggle">
+                <input type="button"
                    class="btn btn-sm btn-block btn-outline-secondary"
                    (click)="createEntry()"
                    value="Create">
+
+                <label class="btn-sm"
+                   [ngClass]="{'btn-success': !sessionClosed, 'btn-danger': sessionClosed}"
+                   ngbButtonLabel>
+                <input type="checkbox" ngbButton [(ngModel)]="sessionClosed">Session
+                </label>
+            </div>
         </div>
     </div>
+</div-->
+        <div class="input-group input-group-sm mb-3">
+            <input type="text" class="form-control" aria-label="Temperature in F" size="3" [(ngModel)]="temperature">
+            <div class="input-group-append">
+                <span class="input-group-text">&deg;F</span>
+            </div>
+        </div>
+
+<div class="btn-group">
+    <div class="btn-group" ngbDropdown>
+        <button id="dropdown-session"
+                class="btn btn-sm btn-outline-secondary"
+                ngbDropdownToggle>
+            <span *ngIf="tea === null">Continue a session</span>
+            <span *ngIf="tea != null">....</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdown-session">
+            <button class="dropdown-item"
+                    *ngFor="let s of sessions()"
+                    (click)="selectSession(s)"
+                    >
+                    {{s}}
+            </button>
+        </div>
+    </div>
+    <div class="btn-group" ngbDropdown>
+        <button id="dropdown-tea"
+                class="btn btn-sm btn-outline-secondary"
+                ngbDropdownToggle>
+            <span *ngIf="tea === null">or select a tea</span>
+            <span *ngIf="tea != null">{{ tea.name }}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdown-tea">
+            <!--input type="text" class="form-control" aria-label="Steep time"-->
+            <button class="dropdown-item text-capitalize"
+                    *ngFor="let t of stockedTeas"
+                    (click)="tea = t"
+                    >
+                    {{t.name}}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-column justify-content-around" [ngClass]="{'invisible': tea === null}">
+    <div class="d-flex flex-row">
+        <div class="input-wrapper collapse-lg">
+            <input [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
+            <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" #dtlg></owl-date-time>
+        </div>
+        <div class="input-wrapper collapse-sm">
+            <input [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
+            <owl-date-time class="collapse-sm" #dtsm></owl-date-time>
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">for</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Steep time" aria-label="Steep time" [(ngModel)]="steeptime">
+        </div>
+    </div>
+    <div class="d-flex flex-row justify-content-center">
+        <div ngbDropdown class="flex-grow-1">
+            <button id="dropdown-vessel"
+                    class="btn btn-sm btn-block btn-outline-secondary"
+                    ngbDropdownToggle>
+                in the
+                <span *ngIf="vessel != null">{{ SteepingVessels[vessel] }}</span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdown-vessel">
+                <button class="dropdown-item text-capitalize"
+                        *ngFor="let t of SteepingVessels | enumValues"
+                        >
+                        {{t}}
+                </button>
+                    <!-- (click)="vessel = t" -->
+            </div>
+        </div>
+        at
+        <div class="input-group input-group-sm mb-3">
+            <input type="text" class="form-control" aria-label="Temperature in F" size="3" [(ngModel)]="temperature">
+            <div class="input-group-append">
+                <span class="input-group-text">&deg;F</span>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row">
+        <div *ngIf="fixins.length > 0">
+            with<span *ngFor="let f of fixins; let i = index"
+         class="fixin"
+         title="Remove {{ f }}"
+         (click)="removeFixin(f)"
+         ><span *ngIf="i !== 0">,</span>&nbsp;<span *ngIf="fixins.length > 1 && i == fixins.length - 1">and&nbsp;</span>{{ f }}</span>
+        </div>
+        <span *ngIf="fixins.length > 0">&nbsp;</span>
+        <div ngbDropdown class="d-inline-block">
+            <button id="dropdown-fixins"
+                    class="btn btn-sm btn-block btn-outline-secondary"
+                    ngbDropdownToggle>
+                <span *ngIf="fixins.length === 0">with</span>
+                <span *ngIf="fixins.length > 0">and</span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdown-fixins">
+                <button class="dropdown-item text-capitalize"
+                        *ngFor="let f of TeaFixins | enumValues"
+                        (click)="addFixin(f)"
+                        >
+                        {{f}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row">
+        <hg-rating rating="0" max=4></hg-rating>
+    </div>
+    <div class="d-flex flex-row">
+        <textarea placeholder="Comments" rows="1" [(ngModel)]="comments"></textarea>
+    </div>
+</div>
+
+<div class="btn-group btn-group-toggle" *ngIf="tea != null">
+    <input type="button"
+           class="btn btn-sm btn-block btn-outline-secondary"
+           (click)="createEntry()"
+           value="Create">
+
+    <label class="btn-sm"
+           [ngClass]="{'btn-success': !sessionClosed, 'btn-danger': sessionClosed}"
+           ngbButtonLabel>
+        <input type="checkbox" ngbButton [(ngModel)]="sessionClosed">Session
+    </label>
 </div>

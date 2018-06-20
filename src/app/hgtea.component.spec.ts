@@ -4,10 +4,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { HgTeaComponent } from './hgtea.component';
 import { JournalComponent } from './journal/journal.component';
@@ -29,8 +31,7 @@ import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.c
 import { PaginatorComponent } from './paginator/paginator.component';
 
 import { InputComponent } from './input/input.component';
-import { NewSessionComponent } from './input/new-session/new-session.component';
-import { ContinueSessionComponent } from './input/continue-session/continue-session.component';
+import { EnumValuesPipe } from './enum-values.pipe';
 
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
@@ -73,15 +74,17 @@ describe('HgTeaComponent', () => {
                 PaginatorComponent,
 
                 InputComponent,
-                NewSessionComponent,
-                ContinueSessionComponent,
+                EnumValuesPipe,
             ],
             imports: [
                 NgbModule.forRoot(),
                 BrowserModule,
+                BrowserAnimationsModule,
                 FormsModule,
                 HttpClientModule,
                 AppRoutingModule,
+                OwlDateTimeModule,
+                OwlNativeDateTimeModule,
             ],
             providers: [
                 HttpClient,

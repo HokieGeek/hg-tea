@@ -1,7 +1,10 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { DatabaseComponent } from './database.component';
 import { DatabaseEntryComponent } from '../database-entry/database-entry.component';
@@ -26,8 +29,7 @@ import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field
 import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { InputComponent } from '../input/input.component';
-import { NewSessionComponent } from '../input/new-session/new-session.component';
-import { ContinueSessionComponent } from '../input/continue-session/continue-session.component';
+import { EnumValuesPipe } from '../enum-values.pipe';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -43,9 +45,13 @@ describe('DatabaseComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserModule,
+                BrowserAnimationsModule,
                 NgbModule.forRoot(),
                 FormsModule,
                 AppRoutingModule,
+                OwlDateTimeModule,
+                OwlNativeDateTimeModule,
             ],
             declarations: [
                 RatingComponent,
@@ -71,8 +77,7 @@ describe('DatabaseComponent', () => {
                 ViewManagerComponent,
                 PaginatorComponent,
                 InputComponent,
-                NewSessionComponent,
-                ContinueSessionComponent,
+                EnumValuesPipe,
             ],
             providers: [
                 NaturalLanguageDatePipe,

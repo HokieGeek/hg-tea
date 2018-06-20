@@ -1,0 +1,8 @@
+.fixin {
+    display: inline;
+}
+
+.fixin:hover {
+    cursor: pointer;
+    color: #ff0000;
+}
