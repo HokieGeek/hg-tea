@@ -8,7 +8,6 @@
             <span *ngIf="tea != null">{{ tea.name }}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdown-tea">
-            <!--input type="text" class="form-control" aria-label="Steep time"-->
             <button class="dropdown-item text-capitalize"
                     *ngFor="let t of stockedTeas"
                     (click)="tea = t"
@@ -46,13 +45,9 @@
             <input [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
             <owl-date-time class="collapse-sm" #dtsm></owl-date-time>
         </div>
-
-        <div class="input-group input-group-sm mb-3 col-2">
-            <div class="input-group-prepend">
-                <span class="input-group-text">for</span>
-            </div>
-            <input type="text" class="form-control" placeholder="Steep time" aria-label="Steep time" [(ngModel)]="steeptime">
-        </div>
+        <hg-steep-time class="input-group input-group-sm mb-3 col-2"
+                       [(value)]="steeptime"></hg-steep-time>
+        <div>{{ steeptime }}</div>
     </div>
 
     <!-- -->

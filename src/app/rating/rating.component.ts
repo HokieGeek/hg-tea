@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class RatingComponent implements OnInit {
     private range: number[] = [];
-    @Input() ratingValue: number;
+    private ratingValue: number;
     @Input() editable = false;
 
     @Input()
