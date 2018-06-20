@@ -137,7 +137,7 @@ export class Tea {
         let _vessels: string[] = [];
         if (this.entries.length > 0) {
             _vessels = this.countFields(this.entries
-                                            .filter(e => e.steepingvessel_idx != SteepingVessels['French Press'])
+                                            .filter(e => e.steepingvessel_idx !== SteepingVessels['French Press'])
                                             .map(e => e.steepingvessel));
         }
         return _vessels;

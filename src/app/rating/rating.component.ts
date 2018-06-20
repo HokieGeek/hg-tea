@@ -7,24 +7,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class RatingComponent implements OnInit {
     private range: number[] = [];
-    @Input() _rating: number;
+    @Input() ratingValue: number;
     @Input() editable = false;
 
     @Input()
     set rating(r: number) {
-        this._rating = r;
-        this.valueChange.emit(this._rating);
+        this.ratingValue = r;
+        this.ratingChange.emit(this.ratingValue);
     }
 
     get rating(): number {
-        return this._rating;
+        return this.ratingValue;
     }
 
-    @Output() valueChange:EventEmitter<number> = new EventEmitter<number>();
+    @Output() ratingChange: EventEmitter<number> = new EventEmitter<number>();
 
     @Input()
     set max(m: number) {
-        this.range = Array(+m).fill(0).map((x,i) => i+1);
+        this.range = Array(+m).fill(0).map((x, i) => i + 1);
     }
 
     get max(): number {
