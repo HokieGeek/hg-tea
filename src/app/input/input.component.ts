@@ -90,7 +90,21 @@ export class InputComponent implements OnInit {
 
     set tea(t: Tea) {
         this._tea = t;
-        // TODO: set a vessel and temperature
+        if (this.tea.entries.length > 0) {
+            // TODO: set a vessel and temperature based on the most common for that tea
+            // console.log(this.tea.entries.map(e => e.steepingvessel));
+            const vesselCounts = this.tea.entries.map(e => e.steepingvessel)
+                                                  .reduce((prev, cur) => {
+                                                      prev.set(cur, (prev.get(cur) || 0) + 1);
+                                                      // prev[cur] = (prev[cur] || 0) + 1;
+                                                      return prev;
+                                                  }, new Map<string, number>());
+            console.log(vesselCounts);
+            // console.log(vesselCounts.entries());
+            // console.log(vesselCounts.sort((a,b) => b.value - a.value));
+            // this.tea.entries.map(e => e.steepingvessel)
+            //                 .reduce
+        }
     }
 
         /*
