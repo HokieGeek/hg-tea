@@ -1,26 +1,10 @@
 <!-- Select a session or a tea -->
 <div class="btn-group mb-3">
     <div class="btn-group" ngbDropdown>
-        <button id="dropdown-session"
-                class="btn btn-sm btn-outline-secondary"
-                ngbDropdownToggle>
-            <span *ngIf="tea === null">Continue a session</span>
-            <span *ngIf="tea != null">....</span>
-        </button>
-        <div ngbDropdownMenu aria-labelledby="dropdown-session">
-            <button class="dropdown-item"
-                    *ngFor="let s of sessions()"
-                    (click)="selectSession(s)"
-                    >
-                    {{s}}
-            </button>
-        </div>
-    </div>
-    <div class="btn-group" ngbDropdown>
         <button id="dropdown-tea"
                 class="btn btn-sm btn-outline-secondary"
                 ngbDropdownToggle>
-            <span *ngIf="tea === null">or select a tea</span>
+            <span *ngIf="tea === null">Select a tea</span>
             <span *ngIf="tea != null">{{ tea.name }}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdown-tea">
@@ -30,6 +14,22 @@
                     (click)="tea = t"
                     >
                     {{t.name}}
+            </button>
+        </div>
+    </div>
+    <div class="btn-group" ngbDropdown>
+        <button id="dropdown-session"
+                class="btn btn-sm btn-outline-secondary"
+                ngbDropdownToggle>
+            <span *ngIf="tea === null">or continue a session</span>
+            <span *ngIf="tea != null">....</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdown-session">
+            <button class="dropdown-item"
+                    *ngFor="let s of sessions()"
+                    (click)="selectSession(s)"
+                    >
+                    {{s}}
             </button>
         </div>
     </div>
@@ -62,9 +62,15 @@
                     class="btn btn-sm btn-block btn-outline-secondary"
                     ngbDropdownToggle>
                 in the
-                <span *ngIf="vessel != null">{{ SteepingVessels[vessel] }}</span>
+                <span *ngIf="vessel != null">{{ SteepingVessels[vessel] | lowercase }}</span>
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdown-vessel">
+                <button class="dropdown-item text-capitalize"
+                        *ngFor="let t of teaVessels"
+                        >
+                        {{t}}
+                </button>
+                <div class="dropdown-divider"></div>
                 <button class="dropdown-item text-capitalize"
                         *ngFor="let t of SteepingVessels | enumValues"
                         >

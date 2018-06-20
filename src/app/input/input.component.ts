@@ -25,8 +25,8 @@ export class InputComponent implements OnInit {
     private steeptime = '';
     private rating = 0;
     private vessel = SteepingVessels['Aberdeen Steeper'];
-    private fixins: TeaFixins[] = [];
     private temperature = 212;
+    private fixins: TeaFixins[] = [];
     private comments = '';
     private sessionClosed = true;
 
@@ -91,17 +91,32 @@ export class InputComponent implements OnInit {
     set tea(t: Tea) {
         this._tea = t;
         if (this.tea.entries.length > 0) {
-            // TODO: set a vessel and temperature based on the most common for that tea
-            // console.log(this.tea.entries.map(e => e.steepingvessel));
-            const vesselCounts: Map<string, number> = this.tea.entries.map(e => e.steepingvessel)
-                                                  .reduce((prev, cur) => {
-                                                      prev.set(cur, (prev.get(cur) || 0) + 1);
-                                                      return prev;
-                                                  }, new Map<string, number>());
-            console.log(vesselCounts);
-            console.log(vesselCounts.entries());
-            // console.log(Array.from(vesselCounts.entries()).sort((a, b) => b.value - a.value));
+            this.vessel = SteepingVessels[this.tea.vessels[0]];
+            this.temperature = this.tea.temperaturesInF[0];
+
+            // TODO: Would be great if the 'with' dropdown had some prefilled based on commons
+        } else {
+            const lcType = this.tea.type.toLowerCase();
+
+            // Set the temperature
+            if (lcType.includes('green')) {
+                this.temperature = 180;
+            }
+
+            // Set the vessel
+            if (lcType.includes('sheng')) {
+                this.vessel = SteepingVessels['Shipiao Yixing'];
+            } else if (lcType.includes('oolong')) {
+                this.vessel = SteepingVessels['Celadon Gaiwan'];
+            }
         }
+    }
+
+    get teaVessels(): string[] {
+        if (this.tea == null) {
+            return [];
+        }
+        return this.tea.vessels;
     }
 
         /*

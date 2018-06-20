@@ -124,4 +124,30 @@ export class Tea {
 
         return ratings.sort()[Math.floor(this.entries.length / 2)];
     }
+
+    private countFields(m: Map<any, number>): any[] {
+        const counted: new Map<any, number> = m.reduce((prev, cur) => {
+                                                prev.set(cur, (prev.get(cur) || 0) + 1);
+                                                return prev;
+                                              }, new Map<any, number>());
+        return Array.from(counted.entries()).sort((a, b) => b[1] - a[1]).map(v => v[0]);
+    }
+
+    get vessels(): string[] {
+        let _vessels: string[] = [];
+        if (this.entries.length > 0) {
+            _vessels = this.countFields(this.entries
+                                            .filter(e => e.steepingvessel_idx != SteepingVessels['French Press'])
+                                            .map(e => e.steepingvessel));
+        }
+        return _vessels;
+    }
+
+    get temperaturesInF(): number[] {
+        let temps: number[] = [];
+        if (this.entries.length > 0) {
+            temps = this.countFields(this.entries.map(e => e.steeptemperature));
+        }
+        return temps;
+    }
 }
