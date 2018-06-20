@@ -2,6 +2,6 @@
     title="{{rating}} out of {{range.length}}"
     selected="{{rating >= i}}"
     [ngClass]="{'editable': editable}"
-    (click)="editable && rating = i"
+    (click)="clickedRating(i)"
     >
 </hg-teacupimg>

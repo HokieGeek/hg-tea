@@ -22,6 +22,16 @@ export class RatingComponent implements OnInit {
 
     @Output() ratingChange: EventEmitter<number> = new EventEmitter<number>();
 
+    private clickedRating(r: number) {
+        if (this.editable) {
+            if (this.rating === r) {
+                this.rating = 0;
+            } else {
+                this.rating = r;
+            }
+        }
+    }
+
     @Input()
     set max(m: number) {
         this.range = Array(+m).fill(0).map((x, i) => i + 1);
