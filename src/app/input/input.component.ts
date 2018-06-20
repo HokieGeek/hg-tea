@@ -100,7 +100,7 @@ export class InputComponent implements OnInit {
                                                   }, new Map<string, number>());
             console.log(vesselCounts);
             console.log(vesselCounts.entries());
-            // console.log(vesselCounts.sort((a, b) => b.value - a.value));
+            // console.log(Array.from(vesselCounts.entries()).sort((a, b) => b.value - a.value));
         }
     }
 
