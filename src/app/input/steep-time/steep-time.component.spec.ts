@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { SteepTimeComponent } from './steep-time.component';
 
@@ -8,9 +9,10 @@ describe('SteepTimeComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [ FormsModule ],
             declarations: [ SteepTimeComponent ]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {

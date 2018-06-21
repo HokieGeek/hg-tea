@@ -8,6 +8,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { InputComponent } from './input.component';
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
+import { SteepTimeComponent } from './steep-time/steep-time.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 
@@ -30,6 +31,7 @@ describe('InputComponent', () => {
                 RatingComponent,
                 TeacupimgComponent,
                 EnumValuesPipe,
+                SteepTimeComponent,
             ],
             providers: [
                 HttpClient,

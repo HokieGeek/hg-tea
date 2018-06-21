@@ -6,6 +6,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { HgTeaComponent } from './hgtea.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { RatingComponent } from './rating/rating.component';
@@ -17,7 +19,6 @@ import { DatabaseEntryImagesComponent } from './database-entry-images/database-e
 import { BasicInfoComponent } from './database-entry/basic-info/basic-info.component';
 import { StatsComponent } from './database-entry/stats/stats.component';
 
-import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
 import { TeasComponent } from './teas/teas.component';
 import { TeasSidebarComponent } from './teas-sidebar/teas-sidebar.component';
@@ -29,10 +30,11 @@ import { SortFieldComponent } from './teas-sidebar/sorter/sort-field/sort-field.
 import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 
-import { AppRoutingModule } from './app-routing.module';
 import { InputComponent } from './input/input.component';
-import { EnumValuesPipe } from './enum-values.pipe';
 import { SteepTimeComponent } from './input/steep-time/steep-time.component';
+
+import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
+import { EnumValuesPipe } from './enum-values.pipe';
 
 @NgModule({
     imports: [

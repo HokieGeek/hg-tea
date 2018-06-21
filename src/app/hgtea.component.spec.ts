@@ -35,7 +35,10 @@ import { EnumValuesPipe } from './enum-values.pipe';
 
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
+import { SteepTimeComponent } from './input/steep-time/steep-time.component';
+
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
+import { EnumValuesPipe } from './enum-values.pipe';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
@@ -75,6 +78,7 @@ describe('HgTeaComponent', () => {
 
                 InputComponent,
                 EnumValuesPipe,
+                SteepTimeComponent,
             ],
             imports: [
                 NgbModule.forRoot(),
