@@ -10,4 +10,41 @@
 .temperature {
     flex: 0 0 10%;
     max-width: 10%;
+    min-width: 104px;
+}
+
+.datetime {
+    font-size: .875rem;
+    padding-top: .28rem;
+    padding-bottom: .28rem;
+}
+
+.createbtn {
+    width: 15vw;
+}
+
+@media (max-width: 499px) {
+    .halfvw {
+        width: 50vw;
+    }
+
+    .datetime {
+        max-width: 52vw;
+    }
+
+    hg-steep-time {
+        min-width: 48vw;
+    }
+
+    .comments {
+        width: 100vw;
+    }
+
+    .createbtn {
+        width: 78vw;
+    }
+
+    .sessionbtn {
+        width: 20vw;
+    }
 }

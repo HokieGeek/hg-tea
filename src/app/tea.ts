@@ -27,7 +27,7 @@ export class Entry {
         public fixins_list: string,
     ) { }
 
-    get steepingvessel() { return SteepingVessels[this.steepingvessel_idx]; }
+    get steepingvessel(): string { return SteepingVessels[this.steepingvessel_idx]; }
 
     get fixins() {
         if (this.fixins_list.length > 0) {
@@ -137,7 +137,7 @@ export class Tea {
         let _vessels: string[] = [];
         if (this.entries.length > 0) {
             _vessels = this.countFields(this.entries
-                                            .filter(e => e.steepingvessel_idx !== SteepingVessels['French Press'])
+                                            .filter(e => e.steepingvessel !== 'French Press')
                                             .map(e => e.steepingvessel));
         }
         return _vessels;

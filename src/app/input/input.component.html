@@ -2,7 +2,7 @@
 <div class="btn-group mb-3">
     <div class="btn-group" ngbDropdown>
         <button id="dropdown-tea"
-                class="btn btn-sm btn-outline-secondary"
+                class="btn btn-sm btn-outline-secondary halfvw"
                 ngbDropdownToggle>
             <span *ngIf="tea === null">Select a tea</span>
             <span *ngIf="tea != null">{{ tea.name }}</span>
@@ -18,11 +18,9 @@
     </div>
     <div class="btn-group" ngbDropdown>
         <button id="dropdown-session"
-                class="btn btn-sm btn-outline-secondary"
-                ngbDropdownToggle>
-            <span *ngIf="tea === null">or continue a session</span>
-            <span *ngIf="tea != null">....</span>
-        </button>
+                class="btn btn-sm halfvw"
+                [ngClass]="{'btn-outline-secondary': tea === null, 'btn-light': tea !== null}"
+                ngbDropdownToggle>or continue a session</button>
         <div ngbDropdownMenu aria-labelledby="dropdown-session">
             <button class="dropdown-item"
                     *ngFor="let s of sessions()"
@@ -34,20 +32,19 @@
     </div>
 </div>
 
-<div class="d-flex flex-column justify-content-around" [ngClass]="{'invisible': tea === null}">
+<div class="d-flex flex-column justify-content-around mx-1" [ngClass]="{'invisible': tea === null}">
     <!-- -->
     <div class="d-flex flex-row">
         <div class="input-wrapper collapse-lg">
-            <input [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
-            <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" #dtlg></owl-date-time>
+            <input class="datetime" [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
+            <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" [hour12Timer]="false" #dtlg></owl-date-time>
         </div>
         <div class="input-wrapper collapse-sm">
-            <input [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
-            <owl-date-time class="collapse-sm" #dtsm></owl-date-time>
+            <input class="form-control datetime" [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
+            <owl-date-time class="collapse-sm" [hour12Timer]="false" #dtsm></owl-date-time>
         </div>
         <hg-steep-time class="input-group input-group-sm mb-3 col-2"
                        [(value)]="steeptime"></hg-steep-time>
-        <div>{{ steeptime }}</div>
     </div>
 
     <!-- -->
@@ -118,17 +115,17 @@
 
     <!-- -->
     <div class="d-flex flex-row mb-3">
-        <textarea placeholder="Comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
+        <textarea class="comments" placeholder="Comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
     </div>
 </div>
 
-<div class="btn-group btn-group-toggle" *ngIf="tea != null">
+<div class="btn-group btn-group-toggle mx-1" *ngIf="tea != null">
     <input type="button"
-           class="btn btn-sm btn-outline-secondary"
+           class="btn btn-sm btn-outline-secondary createbtn"
            (click)="createEntry()"
            value="Create">
 
-    <label class="btn-sm"
+    <label class="btn-sm sessionbtn"
            [ngClass]="{'btn-success': !sessionClosed, 'btn-danger': sessionClosed}"
            ngbButtonLabel>
         <input type="checkbox" ngbButton [(ngModel)]="sessionClosed">Session
