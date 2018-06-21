@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { Tea, Entry, TeaFixins, SteepingVessels } from '../tea';
 import { TeaDbService } from '../teadb.service';
@@ -30,8 +31,6 @@ export class InputComponent implements OnInit {
     private comments = '';
     private sessionClosed = true;
 
-    private continuedSession = false;
-
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
@@ -60,6 +59,10 @@ export class InputComponent implements OnInit {
                     return 0;
                 }
             });
+    }
+
+    get teasWithOpenSessions(): Tea[] {
+        return this.teas.filter(t => t.entries.length > 0 && !t.latestEntry.sessionclosed);
     }
 
     createEntry() {
@@ -93,6 +96,7 @@ export class InputComponent implements OnInit {
         if (this.tea.entries.length > 0) {
             this.vessel = SteepingVessels[this.tea.vessels[0]];
             this.temperature = this.tea.temperaturesInF[0];
+            this.sessionClosed = this.tea.latestEntry.sessionclosed;
 
             // TODO: Would be great if the 'with' dropdown had some prefilled based on commons
         } else {
@@ -109,6 +113,8 @@ export class InputComponent implements OnInit {
             } else if (lcType.includes('oolong')) {
                 this.vessel = SteepingVessels['Celadon Gaiwan'];
             }
+
+            this.sessionClosed = true;
         }
     }
 
@@ -136,14 +142,5 @@ export class InputComponent implements OnInit {
         if (index > -1) {
             this.fixins.splice(index, 1);
         }
-    }
-
-    sessions(): string[] {
-        return ['lorem', 'ipsum', 'dolor'];
-    }
-
-    selectSession(s: string) {
-        console.log('THIS NEEDS TO BE A MAP');
-        this.continuedSession = true;
     }
 }

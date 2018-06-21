@@ -4,29 +4,22 @@
         <button id="dropdown-tea"
                 class="btn btn-sm btn-outline-secondary halfvw"
                 ngbDropdownToggle>
-            <span *ngIf="tea === null">Select a tea</span>
+            <span *ngIf="tea === null">Select a tea or session</span>
             <span *ngIf="tea != null">{{ tea.name }}</span>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdown-tea">
+            <button class="dropdown-item session"
+                    *ngFor="let t of teasWithOpenSessions"
+                    (click)="tea = t"
+                    >
+                    {{t.name}} on {{t.latestEntry.datetime | date:'M/d@HHmm'}}
+            </button>
+            <div class="dropdown-divider" *ngIf="teasWithOpenSessions.length > 0"></div>
             <button class="dropdown-item text-capitalize"
                     *ngFor="let t of stockedTeas"
                     (click)="tea = t"
                     >
                     {{t.name}}
-            </button>
-        </div>
-    </div>
-    <div class="btn-group" ngbDropdown>
-        <button id="dropdown-session"
-                class="btn btn-sm halfvw"
-                [ngClass]="{'btn-outline-secondary': tea === null, 'btn-light': tea !== null}"
-                ngbDropdownToggle>or continue a session</button>
-        <div ngbDropdownMenu aria-labelledby="dropdown-session">
-            <button class="dropdown-item"
-                    *ngFor="let s of sessions()"
-                    (click)="selectSession(s)"
-                    >
-                    {{s}}
             </button>
         </div>
     </div>

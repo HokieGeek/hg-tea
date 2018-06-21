@@ -1,10 +1,5 @@
-.fixin {
-    display: inline;
-}
-
-.fixin:hover {
-    cursor: pointer;
-    color: #ff0000;
+.session {
+    color: #835858;
 }
 
 .temperature {
@@ -17,6 +12,15 @@
     font-size: .875rem;
     padding-top: .28rem;
     padding-bottom: .28rem;
+}
+
+.fixin {
+    display: inline;
+}
+
+.fixin:hover {
+    cursor: pointer;
+    color: #ff0000;
 }
 
 .createbtn {
