@@ -28,8 +28,8 @@
 }
 
 @media (max-width: 499px) {
-    .halfvw {
-        width: 50vw;
+    .selecttea {
+        width: 100vw;
     }
 
     .datetime {

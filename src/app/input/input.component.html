@@ -1,8 +1,7 @@
 <!-- Select a session or a tea -->
-<div class="btn-group mb-3">
-    <div class="btn-group" ngbDropdown>
+    <div class="btn-group mb-3 selecttea" ngbDropdown>
         <button id="dropdown-tea"
-                class="btn btn-sm btn-outline-secondary halfvw"
+                class="btn btn-sm btn-outline-secondary"
                 ngbDropdownToggle>
             <span *ngIf="tea === null">Select a tea or session</span>
             <span *ngIf="tea != null">{{ tea.name }}</span>
@@ -23,7 +22,6 @@
             </button>
         </div>
     </div>
-</div>
 
 <div class="d-flex flex-column justify-content-around mx-1" [ngClass]="{'invisible': tea === null}">
     <!-- -->
