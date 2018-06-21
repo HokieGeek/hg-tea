@@ -36,7 +36,6 @@ import { PaginatorComponent } from './paginator/paginator.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
-import { SteepTimeComponent } from './input/steep-time/steep-time.component';
 
 @NgModule({
     imports: [
