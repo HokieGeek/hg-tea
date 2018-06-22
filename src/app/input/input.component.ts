@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { v4 as uuid } from 'uuid';
+import * as moment from 'moment';
 
 import { Tea, Entry, TeaFixins, SteepingVessels } from '../tea';
 import { TeaDbService } from '../teadb.service';
@@ -66,25 +68,26 @@ export class InputComponent implements OnInit {
     }
 
     createEntry() {
-        console.log('createEntry() TODO');
-        // TODO: don't forget the timestamp and the session instance
-        /*
-        this.entry = new Entry(
-            -1, // teaId (HAS TO MATCH ARRAY POS)
-            '', // comments
-            '', // timestamp
-            , // date
-            , // time
-            , // rating
-            '', // pictures
-            '', // steeptime
-            -1, // steepingvessel_idx
-            212, // steeptemperature
-            '', // sessioninstance
-            true, // sessionclosed
-            '' // fixins_list
-        );
-         */
+        let instance = uuid();
+        if (!this.tea.latestEntry.sessionclosed) {
+            instance = this.tea.latestEntry.sessioninstance;
+        }
+
+        this.teaDbService.createJournalEntry(new Entry(
+                this.tea.id, // teaId (HAS TO MATCH ARRAY POS)
+                this.comments, // comments
+                moment().format('DD/MM/YYYY H:mm:ss'), // timestamp
+                moment(this.dateTime).format('M/D/YYYY'), // date
+                +moment(this.dateTime).format('HHmm'), // time
+                this.rating, // rating
+                '', // pictures
+                this.steeptime, // steeptime
+                this.vessel, // steepingvessel_idx
+                this.temperature, // steeptemperature
+                instance, // sessioninstance
+                this.sessionClosed, // sessionclosed
+                this.fixins.map(f => TeaFixins[f]).join(';') // fixins_list
+            ));
     }
 
     get tea(): Tea {

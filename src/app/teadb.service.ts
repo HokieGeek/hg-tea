@@ -104,4 +104,8 @@ export class TeaDbService {
         }
         return entries;
     }
+
+    createJournalEntry(e: Entry) {
+        console.log('TODO createJournalEntry()', e);
+    }
 }
