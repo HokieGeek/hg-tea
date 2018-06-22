@@ -10,6 +10,20 @@ import { EnumValuesPipe } from '../enum-values.pipe';
 
 import { TestUtils } from '../test-utils';
 
+class InputEntry {
+    public tea: Tea = null;
+    public dateTime = new Date();
+    public steeptime = '';
+    public rating = 0;
+    public vessel = SteepingVessels['Aberdeen Steeper'];
+    public temperature = 212;
+    public fixins: TeaFixins[] = [];
+    public comments = '';
+    public sessionClosed = true;
+
+    constructor() {}
+}
+
 @Component({
     selector: 'hg-input',
     templateUrl: './input.component.html',
@@ -20,18 +34,9 @@ export class InputComponent implements OnInit {
     TeaFixins = TeaFixins;
     SteepingVessels = SteepingVessels;
 
-    public teas: Tea[] = [];
+    private teas: Tea[] = [];
+    private input = new InputEntry();
     errorMsg: string = null;
-
-    private _tea: Tea = null;
-    private dateTime = new Date();
-    private steeptime = '';
-    private rating = 0;
-    private vessel = SteepingVessels['Aberdeen Steeper'];
-    private temperature = 212;
-    private fixins: TeaFixins[] = [];
-    private comments = '';
-    private sessionClosed = true;
 
     constructor(private teaDbService: TeaDbService) {}
 
@@ -41,10 +46,6 @@ export class InputComponent implements OnInit {
             teas => this.teas = teas,
             err => this.errorMsg = err
         );
-
-        /*
-         * TODO: only show buttons when a tea or session is selected
-         */
     }
 
     get stockedTeas(): Tea[] {
@@ -69,37 +70,40 @@ export class InputComponent implements OnInit {
 
     createEntry() {
         let instance = uuid();
-        if (!this.tea.latestEntry.sessionclosed) {
-            instance = this.tea.latestEntry.sessioninstance;
+        if (!this.input.tea.latestEntry.sessionclosed) {
+            instance = this.input.tea.latestEntry.sessioninstance;
         }
 
         this.teaDbService.createJournalEntry(new Entry(
-                this.tea.id, // teaId (HAS TO MATCH ARRAY POS)
-                this.comments, // comments
+                this.input.tea.id, // teaId (HAS TO MATCH ARRAY POS)
+                this.input.comments, // comments
                 moment().format('DD/MM/YYYY H:mm:ss'), // timestamp
-                moment(this.dateTime).format('M/D/YYYY'), // date
-                +moment(this.dateTime).format('HHmm'), // time
-                this.rating, // rating
+                moment(this.input.dateTime).format('M/D/YYYY'), // date
+                +moment(this.input.dateTime).format('HHmm'), // time
+                this.input.rating, // rating
                 '', // pictures
-                this.steeptime, // steeptime
-                this.vessel, // steepingvessel_idx
-                this.temperature, // steeptemperature
+                this.input.steeptime, // steeptime
+                this.input.vessel, // steepingvessel_idx
+                this.input.temperature, // steeptemperature
                 instance, // sessioninstance
-                this.sessionClosed, // sessionclosed
-                this.fixins.map(f => TeaFixins[f]).join(';') // fixins_list
+                this.input.sessionClosed, // sessionclosed
+                this.input.fixins.map(f => TeaFixins[f]).join(';') // fixins_list
             ));
+
+        // TODO: this needs to be cleaner (such as a response from the service
+        this.input = new InputEntry();
     }
 
     get tea(): Tea {
-        return this._tea;
+        return this.input.tea;
     }
 
     set tea(t: Tea) {
-        this._tea = t;
+        this.input.tea = t;
         if (this.tea.entries.length > 0) {
-            this.vessel = SteepingVessels[this.tea.vessels[0]];
-            this.temperature = this.tea.temperaturesInF[0];
-            this.sessionClosed = this.tea.latestEntry.sessionclosed;
+            this.input.vessel = SteepingVessels[this.tea.vessels[0]];
+            this.input.temperature = this.tea.temperaturesInF[0];
+            this.input.sessionClosed = this.tea.latestEntry.sessionclosed;
 
             // TODO: Would be great if the 'with' dropdown had some prefilled based on commons
         } else {
@@ -107,17 +111,17 @@ export class InputComponent implements OnInit {
 
             // Set the temperature
             if (lcType.includes('green')) {
-                this.temperature = 180;
+                this.input.temperature = 180;
             }
 
             // Set the vessel
             if (lcType.includes('sheng')) {
-                this.vessel = SteepingVessels['Shipiao Yixing'];
+                this.input.vessel = SteepingVessels['Shipiao Yixing'];
             } else if (lcType.includes('oolong')) {
-                this.vessel = SteepingVessels['Celadon Gaiwan'];
+                this.input.vessel = SteepingVessels['Celadon Gaiwan'];
             }
 
-            this.sessionClosed = true;
+            this.input.sessionClosed = true;
         }
     }
 
@@ -128,22 +132,14 @@ export class InputComponent implements OnInit {
         return this.tea.vessels;
     }
 
-        /*
-    set vessel(v: string) {
-        this.vessel = SteepingVessels[v];
-    }
-         */
-
     addFixin(f: TeaFixins) {
-        this.fixins.push(f);
+        this.input.fixins.push(f);
     }
 
     removeFixin(f: TeaFixins) {
-        // console.log('FIXIN:', f);
-        // TODO
-        const index = this.fixins.indexOf(f, 0);
+        const index = this.input.fixins.indexOf(f, 0);
         if (index > -1) {
-            this.fixins.splice(index, 1);
+            this.input.fixins.splice(index, 1);
         }
     }
 }
