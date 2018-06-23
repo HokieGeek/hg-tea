@@ -7,6 +7,11 @@
         <span class="collapse-sm">Displaying&nbsp;</span>{{processedTeas.length}}&nbsp;tea<span *ngIf="processedTeas.length > 1">s</span>&nbsp;with {{numEntries}} entries
     </div>
 </div>
+
+<hg-paginator [pages]="pages" [current]="currentPage" (change)="pageChange($event)"></hg-paginator>
+
 <div class="card-deck">
     <hg-database-entry *ngFor="let tea of processedTeas" [tea]="tea"></hg-database-entry>
 </div>
+
+<hg-paginator [pages]="pages" [current]="currentPage" (change)="pageChange($event)"></hg-paginator>

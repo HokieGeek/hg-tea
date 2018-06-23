@@ -13,6 +13,8 @@ import { ViewService } from '../view.service';
 export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() teas: Tea[] = [];
     private _processedTeas: Tea[] = [];
+    private currentPage = 1;
+    private teasPerPage = 30;
 
     constructor(private route: ActivatedRoute, public view: ViewService) { }
 
@@ -44,5 +46,14 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     get numEntries(): number {
         return this.processedTeas.map(t => t.entries.length)
                                  .reduce((acc, num) => acc + num, 0);
+    }
+
+    get pages(): number {
+        return Math.ceil(this.processedTeas.length / this.teasPerPage);
+    }
+
+    pageChange(p: number) {
+        console.log('Setting page to....', p);
+        this.currentPage = p;
     }
 }
