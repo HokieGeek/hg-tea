@@ -6,8 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit {
-    private range: number[] = [];
-    private currentPage = 1;
+    public range: number[] = [];
+    public currentPage = 1;
 
     @Input()
     set pages(n: number) {
