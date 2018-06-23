@@ -24,6 +24,7 @@ import { FlagFieldComponent } from '../teas-sidebar/filter/flag-field/flag-field
 import { SorterComponent } from '../teas-sidebar/sorter/sorter.component';
 import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field.component';
 import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -65,6 +66,7 @@ describe('DatabaseComponent', () => {
                 SorterComponent,
                 SortFieldComponent,
                 ViewManagerComponent,
+                PaginatorComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,

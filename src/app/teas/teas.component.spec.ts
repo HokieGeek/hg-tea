@@ -24,6 +24,7 @@ import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 import { SorterComponent } from '../teas-sidebar/sorter/sorter.component';
 import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field.component';
 import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
@@ -63,6 +64,7 @@ describe('TeasComponent', () => {
                 SorterComponent,
                 SortFieldComponent,
                 ViewManagerComponent,
+                PaginatorComponent,
 
                 HgTeaComponent,
             ],
