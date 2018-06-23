@@ -31,8 +31,6 @@ import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.c
 import { PaginatorComponent } from './paginator/paginator.component';
 
 import { InputComponent } from './input/input.component';
-import { EnumValuesPipe } from './enum-values.pipe';
-
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { SteepTimeComponent } from './input/steep-time/steep-time.component';
@@ -79,10 +77,6 @@ describe('HgTeaComponent', () => {
                 EnumValuesPipe,
                 SteepTimeComponent,
                 PaginatorComponent,
-
-                InputComponent,
-                EnumValuesPipe,
-                SteepTimeComponent,
             ],
             imports: [
                 NgbModule.forRoot(),
