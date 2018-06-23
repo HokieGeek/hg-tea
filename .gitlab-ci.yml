@@ -30,9 +30,10 @@ build-snapshot:
   <<: *build-template
   variables:
     version_suffix: "SNAPSHOT"
+  only:
+    - master
   except:
     - tags
-    - branches
 
 build-branch:
   <<: *build-template
@@ -40,6 +41,8 @@ build-branch:
     version_suffix: $CI_COMMIT_REF_NAME
   only:
     - branches
+  except:
+    - master
 
 build-release:
   <<: *build-template
