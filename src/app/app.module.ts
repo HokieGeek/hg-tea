@@ -35,6 +35,8 @@ import { SteepTimeComponent } from './input/steep-time/steep-time.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
+import { AppRoutingModule } from './app-routing.module';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
     imports: [
@@ -72,6 +74,7 @@ import { EnumValuesPipe } from './enum-values.pipe';
         InputComponent,
         EnumValuesPipe,
         SteepTimeComponent,
+        PaginatorComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]
