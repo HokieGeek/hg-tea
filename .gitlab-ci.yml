@@ -116,6 +116,8 @@ evaluate-build:
     IQ_STAGE: build
   only:
     - branches
+  except:
+    - master
 
 evaluate-stage:
   <<: *lifecycle-evaluation
