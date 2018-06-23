@@ -12,7 +12,7 @@ import { ViewService } from '../view.service';
 
 export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() teas: Tea[] = [];
-    private _processedTeas: Tea[] = [];
+    private processedTeas: Tea[] = [];
     private currentPage = 1;
     private teasPerPage = 30;
 
@@ -32,13 +32,14 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
         this.updateTeas();
     }
 
-    get processedTeas(): Tea[] {
-        return this._processedTeas;
+    get teasOnCurrentPage(): Tea[] {
+        const start = this.teasPerPage * (this.currentPage - 1);
+        const end = this.teasPerPage * this.currentPage;
+        return this.processedTeas.slice(start, end);
     }
 
     updateTeas(): void {
-        console.log('updateTeas()');
-        this._processedTeas = this.teas
+        this.processedTeas = this.teas
             .filter(t => this.view.filter.isMatch(t))
             .sort((t1, t2) => this.view.sorter.compare(t1, t2));
     }
@@ -53,7 +54,8 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     pageChange(p: number) {
-        console.log('Setting page to....', p);
-        this.currentPage = p;
+        if (p !== this.currentPage) {
+            this.currentPage = p;
+        }
     }
 }
