@@ -32,11 +32,11 @@ import { PaginatorComponent } from './paginator/paginator.component';
 
 import { InputComponent } from './input/input.component';
 import { SteepTimeComponent } from './input/steep-time/steep-time.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
 import { AppRoutingModule } from './app-routing.module';
-import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
     imports: [

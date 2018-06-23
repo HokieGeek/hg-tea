@@ -31,6 +31,7 @@ import { PaginatorComponent } from '../paginator/paginator.component';
 import { InputComponent } from '../input/input.component';
 import { EnumValuesPipe } from '../enum-values.pipe';
 import { SteepTimeComponent } from '../input/steep-time/steep-time.component';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -80,6 +81,7 @@ describe('DatabaseComponent', () => {
                 InputComponent,
                 EnumValuesPipe,
                 SteepTimeComponent,
+                PaginatorComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,
