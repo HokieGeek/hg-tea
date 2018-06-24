@@ -199,6 +199,7 @@ restart-service-dev:
     SERVICE: hgteadev.service
   environment:
     name: staging
+    url: http://tea.hokiegeek.net/dev
   except:
     - tags
     - master
@@ -209,7 +210,7 @@ restart-service:
     SERVICE: hgtea.service
   environment:
     name: production
-    url: http://hokiegeek.net/tea
+    url: http://tea.hokiegeek.net
   only:
     - tags
   except:
