@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 enum teaPackagingTypes {'Loose Leaf', 'Bagged', 'Tuo', 'Beeng', 'Brick', 'Mushroom', 'Square'}
 enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
 enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush'}
@@ -13,16 +15,15 @@ export enum SteepingVessels {'Other', 'French Press', 'Shipiao Yixing', 'Tea-zer
 class JournalDbEntry {
     public comments: string;
     public timestamp: string;
-    public date: string;
-    public time: number;
+    public datetime: Date;
     public rating: number;
-    public pictures: string[];
+    public pictures: string[] = [];
     public steeptime: string;
     public steepingvessel_idx: number;
     public steeptemperature: number;
     public sessioninstance: string;
     public sessionclosed: boolean;
-    public fixins_list: number[];
+    public fixins: string[] = [];
 
     constructor() { }
 }
@@ -41,11 +42,11 @@ export class Entry {
     }
 
     get date(): string {
-        return this.dbentry.date;
+        return moment(this.dbentry.datetime).format('M/D/YYYY');
     }
 
-    get time(): number {
-        return this.dbentry.time;
+    get time(): string {
+        return moment(this.dbentry.datetime).format('HHmm');
     }
 
     get rating(): number {
@@ -80,43 +81,17 @@ export class Entry {
         return this.dbentry.sessionclosed;
     }
 
-    get fixins_list(): number[] {
-        if (this.dbentry.fixins_list === null) {
-            return [];
-        } else {
-            return this.dbentry.fixins_list;
-        }
-    }
-
     get steepingvessel(): string { return SteepingVessels[this.steepingvessel_idx]; }
 
-    get fixins() {
-        if (this.fixins_list.length > 0) {
-            let fixins_str = '';
-            for (const fixin of this.fixins_list.map(f => TeaFixins[f])) {
-                fixins_str += ', ' + fixin;
-            }
-            fixins_str = fixins_str.replace(/^, /, '');
-            if (this.fixins_list.length > 1) {
-                return fixins_str.substring(0, fixins_str.lastIndexOf(',')) + ' and'
-                    + fixins_str.substring(fixins_str.lastIndexOf(',') + 1);
-            } else {
-                return fixins_str;
-            }
+    get fixins(): string[] {
+        if (this.dbentry.fixins == null) {
+            return [];
         }
-        return '';
+        return this.dbentry.fixins;
     }
 
     get datetime(): Date {
-        const datetime = new Date(this.date);
-        const time_str = this.time.toString();
-        if (time_str.length === 2) {
-            datetime.setHours(0);
-        } else {
-            datetime.setHours(parseInt(time_str.substring(0, time_str.length - 2), 10));
-        }
-        datetime.setMinutes(parseInt(time_str.substring(time_str.length - 2), 10));
-        return datetime;
+        return moment(this.dbentry.datetime).toDate();
     }
 }
 
@@ -144,13 +119,8 @@ export class EntryBuilder {
         return this;
     }
 
-    public date(val: string): EntryBuilder {
-        this.dbentry.date = val;
-        return this;
-    }
-
-    public time(val: number): EntryBuilder {
-        this.dbentry.time = val;
+    public datetime(val: Date): EntryBuilder {
+        this.dbentry.datetime = val;
         return this;
     }
 
@@ -189,8 +159,8 @@ export class EntryBuilder {
         return this;
     }
 
-    public fixins_list(val: number[]): EntryBuilder {
-        this.dbentry.fixins_list = val;
+    public fixins(val: string[]): EntryBuilder {
+        this.dbentry.fixins = val;
         return this;
     }
 
@@ -201,7 +171,7 @@ export class EntryBuilder {
     }
 }
 
-class TeaDbEntry {
+export class TeaDbEntry {
     public id: number;
     public name: string;
     public timestamp: string;
@@ -209,7 +179,7 @@ class TeaDbEntry {
     public type: string;
     public region: string;
     public year: number;
-    public flush_idx: number;
+    public flush: string;
     public purchaselocation: string;
     public purchasedate: string;
     public purchaseprice: number;
@@ -262,8 +232,8 @@ export class Tea {
         return this.dbentry.year;
     }
 
-    get flush_idx(): number {
-        return this.dbentry.flush_idx;
+    get flush(): string {
+        return this.dbentry.flush;
     }
 
     get purchaselocation(): string {
@@ -354,14 +324,6 @@ export class Tea {
         return this._latestEntry;
     }
 
-    get flush() {
-        if (this.country.toLowerCase() === 'india') {
-            return teaFlushTypesIndian[this.flush_idx - 1];
-        } else {
-            return teaFlushTypesDefault[this.flush_idx - 1];
-        }
-    }
-
     get packaging() {
         return teaPackagingTypes[this.packaging_idx - 1];
     }
@@ -413,8 +375,8 @@ export class Tea {
 export class TeaBuilder {
     private dbentry: TeaDbEntry = new TeaDbEntry();
 
-    public from(t: TeaDbEntry): TeaBuilder {
-        this.dbentry = t;
+    public from(t: Tea): TeaBuilder {
+        this.dbentry = t.dbentry;
         return this;
     }
 
@@ -453,8 +415,8 @@ export class TeaBuilder {
         return this;
     }
 
-    public flush_idx(val: number): TeaBuilder {
-        this.dbentry.flush_idx = val;
+    public flush(val: string): TeaBuilder {
+        this.dbentry.flush = val;
         return this;
     }
 

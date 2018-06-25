@@ -265,7 +265,7 @@ xdescribe('BasicInfoComponent', () => {
         }));
 
         it('have year but with no flush', async(() => {
-            component.tea = new TeaBuilder().from(component.tea).flush_idx(null).build();
+            component.tea = new TeaBuilder().from(component.tea).flush(null).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -275,7 +275,7 @@ xdescribe('BasicInfoComponent', () => {
                     const children = nodes[node].childNodes;
                     for (const child in children) {
                         if (children[child].nativeNode.nodeName === '#text' &&
-                            children[child].nativeNode.nodeValue === component.tea.flush_idx + ' ' + component.tea.year) {
+                            children[child].nativeNode.nodeValue === component.tea.flush + ' ' + component.tea.year) {
                             found = true;
                             break;
                         }

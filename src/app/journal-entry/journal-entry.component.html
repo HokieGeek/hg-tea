@@ -5,7 +5,7 @@
             <span id="vessel" *ngIf="entry.steepingvessel">&nbsp;using the {{entry.steepingvessel | lowercase}}</span>
             <span id="temperature" *ngIf="entry.steeptemperature">&nbsp;at {{entry.steeptemperature}} &deg;F</span>
         </h5>
-        <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{entry.fixins | lowercase}}</h6>
+        <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{fixinsStr | lowercase}}</h6>
 
         <div class="row">
             <span id="comments" class="card-text d-block pt-1" *ngIf="entry.comments">{{entry.comments}}</span>
@@ -13,7 +13,7 @@
 
         <div class="row">
             <span id="entrydate" class="card-text text-muted small d-block" title="{{entry.datetime}}">
-                {{entry.datetime | naturalDate}}
+                {{ humanizedDate }}
             </span>
         </div>
 

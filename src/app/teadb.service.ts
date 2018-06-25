@@ -3,8 +3,45 @@ import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import * as moment from 'moment';
 
-import { Tea, Entry, TeaBuilder, EntryBuilder } from './tea';
+import { Tea, TeaDbEntry, Entry, TeaBuilder, EntryBuilder, TeaFixins } from './tea';
+
+    enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
+    enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush'}
+
+class SheetsUtil {
+    constructor() {}
+
+    public static getDatetime(dateStr, timeStr: string): Date {
+        const date = dateStr;
+        let time = timeStr;
+        if (time.length === 2) {
+            time = '00' + time;
+        } else if (time.length === 3) {
+            time = '0' + time;
+        }
+
+        if (!moment(date + ' ' + time, 'MM/DD/YYYY HHmm').isValid()) {
+            console.log('getDateTime()', date + ' ' + time, 'MM/DD/YYYY HHmm');
+                // console.log('   valid?', moment(date + ' ' + time, 'MM/DD/YYYY HHmm').isValid());
+            console.log('   date', moment(date + ' ' + time, 'MM/DD/YYYY HHmm').toDate());
+        }
+        return moment(date + ' ' + time, 'MM/DD/YYYY HHmm').toDate();
+    }
+
+    public static getFlushStr(country: string, f: number): string {
+        if (country != null && country.length > 0) {
+            if (country.toLowerCase() === 'india') {
+                return teaFlushTypesIndian[f];
+            } else {
+                return teaFlushTypesDefault[f];
+            }
+        } else {
+            return '';
+        }
+    }
+}
 
 @Injectable()
 export class TeaDbService {
@@ -22,12 +59,12 @@ export class TeaDbService {
                           return this.extractSpreadsheetEntries<Entry>(data,
                               (json: Object): Entry => {
                                   // console.log(json)
+                                  // .datetime(moment(json['gsx$date']['$t'] + ' ' + json['gsx$time']['$t'], 'MM/DD/YYYY HHmm').toDate())
                                   return new EntryBuilder()
                                       .teaId(json['gsx$tea']['$t'])
                                       .comments(json['gsx$comments']['$t'])
                                       .timestamp(json['gsx$timestamp']['$t'])
-                                      .date(json['gsx$date']['$t'])
-                                      .time(json['gsx$time']['$t'])
+                                      .datetime(SheetsUtil.getDatetime(json['gsx$date']['$t'], json['gsx$time']['$t']))
                                       .rating(json['gsx$rating']['$t'])
                                       .pictures(json['gsx$pictures']['$t'].split(';').filter(f => f !== ''))
                                       .steeptime(json['gsx$steeptime']['$t'])
@@ -35,7 +72,7 @@ export class TeaDbService {
                                       .steeptemperature(json['gsx$steeptemperature']['$t'])
                                       .sessioninstance(json['gsx$sessioninstance']['$t'])
                                       .sessionclosed((json['gsx$sessionclosed']['$t'] !== 'FALSE'))
-                                      .fixins_list(json['gsx$fixins']['$t'].split(';').filter(f => f !== '').map(f => +f))
+                                      .fixins(json['gsx$fixins']['$t'].split(';').filter(f => f !== '').map(f => TeaFixins[+f]))
                                       .build();
                               });
                       }));
@@ -55,7 +92,7 @@ export class TeaDbService {
                                       .type(json['gsx$type']['$t'].toLowerCase())
                                       .region(json['gsx$region']['$t'])
                                       .year(json['gsx$year']['$t'])
-                                      .flush_idx(json['gsx$flush']['$t'])
+                                      .flush(SheetsUtil.getFlushStr(json['gsx$country']['$t'], json['gsx$flush']['$t']))
                                       .purchaselocation(json['gsx$purchaselocation']['$t'])
                                       .purchasedate(json['gsx$purchasedate']['$t'])
                                       .purchaseprice(json['gsx$purchaseprice']['$t'])
@@ -111,7 +148,7 @@ export class TeaDbService {
     }
 
     get teasWithEntries(): Observable<Tea[]> {
-        return this.http.get<Tea[]>(this.host + '/' + this.allTeasEndpoint)
+        return this.http.get<TeaDbEntry[]>(this.host + '/' + this.allTeasEndpoint)
             .pipe(map(teas => teas.map(t => new Tea(t))));
     }
 

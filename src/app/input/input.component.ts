@@ -96,8 +96,7 @@ export class InputComponent implements OnInit {
                 .teaId(this.input.tea.id)
                 .comments(this.input.comments)
                 .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
-                .date(moment(this.input.dateTime).format('M/D/YYYY'))
-                .time(+moment(this.input.dateTime).format('HHmm'))
+                .datetime(this.input.dateTime)
                 .rating(this.input.rating)
                 .pictures([])
                 .steeptime(this.input.steeptime)
@@ -105,7 +104,7 @@ export class InputComponent implements OnInit {
                 .steeptemperature(this.input.temperature)
                 .sessioninstance(instance)
                 .sessionclosed(this.input.sessionClosed)
-                .fixins_list(this.input.fixins.map(f => +TeaFixins[f]))
+                .fixins(this.input.fixins.map(f => TeaFixins[f]))
             .build());
 
         // TODO: this needs to be cleaner (such as a response from the service)

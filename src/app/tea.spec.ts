@@ -16,7 +16,7 @@ describe('tea entry', () => {
         const teatype = 'Sheng';
         const region = 'Yunnan';
         const year = (new Date()).getFullYear();
-        const flush_idx = 0;
+        const flush = 'FLUSH';
         const purchaseLocation = 'tea.awesome.site';
         const purchaseDate = date;
         const purchasePrice = 99.99;
@@ -41,7 +41,7 @@ describe('tea entry', () => {
                 .type(teatype)
                 .region(region)
                 .year(year)
-                .flush_idx(flush_idx)
+                .flush(flush)
                 .purchaselocation(purchaseLocation)
                 .purchasedate(purchaseDate)
                 .purchaseprice(purchasePrice)
@@ -70,7 +70,7 @@ describe('tea entry', () => {
                 .type(teatype)
                 .region(region)
                 .year(year)
-                .flush_idx(flush_idx)
+                .flush(flush)
                 .purchaselocation(purchaseLocation)
                 .purchasedate(purchaseDate)
                 .purchaseprice(purchasePrice)
@@ -94,7 +94,7 @@ describe('tea entry', () => {
             expect(tea.type).toBe(teatype);
             expect(tea.region).toBe(region);
             expect(tea.year).toBe(year);
-            expect(tea.flush_idx).toBe(flush_idx); // TODO
+            expect(tea.flush).toBe(flush); // TODO
             expect(tea.purchaselocation).toBe(purchaseLocation);
             expect(tea.purchasedate).toBe(purchaseDate);
             expect(tea.purchaseprice).toBe(purchasePrice);
@@ -123,8 +123,8 @@ describe('tea entry', () => {
         const time = parseInt(hours + mins, 10);
 
         const fixins = [];
-        for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
-            fixins.push(Math.floor(Math.random() * maxNumFixins));
+        for (let i = Math.floor(Math.random() * 3); i >= 0; i--) {
+            fixins.push(TeaFixins[Math.floor(Math.random() * maxNumFixins)]);
         }
 
         const comments = 'COMMENT';
@@ -143,8 +143,7 @@ describe('tea entry', () => {
             .teaId(id)
             .comments(comments)
             .timestamp(timestamp)
-            .date(date)
-            .time(time)
+            .datetime(now)
             .rating(rating)
             .pictures(entryPictures)
             .steeptime(steeptime)
@@ -152,7 +151,7 @@ describe('tea entry', () => {
             .steeptemperature(steeptemperature)
             .sessioninstance(sessioninstance)
             .sessionclosed(sessionclosed)
-            .fixins_list(fixins)
+            .fixins(fixins)
             .build();
 
         it('should create', () => {
@@ -163,32 +162,18 @@ describe('tea entry', () => {
             expect(val.teaId).toBe(id);
             expect(val.comments).toBe(comments);
             expect(val.timestamp).toBe(timestamp);
-            expect(val.date).toBe(date);
-            expect(val.time).toBe(time);
+            expect(val.datetime.getTime()).toBe(now.getTime());
             expect(val.rating).toBe(rating);
             expect(val.pictures).toBe(entryPictures);
             expect(val.steeptime).toBe(steeptime);
             expect(val.steepingvessel_idx).toBe(steepingvessel);
             expect(val.steeptemperature).toBe(steeptemperature);
             expect(val.sessioninstance).toBe(sessioninstance);
-            expect(val.fixins_list).toBe(fixins);
+            expect(val.fixins).toBe(fixins);
         });
 
         it('check steeping vessel getter returns expected value', () => {
             expect(val.steepingvessel).toBe(SteepingVessels[val.steepingvessel_idx]); // TODO: could be better
-        });
-
-        it('check fixins getter returns expected value', () => {
-            const list = val.fixins.replace(/ and /g, ', ').split(', ');
-            for (let f = list.length - 1; f >= 0; f--) {
-                let found = false;
-                for (const fixin in TeaFixins) {
-                    if (list[f] === fixin) {
-                        found = true;
-                    }
-                }
-                expect(found).toBe(true);
-            }
         });
 
         it('check datetime getter returns expected value', () => {

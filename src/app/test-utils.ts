@@ -1,6 +1,7 @@
 import { DebugElement, DebugNode } from '@angular/core';
+import * as moment from 'moment';
 
-import { Tea, TeaBuilder, Entry, EntryBuilder } from './tea';
+import { Tea, TeaBuilder, Entry, EntryBuilder, TeaFixins } from './tea';
 
 export class TestUtils {
     public static numRatingValues = 4;
@@ -37,8 +38,7 @@ export class TestUtils {
             .teaId(teaid)
             .comments('COMMENT')
             .timestamp('12/30/2011 7:49:05')
-            .date(today)
-            .time(time)
+            .datetime(moment(today + ' ' + hours + mins, 'MM/DD/YYYY HHmm').toDate())
             .rating(Math.floor(Math.random() * this.numRatingValues) + 1)
             .pictures([])
             .steeptime('1m 2s')
@@ -46,7 +46,7 @@ export class TestUtils {
             .steeptemperature(212)
             .sessioninstance('')
             .sessionclosed(true)
-            .fixins_list(fixins)
+            .fixins(fixins.map(f => TeaFixins[f]))
             .build();
 
         return entry;
@@ -78,7 +78,7 @@ export class TestUtils {
             .type('Sheng')
             .region('Lincang, Yunnan')
             .year((new Date()).getFullYear())
-            .flush_idx(0)
+            .flush('FLUSH')
             .purchaselocation('tea.awesome.site')
             .purchasedate(today)
             .purchaseprice((Math.random() * 1000) + Math.random())
