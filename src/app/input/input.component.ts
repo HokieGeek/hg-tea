@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { v4 as uuid } from 'uuid';
 import * as moment from 'moment';
 
-import { Tea, Entry, TeaFixins, SteepingVessels } from '../tea';
+import { Tea, Entry, EntryBuilder, TeaFixins, SteepingVessels } from '../tea';
 import { TeaDbService } from '../teadb.service';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
@@ -92,23 +92,23 @@ export class InputComponent implements OnInit {
 
         this.teaDbService.createJournalEntry(
             this.input.tea,
-            new Entry(
-                this.input.tea.id, // teaId (HAS TO MATCH ARRAY POS)
-                this.input.comments, // comments
-                moment().format('DD/MM/YYYY H:mm:ss'), // timestamp
-                moment(this.input.dateTime).format('M/D/YYYY'), // date
-                +moment(this.input.dateTime).format('HHmm'), // time
-                this.input.rating, // rating
-                '', // pictures
-                this.input.steeptime, // steeptime
-                this.input.vessel, // steepingvessel_idx
-                this.input.temperature, // steeptemperature
-                instance, // sessioninstance
-                this.input.sessionClosed, // sessionclosed
-                this.input.fixins.map(f => TeaFixins[f]).join(';') // fixins_list
-            ));
+            new EntryBuilder()
+                .teaId(this.input.tea.id)
+                .comments(this.input.comments)
+                .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
+                .date(moment(this.input.dateTime).format('M/D/YYYY'))
+                .time(+moment(this.input.dateTime).format('HHmm'))
+                .rating(this.input.rating)
+                .pictures('')
+                .steeptime(this.input.steeptime)
+                .steepingvessel_idx(this.input.vessel)
+                .steeptemperature(this.input.temperature)
+                .sessioninstance(instance)
+                .sessionclosed(this.input.sessionClosed)
+                .fixins_list(this.input.fixins.map(f => TeaFixins[f]).join(';'))
+            .build());
 
-        // TODO: this needs to be cleaner (such as a response from the service
+        // TODO: this needs to be cleaner (such as a response from the service)
         this.input = new InputEntry();
     }
 

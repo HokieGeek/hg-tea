@@ -1,6 +1,6 @@
 import { DebugElement, DebugNode } from '@angular/core';
 
-import { Tea, Entry } from './tea';
+import { Tea, TeaBuilder, Entry, EntryBuilder } from './tea';
 
 export class TestUtils {
     public static numRatingValues = 4;
@@ -34,21 +34,21 @@ export class TestUtils {
         }
         fixins = fixins.slice(0, -1);
 
-        const entry = new Entry(
-            teaid, // teaId (HAS TO MATCH ARRAY POS)
-            'COMMENT', // comments
-            '12/30/2011 7:49:05', // timestamp
-            today, // date
-            time, // time
-            Math.floor(Math.random() * this.numRatingValues) + 1, // rating
-            '', // pictures
-            '1m 2s', // steeptime
-            Math.floor(Math.random() * this.maxNumSteepingVessels), // steepingvessel_idx
-            212, // steeptemperature
-            '', // sessioninstance
-            true, // sessionclosed
-            fixins // fixins_list
-        );
+        const entry = new EntryBuilder()
+            .teaId(teaid)
+            .comments('COMMENT')
+            .timestamp('12/30/2011 7:49:05')
+            .date(today)
+            .time(time)
+            .rating(Math.floor(Math.random() * this.numRatingValues) + 1)
+            .pictures('')
+            .steeptime('1m 2s')
+            .steepingvessel_idx(Math.floor(Math.random() * this.maxNumSteepingVessels))
+            .steeptemperature(212)
+            .sessioninstance('')
+            .sessionclosed(true)
+            .fixins_list(fixins)
+            .build();
 
         return entry;
     }
@@ -71,30 +71,30 @@ export class TestUtils {
         fixins = fixins.slice(0, -1);
          */
 
-        return new Tea(
-            id, // id
-            'Foobar', // name
-            '12/30/2011 7:49:05', // timestamp
-            today, // date
-            'Sheng', // type
-            'Lincang, Yunnan', // region
-            (new Date()).getFullYear(), // year
-            0, // flush
-            'tea.awesome.site', // purchaselocation
-            today, // purchasedate
-            (Math.random() * 1000) + Math.random(), // purchaseprice
-            'COMMENT', // comments
-            [], // pictures
-            'China', // country
-            '', // leafgrade
-            '', // blendedteas
-            '', // blendratio
-            String((Math.random() * 500) + 1) + 'g', // size
-            (Math.random() >= 0.5), // stocked
-            (Math.random() >= 0.5), // aging
-            0, // packaging
-            false // sample
-        );
+        return new TeaBuilder()
+            .id(id)
+            .name('Foobar')
+            .timestamp('12/30/2011 7:49:05')
+            .date(today)
+            .type('Sheng')
+            .region('Lincang, Yunnan')
+            .year((new Date()).getFullYear())
+            .flush_idx(0)
+            .purchaselocation('tea.awesome.site')
+            .purchasedate(today)
+            .purchaseprice((Math.random() * 1000) + Math.random())
+            .comments('COMMENT')
+            .pictures([])
+            .country('China')
+            .leafgrade('')
+            .blendedteas('')
+            .blendratio('')
+            .size(String((Math.random() * 500) + 1) + 'g')
+            .stocked((Math.random() >= 0.5))
+            .aging((Math.random() >= 0.5))
+            .packaging_idx(0)
+            .sample(false)
+            .build();
     }
 
     static createDummyTeasWithEntries(): Tea[] {
