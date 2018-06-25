@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { Tea } from '../../tea';
+import { Tea, TeaBuilder } from '../../tea';
 
 import { BasicInfoComponent } from './basic-info.component';
 import { PurchaseInfoComponent } from '../../purchase-info/purchase-info.component';
@@ -61,7 +61,7 @@ xdescribe('BasicInfoComponent', () => {
 
         xit('card title check notStocked is applied when not stocked?', async(() => {
             console.log(component.tea.stocked);
-            component.tea.stocked = false;
+            component.tea = new TeaBuilder().from(component.tea).stocked(false).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -216,7 +216,7 @@ xdescribe('BasicInfoComponent', () => {
 
     describe('missing data', () => {
         it('entry country is not set', async(() => {
-            component.tea.country = '';
+            component.tea = new TeaBuilder().from(component.tea).country('').build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -226,7 +226,7 @@ xdescribe('BasicInfoComponent', () => {
         }));
 
         it('entry country is set but no region', async(() => {
-            component.tea.region = '';
+            component.tea = new TeaBuilder().from(component.tea).region('').build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -244,7 +244,7 @@ xdescribe('BasicInfoComponent', () => {
         }));
 
         it('no tea year', async(() => {
-            component.tea.year = null;
+            component.tea = new TeaBuilder().from(component.tea).year(null).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -265,7 +265,7 @@ xdescribe('BasicInfoComponent', () => {
         }));
 
         it('have year but with no flush', async(() => {
-            component.tea.flush_idx = null;
+            component.tea = new TeaBuilder().from(component.tea).flush_idx(null).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -286,7 +286,7 @@ xdescribe('BasicInfoComponent', () => {
         }));
 
         it('comments are not set', async(() => {
-            component.tea.comments = null;
+            component.tea = new TeaBuilder().from(component.tea).comments(null).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -296,7 +296,7 @@ xdescribe('BasicInfoComponent', () => {
         }));
 
         it('entry date is not set', async(() => {
-            component.tea.date = null;
+            component.tea = new TeaBuilder().from(component.tea).date(null).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {
@@ -306,7 +306,7 @@ xdescribe('BasicInfoComponent', () => {
         }));
 
         xit('tea type is not set', async(() => {
-            component.tea.type = null;
+            component.tea = new TeaBuilder().from(component.tea).type(null).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {

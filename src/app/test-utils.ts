@@ -28,7 +28,7 @@ export class TestUtils {
         }
         const time = parseInt(hours + mins, 10);
 
-        let fixins: number[] = [];
+        const fixins: number[] = [];
         for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
             fixins.push(Math.floor(Math.random() * this.maxNumFixins));
         }

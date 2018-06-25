@@ -15,7 +15,7 @@ import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
-import { Tea, Entry } from '../tea';
+import { Tea, TeaBuilder, Entry } from '../tea';
 import { TestUtils } from '../test-utils';
 
 describe('DatabaseEntryComponent', () => {
@@ -105,7 +105,7 @@ describe('DatabaseEntryComponent', () => {
 
     xdescribe('missing data', () => {
         it('TODO', async(() => {
-            component.tea.type = null;
+            component.tea = new TeaBuilder().from(component.tea).type(null).build();
             fixture.detectChanges();
 
             fixture.whenStable().then(result => {

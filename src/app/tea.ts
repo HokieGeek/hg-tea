@@ -118,7 +118,12 @@ export class Entry {
 
 export class EntryBuilder {
     private entry: JournalDbEntry = new JournalDbEntry();
-    private _teaid: number = -1;
+    private _teaid = -1;
+
+    public from(e: Entry): EntryBuilder {
+        this.entry = e.dbentry;
+        return this;
+    }
 
     public teaId(val: number): EntryBuilder {
         this._teaid = val;
@@ -399,6 +404,11 @@ export class Tea {
 
 export class TeaBuilder {
     private dbentry: TeaDbEntry = new TeaDbEntry();
+
+    public from(t: TeaDbEntry): TeaBuilder {
+        this.dbentry = t;
+        return this;
+    }
 
     public id(val: number): TeaBuilder {
         this.dbentry.id = val;

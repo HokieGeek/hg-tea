@@ -1,4 +1,4 @@
-import { Tea, Entry, SteepingVessels, TeaFixins } from './tea';
+import { Tea, TeaBuilder, Entry, EntryBuilder, SteepingVessels, TeaFixins } from './tea';
 
 describe('tea entry', () => {
     const numRatingValues = 4;
@@ -33,59 +33,59 @@ describe('tea entry', () => {
         const sample = false;
 
         it('should create', () => {
-            const tea = new Tea(
-                id,
-                name,
-                timestamp,
-                date,
-                teatype,
-                region,
-                year,
-                flush_idx,
-                purchaseLocation,
-                purchaseDate,
-                purchasePrice,
-                comments,
-                pictures,
-                country,
-                leafgrade,
-                blendedteas,
-                blendratio,
-                size,
-                stocked,
-                aging,
-                packaging_idx,
-                sample
-            );
+            const tea = new TeaBuilder()
+                .id(id)
+                .name(name)
+                .timestamp(timestamp)
+                .date(date)
+                .type(teatype)
+                .region(region)
+                .year(year)
+                .flush_idx(flush_idx)
+                .purchaselocation(purchaseLocation)
+                .purchasedate(purchaseDate)
+                .purchaseprice(purchasePrice)
+                .comments(comments)
+                .pictures(pictures)
+                .country(country)
+                .leafgrade(leafgrade)
+                .blendedteas(blendedteas)
+                .blendratio(blendratio)
+                .size(size)
+                .stocked(stocked)
+                .aging(aging)
+                .packaging_idx(packaging_idx)
+                .sample(sample)
+                .build();
 
             expect(tea).toBeTruthy();
         });
 
         it('values should match those passed to constructor', () => {
-            const tea = new Tea(
-                id,
-                name,
-                timestamp,
-                date,
-                teatype,
-                region,
-                year,
-                flush_idx,
-                purchaseLocation,
-                purchaseDate,
-                purchasePrice,
-                comments,
-                pictures,
-                country,
-                leafgrade,
-                blendedteas,
-                blendratio,
-                size,
-                stocked,
-                aging,
-                packaging_idx,
-                sample
-            );
+            const tea = new TeaBuilder()
+                .id(id)
+                .name(name)
+                .timestamp(timestamp)
+                .date(date)
+                .type(teatype)
+                .region(region)
+                .year(year)
+                .flush_idx(flush_idx)
+                .purchaselocation(purchaseLocation)
+                .purchasedate(purchaseDate)
+                .purchaseprice(purchasePrice)
+                .comments(comments)
+                .pictures(pictures)
+                .country(country)
+                .leafgrade(leafgrade)
+                .blendedteas(blendedteas)
+                .blendratio(blendratio)
+                .size(size)
+                .stocked(stocked)
+                .aging(aging)
+                .packaging_idx(packaging_idx)
+                .sample(sample)
+                .build();
 
             expect(tea.id).toBe(id);
             expect(tea.name).toBe(name);
@@ -122,15 +122,14 @@ describe('tea entry', () => {
         }
         const time = parseInt(hours + mins, 10);
 
-        let fixins = '';
+        const fixins = [];
         for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
-            fixins += String(Math.floor(Math.random() * maxNumFixins)) + ';';
+            fixins.push(Math.floor(Math.random() * maxNumFixins));
         }
-        fixins = fixins.slice(0, -1);
 
         const comments = 'COMMENT';
         const rating = Math.floor(Math.random() * numRatingValues) + 1;
-        const entryPictures = '';
+        const entryPictures = [];
         const steeptime = '1m 2s';
         const steepingvessel = Math.floor(Math.random() * maxNumSteepingVessels);
         const steeptemperature = 212;
@@ -140,21 +139,21 @@ describe('tea entry', () => {
         console.log('dummy date = ', date);
         console.log('dummy time = ', time);
 
-        const val = new Entry(
-            id, // (HAS TO MATCH ARRAY POS)
-            comments,
-            timestamp,
-            date,
-            time,
-            rating,
-            entryPictures,
-            steeptime,
-            steepingvessel,
-            steeptemperature,
-            sessioninstance,
-            sessionclosed,
-            fixins
-        );
+        const val = new EntryBuilder()
+            .teaId(id)
+            .comments(comments)
+            .timestamp(timestamp)
+            .date(date)
+            .time(time)
+            .rating(rating)
+            .pictures(entryPictures)
+            .steeptime(steeptime)
+            .steepingvessel_idx(steepingvessel)
+            .steeptemperature(steeptemperature)
+            .sessioninstance(sessioninstance)
+            .sessionclosed(sessionclosed)
+            .fixins_list(fixins)
+            .build();
 
         it('should create', () => {
             expect(val).toBeTruthy();

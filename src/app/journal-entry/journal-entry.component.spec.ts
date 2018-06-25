@@ -8,6 +8,7 @@ import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
 
+import { EntryBuilder } from '../tea';
 import { TestUtils } from '../test-utils';
 
 describe('JournalEntryComponent', () => {
@@ -85,7 +86,7 @@ describe('JournalEntryComponent', () => {
     });
 
     it('no fixins handled correctly', async(() => {
-        component.entry.fixins_list = '';
+        component.entry = new EntryBuilder().from(component.entry).fixins_list([]).build();
         fixture.detectChanges();
 
         fixture.whenStable().then(result => {
@@ -95,7 +96,7 @@ describe('JournalEntryComponent', () => {
     }));
 
     it('no steeptime is handled correctly', async(() => {
-        component.entry.steeptime = '';
+        component.entry = new EntryBuilder().from(component.entry).steeptime('').build();
         fixture.detectChanges();
 
         fixture.whenStable().then(result => {
@@ -105,7 +106,7 @@ describe('JournalEntryComponent', () => {
     }));
 
     it('no steeping vessel is handled correctly', async(() => {
-        component.entry.steepingvessel_idx = null;
+        component.entry = new EntryBuilder().from(component.entry).steepingvessel_idx(null).build();
         fixture.detectChanges();
 
         fixture.whenStable().then(result => {
@@ -115,7 +116,7 @@ describe('JournalEntryComponent', () => {
     }));
 
     it('no temperature is handled correctly', async(() => {
-        component.entry.steeptemperature = null;
+        component.entry = new EntryBuilder().from(component.entry).steeptemperature(null).build();
         fixture.detectChanges();
 
         fixture.whenStable().then(result => {
@@ -125,7 +126,7 @@ describe('JournalEntryComponent', () => {
     }));
 
     it('empty comments field is handled correctly', async(() => {
-        component.entry.comments = '';
+        component.entry = new EntryBuilder().from(component.entry).comments('').build();
         fixture.detectChanges();
 
         fixture.whenStable().then(result => {
