@@ -28,11 +28,10 @@ export class TestUtils {
         }
         const time = parseInt(hours + mins, 10);
 
-        let fixins = '';
+        let fixins: number[] = [];
         for (let i = Math.floor(Math.random() * 2); i >= 0; i--) {
-            fixins += String(Math.floor(Math.random() * this.maxNumFixins)) + ';';
+            fixins.push(Math.floor(Math.random() * this.maxNumFixins));
         }
-        fixins = fixins.slice(0, -1);
 
         const entry = new EntryBuilder()
             .teaId(teaid)
@@ -41,7 +40,7 @@ export class TestUtils {
             .date(today)
             .time(time)
             .rating(Math.floor(Math.random() * this.numRatingValues) + 1)
-            .pictures('')
+            .pictures([])
             .steeptime('1m 2s')
             .steepingvessel_idx(Math.floor(Math.random() * this.maxNumSteepingVessels))
             .steeptemperature(212)

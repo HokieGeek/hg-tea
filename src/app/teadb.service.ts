@@ -12,6 +12,7 @@ export class TeaDbService {
     private journalDb = 'https://spreadsheets.google.com/feeds/list/1pHXWycR9_luPdHm32Fb2P1Pp7l29Vni3uFH_q3TsdbU/1/public/values?alt=json';
     private host = 'http://localhost:8888';
     private allTeasEndpoint = 'teas';
+    private teaEndpoint = 'tea';
 
     constructor (private http: HttpClient) { }
 
@@ -28,13 +29,13 @@ export class TeaDbService {
                                       .date(json['gsx$date']['$t'])
                                       .time(json['gsx$time']['$t'])
                                       .rating(json['gsx$rating']['$t'])
-                                      .pictures(json['gsx$pictures']['$t'])
+                                      .pictures(json['gsx$pictures']['$t'].split(';'))
                                       .steeptime(json['gsx$steeptime']['$t'])
                                       .steepingvessel_idx(json['gsx$steepingvessel']['$t'])
                                       .steeptemperature(json['gsx$steeptemperature']['$t'])
                                       .sessioninstance(json['gsx$sessioninstance']['$t'])
                                       .sessionclosed((json['gsx$sessionclosed']['$t'] !== 'FALSE'))
-                                      .fixins_list(json['gsx$fixins']['$t'])
+                                      .fixins_list(json['gsx$fixins']['$t'].split(';'))
                                       .build();
                               });
                       }));
@@ -115,6 +116,9 @@ export class TeaDbService {
     }
 
     createJournalEntry(tea: Tea, e: Entry) {
-        console.log('TODO createJournalEntry()', e);
+        console.log('createJournalEntry()', e);
+        const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry';
+        this.http.post(url, e.dbentry).subscribe(res => console.log(res));
+        // TODO: update the entire thing?
     }
 }

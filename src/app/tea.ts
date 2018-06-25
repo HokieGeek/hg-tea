@@ -11,29 +11,26 @@ export enum SteepingVessels {'Other', 'French Press', 'Shipiao Yixing', 'Tea-zer
                       'Cup', 'Bowl', 'Chrysanthemum Gaiwan', 'Aberdeen Steeper', 'Celadon Gaiwan'}
 
 class JournalDbEntry {
-    public teaId: number;
     public comments: string;
     public timestamp: string;
     public date: string;
     public time: number;
     public rating: number;
-    public pictures: string;
+    public pictures: string[];
     public steeptime: string;
     public steepingvessel_idx: number;
     public steeptemperature: number;
     public sessioninstance: string;
     public sessionclosed: boolean;
-    public fixins_list: string;
+    public fixins_list: number[];
 
     constructor() { }
 }
 
 export class Entry {
-    constructor(private dbentry: JournalDbEntry) { }
+    public teaId: number;
 
-    get teaId(): number {
-        return this.dbentry.teaId;
-    }
+    constructor(public dbentry: JournalDbEntry) { }
 
     get comments(): string {
         return this.dbentry.comments;
@@ -55,7 +52,7 @@ export class Entry {
         return this.dbentry.rating;
     }
 
-    get pictures(): string {
+    get pictures(): string[] {
         return this.dbentry.pictures;
     }
 
@@ -79,9 +76,9 @@ export class Entry {
         return this.dbentry.sessionclosed;
     }
 
-    get fixins_list(): string {
+    get fixins_list(): number[] {
         if (this.dbentry.fixins_list === null) {
-            return '';
+            return [];
         } else {
             return this.dbentry.fixins_list;
         }
@@ -92,11 +89,11 @@ export class Entry {
     get fixins() {
         if (this.fixins_list.length > 0) {
             let fixins_str = '';
-            for (const fixin of this.fixins_list.split(';').map(f => TeaFixins[f])) {
+            for (const fixin of this.fixins_list.map(f => TeaFixins[f])) {
                 fixins_str += ', ' + fixin;
             }
             fixins_str = fixins_str.replace(/^, /, '');
-            if (this.fixins_list.split(';').length > 1) {
+            if (this.fixins_list.length > 1) {
                 return fixins_str.substring(0, fixins_str.lastIndexOf(',')) + ' and'
                     + fixins_str.substring(fixins_str.lastIndexOf(',') + 1);
             } else {
@@ -109,7 +106,11 @@ export class Entry {
     get datetime(): Date {
         const datetime = new Date(this.date);
         const time_str = this.time.toString();
-        datetime.setHours(parseInt(time_str.substring(0, time_str.length - 2), 10));
+        if (time_str.length === 2) {
+            datetime.setHours(0);
+        } else {
+            datetime.setHours(parseInt(time_str.substring(0, time_str.length - 2), 10));
+        }
         datetime.setMinutes(parseInt(time_str.substring(time_str.length - 2), 10));
         return datetime;
     }
@@ -117,9 +118,10 @@ export class Entry {
 
 export class EntryBuilder {
     private entry: JournalDbEntry = new JournalDbEntry();
+    private _teaid: number = -1;
 
     public teaId(val: number): EntryBuilder {
-        this.entry.teaId = val;
+        this._teaid = val;
         return this;
     }
 
@@ -148,7 +150,7 @@ export class EntryBuilder {
         return this;
     }
 
-    public pictures(val: string): EntryBuilder {
+    public pictures(val: string[]): EntryBuilder {
         this.entry.pictures = val;
         return this;
     }
@@ -178,13 +180,15 @@ export class EntryBuilder {
         return this;
     }
 
-    public fixins_list(val: string): EntryBuilder {
+    public fixins_list(val: number[]): EntryBuilder {
         this.entry.fixins_list = val;
         return this;
     }
 
     public build(): Entry {
-        return new Entry(this.entry);
+        const e = new Entry(this.entry);
+        e.teaId = this._teaid;
+        return e;
     }
 }
 
@@ -219,7 +223,7 @@ class TeaDbEntry {
 export class Tea {
     private _latestEntry: Entry = null;
 
-    constructor(private dbentry: TeaDbEntry) { }
+    constructor(public dbentry: TeaDbEntry) { }
 
     get id(): number {
         return this.dbentry.id;

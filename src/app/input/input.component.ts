@@ -99,13 +99,13 @@ export class InputComponent implements OnInit {
                 .date(moment(this.input.dateTime).format('M/D/YYYY'))
                 .time(+moment(this.input.dateTime).format('HHmm'))
                 .rating(this.input.rating)
-                .pictures('')
+                .pictures([])
                 .steeptime(this.input.steeptime)
                 .steepingvessel_idx(this.input.vessel)
                 .steeptemperature(this.input.temperature)
                 .sessioninstance(instance)
                 .sessionclosed(this.input.sessionClosed)
-                .fixins_list(this.input.fixins.map(f => TeaFixins[f]).join(';'))
+                .fixins_list(this.input.fixins.map(f => +TeaFixins[f]))
             .build());
 
         // TODO: this needs to be cleaner (such as a response from the service)
