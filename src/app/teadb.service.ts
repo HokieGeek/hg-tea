@@ -10,6 +10,8 @@ import { Tea, Entry } from './tea';
 export class TeaDbService {
     private teaDb = 'https://spreadsheets.google.com/feeds/list/1-U45bMxRE4_n3hKRkTPTWHTkVKC8O3zcSmkjEyYFYOo/1/public/values?alt=json';
     private journalDb = 'https://spreadsheets.google.com/feeds/list/1pHXWycR9_luPdHm32Fb2P1Pp7l29Vni3uFH_q3TsdbU/1/public/values?alt=json';
+    private host = 'http://localhost:8888'
+    private allTeasEndpoint = 'teas'
 
     constructor (private http: HttpClient) { }
 
@@ -71,6 +73,40 @@ export class TeaDbService {
     }
 
     get teasWithEntries(): Observable<Tea[]> {
+        // return this.http.get<Tea[]>(this.host + '/' + this.allTeasEndpoint)
+        return this.http.get<Tea[]>(this.host + '/' + this.allTeasEndpoint)
+            .pipe(map(t => {
+                const teas: Tea[] = [];
+                for (const tea of t) {
+                    teas.push(new Tea(
+                            tea.id,
+                            tea.name,
+                            tea.timestamp,
+                            tea.date,
+                            tea.type,
+                            tea.region,
+                            tea.year,
+                            tea.flush_idx,
+                            tea.purchaselocation,
+                            tea.purchasedate,
+                            tea.purchaseprice,
+                            tea.comments,
+                            tea.pictures,
+                            tea.country,
+                            tea.leafgrade,
+                            tea.blendedteas,
+                            tea.blendratio,
+                            tea.size,
+                            tea.stocked,
+                            tea.aging,
+                            tea.packaging_idx,
+                            tea.sample));
+                }
+                return teas;
+            })
+    }
+
+    get teasWithEntriesOLD(): Observable<Tea[]> {
         const _self = this;
         return Observable.create((observer) => {
             forkJoin(
@@ -105,7 +141,7 @@ export class TeaDbService {
         return entries;
     }
 
-    createJournalEntry(e: Entry) {
+    createJournalEntry(tea: Tea, e: Entry) {
         console.log('TODO createJournalEntry()', e);
     }
 }

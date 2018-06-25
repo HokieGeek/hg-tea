@@ -90,7 +90,9 @@ export class InputComponent implements OnInit {
             instance = this.input.tea.latestEntry.sessioninstance;
         }
 
-        this.teaDbService.createJournalEntry(new Entry(
+        this.teaDbService.createJournalEntry(
+            this.input.tea,
+            new Entry(
                 this.input.tea.id, // teaId (HAS TO MATCH ARRAY POS)
                 this.input.comments, // comments
                 moment().format('DD/MM/YYYY H:mm:ss'), // timestamp
