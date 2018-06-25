@@ -53,7 +53,11 @@ export class Entry {
     }
 
     get pictures(): string[] {
-        return this.dbentry.pictures;
+        if (this.dbentry.pictures == null) {
+            return [];
+        } else {
+            return this.dbentry.pictures;
+        }
     }
 
     get steeptime(): string {
@@ -117,11 +121,11 @@ export class Entry {
 }
 
 export class EntryBuilder {
-    private entry: JournalDbEntry = new JournalDbEntry();
+    private dbentry: JournalDbEntry = new JournalDbEntry();
     private _teaid = -1;
 
     public from(e: Entry): EntryBuilder {
-        this.entry = e.dbentry;
+        this.dbentry = e.dbentry;
         return this;
     }
 
@@ -131,67 +135,67 @@ export class EntryBuilder {
     }
 
     public comments(val: string): EntryBuilder {
-        this.entry.comments = val;
+        this.dbentry.comments = val;
         return this;
     }
 
     public timestamp(val: string): EntryBuilder {
-        this.entry.timestamp = val;
+        this.dbentry.timestamp = val;
         return this;
     }
 
     public date(val: string): EntryBuilder {
-        this.entry.date = val;
+        this.dbentry.date = val;
         return this;
     }
 
     public time(val: number): EntryBuilder {
-        this.entry.time = val;
+        this.dbentry.time = val;
         return this;
     }
 
     public rating(val: number): EntryBuilder {
-        this.entry.rating = val;
+        this.dbentry.rating = val;
         return this;
     }
 
     public pictures(val: string[]): EntryBuilder {
-        this.entry.pictures = val;
+        this.dbentry.pictures = val;
         return this;
     }
 
     public steeptime(val: string): EntryBuilder {
-        this.entry.steeptime = val;
+        this.dbentry.steeptime = val;
         return this;
     }
 
     public steepingvessel_idx(val: number): EntryBuilder {
-        this.entry.steepingvessel_idx = val;
+        this.dbentry.steepingvessel_idx = val;
         return this;
     }
 
     public steeptemperature(val: number): EntryBuilder {
-        this.entry.steeptemperature = val;
+        this.dbentry.steeptemperature = val;
         return this;
     }
 
     public sessioninstance(val: string): EntryBuilder {
-        this.entry.sessioninstance = val;
+        this.dbentry.sessioninstance = val;
         return this;
     }
 
     public sessionclosed(val: boolean): EntryBuilder {
-        this.entry.sessionclosed = val;
+        this.dbentry.sessionclosed = val;
         return this;
     }
 
     public fixins_list(val: number[]): EntryBuilder {
-        this.entry.fixins_list = val;
+        this.dbentry.fixins_list = val;
         return this;
     }
 
     public build(): Entry {
-        const e = new Entry(this.entry);
+        const e = new Entry(this.dbentry);
         e.teaId = this._teaid;
         return e;
     }
@@ -220,7 +224,7 @@ class TeaDbEntry {
     public aging: boolean;
     public packaging_idx: number;
     public sample: boolean;
-    public entries: JournalDbEntry[];
+    public entries: JournalDbEntry[] = [];
 
     constructor() { }
 }
@@ -279,7 +283,11 @@ export class Tea {
     }
 
     get pictures(): string[] {
-        return this.dbentry.pictures;
+        if (this.dbentry.pictures == null) {
+            return [];
+        } else {
+            return this.dbentry.pictures;
+        }
     }
 
     get country(): string {

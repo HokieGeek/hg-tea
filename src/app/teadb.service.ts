@@ -29,13 +29,13 @@ export class TeaDbService {
                                       .date(json['gsx$date']['$t'])
                                       .time(json['gsx$time']['$t'])
                                       .rating(json['gsx$rating']['$t'])
-                                      .pictures(json['gsx$pictures']['$t'].split(';'))
+                                      .pictures(json['gsx$pictures']['$t'].split(';').filter(f => f !== ''))
                                       .steeptime(json['gsx$steeptime']['$t'])
                                       .steepingvessel_idx(json['gsx$steepingvessel']['$t'])
                                       .steeptemperature(json['gsx$steeptemperature']['$t'])
                                       .sessioninstance(json['gsx$sessioninstance']['$t'])
                                       .sessionclosed((json['gsx$sessionclosed']['$t'] !== 'FALSE'))
-                                      .fixins_list(json['gsx$fixins']['$t'].split(';'))
+                                      .fixins_list(json['gsx$fixins']['$t'].split(';').filter(f => f !== '').map(f => +f))
                                       .build();
                               });
                       }));
@@ -60,7 +60,7 @@ export class TeaDbService {
                                       .purchasedate(json['gsx$purchasedate']['$t'])
                                       .purchaseprice(json['gsx$purchaseprice']['$t'])
                                       .comments(json['gsx$comments']['$t'])
-                                      .pictures(json['gsx$pictures']['$t'].split(';'))
+                                      .pictures(json['gsx$pictures']['$t'].split(';').filter(f => f !== ''))
                                       .country(json['gsx$country']['$t'])
                                       .leafgrade(json['gsx$leafgrade']['$t'])
                                       .blendedteas(json['gsx$blendedteas']['$t'])
@@ -99,7 +99,7 @@ export class TeaDbService {
                     }
 
                     for (const e of journal_entries) {
-                        tea_data[teaIdMap.get(e.teaId)].addEntry(e);
+                        tea_data[teaIdMap.get(e.teaId)].dbentry.entries.push(e.dbentry);
                     }
 
                     observer.next(tea_data);
