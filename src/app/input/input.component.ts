@@ -35,20 +35,8 @@ export class InputComponent implements OnInit {
     SteepingVessels = SteepingVessels;
 
     private teas: Tea[] = [];
-    private input = new InputEntry();
+    public input = new InputEntry();
     errorMsg: string = null;
-
-    private _tea: Tea = null;
-    private dateTime = new Date();
-    private steeptime = '';
-    private rating = 0;
-    private vessel = SteepingVessels['Aberdeen Steeper'];
-    private fixins: TeaFixins[] = [];
-    private temperature = 212;
-    private comments = '';
-    private sessionClosed = true;
-
-    private continuedSession = false;
 
     constructor(private teaDbService: TeaDbService) {}
 
