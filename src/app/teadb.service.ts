@@ -47,7 +47,7 @@ class SheetsUtil {
 export class TeaDbService {
     private teaDb = 'https://spreadsheets.google.com/feeds/list/1-U45bMxRE4_n3hKRkTPTWHTkVKC8O3zcSmkjEyYFYOo/1/public/values?alt=json';
     private journalDb = 'https://spreadsheets.google.com/feeds/list/1pHXWycR9_luPdHm32Fb2P1Pp7l29Vni3uFH_q3TsdbU/1/public/values?alt=json';
-    private host = 'http://localhost:8888';
+    private host = 'http://teadb:8888';
     private allTeasEndpoint = 'teas';
     private teaEndpoint = 'tea';
 
