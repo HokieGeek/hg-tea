@@ -14,9 +14,18 @@ import { TestUtils } from '../test-utils';
 })
 export class TeasComponent implements OnInit {
     @Input() teas: Tea[] = [];
-    errorMsg: string = null;
+    private _errorMsg: any = null;
 
     constructor(private teaDbService: TeaDbService) {}
+
+    get errorMsg(): any {
+        return this._errorMsg;
+    }
+
+    set errorMsg(msg: any) {
+        console.error('errorMsg: ', msg);
+        this._errorMsg = msg;
+    }
 
     ngOnInit() {
         // this.tea_database = TestUtils.createDummyTeasWithEntries();
