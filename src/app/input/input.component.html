@@ -1,7 +1,7 @@
 <!-- Select a session or a tea -->
     <div class="btn-group mb-3 selecttea" ngbDropdown>
         <button id="dropdown-tea"
-                class="btn btn-sm btn-outline-secondary"
+                class="btn btn-sm btn-primary"
                 ngbDropdownToggle>
             <span *ngIf="tea === null">Select a tea or session</span>
             <span *ngIf="tea != null">{{ tea.name }}</span>
@@ -42,7 +42,7 @@
     <div class="d-flex flex-row mb-3">
         <div ngbDropdown>
             <button id="dropdown-vessel"
-                    class="btn btn-sm btn-block btn-outline-secondary"
+                    class="btn btn-sm btn-block btn-primary"
                     ngbDropdownToggle>
                 in the
                 <span *ngIf="input.vessel != null">{{ SteepingVessels[input.vessel] | lowercase }}</span>
@@ -82,7 +82,7 @@
         <span *ngIf="input.fixins.length > 0">&nbsp;</span>
         <div ngbDropdown class="d-inline-block">
             <button id="dropdown-fixins"
-                    class="btn btn-sm btn-block btn-outline-secondary"
+                    class="btn btn-sm btn-block btn-primary"
                     ngbDropdownToggle>
                 <span *ngIf="input.fixins.length === 0">with</span>
                 <span *ngIf="input.fixins.length > 0">and</span>
@@ -111,7 +111,7 @@
 
 <div class="btn-group btn-group-toggle mx-1" *ngIf="tea != null">
     <input type="button"
-           class="btn btn-sm btn-outline-secondary createbtn"
+           class="btn btn-sm btn-primary createbtn"
            (click)="createEntry()"
            value="Create">
 

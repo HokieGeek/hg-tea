@@ -3,7 +3,7 @@
         <div ngbDropdown class="d-inline-block">
             <button id="dropdown-foo"
                     class="btn btn-sm"
-                    [ngClass]="{'btn-success': filter.hasStrings(name), 'btn-outline-secondary': !filter.hasStrings(name)}"
+                    [ngClass]="{'btn-success': filter.hasStrings(name), 'btn-primary': !filter.hasStrings(name)}"
                     ngbDropdownToggle>{{name}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdown-foo">
                 <button class="dropdown-item text-capitalize"

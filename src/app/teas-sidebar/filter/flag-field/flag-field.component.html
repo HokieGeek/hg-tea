@@ -2,6 +2,6 @@
        class="btn btn-sm"
        [ngClass]="{'btn-success': filter.flagOnly(name),
         'btn-danger': filter.flagExcluded(name),
-        'btn-outline-secondary': !filter.hasFlag(name)}"
+        'btn-primary': !filter.hasFlag(name)}"
        (click)="toggle()"
        [value]="name">
