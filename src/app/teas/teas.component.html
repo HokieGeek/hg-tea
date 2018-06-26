@@ -1,5 +1,5 @@
 <div class="alert alert-danger" role="alert" *ngIf="errorMsg">
-    Server error: {{errorMsg}}
+    Server error: {{errorMsg.message}}
 </div>
 
 <div class="progress" *ngIf="teas.length == 0">
