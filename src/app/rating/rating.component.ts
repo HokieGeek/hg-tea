@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./rating.component.css']
 })
 export class RatingComponent implements OnInit {
-    private range: number[] = [];
+    public range: number[] = [];
     private ratingValue: number;
     @Input() editable = false;
 
