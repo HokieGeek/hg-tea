@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  teadbUrl: 'http://db.hokiegeek.net'
 };

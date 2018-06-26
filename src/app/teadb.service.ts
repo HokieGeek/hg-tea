@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 
+import { environment } from '../environments/environment';
+
 import { Tea, TeaDbEntry, Entry, TeaBuilder, EntryBuilder, TeaFixins } from './tea';
 
     enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
@@ -47,7 +49,7 @@ class SheetsUtil {
 export class TeaDbService {
     private teaDb = 'https://spreadsheets.google.com/feeds/list/1-U45bMxRE4_n3hKRkTPTWHTkVKC8O3zcSmkjEyYFYOo/1/public/values?alt=json';
     private journalDb = 'https://spreadsheets.google.com/feeds/list/1pHXWycR9_luPdHm32Fb2P1Pp7l29Vni3uFH_q3TsdbU/1/public/values?alt=json';
-    private host = 'http://teadb:8888';
+    private host = environment.teadbUrl;
     private allTeasEndpoint = 'teas';
     private teaEndpoint = 'tea';
 
@@ -148,8 +150,8 @@ export class TeaDbService {
     }
 
     get teasWithEntries(): Observable<Tea[]> {
-        return this.http.get<TeaDbEntry[]>(this.host + '/' + this.allTeasEndpoint)
-            .pipe(map(teas => teas.map(t => new Tea(t))));
+        const url = this.host + '/' + this.allTeasEndpoint;
+        return this.http.get<TeaDbEntry[]>(url).pipe(map(teas => teas.map(t => new Tea(t))));
     }
 
     createJournalEntry(tea: Tea, e: Entry) {
