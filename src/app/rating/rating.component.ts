@@ -6,9 +6,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./rating.component.css']
 })
 export class RatingComponent implements OnInit {
-    public range: number[] = [];
+    private _range: number[] = [];
     private ratingValue: number;
     @Input() editable = false;
+
+    get range(): number[] {
+        return this._range;
+    }
 
     @Input()
     set rating(r: number) {
@@ -34,11 +38,11 @@ export class RatingComponent implements OnInit {
 
     @Input()
     set max(m: number) {
-        this.range = Array(+m).fill(0).map((x, i) => i + 1);
+        this._range = Array(+m).fill(0).map((x, i) => i + 1);
     }
 
     get max(): number {
-        return this.range.length;
+        return this._range.length;
     }
 
     constructor() { }

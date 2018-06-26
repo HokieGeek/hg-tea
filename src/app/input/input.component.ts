@@ -35,7 +35,7 @@ export class InputComponent implements OnInit {
     SteepingVessels = SteepingVessels;
 
     private teas: Tea[] = [];
-    public input = new InputEntry();
+    private _input = new InputEntry();
     errorMsg: string = null;
 
     constructor(private teaDbService: TeaDbService) {}
@@ -50,6 +50,10 @@ export class InputComponent implements OnInit {
         /*
          * TODO: only show buttons when a tea or session is selected
          */
+    }
+
+    get input(): InputEntry {
+        return this._input;
     }
 
     get stockedTeas(): Tea[] {
@@ -96,7 +100,7 @@ export class InputComponent implements OnInit {
             .build());
 
         // TODO: this needs to be cleaner (such as a response from the service)
-        this.input = new InputEntry();
+        this._input = new InputEntry();
     }
 
     get tea(): Tea {

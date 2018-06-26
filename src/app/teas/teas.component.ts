@@ -13,15 +13,19 @@ import { TestUtils } from '../test-utils';
   providers: [ TeaDbService ]
 })
 export class TeasComponent implements OnInit {
-    @Input() public teas: Tea[] = [];
+    @Input() private _teas: Tea[] = [];
     errorMsg: string = null;
+
+    get teas(): Tea[] {
+        return this._teas;
+    }
 
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
         // this.tea_database = TestUtils.createDummyTeasWithEntries();
         this.teaDbService.teasWithEntries.subscribe(
-            teas => this.teas = teas,
+            teas => this._teas = teas,
             err => this.errorMsg = err
         );
     }

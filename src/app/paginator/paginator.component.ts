@@ -6,19 +6,27 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit {
-    public range: number[] = [];
-    public currentPage = 1;
+    private _range: number[] = [];
+    private _currentPage = 1;
+
+    get range(): number[] {
+        return this._range;
+    }
+
+    get currentPage(): number {
+        return this._currentPage;
+    }
 
     @Input()
     set pages(n: number) {
-        this.range = Array(+n).fill(0).map((x, i) => i + 1);
+        this._range = Array(+n).fill(0).map((x, i) => i + 1);
     }
 
     @Input()
     set current(p: number) {
-        if (p !== this.currentPage) {
-            this.currentPage = p;
-            this.change.emit(this.currentPage);
+        if (p !== this._currentPage) {
+            this._currentPage = p;
+            this.change.emit(this._currentPage);
         }
     }
 
