@@ -1,7 +1,7 @@
 [Unit]
 Description=HokieGeek.net_Tea
 After=docker.service,hgnetwork.service
-Requires=docker.service
+Requires=docker.service,hgteadb.service
 
 [Service]
 TimeoutStartSec=0
