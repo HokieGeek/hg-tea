@@ -8,7 +8,7 @@
 
         <div class="row" *ngIf="availableFields().length > 0">
             <div ngbDropdown *ngIf="availableFields().length > 0">
-                <button id="dropdown-more" class="btn btn-sm btn-block btn-primary" ngbDropdownToggle>+</button>
+                <button id="dropdown-more" class="btn btn-sm btn-block btn-outline-secondary" ngbDropdownToggle>+</button>
                 <div ngbDropdownMenu aria-labelledby="dropdown-more">
                     <button class="dropdown-item"
                             *ngFor="let field of availableFields()"

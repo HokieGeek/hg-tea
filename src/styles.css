@@ -1,6 +1,18 @@
-.btn-primary {
-    background-color: #835858;
+.btn-primary,
+.page-item.active .page-link,
+.nav-pills .nav-link.active
+{
     color: #ffffff;
+
+    background-color: #835858;
+    border-color: #835858;
+}
+
+.page-link,
+.nav-pills .nav-link
+{
+    color: #666666;
+    color: #652f2f;
 }
 
 @media (max-width: 499px) {
