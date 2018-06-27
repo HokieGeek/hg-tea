@@ -44,8 +44,8 @@ describe('JournalEntryComponent', () => {
     });
 
     it('fixins list makes sense', () => {
-        const has = fixture.debugElement.query(By.css('h6')).nativeElement.innerHTML;
-        const expected = document.createElement('h6').innerHTML = '&nbsp;with&nbsp;'
+        const has = fixture.debugElement.query(By.css('.card-subtitle')).nativeElement.innerHTML;
+        const expected = document.createElement('div').innerHTML = '&nbsp;with&nbsp;'
             + component.fixinsStr.replace(/&/gi, '&amp;').toLowerCase();
         expect(has).toBe(expected);
     });
@@ -189,7 +189,7 @@ describe('JournalEntryComponent', () => {
                 const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
                 const elem = elems[elemPosCardTitle];
                 expect(elem.attributes['class'].indexOf('card-title')).not.toBeLessThan(0);
-                expect(elem.name).toBe('h5');
+                expect(elem.name).toBe('div');
             });
 
             xit('card-title has no child elements', () => {
@@ -202,7 +202,7 @@ describe('JournalEntryComponent', () => {
                 const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
                 const elem = elems[elemPosCardSubtitle];
                 expect(elem.attributes['class'].indexOf('card-subtitle')).not.toBeLessThan(0);
-                expect(elem.name).toBe('h6');
+                expect(elem.name).toBe('div');
             });
 
             it('card-subtitle has no child elements', () => {
