@@ -1,11 +1,11 @@
 <div class="card mb-2">
     <div class="card-body container">
-        <h5 class="row card-title">
+        <div class="row card-title mb-0">
             <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime}}</span>
             <span id="vessel" *ngIf="entry.steepingvessel">&nbsp;using the {{entry.steepingvessel | lowercase}}</span>
             <span id="temperature" *ngIf="entry.steeptemperature">&nbsp;at {{entry.steeptemperature}} &deg;F</span>
-        </h5>
-        <h6 class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{fixinsStr | lowercase}}</h6>
+        </div>
+        <div class="card-subtitle text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{fixinsStr | lowercase}}</div>
 
         <div class="row">
             <span id="comments" class="card-text d-block pt-1" *ngIf="entry.comments">{{entry.comments}}</span>

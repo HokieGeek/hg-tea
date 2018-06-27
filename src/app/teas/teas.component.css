@@ -1,6 +1,7 @@
 aside {
     background-color: #eaefec;
     border-right: 1px solid #abb6c1;
+    min-width: 205px;
 }
 
 .progress-bar {

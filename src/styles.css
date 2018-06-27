@@ -1,18 +1,24 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed'); */
+
 .btn-primary,
+.btn-primary.disabled, .btn-primary:disabled,
 .page-item.active .page-link,
 .nav-pills .nav-link.active
 {
     color: #ffffff;
+    background-color: #193251;
+    border-color: #193251;
+}
 
-    background-color: #835858;
-    border-color: #835858;
+.btn-primary:hover
+{
+    background-color: #2b568b;
 }
 
 .page-link,
 .nav-pills .nav-link
 {
-    color: #666666;
-    color: #652f2f;
+    color: #0d1a2a;
 }
 
 @media (max-width: 499px) {

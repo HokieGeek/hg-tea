@@ -6,6 +6,15 @@
     color: #5b5b5b;
 }
 
+.card-title {
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+    font-size: 17px;
+}
+
+.card-subtitle {
+    font-size: 15px;
+}
+
 .card {
     color: #1e0e0e;
     border-color: #abb6c1;
