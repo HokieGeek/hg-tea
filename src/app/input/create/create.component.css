@@ -1,7 +1,3 @@
-.session {
-    color: #835858;
-}
-
 .temperature {
     flex: 0 0 10%;
     max-width: 10%;
@@ -53,3 +49,20 @@
     }
 }
 
+@media (min-width: 500px) {
+    .selecttea {
+        /*width: 25vw;*/
+        height: 93vh;
+        /*flex-grow: 1;*/
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .tea-list-item.active,
+    .tea-list-item:hover
+    {
+        cursor: pointer;
+        background-color: #193251;
+        color: #ffffff;
+    }
+}

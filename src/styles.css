@@ -23,13 +23,13 @@
 
 @media (max-width: 499px) {
     .collapse-sm {
-        display: none;
+        display: none !important;
     }
 }
 
 @media (min-width: 500px) {
     .collapse-lg {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -41,4 +41,9 @@ button.close span {
 button.close span:hover {
     color: red;
     opacity: 1;
+}
+
+aside {
+    background-color: #eaefec;
+    border-right: 1px solid #abb6c1;
 }
