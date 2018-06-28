@@ -1,21 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
-import { InputComponent } from './input.component';
-import { CreateComponent } from './create/create.component';
-import { SteepTimeComponent } from './create/steep-time/steep-time.component';
-import { RatingComponent } from '../rating/rating.component';
-import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
+import { CreateComponent } from './create.component';
+import { RatingComponent } from '../../rating/rating.component';
+import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
+import { SteepTimeComponent } from './steep-time/steep-time.component';
 
-import { EnumValuesPipe } from '../enum-values.pipe';
+import { EnumValuesPipe } from '../../enum-values.pipe';
 
-describe('InputComponent', () => {
-    let component: InputComponent;
-    let fixture: ComponentFixture<InputComponent>;
+describe('CreateComponent', () => {
+    let component: CreateComponent;
+    let fixture: ComponentFixture<CreateComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -28,7 +27,6 @@ describe('InputComponent', () => {
                 OwlNativeDateTimeModule,
             ],
             declarations: [
-                InputComponent,
                 CreateComponent,
                 RatingComponent,
                 TeacupimgComponent,
@@ -43,7 +41,7 @@ describe('InputComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(InputComponent);
+        fixture = TestBed.createComponent(CreateComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,0 +1,55 @@
+.session {
+    color: #835858;
+}
+
+.temperature {
+    flex: 0 0 10%;
+    max-width: 10%;
+    min-width: 104px;
+}
+
+.datetime {
+    font-size: .875rem;
+    padding-top: .28rem;
+    padding-bottom: .28rem;
+}
+
+.fixin {
+    display: inline;
+}
+
+.fixin:hover {
+    cursor: pointer;
+    color: #ff0000;
+}
+
+.createbtn {
+    width: 15vw;
+}
+
+@media (max-width: 499px) {
+    .selecttea {
+        width: 100vw;
+    }
+
+    .datetime {
+        max-width: 52vw;
+    }
+
+    hg-steep-time {
+        min-width: 48vw;
+    }
+
+    .comments {
+        width: 100vw;
+    }
+
+    .createbtn {
+        width: 78vw;
+    }
+
+    .sessionbtn {
+        width: 20vw;
+    }
+}
+

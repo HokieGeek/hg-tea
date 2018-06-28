@@ -28,6 +28,7 @@ import { SorterComponent } from '../teas-sidebar/sorter/sorter.component';
 import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field.component';
 import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
+import { CreateComponent } from '../input/create/create.component';
 
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
@@ -37,7 +38,7 @@ import { AppRoutingModule } from '../app-routing.module';
 
 import { InputComponent } from '../input/input.component';
 import { EnumValuesPipe } from '../enum-values.pipe';
-import { SteepTimeComponent } from '../input/steep-time/steep-time.component';
+import { SteepTimeComponent } from '../input/create/steep-time/steep-time.component';
 
 describe('TeasComponent', () => {
     let component: TeasComponent;
@@ -82,6 +83,7 @@ describe('TeasComponent', () => {
                 InputComponent,
                 EnumValuesPipe,
                 SteepTimeComponent,
+                CreateComponent,
             ],
             providers: [
                 HttpClient,

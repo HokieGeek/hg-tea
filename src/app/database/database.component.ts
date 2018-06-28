@@ -53,6 +53,7 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     updateTeas(): void {
+        console.log('updateTeas()');
         this._processedTeas = this.teas
             .filter(t => this.view.filter.isMatch(t))
             .sort((t1, t2) => this.view.sorter.compare(t1, t2));
