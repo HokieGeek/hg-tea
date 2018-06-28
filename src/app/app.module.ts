@@ -36,6 +36,7 @@ import { SteepTimeComponent } from './input/create/steep-time/steep-time.compone
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
 import { CreateComponent } from './input/create/create.component';
+import { UnratedComponent } from './input/create/unrated/unrated.component';
 
 @NgModule({
     imports: [
@@ -74,6 +75,7 @@ import { CreateComponent } from './input/create/create.component';
         EnumValuesPipe,
         SteepTimeComponent,
         CreateComponent,
+        UnratedComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]
