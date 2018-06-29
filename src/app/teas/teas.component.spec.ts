@@ -29,6 +29,7 @@ import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field
 import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { CreateComponent } from '../input/create/create.component';
+import { UnratedComponent } from '../input/create/unrated/unrated.component';
 
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
@@ -84,6 +85,7 @@ describe('TeasComponent', () => {
                 EnumValuesPipe,
                 SteepTimeComponent,
                 CreateComponent,
+                UnratedComponent,
             ],
             providers: [
                 HttpClient,

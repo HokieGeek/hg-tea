@@ -10,6 +10,7 @@ import { CreateComponent } from './create/create.component';
 import { SteepTimeComponent } from './create/steep-time/steep-time.component';
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
+import { UnratedComponent } from './create/unrated/unrated.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 
@@ -30,6 +31,7 @@ describe('InputComponent', () => {
             declarations: [
                 InputComponent,
                 CreateComponent,
+                UnratedComponent,
                 RatingComponent,
                 TeacupimgComponent,
                 EnumValuesPipe,
