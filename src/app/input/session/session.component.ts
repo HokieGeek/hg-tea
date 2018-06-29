@@ -18,7 +18,7 @@ export class SessionComponent implements OnInit {
     @Input() create = false;
     @Input() cancelable = true;
     private _tea: Tea = null;
-    private previousSessionEntries: Entry[] = [];
+    public previousSessionEntries: Entry[] = [];
     public teaVessels: string[] = [];
     public continueSession = false;
     public enableFixins = true;
