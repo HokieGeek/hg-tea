@@ -96,7 +96,7 @@
     <ul class="list-group list-group-flush" *ngIf="previousSessionEntries != null">
         <li *ngFor="let e of previousSessionEntries" class="list-group-item">
             {{ e.datetime | date:'M/d@HHmm' }} for {{ e.steeptime }}
-            <hg-rating [rating]="e.rating" max="4"></hg-rating>
+            <hg-rating style="float: right" [rating]="e.rating" max="4"></hg-rating>
         </li>
     </ul>
 
