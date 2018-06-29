@@ -315,7 +315,7 @@ export class Tea {
     entry(id: Date): Entry {
         if (this.entriesIdToIdx.size === 0 && this.entries.length > 0) {
             for (const i in this.entries) {
-                this.entriesIdToIdx.set(this.entries[i].datetime.getMilliseconds(), i);
+                this.entriesIdToIdx.set(+this.entries[i].datetime.getMilliseconds(), +i);
             }
         }
 

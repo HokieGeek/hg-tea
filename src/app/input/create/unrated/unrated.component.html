@@ -1,6 +1,4 @@
-<ul>
-    <li *ngFor="let e of unratedEntries.keys()">
-        {{ unratedEntries.get(e).name }} {{ e | date:'M/d@HHmm' }} 
-        <hg-rating rating="0" (rating)="test()" max="4" editable=true></hg-rating>
-    </li>
-</ul>
+<div>
+    {{ tea.name }} {{ entry.datetime | date:'M/d@HHmm' }} 
+    <hg-rating [(rating)]="rating" max="4" editable=true></hg-rating>
+</div>

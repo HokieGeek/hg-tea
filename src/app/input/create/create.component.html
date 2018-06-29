@@ -67,7 +67,14 @@
 
         <div class="col">
             <div class="row">
-                <hg-unrated [teas]="teas" (rated)="rateSession($event)"></hg-unrated>
+                <div class="col">
+                    <hg-unrated
+                        *ngFor="let e of unratedEntriesList"
+                        [tea]="unratedEntries.get(e)"
+                        [entry]="e"
+                        (rated)="rateEntry(unratedEntries.get(e), e, $event)">
+                    </hg-unrated>
+                </div>
             </div>
             <div class="row">
 

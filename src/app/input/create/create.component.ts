@@ -34,9 +34,13 @@ export class CreateComponent implements OnInit {
     TeaFixins = TeaFixins;
     SteepingVessels = SteepingVessels;
 
-    private teas: Tea[] = [];
-    private _createEntry = new CreateEntry();
     errorMsg: string = null;
+    public input = new CreateEntry();
+    private _teas: Tea[] = [];
+    public stockedTeas: Tea[] = [];
+    public teasWithOpenSessions: Tea[] = [];
+    public unratedEntries: Map<Entry, Tea> = new Map<Entry, Tea>();
+    public unratedEntriesList: Entry[] = [];
 
     constructor(private teaDbService: TeaDbService) {}
 
@@ -52,13 +56,11 @@ export class CreateComponent implements OnInit {
          */
     }
 
-    get input(): CreateEntry {
-        return this._createEntry;
-    }
+    set teas(t: Tea[]) {
+        this._teas = t;
 
-    get stockedTeas(): Tea[] {
-        return this.teas
-            .filter(t => t.stocked)
+        this.stockedTeas =  this._teas
+            .filter(tea => tea.stocked)
             .sort((t1, t2) => {
                 const n1 = t1.name.toLowerCase();
                 const n2 = t2.name.toLowerCase();
@@ -70,10 +72,21 @@ export class CreateComponent implements OnInit {
                     return 0;
                 }
             });
+
+        this.teasWithOpenSessions = this._teas.filter(tea => tea.entries.length > 0 && !tea.latestEntry.sessionclosed);
+
+        for (const tea of this._teas) {
+            for (const e of tea.entries) {
+                if (e.rating === 0) {
+                    this.unratedEntries.set(e, tea);
+                }
+            }
+        }
+        this.unratedEntriesList = Array.from(this.unratedEntries.keys());
     }
 
-    get teasWithOpenSessions(): Tea[] {
-        return this.teas.filter(t => t.entries.length > 0 && !t.latestEntry.sessionclosed);
+    get teas() {
+        return this._teas;
     }
 
     get tea(): Tea {
@@ -149,10 +162,21 @@ export class CreateComponent implements OnInit {
             .build());
 
         // TODO: this needs to be cleaner (such as a response from the service)
-        this._createEntry = new CreateEntry();
+        this.input = new CreateEntry();
     }
 
-    rateSession(ev: any) {
-        console.log('rating session TODO', ev);
+    rateEntry(tea: Tea, entry: Entry, rating: number) {
+        console.log('rating entry TODO', rating);
+
+        this.teaDbService.updateJournalEntry(
+            tea,
+            new EntryBuilder()
+                .from(entry)
+                .rating(rating)
+            .build());
+
+        // Remove from list
+        this.unratedEntries.delete(entry);
+        this.unratedEntriesList = Array.from(this.unratedEntries.keys());
     }
 }

@@ -155,9 +155,17 @@ export class TeaDbService {
     }
 
     createJournalEntry(tea: Tea, e: Entry) {
-        console.log('createJournalEntry()', e);
         const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry';
         this.http.post(url, e.dbentry).subscribe(res => console.log(res));
         // TODO: update the entire thing?
     }
+
+    updateJournalEntry(tea: Tea, e: Entry) {
+        console.log('updateJournalEntry()', e);
+        const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry';
+        this.http.put(url, e.dbentry).subscribe(res => console.log(res));
+        // TODO: update the entire thing?
+    }
+
+    // updae
 }
