@@ -11,7 +11,7 @@ export class SteepTimeComponent implements OnInit {
     @Input()
     set value(t: string) {
         if (t !== this.steeptime) {
-            this.steeptime = t.replace(/(m|s)/g, '').replace(/ /, 'm ').replace(/([0-9])$/, '$1s');
+            this.steeptime = t.replace(/(m|s)/g, '').replace(/ /, 'm ').replace(/([0-9])$/, '$1s').trim();
             this.valueChange.emit(this.steeptime);
         }
     }
