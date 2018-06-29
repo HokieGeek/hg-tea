@@ -31,7 +31,9 @@ class JournalDbEntry {
 export class Entry {
     public teaId: number;
 
-    constructor(public dbentry: JournalDbEntry) { }
+    constructor(public dbentry: JournalDbEntry) {
+        this.dbentry.datetime = moment(this.dbentry.datetime).toDate();
+    }
 
     get comments(): string {
         return this.dbentry.comments;
@@ -91,7 +93,7 @@ export class Entry {
     }
 
     get datetime(): Date {
-        return moment(this.dbentry.datetime).toDate();
+        return this.dbentry.datetime;
     }
 }
 
@@ -201,8 +203,14 @@ export class TeaDbEntry {
 
 export class Tea {
     private _latestEntry: Entry = null;
+    private _entries: Entry[] = null;
+    private entriesIdToIdx: Map<number, number> = new Map<number, number>();
 
-    constructor(public dbentry: TeaDbEntry) { }
+    constructor(public dbentry: TeaDbEntry) {
+        if (this.dbentry.entries == null) {
+            this._entries = [];
+        }
+    }
 
     get id(): number {
         return this.dbentry.id;
@@ -297,12 +305,27 @@ export class Tea {
     }
 
     get entries(): Entry[] {
-        // console.log('entries', this.dbentry.entries);
-        if (this.dbentry.entries != null) {
-            return this.dbentry.entries.map(e => new Entry(e));
-        } else {
-            return [];
+        if (this.dbentry.entries != null && this._entries == null) {
+            this._entries = this.dbentry.entries.map(e => new Entry(e));
         }
+        // console.log('entries', this._entries.length);
+        return this._entries;
+    }
+
+    entry(id: Date): Entry {
+        if (this.entriesIdToIdx.size === 0 && this.entries.length > 0) {
+            for (const i in this.entries) {
+                this.entriesIdToIdx.set(this.entries[i].datetime.getMilliseconds(), i);
+            }
+        }
+
+        const id_ms = id.getMilliseconds();
+
+        if (!this.entriesIdToIdx.has(id_ms)) {
+            return null;
+        }
+
+        return this.entries[this.entriesIdToIdx.get(id_ms)];
     }
 
     addEntry(entry: Entry) {

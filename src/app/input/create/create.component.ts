@@ -76,33 +76,6 @@ export class CreateComponent implements OnInit {
         return this.teas.filter(t => t.entries.length > 0 && !t.latestEntry.sessionclosed);
     }
 
-    createEntry() {
-        let instance = uuid();
-        if (!this.input.tea.latestEntry.sessionclosed) {
-            instance = this.input.tea.latestEntry.sessioninstance;
-        }
-
-        this.teaDbService.createJournalEntry(
-            this.input.tea,
-            new EntryBuilder()
-                .teaId(this.input.tea.id)
-                .comments(this.input.comments)
-                .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
-                .datetime(this.input.dateTime)
-                .rating(this.input.rating)
-                .pictures([])
-                .steeptime(this.input.steeptime)
-                .steepingvessel_idx(this.input.vessel)
-                .steeptemperature(this.input.temperature)
-                .sessioninstance(instance)
-                .sessionclosed(this.input.sessionClosed)
-                .fixins(this.input.fixins.map(f => TeaFixins[f]))
-            .build());
-
-        // TODO: this needs to be cleaner (such as a response from the service)
-        this._createEntry = new CreateEntry();
-    }
-
     get tea(): Tea {
         return this.input.tea;
     }
@@ -150,5 +123,36 @@ export class CreateComponent implements OnInit {
         if (index > -1) {
             this.input.fixins.splice(index, 1);
         }
+    }
+
+    createEntry() {
+        let instance = uuid();
+        if (!this.input.tea.latestEntry.sessionclosed) {
+            instance = this.input.tea.latestEntry.sessioninstance;
+        }
+
+        this.teaDbService.createJournalEntry(
+            this.input.tea,
+            new EntryBuilder()
+                .teaId(this.input.tea.id)
+                .comments(this.input.comments)
+                .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
+                .datetime(this.input.dateTime)
+                .rating(this.input.rating)
+                .pictures([])
+                .steeptime(this.input.steeptime)
+                .steepingvessel_idx(this.input.vessel)
+                .steeptemperature(this.input.temperature)
+                .sessioninstance(instance)
+                .sessionclosed(this.input.sessionClosed)
+                .fixins(this.input.fixins.map(f => TeaFixins[f]))
+            .build());
+
+        // TODO: this needs to be cleaner (such as a response from the service)
+        this._createEntry = new CreateEntry();
+    }
+
+    rateSession(ev: any) {
+        console.log('rating session TODO', ev);
     }
 }

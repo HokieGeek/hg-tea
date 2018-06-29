@@ -27,7 +27,7 @@
         </form>
         -->
 
-        <button class="dropdown-item text-success"
+        <button class="text-success"
                 *ngFor="let t of teasWithOpenSessions"
                 (click)="tea = t"
                 >
@@ -35,11 +35,11 @@
         </button>
         <div class="dropdown-divider" *ngIf="teasWithOpenSessions.length > 0"></div>
         <div class="dropdown-divider" *ngIf="teasWithOpenSessions.length > 0"></div>
-        <button class="dropdown-item text-capitalize"
+        <button class="text-capitalize"
                 *ngFor="let t of stockedTeas"
                 (click)="tea = t"
                 >
-                {{t.name}}
+                {{t.name}} <span class="text-muted small">{{t.id}}</span>
         </button>
     </div>
 </div>
@@ -47,7 +47,8 @@
 <div class="container-fluid h-100" *ngIf="teas.length > 0">
     <div class="row">
 
-        <aside class="selecttea d-flex flex-column col-sm-3 collapse-sm">
+        <!-- SELECT TEA (larger devices) -->
+        <aside class="selecttea d-flex flex-column col-sm-4 collapse-sm">
             <div class="tea-list-item pl-1 text-capitalize text-success"
                     *ngFor="let t of teasWithOpenSessions"
                     (click)="tea = t"
@@ -60,7 +61,7 @@
                  [ngClass]="{'active': tea == t}"
                  (click)="tea = t"
                  >
-                 {{t.name}}
+                 {{t.name}} <span class="text-muted small">{{t.id}}</span>
             </div>
         </aside>
 
