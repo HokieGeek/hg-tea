@@ -10,6 +10,7 @@ import { RatingComponent } from '../../rating/rating.component';
 import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
 import { SteepTimeComponent } from './steep-time/steep-time.component';
 import { UnratedComponent } from './unrated/unrated.component';
+import { SessionComponent } from '../session/session.component';
 
 import { EnumValuesPipe } from '../../enum-values.pipe';
 
@@ -34,6 +35,7 @@ describe('CreateComponent', () => {
                 TeacupimgComponent,
                 EnumValuesPipe,
                 SteepTimeComponent,
+                SessionComponent,
             ],
             providers: [
                 HttpClient,

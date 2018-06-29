@@ -30,6 +30,7 @@ import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { CreateComponent } from '../input/create/create.component';
 import { UnratedComponent } from '../input/create/unrated/unrated.component';
+import { SessionComponent } from '../input/session/session.component';
 
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
@@ -86,6 +87,7 @@ describe('TeasComponent', () => {
                 SteepTimeComponent,
                 CreateComponent,
                 UnratedComponent,
+                SessionComponent,
             ],
             providers: [
                 HttpClient,
