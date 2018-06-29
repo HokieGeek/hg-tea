@@ -2,10 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Tea, Entry } from '../../../tea';
 
-class UnratedEntry {
-    constructor(public teaId: number, public entryId: Date, public rating: number) { }
-}
-
 @Component({
     selector: 'hg-unrated',
     templateUrl: './unrated.component.html',
