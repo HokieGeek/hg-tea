@@ -110,7 +110,7 @@ unit-node:latest:
   retry: 1
   allow_failure: true
 
-evaluate-build:
+.evaluate-build:
   <<: *lifecycle-evaluation
   variables:
     IQ_STAGE: build
@@ -119,14 +119,14 @@ evaluate-build:
   except:
     - master
 
-evaluate-stage:
+.evaluate-stage:
   <<: *lifecycle-evaluation
   variables:
     IQ_STAGE: stage-release
   only:
     - master
 
-evaluate-release:
+.evaluate-release:
   <<: *lifecycle-evaluation
   variables:
     IQ_STAGE: release
