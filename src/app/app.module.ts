@@ -37,6 +37,7 @@ import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
 import { CreateComponent } from './input/create/create.component';
 import { UnratedComponent } from './input/create/unrated/unrated.component';
+import { SessionComponent } from './input/session/session.component';
 
 @NgModule({
     imports: [
@@ -76,6 +77,7 @@ import { UnratedComponent } from './input/create/unrated/unrated.component';
         SteepTimeComponent,
         CreateComponent,
         UnratedComponent,
+        SessionComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]

@@ -41,6 +41,7 @@ export class CreateComponent implements OnInit {
     public teasWithOpenSessions: Tea[] = [];
     public unratedEntries: Map<Entry, Tea> = new Map<Entry, Tea>();
     public unratedEntriesList: Entry[] = [];
+    public selectedTeas: Tea[] = [];
 
     constructor(private teaDbService: TeaDbService) {}
 
@@ -89,85 +90,37 @@ export class CreateComponent implements OnInit {
         return this._teas;
     }
 
+    // TODO
     get tea(): Tea {
         return this.input.tea;
     }
 
-    set tea(t: Tea) {
-        this.input.tea = t;
-        if (this.tea.entries.length > 0) {
-            this.input.vessel = SteepingVessels[this.tea.vessels[0]];
-            this.input.temperature = this.tea.temperaturesInF[0];
-            this.input.sessionClosed = this.tea.latestEntry.sessionclosed;
-
-            // TODO: Would be great if the 'with' dropdown had some prefilled based on commons
-        } else {
-            const lcType = this.tea.type.toLowerCase();
-
-            // Set the temperature
-            if (lcType.includes('green')) {
-                this.input.temperature = 180;
-            }
-
-            // Set the vessel
-            if (lcType.includes('sheng')) {
-                this.input.vessel = SteepingVessels['Shipiao Yixing'];
-            } else if (lcType.includes('oolong')) {
-                this.input.vessel = SteepingVessels['Celadon Gaiwan'];
-            }
-
-            this.input.sessionClosed = true;
-        }
+    selectTea(t: Tea) {
+        this.selectedTeas.push(t);
     }
 
-    get teaVessels(): string[] {
-        if (this.tea == null) {
-            return [];
-        }
-        return this.tea.vessels;
-    }
-
-    addFixin(f: TeaFixins) {
-        this.input.fixins.push(f);
-    }
-
-    removeFixin(f: TeaFixins) {
-        const index = this.input.fixins.indexOf(f, 0);
+    unselectTea(t: Tea) {
+        const index = this.selectedTeas.indexOf(t, 0);
         if (index > -1) {
-            this.input.fixins.splice(index, 1);
+            this.selectedTeas.splice(index, 1);
         }
     }
 
-    createEntry() {
-        let instance = uuid();
-        if (!this.input.tea.latestEntry.sessionclosed) {
-            instance = this.input.tea.latestEntry.sessioninstance;
+    createEntry(tea: Tea, entry: Entry) {
+        this.teaDbService.createJournalEntry(tea, entry);
+        this.unselectTea(tea);
+    }
+
+    updateEntry(tea: Tea, entry: Entry) {
+        this.teaDbService.updateJournalEntry(tea, entry);
+
+        const index = this.teasWithOpenSessions.indexOf(tea, 0);
+        if (index > -1) {
+            this.teasWithOpenSessions.splice(index, 1);
         }
-
-        this.teaDbService.createJournalEntry(
-            this.input.tea,
-            new EntryBuilder()
-                .teaId(this.input.tea.id)
-                .comments(this.input.comments)
-                .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
-                .datetime(this.input.dateTime)
-                .rating(this.input.rating)
-                .pictures([])
-                .steeptime(this.input.steeptime)
-                .steepingvessel_idx(this.input.vessel)
-                .steeptemperature(this.input.temperature)
-                .sessioninstance(instance)
-                .sessionclosed(this.input.sessionClosed)
-                .fixins(this.input.fixins.map(f => TeaFixins[f]))
-            .build());
-
-        // TODO: this needs to be cleaner (such as a response from the service)
-        this.input = new CreateEntry();
     }
 
     rateEntry(tea: Tea, entry: Entry, rating: number) {
-        console.log('rating entry TODO', rating);
-
         this.teaDbService.updateJournalEntry(
             tea,
             new EntryBuilder()
