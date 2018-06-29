@@ -77,92 +77,91 @@
                 </div>
             </div>
             <div class="row">
-
-            <div class="d-flex flex-column justify-content-around mx-1 mt-1" [ngClass]="{'invisible': tea === null}">
-                <!-- -->
-                <div class="d-flex flex-row">
-                    <div class="input-wrapper collapse-lg">
-                        <input class="datetime" [(ngModel)]="input.dateTime" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
-                        <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" [hour12Timer]="false" #dtlg></owl-date-time>
-                    </div>
-                    <div class="input-wrapper collapse-sm">
-                        <input class="form-control datetime" [(ngModel)]="input.dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
-                        <owl-date-time class="collapse-sm" [hour12Timer]="false" #dtsm></owl-date-time>
-                    </div>
-                    <hg-steep-time class="input-group input-group-sm mb-3 col-2"
-                                   [(value)]="input.steeptime"></hg-steep-time>
-                </div>
-
-                <!-- -->
-                <div class="d-flex flex-row mb-3">
-                    <div ngbDropdown>
-                        <button id="dropdown-vessel"
-                                class="btn btn-sm btn-block btn-primary"
-                                ngbDropdownToggle>
-                            in the
-                            <span *ngIf="input.vessel != null">{{ SteepingVessels[input.vessel] | lowercase }}</span>
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdown-vessel">
-                            <button class="dropdown-item text-capitalize"
-                                    *ngFor="let t of teaVessels"
-                                    (click)="input.vessel = SteepingVessels[t]">
-                                {{t}}
-                            </button>
-                            <div class="dropdown-divider"></div>
-                            <button class="dropdown-item text-capitalize"
-                                    *ngFor="let t of SteepingVessels | enumValues"
-                                    (click)="input.vessel = SteepingVessels[t]">
-                                {{t}}
-                            </button>
+                <div class="d-flex flex-column justify-content-around mx-1 mt-1" [ngClass]="{'invisible': tea === null}">
+                    <!-- -->
+                    <div class="d-flex flex-row">
+                        <div class="input-wrapper collapse-lg">
+                            <input class="datetime" [(ngModel)]="input.dateTime" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
+                            <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" [hour12Timer]="false" #dtlg></owl-date-time>
                         </div>
-                    </div>&nbsp;
-                    at
-                    <div class="input-group input-group-sm col-2 temperature">
-                        <input type="text" class="form-control" aria-label="Temperature in F" [(ngModel)]="input.temperature">
-                        <div class="input-group-append">
-                            <span class="input-group-text">&deg;F</span>
+                        <div class="input-wrapper collapse-sm">
+                            <input class="form-control datetime" [(ngModel)]="input.dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
+                            <owl-date-time class="collapse-sm" [hour12Timer]="false" #dtsm></owl-date-time>
                         </div>
+                        <hg-steep-time class="input-group input-group-sm mb-3 col-2"
+                                       [(value)]="input.steeptime"></hg-steep-time>
                     </div>
-                </div>
 
-                <!-- -->
-                <div class="d-flex flex-row mb-3">
-                    <div *ngIf="input.fixins.length > 0">
-                        with<span *ngFor="let f of input.fixins; let i = index"
-                     class="fixin"
-                     title="Remove {{ f | lowercase }}"
-                     (click)="removeFixin(f)"
-                     ><span *ngIf="i !== 0">,</span>&nbsp;<span *ngIf="input.fixins.length > 1 && i == input.fixins.length - 1">and&nbsp;</span>{{ f | lowercase }}</span>
-                    </div>
-                    <span *ngIf="input.fixins.length > 0">&nbsp;</span>
-                    <div ngbDropdown class="d-inline-block">
-                        <button id="dropdown-fixins"
-                                class="btn btn-sm btn-block btn-primary"
-                                ngbDropdownToggle>
-                            <span *ngIf="input.fixins.length === 0">with</span>
-                            <span *ngIf="input.fixins.length > 0">and</span>
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdown-fixins">
-                            <button class="dropdown-item text-capitalize"
-                                    *ngFor="let f of TeaFixins | enumValues"
-                                    (click)="addFixin(f)"
-                                    >
-                                    {{f}}
+                    <!-- -->
+                    <div class="d-flex flex-row mb-3">
+                        <div ngbDropdown>
+                            <button id="dropdown-vessel"
+                                    class="btn btn-sm btn-block btn-primary"
+                                    ngbDropdownToggle>
+                                in the
+                                <span *ngIf="input.vessel != null">{{ SteepingVessels[input.vessel] | lowercase }}</span>
                             </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdown-vessel">
+                                <button class="dropdown-item text-capitalize"
+                                        *ngFor="let t of teaVessels"
+                                        (click)="input.vessel = SteepingVessels[t]">
+                                    {{t}}
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item text-capitalize"
+                                        *ngFor="let t of SteepingVessels | enumValues"
+                                        (click)="input.vessel = SteepingVessels[t]">
+                                    {{t}}
+                                </button>
+                            </div>
+                        </div>&nbsp;
+                        at
+                        <div class="input-group input-group-sm col-2 temperature">
+                            <input type="text" class="form-control" aria-label="Temperature in F" [(ngModel)]="input.temperature">
+                            <div class="input-group-append">
+                                <span class="input-group-text">&deg;F</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- -->
-                <div class="d-flex flex-row mb-3">
-                    <hg-rating [(rating)]="input.rating" max="4" editable=true></hg-rating>
-                </div>
+                    <!-- -->
+                    <div class="d-flex flex-row mb-3">
+                        <div *ngIf="input.fixins.length > 0">
+                            with<span *ngFor="let f of input.fixins; let i = index"
+                         class="fixin"
+                         title="Remove {{ f | lowercase }}"
+                         (click)="removeFixin(f)"
+                         ><span *ngIf="i !== 0">,</span>&nbsp;<span *ngIf="input.fixins.length > 1 && i == input.fixins.length - 1">and&nbsp;</span>{{ f | lowercase }}</span>
+                        </div>
+                        <span *ngIf="input.fixins.length > 0">&nbsp;</span>
+                        <div ngbDropdown class="d-inline-block">
+                            <button id="dropdown-fixins"
+                                    class="btn btn-sm btn-block btn-primary"
+                                    ngbDropdownToggle>
+                                <span *ngIf="input.fixins.length === 0">with</span>
+                                <span *ngIf="input.fixins.length > 0">and</span>
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdown-fixins">
+                                <button class="dropdown-item text-capitalize"
+                                        *ngFor="let f of TeaFixins | enumValues"
+                                        (click)="addFixin(f)"
+                                        >
+                                        {{f}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- -->
-                <div class="d-flex flex-row mb-3">
-                    <textarea class="comments" placeholder="Comments" rows="1" cols="30" [(ngModel)]="input.comments"></textarea>
+                    <!-- -->
+                    <div class="d-flex flex-row mb-3">
+                        <hg-rating [(rating)]="input.rating" max="4" editable=true></hg-rating>
+                    </div>
+
+                    <!-- -->
+                    <div class="d-flex flex-row mb-3">
+                        <textarea class="comments" placeholder="Comments" rows="1" cols="30" [(ngModel)]="input.comments"></textarea>
+                    </div>
                 </div>
-            </div>
             </div>
 
             <div class="btn-group btn-group-toggle mx-1" *ngIf="tea != null">
