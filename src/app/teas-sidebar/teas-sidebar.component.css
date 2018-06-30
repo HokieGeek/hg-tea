@@ -1,0 +1,8 @@
+@media (max-width: 499px) {
+    hg-sorter,
+    hg-filter,
+    hg-view-manager
+    {
+        width: 100vw;
+    }
+}

@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
-        <div ngbDropdown class="d-inline-block">
+        <div ngbDropdown class="d-inline-block btn-block">
             <button id="dropdown-foo"
-                    class="btn btn-sm"
+                    class="btn btn-sm btn-block"
                     [ngClass]="{'btn-success': filter.hasStrings(name), 'btn-primary': !filter.hasStrings(name)}"
                     ngbDropdownToggle>{{name}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdown-foo">
-                <button class="dropdown-item text-capitalize"
+                <button class="dropdown-item text-capitalize btn-block"
                         *ngFor="let value of values"
                         (click)="filter.withString(name, value)">
                     {{value}}

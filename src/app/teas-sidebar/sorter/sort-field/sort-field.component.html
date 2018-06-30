@@ -1,12 +1,15 @@
-<input type="button"
-       class="btn btn-sm btn-primary"
-       (click)="sorter.toggleSortDirection(name)"
-       [value]="label()">
+<div class="btn-group w-100">
+    <button type="button"
+            class="btn btn-sm btn-block btn-primary"
+            (click)="sorter.toggleSortDirection(name)">
+            {{ label() }}
+    </button>
 
-<button type="button"
-        class="close"
-        aria-label="Remove"
-        title="Remove this field"
-        (click)="sorter.removeField(name)">
-    <span aria-hidden="true">&times;</span>
-</button>
+    <button type="button"
+            class="btn btn-sm btn-danger"
+            aria-label="Remove"
+            title="Remove this field"
+            (click)="sorter.removeField(name)">
+        &times;
+    </button>
+</div>

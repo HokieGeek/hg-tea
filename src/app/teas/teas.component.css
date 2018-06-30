@@ -2,6 +2,12 @@ aside {
     min-width: 205px;
 }
 
+@media (min-width: 500px) {
+    aside {
+        max-width: 205px;
+    }
+}
+
 .progress-bar {
     background-color: #a59e8c;
 }

@@ -3,11 +3,11 @@
 <div class="container">
     <div class="col">
         <div class="row" *ngFor="let field of view.sorter.assignedFields" >
-            <hg-sort-field [name]="field"></hg-sort-field>
+            <hg-sort-field [name]="field" class="w-100"></hg-sort-field>
         </div>
 
         <div class="row" *ngIf="availableFields().length > 0">
-            <div ngbDropdown *ngIf="availableFields().length > 0">
+            <div ngbDropdown class="btn-block" *ngIf="availableFields().length > 0">
                 <button id="dropdown-more" class="btn btn-sm btn-block btn-outline-secondary" ngbDropdownToggle>+</button>
                 <div ngbDropdownMenu aria-labelledby="dropdown-more">
                     <button class="dropdown-item"

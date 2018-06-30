@@ -25,25 +25,20 @@
     .collapse-sm {
         display: none !important;
     }
+    aside {
+        border-bottom: 1px solid #abb6c1;
+    }
 }
 
 @media (min-width: 500px) {
     .collapse-lg {
         display: none !important;
     }
-}
-
-button.close span {
-    padding-left: 8px;
-    opacity: 0.2;
-}
-
-button.close span:hover {
-    color: red;
-    opacity: 1;
+    aside {
+        border-right: 1px solid #abb6c1;
+    }
 }
 
 aside {
     background-color: #eaefec;
-    border-right: 1px solid #abb6c1;
 }
