@@ -12,11 +12,11 @@
         </div>
 
         <div class="row">
-            <span id="entrydate" class="card-text text-muted small d-block" title="{{entry.datetime}}">
+            <span id="entrydate" class="card-text text-muted small d-block" [title]="entry.datetime">
                 {{ humanizedDate }}
             </span>
         </div>
 
-        <hg-rating id="rating" class="float-right pl-3" rating="{{entry.rating}}" max=4></hg-rating>
+        <hg-rating id="rating" class="float-right pl-3" [rating]="entry.rating" max=4 [small]="true"></hg-rating>
     </div>
 </div>
