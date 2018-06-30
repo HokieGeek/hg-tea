@@ -27,7 +27,7 @@ describe('TeacupimgComponent', () => {
     });
 
     it('does not have Unselected class when selected', async(() => {
-        component.selected = 'true';
+        component.selected = true;
         fixture.detectChanges();
 
         const classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;
@@ -38,7 +38,7 @@ describe('TeacupimgComponent', () => {
     }));
 
     it('has unselected class when not selected', async(() => {
-        component.selected = 'false';
+        component.selected = false;
         fixture.detectChanges();
 
         const classes = fixture.debugElement.query(By.css('img')).nativeElement.classList;

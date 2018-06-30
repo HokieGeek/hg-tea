@@ -9,6 +9,7 @@ export class RatingComponent implements OnInit {
     private _range: number[] = [];
     private ratingValue: number;
     @Input() editable = false;
+    @Input() small = false;
 
     get range(): number[] {
         return this._range;

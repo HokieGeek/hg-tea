@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./teacupimg.component.css']
 })
 export class TeacupimgComponent implements OnInit {
-    @Input() selected: string;
+    @Input() selected = false;
+    @Input() small = false;
 
     constructor() { }
 

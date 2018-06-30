@@ -1,7 +1,7 @@
 <hg-teacupimg *ngFor="let i of range"
     title="{{rating}} out of {{range.length}}"
-    selected="{{rating >= i}}"
+    [selected]="rating >= i"
     [ngClass]="{'editable': editable}"
-    (click)="clickedRating(i)"
-    >
+    [small]="small"
+    (click)="clickedRating(i)">
 </hg-teacupimg>
