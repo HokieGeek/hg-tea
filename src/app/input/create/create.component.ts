@@ -107,8 +107,8 @@ export class CreateComponent implements OnInit {
     }
 
     createEntry(tea: Tea, entry: Entry) {
-        // this.teaDbService.createJournalEntry(tea, entry);
-        // this.unselectTea(tea);
+        this.teaDbService.createJournalEntry(tea, entry);
+        this.unselectTea(tea);
     }
 
     updateEntry(tea: Tea, entry: Entry) {
