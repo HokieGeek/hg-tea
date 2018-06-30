@@ -6,13 +6,27 @@
     color: #5b5b5b;
 }
 
-.card-title {
-    /*font-family: 'Roboto Condensed', sans-serif;*/
-    font-size: 17px;
+
+@media (min-width: 500px) {
+    .card-title {
+        font-family: 'PT Sans', sans-serif;
+        font-size: 17px;
+    }
+
+    .card-subtitle {
+        font-size: 15px;
+    }
 }
 
-.card-subtitle {
-    font-size: 15px;
+@media (max-width: 500px) {
+    .card-title {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 15px;
+    }
+
+    .card-subtitle {
+        font-size: 13px;
+    }
 }
 
 .card {
