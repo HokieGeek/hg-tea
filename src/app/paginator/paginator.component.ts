@@ -32,6 +32,14 @@ export class PaginatorComponent implements OnInit {
 
     @Output() change: EventEmitter<number> = new EventEmitter<number>();
 
+    nextPage() {
+        this.current = this.currentPage + 1;
+    }
+
+    prevPage() {
+        this.current = this.currentPage - 1;
+    }
+
     constructor() { }
 
     ngOnInit() {

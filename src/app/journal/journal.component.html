@@ -1,16 +1,30 @@
-<hg-journal-entry [entry]="entries[entries.length-1]"></hg-journal-entry>
+<hg-journal-entry *ngFor="let entry of displayedEntries" [entry]="entry"></hg-journal-entry>
 
-<span *ngIf="entries.length > 1">
-    <div class="collapse" id="moreEntries-{{teaId}}" [ngbCollapse]="isCollapsed">
-        <hg-journal-entry *ngFor="let entry of sortedEntries.slice(1)" [entry]="entry"></hg-journal-entry>
-    </div>
-
+<span class="btn-group btn-group-toggle mx-1" *ngIf="sortedEntries.length > 1">
     <button type="button"
             class="btn btn-outline-secondary btn-sm"
-            (click)="isCollapsed = !isCollapsed"
-            [attr.aria-expanded]="!isCollapsed"
-            aria-controls="moreEntries">
-            <span *ngIf="isCollapsed">{{ entries.length - 1 }} more</span>
-            <span *ngIf="!isCollapsed">less</span>
+            [ngClass]="{'disabled': displayedEntriesEnd <= 1}"
+            (click)="lessEntries(5)"
+            title="Remove oldest 5 entries">
+            -
+    </button>
+    <button *ngIf="displayedEntriesEnd < sortedEntries.length - 1"
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+            (click)="allEntries()">
+            All {{ sortedEntries.length }}
+    </button>
+    <button *ngIf="displayedEntriesEnd >= sortedEntries.length - 1"
+            type="button"
+            class="btn btn-outline-secondary btn-sm"
+            (click)="rollup()">
+            Latest
+    </button>
+    <button type="button"
+            class="btn btn-outline-secondary btn-sm"
+            [ngClass]="{'disabled': displayedEntriesEnd >= sortedEntries.length - 1}"
+            (click)="moreEntries(5)"
+            title="Add 5 more entries">
+            +
     </button>
 </span>

@@ -23,7 +23,7 @@
     </div>
 
     <div class="card-body tab-content">
-        <hg-journal id="journal-{{tea.id}}" class="tab-pane active text-center" *ngIf="tea.entries.length > 0" [entries]="tea.entries" [teaId]="tea.id"></hg-journal>
+        <hg-journal id="journal-{{tea.id}}" class="tab-pane active text-center" *ngIf="tea.entries.length > 0" [entries]="tea.entries"></hg-journal>
         <hg-basic-info id="info-{{tea.id}}" class="tab-pane" [ngClass]="{'active': tea.entries.length == 0}" [tea]="tea"></hg-basic-info>
         <!--hg-stats id="stats-{{tea.id}}" class="tab-pane active" [tea]="tea"></hg-stats-->
     </div>
