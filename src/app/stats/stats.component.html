@@ -1,3 +1,25 @@
-<p>
-  stats works!
-</p>
+<div class="alert alert-danger" role="alert" *ngIf="errorMsg">
+    Server error: {{errorMsg.message}}
+</div>
+
+<div class="progress rounded-0" *ngIf="teas.length == 0 && errorMsg == null">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+
+<div class="card-deck my-1" *ngIf="teas.length > 0">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">You've spent how much?!</h5>
+            <p class="card-text">
+            {{ totalSpent | currency:'USD':'$' }}
+            {{ totalSpentStocked | currency:'USD':'$' }}
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Gonna pee my pants</h5>
+            <p class="card-text">TODO</p>
+        </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@ import { TestUtils } from '../test-utils';
   providers: [ TeaDbService ]
 })
 export class TeasComponent implements OnInit {
-    @Input() teas: Tea[] = [];
+    public teas: Tea[] = [];
     private _errorMsg: any = null;
 
     private updateRateMs = 5000;
