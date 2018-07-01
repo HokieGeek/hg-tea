@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Tea, Entry } from '../../../tea';
+import { Tea, Entry } from '../../tea';
 
 @Component({
     selector: 'hg-unrated',

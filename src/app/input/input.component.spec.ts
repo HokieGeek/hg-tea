@@ -6,11 +6,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { InputComponent } from './input.component';
-import { CreateComponent } from './create/create.component';
-import { SteepTimeComponent } from './create/steep-time/steep-time.component';
+import { SteepTimeComponent } from './steep-time/steep-time.component';
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
-import { UnratedComponent } from './create/unrated/unrated.component';
+import { UnratedComponent } from './unrated/unrated.component';
 import { SessionComponent } from './session/session.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
@@ -31,7 +30,6 @@ describe('InputComponent', () => {
             ],
             declarations: [
                 InputComponent,
-                CreateComponent,
                 UnratedComponent,
                 RatingComponent,
                 TeacupimgComponent,

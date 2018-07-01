@@ -1,0 +1,22 @@
+@media (max-width: 499px) {
+    .selecttea {
+        width: 100vw;
+    }
+}
+
+@media (min-width: 500px) {
+    .selecttea {
+        height: 97vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .tea-list-item.active,
+    .tea-list-item:hover
+    {
+        cursor: pointer;
+        background-color: #193251;
+        color: #ffffff;
+    }
+}
+

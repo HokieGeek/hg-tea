@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { SessionComponent } from './session.component';
-import { SteepTimeComponent } from '../create/steep-time/steep-time.component';
+import { SteepTimeComponent } from '../steep-time/steep-time.component';
 import { RatingComponent } from '../../rating/rating.component';
 import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
 

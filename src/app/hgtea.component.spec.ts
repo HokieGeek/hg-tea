@@ -33,9 +33,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { InputComponent } from './input/input.component';
 import { RatingComponent } from './rating/rating.component';
 import { TeacupimgComponent } from './teacupimg/teacupimg.component';
-import { SteepTimeComponent } from './input/create/steep-time/steep-time.component';
-import { CreateComponent } from './input/create/create.component';
-import { UnratedComponent } from './input/create/unrated/unrated.component';
+import { SteepTimeComponent } from './input/steep-time/steep-time.component';
+import { UnratedComponent } from './input/unrated/unrated.component';
 import { SessionComponent } from './input/session/session.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
@@ -80,7 +79,6 @@ describe('HgTeaComponent', () => {
                 InputComponent,
                 EnumValuesPipe,
                 SteepTimeComponent,
-                CreateComponent,
                 UnratedComponent,
                 SessionComponent,
             ],

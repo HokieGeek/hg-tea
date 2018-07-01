@@ -31,12 +31,11 @@ import { ViewManagerComponent } from './teas-sidebar/view-manager/view-manager.c
 import { PaginatorComponent } from './paginator/paginator.component';
 
 import { InputComponent } from './input/input.component';
-import { SteepTimeComponent } from './input/create/steep-time/steep-time.component';
+import { SteepTimeComponent } from './input/steep-time/steep-time.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
-import { CreateComponent } from './input/create/create.component';
-import { UnratedComponent } from './input/create/unrated/unrated.component';
+import { UnratedComponent } from './input/unrated/unrated.component';
 import { SessionComponent } from './input/session/session.component';
 
 @NgModule({
@@ -75,7 +74,6 @@ import { SessionComponent } from './input/session/session.component';
         InputComponent,
         EnumValuesPipe,
         SteepTimeComponent,
-        CreateComponent,
         UnratedComponent,
         SessionComponent,
     ],
