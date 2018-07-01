@@ -12,7 +12,6 @@ import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component'
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { BasicInfoComponent } from '../database-entry/basic-info/basic-info.component';
-import { StatsComponent } from '../database-entry/stats/stats.component';
 import { DatabaseEntryImagesComponent } from '../database-entry-images/database-entry-images.component';
 import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
@@ -37,6 +36,7 @@ import { TeaEditorComponent } from '../input/teaeditor/teaeditor.component';
 import { DatetimeComponent } from '../input/datetime/datetime.component';
 import { EntryEditComponent } from '../input/entry-edit/entry-edit.component';
 import { TeaEditComponent } from '../input/tea-edit/tea-edit.component';
+import { StatsComponent } from '../stats/stats.component';
 
 import { Filter, Sorter } from '../view.service';
 

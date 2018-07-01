@@ -17,7 +17,6 @@ import { DatabaseComponent } from './database/database.component';
 import { DatabaseEntryComponent } from './database-entry/database-entry.component';
 import { DatabaseEntryImagesComponent } from './database-entry-images/database-entry-images.component';
 import { BasicInfoComponent } from './database-entry/basic-info/basic-info.component';
-import { StatsComponent } from './database-entry/stats/stats.component';
 
 import { PurchaseInfoComponent } from './purchase-info/purchase-info.component';
 import { TeasComponent } from './teas/teas.component';
@@ -41,6 +40,8 @@ import { SteeptimePipe } from './steeptime.pipe';
 import { DatetimeComponent } from './input/datetime/datetime.component';
 import { EntryEditComponent } from './input/entry-edit/entry-edit.component';
 import { TeaEditComponent } from './input/tea-edit/tea-edit.component';
+
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
     imports: [

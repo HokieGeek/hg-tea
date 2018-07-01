@@ -10,7 +10,7 @@ import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { DatabaseEntryImagesComponent } from '../database-entry-images/database-entry-images.component';
 import { BasicInfoComponent } from './basic-info/basic-info.component';
-import { StatsComponent } from './stats/stats.component';
+import { StatsComponent } from '../stats/stats.component';
 import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';

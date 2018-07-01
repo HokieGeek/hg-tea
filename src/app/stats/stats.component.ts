@@ -1,6 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { Tea } from '../../tea';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'hg-stats',
@@ -8,10 +6,10 @@ import { Tea } from '../../tea';
     styleUrls: ['./stats.component.css']
 })
 export class StatsComponent implements OnInit {
-    @Input() tea: Tea;
 
     constructor() { }
 
     ngOnInit() {
     }
+
 }
