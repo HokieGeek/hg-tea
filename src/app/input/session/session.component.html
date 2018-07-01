@@ -118,12 +118,12 @@
                type="button"
                class="btn btn-sm btn-danger float-right"
                (click)="closeSession()"
-               value="Close session">
+               value="End session">
 
         <input *ngIf="cancelable"
                type="button"
                class="btn btn-sm btn-danger float-right"
-               (click)="cancel()"
-               value="Cancel">
+               (click)="close()"
+               value="Close">
     </div>
 </div>

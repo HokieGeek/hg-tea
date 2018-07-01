@@ -18,6 +18,7 @@ export class SessionComponent implements OnInit {
     @Input() create = false;
     @Input() cancelable = true;
     private _tea: Tea = null;
+
     public previousSessionEntries: Entry[] = [];
     public teaVessels: string[] = [];
     public continueSession = false;
@@ -137,7 +138,7 @@ export class SessionComponent implements OnInit {
         this.updateEntry();
     }
 
-    cancel() {
+    close() {
         this.canceled.emit(true);
     }
 }
