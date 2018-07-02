@@ -41,7 +41,7 @@ export class TestUtils {
             .datetime(moment(today + ' ' + hours + mins, 'MM/DD/YYYY HHmm').toDate())
             .rating(Math.floor(Math.random() * this.numRatingValues) + 1)
             .pictures([])
-            .steeptime('1m 2s')
+            .steeptime(62)
             .steepingvessel_idx(Math.floor(Math.random() * this.maxNumSteepingVessels))
             .steeptemperature(212)
             .sessioninstance('')

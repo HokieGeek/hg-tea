@@ -1,7 +1,7 @@
 <div class="card mb-2">
     <div class="card-body container">
         <div class="row card-title mb-0">
-            <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime}}</span>
+            <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime | steeptime}}</span>
             <span id="vessel" *ngIf="entry.steepingvessel">&nbsp;using the {{entry.steepingvessel | lowercase}}</span>
             <span id="temperature" *ngIf="entry.steeptemperature">&nbsp;at {{entry.steeptemperature}} &deg;F</span>
         </div>

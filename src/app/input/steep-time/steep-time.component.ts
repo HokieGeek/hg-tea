@@ -6,25 +6,47 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['./steep-time.component.css']
 })
 export class SteepTimeComponent implements OnInit {
-    private steeptime = '';
+    private _min = 0;
+    private _sec = 0;
 
     @Input()
-    set value(t: string) {
-        if (t !== this.steeptime) {
-            this.steeptime = t.replace(/(m|s)/g, '').replace(/ /, 'm ').replace(/([0-9])$/, '$1s').trim();
-            this.valueChange.emit(this.steeptime);
+    set value(v: number) {
+        this._min = Math.floor(v / 60);
+        this._sec = v - (this._min * 60);
+        console.log('set value(' + v + ')', this._min, this._sec);
+    }
+
+    get value(): number {
+        console.log('get value', this._min, this._sec);
+        return (+this._min * 60) + +this._sec;
+    }
+
+    @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
+
+    set min(t: number) {
+        if (t !== this._min) {
+            this._min = t;
+            this.valueChange.emit(this.value);
         }
     }
 
-    get value(): string {
-        return this.steeptime;
+    get min(): number {
+        return this._min;
     }
 
-    @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+    set sec(t: number) {
+        if (t !== this._sec) {
+            this._sec = t;
+            this.valueChange.emit(this.value);
+        }
+    }
+
+    get sec(): number {
+        return this._sec;
+    }
 
     constructor() { }
 
     ngOnInit() {
     }
-
 }

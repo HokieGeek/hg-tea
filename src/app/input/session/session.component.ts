@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { Tea, Entry, EntryBuilder, TeaFixins, SteepingVessels } from '../../tea';
 
 import { EnumValuesPipe } from '../../enum-values.pipe';
+import { SteeptimePipe } from '../../steeptime.pipe';
 
 @Component({
     selector: 'hg-session',
@@ -25,7 +26,7 @@ export class SessionComponent implements OnInit {
     public enableFixins = true;
 
     public dateTime = new Date();
-    public steeptime = '';
+    public steeptime = 0;
     public rating = 0;
     public vessel = SteepingVessels['Aberdeen Steeper'];
     public temperature = 212;

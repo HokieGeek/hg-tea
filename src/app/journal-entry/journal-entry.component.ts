@@ -3,6 +3,8 @@ import * as moment from 'moment';
 
 import { Tea, Entry } from '../tea';
 
+import { SteeptimePipe } from '../steeptime.pipe';
+
 @Component({
     selector: 'hg-journal-entry',
     templateUrl: 'journal-entry.component.html',

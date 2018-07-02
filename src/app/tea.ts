@@ -12,6 +12,8 @@ export enum SteepingVessels {'Other', 'French Press', 'Shipiao Yixing', 'Tea-zer
                       'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
                       'Cup', 'Bowl', 'Chrysanthemum Gaiwan', 'Aberdeen Steeper', 'Celadon Gaiwan'}
 
+import { SteeptimePipe } from './steeptime.pipe';
+
 class JournalDbEntry {
     public comments: string;
     public timestamp: string;
@@ -30,9 +32,29 @@ class JournalDbEntry {
 
 export class Entry {
     public teaId: number;
+    private steeptime_sec = -1;
 
     constructor(public dbentry: JournalDbEntry) {
         this.dbentry.datetime = moment(this.dbentry.datetime).toDate();
+        this.steeptime_sec = this.steeptimeStrToSec(this.dbentry.steeptime);
+    }
+
+    private steeptimeStrToSec(str: string): number {
+        const r = /([0-9]*)(m\s*)?([0-9]*)s?$/g;
+        const match = r.exec(str);
+
+        let sec = 0;
+        if (/\s/g.test(str)) {
+            sec = (+match[1] * 60) + +match[3];
+        } else {
+            if (/m/g.test(str)) {
+                sec = (+match[1] * 60);
+            } else {
+                sec = +match[1];
+            }
+        }
+
+        return sec;
     }
 
     get comments(): string {
@@ -63,8 +85,8 @@ export class Entry {
         }
     }
 
-    get steeptime(): string {
-        return this.dbentry.steeptime;
+    get steeptime(): number {
+        return this.steeptime_sec;
     }
 
     get steepingvessel_idx(): number {
@@ -136,8 +158,8 @@ export class EntryBuilder {
         return this;
     }
 
-    public steeptime(val: string): EntryBuilder {
-        this.dbentry.steeptime = val;
+    public steeptime(val: number): EntryBuilder {
+        this.dbentry.steeptime = new SteeptimePipe().transform(val);
         return this;
     }
 
