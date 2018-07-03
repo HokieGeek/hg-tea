@@ -13,11 +13,11 @@ export class SteepTimeComponent implements OnInit {
     set value(v: number) {
         this._min = Math.floor(v / 60);
         this._sec = v - (this._min * 60);
-        console.log('set value(' + v + ')', this._min, this._sec);
+        // console.log('set value(' + v + ')', this._min, this._sec);
     }
 
     get value(): number {
-        console.log('get value', this._min, this._sec);
+        // console.log('get value', this._min, this._sec);
         return (+this._min * 60) + +this._sec;
     }
 

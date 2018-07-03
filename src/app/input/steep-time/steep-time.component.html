@@ -1,14 +1,7 @@
-<div class="btn-group">
-    <input type="text" class="form-control" placeholder="m" aria-label="Steep time mins"
-                                                                     [(ngModel)]="min">
-    <!--div class="input-group-append">
-        <span class="input-group-text">m</span>
-    </div-->
-<!--/div>
-<div class="btn-group"-->
-    <input type="text" class="form-control" placeholder="s" aria-label="Steep time mins"
-                                                                     [(ngModel)]="sec">
-    <!--div class="input-group-append">
-        <span class="input-group-text">s</span>
-    </div-->
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">for</span>
+    </div>
+    <input type="text" class="form-control" placeholder="m" aria-label="Steep mins" [(ngModel)]="min">
+    <input type="text" class="form-control" placeholder="s" aria-label="Steep secs" [(ngModel)]="sec">
 </div>

@@ -40,6 +40,7 @@ import { AppRoutingModule } from '../app-routing.module';
 
 import { InputComponent } from '../input/input.component';
 import { EnumValuesPipe } from '../enum-values.pipe';
+import { SteeptimePipe } from '../steeptime.pipe';
 
 describe('TeasComponent', () => {
     let component: TeasComponent;
@@ -83,6 +84,7 @@ describe('TeasComponent', () => {
 
                 InputComponent,
                 EnumValuesPipe,
+                SteeptimePipe,
                 SteepTimeComponent,
                 UnratedComponent,
                 SessionComponent,
@@ -91,6 +93,7 @@ describe('TeasComponent', () => {
                 HttpClient,
                 ViewService,
                 NaturalLanguageDatePipe,
+                SteeptimePipe,
                 {provide: APP_BASE_HREF, useValue : '/' }
             ]
         })

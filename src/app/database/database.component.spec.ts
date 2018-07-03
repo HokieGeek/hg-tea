@@ -17,6 +17,7 @@ import { DatabaseEntryImagesComponent } from '../database-entry-images/database-
 import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
+import { SteeptimePipe } from '../steeptime.pipe';
 
 import { HgTeaComponent } from '../hgtea.component';
 import { TeasComponent } from '../teas/teas.component';
@@ -68,6 +69,7 @@ describe('DatabaseComponent', () => {
                 JournalComponent,
                 JournalEntryComponent,
                 NaturalLanguageDatePipe,
+                SteeptimePipe,
 
                 HgTeaComponent,
                 TeasComponent,
@@ -88,6 +90,7 @@ describe('DatabaseComponent', () => {
             ],
             providers: [
                 NaturalLanguageDatePipe,
+                SteeptimePipe,
                 {provide: APP_BASE_HREF, useValue : '/' }
             ]
         })

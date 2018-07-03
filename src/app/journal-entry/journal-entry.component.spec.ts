@@ -7,6 +7,7 @@ import { JournalEntryComponent } from './journal-entry.component';
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
+import { SteeptimePipe } from '../steeptime.pipe';
 
 import { EntryBuilder } from '../tea';
 import { TestUtils } from '../test-utils';
@@ -22,9 +23,13 @@ describe('JournalEntryComponent', () => {
                 NaturalLanguageDatePipe,
                 RatingComponent,
                 TeacupimgComponent,
-                JournalEntryComponent
+                JournalEntryComponent,
+                SteeptimePipe
             ],
-            providers: [ NaturalLanguageDatePipe ]
+            providers: [
+                NaturalLanguageDatePipe,
+                SteeptimePipe
+            ]
         })
         .compileComponents();
     }));
@@ -52,7 +57,8 @@ describe('JournalEntryComponent', () => {
 
     it('steeptime is correct', () => {
         const has = fixture.debugElement.query(By.css('#steeptime')).nativeElement.innerText;
-        expect(has).toBe(component.entry.steeptime);
+        const pipe = new SteeptimePipe();
+        expect(has).toBe(pipe.transform(component.entry.steeptime));
     });
 
     it('steeping vessel is correct', () => {
@@ -82,7 +88,7 @@ describe('JournalEntryComponent', () => {
     xit('entrydate is being displayed naturally', () => {
         // TODO: evaluating this
         const has = fixture.debugElement.query(By.css('#entrydate')).nativeElement.innerText;
-        const pipe = new NaturalLanguageDatePipe();
+        const pipe = new SteeptimePipe();
         expect(has).toBe(pipe.transform(component.entry.datetime));
     });
 

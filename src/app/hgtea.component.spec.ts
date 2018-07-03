@@ -39,6 +39,7 @@ import { SessionComponent } from './input/session/session.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
+import { SteeptimePipe } from './steeptime.pipe';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
@@ -78,6 +79,7 @@ describe('HgTeaComponent', () => {
 
                 InputComponent,
                 EnumValuesPipe,
+                SteeptimePipe,
                 SteepTimeComponent,
                 UnratedComponent,
                 SessionComponent,

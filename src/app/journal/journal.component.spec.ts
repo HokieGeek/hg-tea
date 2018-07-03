@@ -8,6 +8,7 @@ import { JournalEntryComponent } from '../journal-entry/journal-entry.component'
 import { RatingComponent } from '../rating/rating.component';
 import { TeacupimgComponent } from '../teacupimg/teacupimg.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
+import { SteeptimePipe } from '../steeptime.pipe';
 
 import { TestUtils } from '../test-utils';
 
@@ -26,9 +27,13 @@ describe('JournalComponent', () => {
                 JournalEntryComponent,
                 RatingComponent,
                 TeacupimgComponent,
-                NaturalLanguageDatePipe
+                NaturalLanguageDatePipe,
+                SteeptimePipe,
             ],
-            providers: [ NaturalLanguageDatePipe ]
+            providers: [
+                NaturalLanguageDatePipe,
+                SteeptimePipe
+            ]
         })
         .compileComponents();
     }));

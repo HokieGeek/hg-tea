@@ -14,6 +14,7 @@ import { StatsComponent } from './stats/stats.component';
 import { JournalComponent } from '../journal/journal.component';
 import { JournalEntryComponent } from '../journal-entry/journal-entry.component';
 import { NaturalLanguageDatePipe } from '../natural-language-date-pipe';
+import { SteeptimePipe } from '../steeptime.pipe';
 
 import { Tea, TeaBuilder, Entry } from '../tea';
 import { TestUtils } from '../test-utils';
@@ -38,9 +39,13 @@ describe('DatabaseEntryComponent', () => {
                 StatsComponent,
                 JournalComponent,
                 JournalEntryComponent,
-                NaturalLanguageDatePipe
+                NaturalLanguageDatePipe,
+                SteeptimePipe,
             ],
-            providers: [ NaturalLanguageDatePipe ]
+            providers: [
+                NaturalLanguageDatePipe,
+                SteeptimePipe
+            ]
         })
         .compileComponents();
     }));

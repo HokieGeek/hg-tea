@@ -8,6 +8,7 @@ import { RatingComponent } from '../../rating/rating.component';
 import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
 
 import { EnumValuesPipe } from '../../enum-values.pipe';
+import { SteeptimePipe } from '../../steeptime.pipe';
 
 import { TestUtils } from '../../test-utils';
 
@@ -27,6 +28,7 @@ describe('SessionComponent', () => {
                 RatingComponent,
                 TeacupimgComponent,
                 EnumValuesPipe,
+                SteeptimePipe,
                 SteepTimeComponent,
             ]
         })

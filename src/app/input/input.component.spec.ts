@@ -13,6 +13,7 @@ import { UnratedComponent } from './unrated/unrated.component';
 import { SessionComponent } from './session/session.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
+import { SteeptimePipe } from '../steeptime.pipe';
 
 describe('InputComponent', () => {
     let component: InputComponent;
@@ -36,8 +37,10 @@ describe('InputComponent', () => {
                 EnumValuesPipe,
                 SteepTimeComponent,
                 SessionComponent,
+                SteeptimePipe,
             ],
             providers: [
+                SteeptimePipe,
                 HttpClient,
             ]
         })
