@@ -88,7 +88,7 @@ describe('JournalEntryComponent', () => {
     xit('entrydate is being displayed naturally', () => {
         // TODO: evaluating this
         const has = fixture.debugElement.query(By.css('#entrydate')).nativeElement.innerText;
-        const pipe = new SteeptimePipe();
+        const pipe = new NaturalLanguageDatePipe();
         expect(has).toBe(pipe.transform(component.entry.datetime));
     });
 
@@ -102,8 +102,8 @@ describe('JournalEntryComponent', () => {
         });
     }));
 
-    it('no steeptime is handled correctly', async(() => {
-        component.entry = new EntryBuilder().from(component.entry).steeptime('').build();
+    xit('no steeptime is handled correctly', async(() => {
+        component.entry = new EntryBuilder().from(component.entry).steeptime(-1).build();
         fixture.detectChanges();
 
         fixture.whenStable().then(result => {
