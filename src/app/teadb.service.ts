@@ -154,6 +154,18 @@ export class TeaDbService {
         return this.http.get<TeaDbEntry[]>(url).pipe(map(teas => teas.map(t => new Tea(t))));
     }
 
+    createTeaEntry(tea: Tea) {
+        const url = this.host + '/' + this.teaEndpoint + '/' + tea.id;
+        this.http.post(url, tea.dbentry).subscribe(res => console.log(res));
+        // TODO: update the entire thing?
+    }
+
+    updateTeaEntry(tea: Tea) {
+        const url = this.host + '/' + this.teaEndpoint + '/' + tea.id;
+        this.http.put(url, tea.dbentry).subscribe(res => console.log(res));
+        // TODO: update the entire thing?
+    }
+
     createJournalEntry(tea: Tea, e: Entry) {
         const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry';
         this.http.post(url, e.dbentry).subscribe(res => console.log(res));
@@ -161,7 +173,6 @@ export class TeaDbService {
     }
 
     updateJournalEntry(tea: Tea, e: Entry) {
-        console.log('updateJournalEntry()', e);
         const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry';
         this.http.put(url, e.dbentry).subscribe(res => console.log(res));
         // TODO: update the entire thing?
