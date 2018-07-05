@@ -10,16 +10,37 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">You've spent how much?!</h5>
-            <p class="card-text">
-            {{ totalSpent | currency:'USD':'$' }}
-            {{ totalSpentStocked | currency:'USD':'$' }}
-            </p>
+            <div class="card-text container">
+                <div class="row">I have only spent&nbsp;<b>{{ totalSpent | currency:'USD':'$' }}</b>.</div>
+                <div class="row">Currently have&nbsp;<b>{{ totalSpentStocked | currency:'USD':'$' }}</b>&nbsp;stocked.</div>
+                <div class="row">Which is about&nbsp;<b>{{ totalSpentPerCup | currency:'USD':'$' }}</b>&nbsp;per cup.</div>
+            </div>
         </div>
     </div>
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Gonna pee my pants</h5>
             <p class="card-text">TODO</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Top ten best values</h5>
+            <div class="card-text">
+                <ul>
+                    <li *ngFor="let tea of topTenBestValues">{{tea.name}} ({{tea.pricePerCup | currency}})</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Top ten worst values</h5>
+            <div class="card-text">
+                <ul>
+                    <li *ngFor="let tea of topTenWorstValues">{{tea.name}} ({{tea.pricePerCup | currency}})</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

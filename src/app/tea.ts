@@ -230,7 +230,8 @@ export class TeaDbEntry {
 export class Tea {
     private _latestEntry: Entry = null;
     private _entries: Entry[] = null;
-    private entriesIdToIdx: Map<number, number> = new Map<number, number>();
+    private _entriesIdToIdx: Map<number, number> = new Map<number, number>();
+    private _pricePerCup = -1;
 
     constructor(public dbentry: TeaDbEntry) {
         if (this.dbentry.entries == null) {
@@ -335,19 +336,19 @@ export class Tea {
     }
 
     entry(id: Date): Entry {
-        if (this.entriesIdToIdx.size === 0 && this.entries.length > 0) {
+        if (this._entriesIdToIdx.size === 0 && this.entries.length > 0) {
             this.entries.forEach((v, i) => {
-                this.entriesIdToIdx.set(+v.datetime.getMilliseconds(), +i);
+                this._entriesIdToIdx.set(+v.datetime.getMilliseconds(), +i);
             });
         }
 
         const id_ms = id.getMilliseconds();
 
-        if (!this.entriesIdToIdx.has(id_ms)) {
+        if (!this._entriesIdToIdx.has(id_ms)) {
             return null;
         }
 
-        return this.entries[this.entriesIdToIdx.get(id_ms)];
+        return this.entries[this._entriesIdToIdx.get(id_ms)];
     }
 
     addEntry(entry: Entry) {
@@ -414,6 +415,14 @@ export class Tea {
             temps = this.countFields(this.entries.map(e => e.steeptemperature));
         }
         return temps;
+    }
+
+    get pricePerCup(): number {
+        if (this._pricePerCup === -1 && this.entries.length > 0 && this.purchaseprice > 0) {
+            // TODO: Would be this should be smarter...
+            this._pricePerCup = this.purchaseprice / this.entries.length;
+        }
+        return this._pricePerCup;
     }
 }
 

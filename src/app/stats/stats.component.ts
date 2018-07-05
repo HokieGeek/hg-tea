@@ -38,4 +38,20 @@ export class StatsComponent implements OnInit {
     get totalSpentStocked(): number {
         return this.teas.filter(t => t.stocked).map(t => t.purchaseprice).reduce((acc, cur) => acc + cur, 0);
     }
+
+    get totalSpentPerCup(): number {
+        return this.totalSpent / this.teas.map(t => t.entries.length).reduce((acc, cur) => acc + cur, 0);
+    }
+
+    get teasByPricePerCup(): Tea[] {
+        return this.teas.filter(t => t.pricePerCup !== -1 && !t.sample).sort((a, b) => a.pricePerCup - b.pricePerCup);
+    }
+
+    get topTenBestValues(): Tea[] {
+        return this.teasByPricePerCup.slice(0, 10);
+    }
+
+    get topTenWorstValues(): Tea[] {
+        return this.teasByPricePerCup.reverse().slice(0, 10);
+    }
 }
