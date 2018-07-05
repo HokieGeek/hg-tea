@@ -8,11 +8,11 @@ import { EnumValuesPipe } from '../../enum-values.pipe';
 import { SteeptimePipe } from '../../steeptime.pipe';
 
 @Component({
-    selector: 'hg-session',
-    templateUrl: './session.component.html',
-    styleUrls: ['./session.component.css']
+    selector: 'hg-tea-editor',
+    templateUrl: './teaeditor.component.html',
+    styleUrls: ['./teaeditor.component.css']
 })
-export class SessionComponent implements OnInit {
+export class TeaEditorComponent implements OnInit {
     TeaFixins = TeaFixins;
     SteepingVessels = SteepingVessels;
 

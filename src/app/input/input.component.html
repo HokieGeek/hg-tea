@@ -26,13 +26,13 @@
         </aside>
 
         <div class="col card-columns py-1">
-            <hg-session
+            <hg-tea-editor
                 *ngFor="let t of selectedTeas"
                 [tea]="t"
                 [create]="true"
                 (created)="createEntry(t, $event)"
                 (canceled)="unselectTea(t)">
-            </hg-session>
+            </hg-tea-editor>
 
             <hg-unrated
                 *ngFor="let e of unratedEntriesList"
@@ -41,14 +41,14 @@
                 (rated)="rateEntry(unratedEntries.get(e), e, $event)">
             </hg-unrated>
 
-            <hg-session
+            <hg-tea-editor
                 *ngFor="let t of teasWithOpenSessions"
                 [tea]="t"
                 [create]="true"
                 [cancelable]="false"
                 (created)="createEntry(t, $event)"
                 (updated)="updateEntry(t, $event)">
-            </hg-session>
+            </hg-tea-editor>
         </div>
     </div>
 </div>

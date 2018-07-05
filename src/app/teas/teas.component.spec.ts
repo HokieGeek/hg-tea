@@ -29,7 +29,7 @@ import { SortFieldComponent } from '../teas-sidebar/sorter/sort-field/sort-field
 import { ViewManagerComponent } from '../teas-sidebar/view-manager/view-manager.component';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { UnratedComponent } from '../input/unrated/unrated.component';
-import { SessionComponent } from '../input/session/session.component';
+import { TeaEditorComponent } from '../input/teaeditor/teaeditor.component';
 import { SteepTimeComponent } from '../input/steep-time/steep-time.component';
 
 import { TestUtils } from '../test-utils';
@@ -87,7 +87,7 @@ describe('TeasComponent', () => {
                 SteeptimePipe,
                 SteepTimeComponent,
                 UnratedComponent,
-                SessionComponent,
+                TeaEditorComponent,
             ],
             providers: [
                 HttpClient,

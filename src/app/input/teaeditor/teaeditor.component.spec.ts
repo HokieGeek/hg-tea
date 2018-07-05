@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
-import { SessionComponent } from './session.component';
+import { TeaEditorComponent } from './teaeditor.component';
 import { SteepTimeComponent } from '../steep-time/steep-time.component';
 import { RatingComponent } from '../../rating/rating.component';
 import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
@@ -12,9 +12,9 @@ import { SteeptimePipe } from '../../steeptime.pipe';
 
 import { TestUtils } from '../../test-utils';
 
-describe('SessionComponent', () => {
-    let component: SessionComponent;
-    let fixture: ComponentFixture<SessionComponent>;
+describe('TeaEditorComponent', () => {
+    let component: TeaEditorComponent;
+    let fixture: ComponentFixture<TeaEditorComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -24,7 +24,7 @@ describe('SessionComponent', () => {
                 OwlNativeDateTimeModule,
             ],
             declarations: [
-                SessionComponent,
+                TeaEditorComponent,
                 RatingComponent,
                 TeacupimgComponent,
                 EnumValuesPipe,
@@ -36,7 +36,7 @@ describe('SessionComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SessionComponent);
+        fixture = TestBed.createComponent(TeaEditorComponent);
         component = fixture.componentInstance;
 
         component.tea = TestUtils.createDummyTea();

@@ -36,7 +36,7 @@ import { SteepTimeComponent } from './input/steep-time/steep-time.component';
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
 import { UnratedComponent } from './input/unrated/unrated.component';
-import { SessionComponent } from './input/session/session.component';
+import { TeaEditorComponent } from './input/teaeditor/teaeditor.component';
 import { SteeptimePipe } from './steeptime.pipe';
 
 @NgModule({
@@ -76,7 +76,7 @@ import { SteeptimePipe } from './steeptime.pipe';
         EnumValuesPipe,
         SteepTimeComponent,
         UnratedComponent,
-        SessionComponent,
+        TeaEditorComponent,
         SteeptimePipe,
     ],
     providers: [HttpClient],
