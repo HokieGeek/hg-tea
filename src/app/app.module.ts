@@ -38,6 +38,7 @@ import { EnumValuesPipe } from './enum-values.pipe';
 import { UnratedComponent } from './input/unrated/unrated.component';
 import { TeaEditorComponent } from './input/teaeditor/teaeditor.component';
 import { SteeptimePipe } from './steeptime.pipe';
+import { TeacreateComponent } from './input/teacreate/teacreate.component';
 
 @NgModule({
     imports: [
@@ -78,6 +79,7 @@ import { SteeptimePipe } from './steeptime.pipe';
         UnratedComponent,
         TeaEditorComponent,
         SteeptimePipe,
+        TeacreateComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]

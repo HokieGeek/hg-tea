@@ -42,19 +42,12 @@ export class InputComponent implements OnInit {
     public unratedEntries: Map<Entry, Tea> = new Map<Entry, Tea>();
     public unratedEntriesList: Entry[] = [];
     public selectedTeas: Tea[] = [];
+    public newTeas: number[] = [];
 
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
-        // this.tea_database = TestUtils.createDummyTeasWithEntries();
-        this.teaDbService.teasWithEntries.subscribe(
-            teas => this.teas = teas,
-            err => this.errorMsg = err
-        );
-
-        /*
-         * TODO: only show buttons when a tea or session is selected
-         */
+        this.updateTeas();
     }
 
     set teas(t: Tea[]) {
@@ -103,6 +96,31 @@ export class InputComponent implements OnInit {
         const index = this.selectedTeas.indexOf(t, 0);
         if (index > -1) {
             this.selectedTeas.splice(index, 1);
+        }
+    }
+
+    private updateTeas() {
+        // this.tea_database = TestUtils.createDummyTeasWithEntries();
+        this.teaDbService.teasWithEntries.subscribe(
+            teas => this.teas = teas,
+            err => this.errorMsg = err
+        );
+    }
+
+    createTea(newTeaId: number, tea: Tea) {
+        console.log(tea);
+        this.remoteTeaCreator(newTeaId);
+    }
+
+    updateTea(tea: Tea) {
+        // TODO
+        this.unselectTea(tea);
+    }
+
+    remoteTeaCreator(newTeaId: number) {
+        const index = this.newTeas.indexOf(newTeaId, 0);
+        if (index > -1) {
+            this.newTeas.splice(index, 1);
         }
     }
 

@@ -1,0 +1,22 @@
+<div class="card border-primary">
+    <h5 class="card-header">
+        <input type="text" placeholder="Name" [(ngModel)]="name" />
+    </h5>
+
+    <div class="card-body">
+        TODO
+        {{ name }}
+    </div>
+
+    <div class="card-footer">
+        <input type="button"
+               class="btn btn-sm btn-primary createbtn"
+               (click)="create()"
+               value="Create">
+
+        <input type="button"
+               class="btn btn-sm btn-danger float-right"
+               (click)="cancel()"
+               value="Cancel">
+    </div>
+</div>
