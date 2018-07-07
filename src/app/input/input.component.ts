@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { v4 as uuid } from 'uuid';
 import * as moment from 'moment';
 
-import { Tea, Entry, EntryBuilder, TeaFixins, SteepingVessels } from '../tea';
+import { Tea, TeaBuilder, Entry, EntryBuilder, TeaFixins, SteepingVessels } from '../tea';
 import { TeaDbService } from '../teadb.service';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
@@ -107,17 +107,24 @@ export class InputComponent implements OnInit {
         );
     }
 
+    getNextTeaId(): number {
+        return this._teas.map(t => t.id).reduce((max, cur) => max = cur > max ? cur : max, 0) + 1;
+    }
+
     createTea(newTeaId: number, tea: Tea) {
-        console.log(tea);
-        this.remoteTeaCreator(newTeaId);
+        // console.log(tea);
+        this.teaDbService.createTeaEntry(new TeaBuilder().from(tea).id(this.getNextTeaId()).build());
+        this.removeTeaCreator(newTeaId);
+        this.updateTeas();
     }
 
     updateTea(tea: Tea) {
         // TODO
         this.unselectTea(tea);
+        this.updateTeas();
     }
 
-    remoteTeaCreator(newTeaId: number) {
+    removeTeaCreator(newTeaId: number) {
         const index = this.newTeas.indexOf(newTeaId, 0);
         if (index > -1) {
             this.newTeas.splice(index, 1);
@@ -127,6 +134,7 @@ export class InputComponent implements OnInit {
     createEntry(tea: Tea, entry: Entry) {
         this.teaDbService.createJournalEntry(tea, entry);
         this.unselectTea(tea);
+        this.updateTeas();
     }
 
     updateEntry(tea: Tea, entry: Entry) {
@@ -136,6 +144,7 @@ export class InputComponent implements OnInit {
         if (index > -1) {
             this.teasWithOpenSessions.splice(index, 1);
         }
+        this.updateTeas();
     }
 
     rateEntry(tea: Tea, entry: Entry, rating: number) {

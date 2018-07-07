@@ -39,6 +39,7 @@ import { UnratedComponent } from './input/unrated/unrated.component';
 import { TeaEditorComponent } from './input/teaeditor/teaeditor.component';
 import { SteeptimePipe } from './steeptime.pipe';
 import { TeacreateComponent } from './input/teacreate/teacreate.component';
+import { DatetimeComponent } from './input/datetime/datetime.component';
 
 @NgModule({
     imports: [
@@ -80,6 +81,7 @@ import { TeacreateComponent } from './input/teacreate/teacreate.component';
         TeaEditorComponent,
         SteeptimePipe,
         TeacreateComponent,
+        DatetimeComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]

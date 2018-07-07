@@ -1,0 +1,8 @@
+<div class="input-wrapper collapse-lg">
+    <input [(ngModel)]="value" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
+    <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" [hour12Timer]="false" #dtlg></owl-date-time>
+</div>
+<div class="input-wrapper collapse-sm">
+    <input class="form-control" [(ngModel)]="value" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
+    <owl-date-time class="collapse-sm" [hour12Timer]="false" #dtsm></owl-date-time>
+</div>

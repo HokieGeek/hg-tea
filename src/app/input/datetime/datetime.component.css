@@ -1,0 +1,11 @@
+input {
+    font-size: .875rem;
+    padding-top: .28rem;
+    padding-bottom: .28rem;
+}
+
+@media (max-width: 499px) {
+    input {
+        max-width: 40vw;
+    }
+}

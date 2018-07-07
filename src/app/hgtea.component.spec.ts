@@ -36,6 +36,8 @@ import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { SteepTimeComponent } from './input/steep-time/steep-time.component';
 import { UnratedComponent } from './input/unrated/unrated.component';
 import { TeaEditorComponent } from './input/teaeditor/teaeditor.component';
+import { TeacreateComponent } from './input/teacreate/teacreate.component';
+import { DatetimeComponent } from './input/datetime/datetime.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
@@ -83,6 +85,8 @@ describe('HgTeaComponent', () => {
                 SteepTimeComponent,
                 UnratedComponent,
                 TeaEditorComponent,
+                TeacreateComponent,
+                DatetimeComponent,
             ],
             imports: [
                 NgbModule.forRoot(),

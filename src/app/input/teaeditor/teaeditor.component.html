@@ -6,14 +6,15 @@
         <div class="d-flex flex-column justify-content-around mx-1 mt-1" [ngClass]="{'invisible': tea === null}">
             <!-- Time and steeptime -->
             <div class="d-flex flex-row">
-                <div class="input-wrapper collapse-lg">
+                <hg-datetime [(value)]="dateTime"></hg-datetime>
+                <!--div class="input-wrapper collapse-lg">
                     <input class="datetime" [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
                     <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" [hour12Timer]="false" #dtlg></owl-date-time>
                 </div>
                 <div class="input-wrapper collapse-sm">
                     <input class="form-control datetime" [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
                     <owl-date-time class="collapse-sm" [hour12Timer]="false" #dtsm></owl-date-time>
-                </div>
+                </div-->
                 <hg-steep-time class="input-group input-group-sm mb-3 col-2"
                                [(value)]="steeptime"></hg-steep-time>
             </div>

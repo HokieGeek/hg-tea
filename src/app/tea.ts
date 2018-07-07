@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-enum teaPackagingTypes {'Loose Leaf', 'Bagged', 'Tuo', 'Beeng', 'Brick', 'Mushroom', 'Square'}
+export enum TeaPackagingTypes {'Loose Leaf', 'Bagged', 'Tuo', 'Beeng', 'Brick', 'Mushroom', 'Square'}
 enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
 enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush'}
 
@@ -199,13 +199,13 @@ export class TeaDbEntry {
     public id: number;
     public name: string;
     public timestamp: string;
-    public date: string;
+    public date: Date;
     public type: string;
     public region: string;
     public year: number;
     public flush: string;
     public purchaselocation: string;
-    public purchasedate: string;
+    public purchasedate: Date;
     public purchaseprice: number;
     public comments: string;
     public pictures: string[];
@@ -214,10 +214,10 @@ export class TeaDbEntry {
     public blendedteas: string;
     public blendratio: string;
     public size: string;
-    public stocked: boolean;
-    public aging: boolean;
+    public stocked = false;
+    public aging = false;
     public packaging_idx: number;
-    public sample: boolean;
+    public sample = false;
     public entries: JournalDbEntry[] = [];
 
     constructor() { }
@@ -246,7 +246,7 @@ export class Tea {
         return this.dbentry.timestamp;
     }
 
-    get date(): string {
+    get date(): Date {
         return this.dbentry.date;
     }
 
@@ -270,7 +270,7 @@ export class Tea {
         return this.dbentry.purchaselocation;
     }
 
-    get purchasedate(): string {
+    get purchasedate(): Date {
         return this.dbentry.purchasedate;
     }
 
@@ -370,7 +370,7 @@ export class Tea {
     }
 
     get packaging() {
-        return teaPackagingTypes[this.packaging_idx - 1];
+        return TeaPackagingTypes[this.packaging_idx - 1];
     }
 
     get ratingAvg(): number {
@@ -440,7 +440,7 @@ export class TeaBuilder {
         return this;
     }
 
-    public date(val: string): TeaBuilder {
+    public date(val: Date): TeaBuilder {
         this.dbentry.date = val;
         return this;
     }
@@ -470,7 +470,7 @@ export class TeaBuilder {
         return this;
     }
 
-    public purchasedate(val: string): TeaBuilder {
+    public purchasedate(val: Date): TeaBuilder {
         this.dbentry.purchasedate = val;
         return this;
     }

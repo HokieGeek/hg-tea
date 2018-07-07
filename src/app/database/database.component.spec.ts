@@ -34,6 +34,8 @@ import { EnumValuesPipe } from '../enum-values.pipe';
 import { SteepTimeComponent } from '../input/steep-time/steep-time.component';
 import { UnratedComponent } from '../input/unrated/unrated.component';
 import { TeaEditorComponent } from '../input/teaeditor/teaeditor.component';
+import { TeacreateComponent } from '../input/teacreate/teacreate.component';
+import { DatetimeComponent } from '../input/datetime/datetime.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -87,6 +89,8 @@ describe('DatabaseComponent', () => {
                 PaginatorComponent,
                 UnratedComponent,
                 TeaEditorComponent,
+                TeacreateComponent,
+                DatetimeComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,

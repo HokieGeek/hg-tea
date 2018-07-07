@@ -18,7 +18,7 @@ describe('tea entry', () => {
         const year = (new Date()).getFullYear();
         const flush = 'FLUSH';
         const purchaseLocation = 'tea.awesome.site';
-        const purchaseDate = date;
+        const purchaseDate = now;
         const purchasePrice = 99.99;
         const comments = 'COMMENT';
         const pictures = [];
@@ -37,7 +37,7 @@ describe('tea entry', () => {
                 .id(id)
                 .name(name)
                 .timestamp(timestamp)
-                .date(date)
+                .date(now)
                 .type(teatype)
                 .region(region)
                 .year(year)
@@ -66,7 +66,7 @@ describe('tea entry', () => {
                 .id(id)
                 .name(name)
                 .timestamp(timestamp)
-                .date(date)
+                .date(now)
                 .type(teatype)
                 .region(region)
                 .year(year)
@@ -90,7 +90,7 @@ describe('tea entry', () => {
             expect(tea.id).toBe(id);
             expect(tea.name).toBe(name);
             expect(tea.timestamp).toBe(timestamp);
-            expect(tea.date).toBe(date);
+            expect(tea.date).toBe(now);
             expect(tea.type).toBe(teatype);
             expect(tea.region).toBe(region);
             expect(tea.year).toBe(year);

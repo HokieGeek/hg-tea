@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { TeacreateComponent } from './teacreate.component';
+
+import { EnumValuesPipe } from '../../enum-values.pipe';
 
 describe('TeacreateComponent', () => {
     let component: TeacreateComponent;
@@ -8,9 +11,13 @@ describe('TeacreateComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ TeacreateComponent ]
+            imports: [FormsModule ],
+            declarations: [
+                TeacreateComponent,
+                EnumValuesPipe,
+            ]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {

@@ -18,5 +18,10 @@
         background-color: #193251;
         color: #ffffff;
     }
+
+    .card-columns {
+        overflow-y: scroll;
+        overflow-x: auto;
+    }
 }
 
