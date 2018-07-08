@@ -107,7 +107,7 @@ export class TeaEditorComponent implements OnInit {
 
     createEntry() {
         let instance = uuid();
-        if (!this.tea.latestEntry.sessionclosed) {
+        if (this.tea.latestEntry != null && !this.tea.latestEntry.sessionclosed) {
             instance = this.tea.latestEntry.sessioninstance;
         }
 
@@ -120,7 +120,7 @@ export class TeaEditorComponent implements OnInit {
                 .pictures([])
                 .steeptime(this.steeptime)
                 .steepingvessel_idx(this.vessel)
-                .steeptemperature(this.temperature)
+                .steeptemperature(+this.temperature)
                 .sessioninstance(instance)
                 .sessionclosed(this.sessionClosed)
                 .fixins(this.fixins.map(f => TeaFixins[f]))

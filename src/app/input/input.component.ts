@@ -115,13 +115,13 @@ export class InputComponent implements OnInit {
         // console.log(tea);
         this.teaDbService.createTeaEntry(new TeaBuilder().from(tea).id(this.getNextTeaId()).build());
         this.removeTeaCreator(newTeaId);
-        this.updateTeas();
+        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 
     updateTea(tea: Tea) {
         // TODO
         this.unselectTea(tea);
-        this.updateTeas();
+        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 
     removeTeaCreator(newTeaId: number) {
@@ -134,7 +134,7 @@ export class InputComponent implements OnInit {
     createEntry(tea: Tea, entry: Entry) {
         this.teaDbService.createJournalEntry(tea, entry);
         this.unselectTea(tea);
-        this.updateTeas();
+        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 
     updateEntry(tea: Tea, entry: Entry) {
@@ -144,7 +144,8 @@ export class InputComponent implements OnInit {
         if (index > -1) {
             this.teasWithOpenSessions.splice(index, 1);
         }
-        this.updateTeas();
+
+        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 
     rateEntry(tea: Tea, entry: Entry, rating: number) {
