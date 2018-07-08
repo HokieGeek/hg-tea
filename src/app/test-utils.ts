@@ -88,7 +88,7 @@ export class TestUtils {
             .leafgrade('')
             .blendedteas('')
             .blendratio('')
-            .size(String((Math.random() * 500) + 1) + 'g')
+            .size((Math.random() * 500) + 1)
             .stocked((Math.random() >= 0.5))
             .aging((Math.random() >= 0.5))
             .packaging_idx(0)

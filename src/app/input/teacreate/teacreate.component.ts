@@ -64,7 +64,7 @@ export class TeacreateComponent implements OnInit {
             .pictures(this.pictures)
             .leafgrade(this.leafgrade)
             .packaging_idx(+this.packaging_idx)
-            .size(this.size)
+            .size(+this.size)
             .stocked(this.stocked || false)
             .aging(this.aging || false)
             .sample(this.sample || false)

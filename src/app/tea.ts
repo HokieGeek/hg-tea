@@ -12,7 +12,7 @@ export enum SteepingVessels {'Other', 'French Press', 'Shipiao Yixing', 'Tea-zer
                       'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
                       'Cup', 'Bowl', 'Chrysanthemum Gaiwan', 'Aberdeen Steeper', 'Celadon Gaiwan'}
 
-import { SteeptimePipe } from './steeptime.pipe';
+// import { SteeptimePipe } from './steeptime.pipe';
 
 class JournalDbEntry {
     public comments: string;
@@ -20,7 +20,7 @@ class JournalDbEntry {
     public datetime: Date;
     public rating: number;
     public pictures: string[] = [];
-    public steeptime: string;
+    public steeptime: number;
     public steepingvessel_idx: number;
     public steeptemperature: number;
     public sessioninstance: string;
@@ -32,13 +32,14 @@ class JournalDbEntry {
 
 export class Entry {
     public teaId: number;
-    private steeptime_sec = -1;
+    // private steeptime_sec = -1;
 
     constructor(public dbentry: JournalDbEntry) {
         this.dbentry.datetime = moment(this.dbentry.datetime).toDate();
-        this.steeptime_sec = this.steeptimeStrToSec(this.dbentry.steeptime);
+        // this.steeptime_sec = this.steeptimeStrToSec(this.dbentry.steeptime);
     }
 
+    /*
     private steeptimeStrToSec(str: string): number {
         const r = /([0-9]*)(m\s*)?([0-9]*)s?$/g;
         const match = r.exec(str);
@@ -56,6 +57,7 @@ export class Entry {
 
         return sec;
     }
+    */
 
     get comments(): string {
         return this.dbentry.comments;
@@ -86,7 +88,8 @@ export class Entry {
     }
 
     get steeptime(): number {
-        return this.steeptime_sec;
+        // return this.steeptime_sec;
+        return this.dbentry.steeptime;
     }
 
     get steepingvessel_idx(): number {
@@ -159,7 +162,8 @@ export class EntryBuilder {
     }
 
     public steeptime(val: number): EntryBuilder {
-        this.dbentry.steeptime = new SteeptimePipe().transform(val);
+        // this.dbentry.steeptime = new SteeptimePipe().transform(val);
+        this.dbentry.steeptime = val;
         return this;
     }
 
@@ -213,7 +217,7 @@ export class TeaDbEntry {
     public leafgrade: string;
     public blendedteas: string;
     public blendratio: string;
-    public size: string;
+    public size: number;
     public stocked = false;
     public aging = false;
     public packaging_idx: number;
@@ -306,7 +310,7 @@ export class Tea {
         return this.dbentry.blendratio;
     }
 
-    get size(): string {
+    get size(): number {
         return this.dbentry.size;
     }
 
@@ -510,7 +514,7 @@ export class TeaBuilder {
         return this;
     }
 
-    public size(val: string): TeaBuilder {
+    public size(val: number): TeaBuilder {
         this.dbentry.size = val;
         return this;
     }
