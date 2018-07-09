@@ -21,63 +21,18 @@ export class TeaEditorComponent implements OnInit {
     private _tea: Tea = null;
 
     public previousSessionEntries: Entry[] = [];
-    public teaVessels: string[] = [];
     public continueSession = false;
-    public enableFixins = true;
-
-    public dateTime = new Date();
-    public steeptime = 0;
-    public rating = 0;
-    public vessel = SteepingVessels['Aberdeen Steeper'];
-    public temperature = 212;
-    public fixins: TeaFixins[] = [];
-    public comments = '';
-    public sessionClosed = true;
 
     @Input()
     set tea(t: Tea) {
         this._tea = t;
-        this.teaVessels = this._tea.vessels;
 
-        const lcType = this._tea.type.toLowerCase();
-        if (this.tea.entries.length > 0) {
-            if (this._tea.latestEntry.sessionclosed) {
-                this.vessel = SteepingVessels[this._tea.vessels[0]];
-                this.temperature = this.tea.temperaturesInF[0];
-
-                // TODO: Would be great if the 'with' dropdown had some prefilled based on commons
-            } else {
-                this.vessel = SteepingVessels[this._tea.latestEntry.steepingvessel];
-                this.temperature = this._tea.latestEntry.steeptemperature;
-                this.continueSession = true;
-
-                const sessionId = this._tea.latestEntry.sessioninstance;
-                this.previousSessionEntries = this._tea.entries
-                    .filter(e => e.sessioninstance === sessionId)
-                    .sort((a, b) => moment(b.datetime).diff(moment(a.datetime)));
-
-                // TODO: fixins
-            }
-        } else {
-
-            // Set the temperature
-            if (lcType.includes('green')) {
-                this.temperature = 180;
-            }
-
-            // Set the vessel
-            if (lcType.includes('sheng')) {
-                this.vessel = SteepingVessels['Shipiao Yixing'];
-            } else if (lcType.includes('oolong')) {
-                this.vessel = SteepingVessels['Celadon Gaiwan'];
-            }
-        }
-
-        if (lcType.includes('sheng') || lcType.includes('oolong')) {
-            this.sessionClosed = false;
-            this.enableFixins = false;
-        } else {
-            this.sessionClosed = true;
+        if (this._tea.entries.length > 0 && !this._tea.latestEntry.sessionclosed) {
+            const sessionId = this._tea.latestEntry.sessioninstance;
+            this.previousSessionEntries = this._tea.entries
+                .filter(e => e.sessioninstance === sessionId)
+                .sort((a, b) => moment(a.datetime).diff(moment(b.datetime)));
+            this.continueSession = true;
         }
     }
 
@@ -85,8 +40,9 @@ export class TeaEditorComponent implements OnInit {
         return this._tea;
     }
 
-    @Output() created: EventEmitter<Entry> = new EventEmitter<Entry>();
-    @Output() updated: EventEmitter<Entry> = new EventEmitter<Entry>();
+    @Output() createdEntry: EventEmitter<Entry> = new EventEmitter<Entry>();
+    @Output() updatedEntry: EventEmitter<Entry> = new EventEmitter<Entry>();
+    @Output() updatedTea: EventEmitter<Tea> = new EventEmitter<Tea>();
     @Output() canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor() { }
@@ -94,6 +50,26 @@ export class TeaEditorComponent implements OnInit {
     ngOnInit() {
     }
 
+    createEntry(e: Entry) {
+        this.createdEntry.emit(e);
+    }
+
+    updateEntry(e: Entry) {
+        this.updatedEntry.emit(e);
+    }
+
+    updateTea(t: Tea) {
+        this.updatedTea.emit(t);
+    }
+
+    closeSession() {
+        this.updateEntry(new EntryBuilder()
+                .from(this.tea.latestEntry)
+                .sessionclosed(true)
+            .build());
+    }
+
+        /*
     addFixin(f: TeaFixins) {
         this.fixins.push(f);
     }
@@ -138,6 +114,7 @@ export class TeaEditorComponent implements OnInit {
         this.sessionClosed = true;
         this.updateEntry();
     }
+         */
 
     close() {
         this.canceled.emit(true);

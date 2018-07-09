@@ -2,129 +2,51 @@
     <h5 class="card-header">
         {{ tea.name }}
     </h5>
+
     <div class="card-body">
-        <div class="d-flex flex-column justify-content-around mx-1 mt-1" [ngClass]="{'invisible': tea === null}">
-            <!-- Time and steeptime -->
-            <div class="d-flex flex-row">
-                <hg-datetime [(value)]="dateTime"></hg-datetime>
-                <!--div class="input-wrapper collapse-lg">
-                    <input class="datetime" [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtlg" [owlDateTime]="dtlg">
-                    <owl-date-time class="collapse-lg" [pickerMode]="'dialog'" [hour12Timer]="false" #dtlg></owl-date-time>
-                </div>
-                <div class="input-wrapper collapse-sm">
-                    <input class="form-control datetime" [(ngModel)]="dateTime" [owlDateTimeTrigger]="dtsm" [owlDateTime]="dtsm">
-                    <owl-date-time class="collapse-sm" [hour12Timer]="false" #dtsm></owl-date-time>
-                </div-->
-                <hg-steep-time class="input-group input-group-sm mb-3 col-2"
-                               [(value)]="steeptime"></hg-steep-time>
-            </div>
-
-            <!-- Vessel and temperature -->
-            <div class="d-flex flex-row mb-3" *ngIf="continueSession">
-                in the {{ SteepingVessels[vessel] | lowercase }} at {{ temperature }}
-            </div>
-            <div class="d-flex flex-row mb-3" *ngIf="!continueSession">
-                <div ngbDropdown>
-                    <button id="dropdown-vessel"
-                            class="btn btn-sm btn-block btn-primary"
-                            ngbDropdownToggle>
-                        in the
-                        <span *ngIf="vessel != null">{{ SteepingVessels[vessel] | lowercase }}</span>
-                    </button>
-                    <div ngbDropdownMenu aria-labelledby="dropdown-vessel">
-                        <button class="dropdown-item text-capitalize"
-                                *ngFor="let t of teaVessels"
-                                (click)="vessel = SteepingVessels[t]">
-                            {{t}}
-                        </button>
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item text-capitalize"
-                                *ngFor="let t of SteepingVessels | enumValues"
-                                (click)="vessel = SteepingVessels[t]">
-                            {{t}}
-                        </button>
-                    </div>
-                </div>&nbsp;
-                at
-                <div class="input-group input-group-sm col-2 temperature">
-                    <input type="text" class="form-control" aria-label="Temperature in F" [(ngModel)]="temperature">
-                    <div class="input-group-append">
-                        <span class="input-group-text">&deg;F</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fixins -->
-            <div class="d-flex flex-row mb-3" *ngIf="enableFixins">
-                <div *ngIf="fixins.length > 0">
-                    with<span *ngFor="let f of fixins; let i = index"
-                 class="fixin"
-                 title="Remove {{ f | lowercase }}"
-                 (click)="removeFixin(f)"
-                 ><span *ngIf="i !== 0">,</span>&nbsp;<span *ngIf="fixins.length > 1 && i == fixins.length - 1">and&nbsp;</span>{{ f | lowercase }}</span>
-                </div>
-                <span *ngIf="fixins.length > 0">&nbsp;</span>
-                <div ngbDropdown class="d-inline-block">
-                    <button id="dropdown-fixins"
-                            class="btn btn-sm btn-block btn-primary"
-                            ngbDropdownToggle>
-                        <span *ngIf="fixins.length === 0">with</span>
-                        <span *ngIf="fixins.length > 0">and</span>
-                    </button>
-                    <div ngbDropdownMenu aria-labelledby="dropdown-fixins">
-                        <button class="dropdown-item text-capitalize"
-                                *ngFor="let f of TeaFixins | enumValues"
-                                (click)="addFixin(f)"
-                                >
-                                {{f}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rating -->
-            <div class="d-flex flex-row mb-3">
-                <hg-rating [(rating)]="rating" max="4" editable=true></hg-rating>
-            </div>
-
-            <!-- Comments -->
-            <div class="d-flex flex-row mb-3">
-                <textarea class="comments" placeholder="Comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
-            </div>
-        </div>
+        <ul class="nav nav-pills card-header-pills nav-fill">
+            <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#entries-{{tea.id}}">entries</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#teaedit-{{tea.id}}">tea</a></li>
+        </ul>
     </div>
 
-    <ul class="list-group list-group-flush" *ngIf="previousSessionEntries != null">
-        <li *ngFor="let e of previousSessionEntries" class="list-group-item small">
-            {{ e.datetime | date:'M/d@HHmm' }} for {{ e.steeptime | steeptime }}
-            <hg-rating style="float: right" [rating]="e.rating" max="4" [small]="true"></hg-rating>
-        </li>
-    </ul>
+    <div class="tab-content">
+        <div id="entries-{{tea.id}}" class="tab-pane active">
+            <ul class="list-group list-group-flush" *ngIf="previousSessionEntries != null">
+                <li *ngFor="let e of previousSessionEntries" class="list-group-item small">
+                    {{ e.datetime | date:'M/d@HHmm' }} for {{ e.steeptime | steeptime }}
+                    <hg-rating style="float: right" [rating]="e.rating" max="4" [small]="true"></hg-rating>
+                </li>
+            </ul>
 
-    <div class="card-footer">
-        <div class="btn-group btn-group-toggle mx-1" *ngIf="tea != null">
-            <input type="button"
-                   class="btn btn-sm btn-primary createbtn"
-                   (click)="createEntry()"
-                   value="Create">
-
-            <label class="btn-sm sessionbtn"
-                   [ngClass]="{'btn-success': !sessionClosed, 'btn-danger': sessionClosed}"
-                   ngbButtonLabel>
-                <input type="checkbox" ngbButton [(ngModel)]="sessionClosed">Session
-            </label>
+            <hg-entry-edit
+                [tea]="tea"
+                [cancelable]="cancelable"
+                (created)="createEntry($event)"
+                (updated)="updateEntry($event)"
+                (canceled)="close()"
+                >
+            </hg-entry-edit>
         </div>
 
-        <input *ngIf="continueSession"
-               type="button"
-               class="btn btn-sm btn-danger float-right"
-               (click)="closeSession()"
-               value="End session">
+        <div id="teaedit-{{tea.id}}" class="tab-pane">
+            <div class="card-body">
+                TODO
+            </div>
 
-        <input *ngIf="cancelable"
-               type="button"
-               class="btn btn-sm btn-danger float-right"
-               (click)="close()"
-               value="Close">
+            <div class="card-footer">
+                <input *ngIf="tea != null"
+                       type="button"
+                       class="btn btn-sm btn-primary createbtn"
+                       (click)="updateTea()"
+                       value="Update">
+
+                <input *ngIf="cancelable"
+                       type="button"
+                       class="btn btn-sm btn-danger float-right"
+                       (click)="close()"
+                       value="Close">
+            </div>
+        </div>
     </div>
 </div>

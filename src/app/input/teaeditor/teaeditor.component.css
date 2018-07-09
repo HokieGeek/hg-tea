@@ -1,37 +1,4 @@
-.temperature {
-    flex: 0 0 10%;
-    max-width: 10%;
-    min-width: 104px;
-}
-
-.datetime {
-    font-size: .875rem;
-    padding-top: .28rem;
-    padding-bottom: .28rem;
-}
-
-.fixin {
-    display: inline;
-}
-
-.fixin:hover {
-    cursor: pointer;
-    color: #ff0000;
-}
-
 @media (max-width: 499px) {
-    .datetime {
-        max-width: 40vw;
-    }
-
-    hg-steep-time {
-        min-width: 38vw;
-    }
-
-    .comments {
-        width: 100vw;
-    }
-
     .createbtn {
         width: 28vw;
     }
@@ -46,14 +13,6 @@
 }
 
 @media (min-width: 500px) {
-    hg-steep-time {
-        min-width: 10vw;
-    }
-
-    .comments {
-        width: 100%;
-    }
-
     .createbtn {
         width: 8vw;
     }

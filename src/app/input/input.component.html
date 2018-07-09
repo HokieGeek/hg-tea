@@ -45,8 +45,9 @@
             <hg-tea-editor
                 *ngFor="let t of selectedTeas"
                 [tea]="t"
-                [create]="true"
-                (created)="createEntry(t, $event)"
+                (createdEntry)="createEntry(t, $event)"
+                (updatedEntry)="updateEntry(t, $event)"
+                (updatedTea)="updateTea($event)"
                 (canceled)="unselectTea(t)">
             </hg-tea-editor>
 
@@ -60,12 +61,11 @@
             <hg-tea-editor
                 *ngFor="let t of teasWithOpenSessions"
                 [tea]="t"
-                [create]="true"
                 [cancelable]="false"
-                (created)="createEntry(t, $event)"
-                (updated)="updateEntry(t, $event)">
+                (createdEntry)="createEntry(t, $event)"
+                (updatedEntry)="updateEntry(t, $event)"
+                (updatedTea)="updateTea($event)">
             </hg-tea-editor>
         </div>
     </div>
 </div>
-
