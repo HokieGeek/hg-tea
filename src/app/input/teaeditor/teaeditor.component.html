@@ -24,29 +24,17 @@
                 [cancelable]="cancelable"
                 (created)="createEntry($event)"
                 (updated)="updateEntry($event)"
-                (canceled)="close()"
-                >
+                (canceled)="close()">
             </hg-entry-edit>
         </div>
 
         <div id="teaedit-{{tea.id}}" class="tab-pane">
-            <div class="card-body">
-                TODO
-            </div>
-
-            <div class="card-footer">
-                <input *ngIf="tea != null"
-                       type="button"
-                       class="btn btn-sm btn-primary createbtn"
-                       (click)="updateTea()"
-                       value="Update">
-
-                <input *ngIf="cancelable"
-                       type="button"
-                       class="btn btn-sm btn-danger float-right"
-                       (click)="close()"
-                       value="Close">
-            </div>
+            <hg-tea-edit
+                [tea]="tea"
+                [cancelable]="cancelable"
+                (updated)="updateTea($event)"
+                (canceled)="close()">
+            </hg-tea-edit>
         </div>
     </div>
 </div>

@@ -1,0 +1,16 @@
+.card-body {
+    padding: .25rem !important;
+}
+
+@media (max-width: 499px) {
+
+    .createbtn {
+        width: 28vw;
+    }
+}
+
+@media (min-width: 500px) {
+    .createbtn {
+        width: 8vw;
+    }
+}

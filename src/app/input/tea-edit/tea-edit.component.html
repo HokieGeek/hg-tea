@@ -1,3 +1,17 @@
-<p>
-  tea-edit works!
-</p>
+<div class="card-body">
+    TODO: EDIT A TEA
+</div>
+
+<div class="card-footer">
+    <input *ngIf="tea != null"
+     type="button"
+     class="btn btn-sm btn-primary createbtn"
+     (click)="update()"
+     value="Update">
+
+    <input *ngIf="cancelable"
+     type="button"
+     class="btn btn-sm btn-danger float-right"
+     (click)="close()"
+     value="Close">
+</div>
