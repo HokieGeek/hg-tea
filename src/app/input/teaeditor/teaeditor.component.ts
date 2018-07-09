@@ -21,7 +21,6 @@ export class TeaEditorComponent implements OnInit {
     private _tea: Tea = null;
 
     public previousSessionEntries: Entry[] = [];
-    public continueSession = false;
 
     @Input()
     set tea(t: Tea) {
@@ -32,7 +31,6 @@ export class TeaEditorComponent implements OnInit {
             this.previousSessionEntries = this._tea.entries
                 .filter(e => e.sessioninstance === sessionId)
                 .sort((a, b) => moment(a.datetime).diff(moment(b.datetime)));
-            this.continueSession = true;
         }
     }
 
@@ -61,60 +59,6 @@ export class TeaEditorComponent implements OnInit {
     updateTea(t: Tea) {
         this.updatedTea.emit(t);
     }
-
-    closeSession() {
-        this.updateEntry(new EntryBuilder()
-                .from(this.tea.latestEntry)
-                .sessionclosed(true)
-            .build());
-    }
-
-        /*
-    addFixin(f: TeaFixins) {
-        this.fixins.push(f);
-    }
-
-    removeFixin(f: TeaFixins) {
-        const index = this.fixins.indexOf(f, 0);
-        if (index > -1) {
-            this.fixins.splice(index, 1);
-        }
-    }
-
-    createEntry() {
-        let instance = uuid();
-        if (this.tea.latestEntry != null && !this.tea.latestEntry.sessionclosed) {
-            instance = this.tea.latestEntry.sessioninstance;
-        }
-
-        this.created.emit(new EntryBuilder()
-                .teaId(this.tea.id)
-                .comments(this.comments)
-                .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
-                .datetime(this.dateTime)
-                .rating(this.rating)
-                .pictures([])
-                .steeptime(this.steeptime)
-                .steepingvessel_idx(this.vessel)
-                .steeptemperature(+this.temperature)
-                .sessioninstance(instance)
-                .sessionclosed(this.sessionClosed)
-                .fixins(this.fixins.map(f => TeaFixins[f]))
-            .build());
-    }
-
-    updateEntry() {
-        this.updated.emit(new EntryBuilder()
-                .from(this.tea.latestEntry)
-                .sessionclosed(this.sessionClosed)
-            .build());
-    }
-
-    closeSession() {
-        this.sessionClosed = true;
-        this.updateEntry();
-    }
-         */
 
     close() {
         this.canceled.emit(true);

@@ -139,6 +139,13 @@ export class EntryEditComponent implements OnInit {
             .build());
     }
 
+    endSession() {
+        this.updated.emit(new EntryBuilder()
+                .from(this.tea.latestEntry)
+                .sessionclosed(true)
+            .build());
+    }
+
     close() {
         this.canceled.emit(true);
     }

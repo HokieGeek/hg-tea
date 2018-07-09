@@ -1,19 +1,5 @@
 @media (max-width: 499px) {
-    .createbtn {
-        width: 28vw;
-    }
-
-    .sessionbtn {
-        width: 20vw;
-    }
-
     .card-body {
         padding: .5rem;
-    }
-}
-
-@media (min-width: 500px) {
-    .createbtn {
-        width: 8vw;
     }
 }

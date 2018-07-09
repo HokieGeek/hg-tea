@@ -86,10 +86,10 @@
 <div class="card-footer">
     <div class="btn-group btn-group-toggle mx-1" *ngIf="tea != null">
         <input *ngIf="tea != null"
-         type="button"
-         class="btn btn-sm btn-primary createbtn"
-         (click)="createEntry()"
-         value="Create">
+               type="button"
+               class="btn btn-sm btn-primary createbtn"
+               (click)="createEntry()"
+               value="Create">
         <label class="btn-sm sessionbtn"
                [ngClass]="{'btn-success': !sessionClosed, 'btn-danger': sessionClosed}"
                ngbButtonLabel>
@@ -98,8 +98,14 @@
     </div>
 
     <input *ngIf="cancelable"
-                   type="button"
-                   class="btn btn-sm btn-danger float-right"
-                   (click)="close()"
-                   value="Close">
+           type="button"
+           class="btn btn-sm btn-danger float-right"
+           (click)="close()"
+           value="Close">
+
+    <input *ngIf="continueSession"
+           type="button"
+           class="btn btn-sm btn-danger float-right"
+           (click)="endSession()"
+           value="End session">
 </div>
