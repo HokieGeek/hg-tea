@@ -5,8 +5,8 @@
 
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs nav-fill">
-            <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#entries-{{tea.id}}">entries</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link disabled" href="#teaedit-{{tea.id}}">tea</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" [ngClass]="{'active': tea != null}" href="#entries-{{tea.id}}">entries</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" [ngClass]="{'active': tea == null}" href="#teaedit-{{tea.id}}">tea</a></li>
         </ul>
     </div>
 

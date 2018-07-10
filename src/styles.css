@@ -14,7 +14,7 @@
 }
 
 .page-link,
-.nav-pills .nav-link
+.nav-tabs, .nav-pills .nav-link
 {
     color: #0d1a2a;
 }
