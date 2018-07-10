@@ -26,7 +26,7 @@ cache:
     - sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
     - head dist/index.html
 
-build-snapshot:
+.build-snapshot:
   <<: *build-template
   variables:
     version_suffix: "SNAPSHOT"
@@ -67,6 +67,7 @@ lint:
 lint-warn:
   <<: *lint-template
   except:
+    - master
     - tags
   allow_failure: true
 
@@ -80,6 +81,11 @@ lint-warn:
     - apk add --no-cache chromium@edge nss@edge
   script:
     - npm run test
+  only:
+    - branches
+    - tags
+  except:
+    - master
   retry: 2
       # coverage: /TODO/
 
@@ -182,6 +188,9 @@ add-proxy-server:
     - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf $ADMIN_USER@hokiegeek.net:/tmp
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo mv /tmp/proxy-tea.conf /etc/hgproxy"
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo systemctl restart hgproxy.service hgproxydev.service"
+  only:
+    - branches
+    - tags
 
 ## Service restarter
 .service-restarter: &service-restarter
