@@ -33,6 +33,8 @@ import { TeaEditorComponent } from '../input/teaeditor/teaeditor.component';
 import { SteepTimeComponent } from '../input/steep-time/steep-time.component';
 import { TeacreateComponent } from '../input/teacreate/teacreate.component';
 import { DatetimeComponent } from '../input/datetime/datetime.component';
+import { EntryEditComponent } from '../input/entry-edit/entry-edit.component';
+import { TeaEditComponent } from '../input/tea-edit/tea-edit.component';
 
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
@@ -92,6 +94,8 @@ describe('TeasComponent', () => {
                 TeaEditorComponent,
                 TeacreateComponent,
                 DatetimeComponent,
+                EntryEditComponent,
+                TeaEditComponent,
             ],
             providers: [
                 HttpClient,

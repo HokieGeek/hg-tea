@@ -13,6 +13,8 @@ import { UnratedComponent } from './unrated/unrated.component';
 import { TeaEditorComponent } from './teaeditor/teaeditor.component';
 import { TeacreateComponent } from './teacreate/teacreate.component';
 import { DatetimeComponent } from './datetime/datetime.component';
+import { EntryEditComponent } from './entry-edit/entry-edit.component';
+import { TeaEditComponent } from './tea-edit/tea-edit.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 import { SteeptimePipe } from '../steeptime.pipe';
@@ -42,6 +44,8 @@ describe('InputComponent', () => {
                 SteeptimePipe,
                 TeacreateComponent,
                 DatetimeComponent,
+                EntryEditComponent,
+                TeaEditComponent,
             ],
             providers: [
                 SteeptimePipe,

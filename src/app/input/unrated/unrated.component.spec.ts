@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { UnratedComponent } from './unrated.component';
 import { RatingComponent } from '../../rating/rating.component';
 import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
 
+import { SteeptimePipe } from '../../steeptime.pipe';
 
 import { TestUtils } from '../../test-utils';
 
@@ -13,10 +15,14 @@ describe('UnratedComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                FormsModule,
+            ],
             declarations: [
                 UnratedComponent,
                 RatingComponent,
                 TeacupimgComponent,
+                SteeptimePipe,
             ]
         })
         .compileComponents();

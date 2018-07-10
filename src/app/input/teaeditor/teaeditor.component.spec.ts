@@ -7,6 +7,8 @@ import { SteepTimeComponent } from '../steep-time/steep-time.component';
 import { RatingComponent } from '../../rating/rating.component';
 import { TeacupimgComponent } from '../../teacupimg/teacupimg.component';
 import { DatetimeComponent } from '../datetime/datetime.component';
+import { EntryEditComponent } from '../entry-edit/entry-edit.component';
+import { TeaEditComponent } from '../tea-edit/tea-edit.component';
 
 import { EnumValuesPipe } from '../../enum-values.pipe';
 import { SteeptimePipe } from '../../steeptime.pipe';
@@ -32,6 +34,8 @@ describe('TeaEditorComponent', () => {
                 SteeptimePipe,
                 SteepTimeComponent,
                 DatetimeComponent,
+                EntryEditComponent,
+                TeaEditComponent,
             ]
         })
         .compileComponents();
