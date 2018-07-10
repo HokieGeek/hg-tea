@@ -85,11 +85,16 @@
 
 <div class="card-footer">
     <div class="btn-group btn-group-toggle mx-1" *ngIf="tea != null">
-        <input *ngIf="tea != null"
+        <input *ngIf="entry == null"
                type="button"
                class="btn btn-sm btn-primary createbtn"
                (click)="createEntry()"
                value="Create">
+        <input *ngIf="entry != null"
+               type="button"
+               class="btn btn-sm btn-primary createbtn"
+               (click)="updateEntry()"
+               value="Update">
         <label class="btn-sm sessionbtn"
                [ngClass]="{'btn-success': !sessionClosed, 'btn-danger': sessionClosed}"
                ngbButtonLabel>

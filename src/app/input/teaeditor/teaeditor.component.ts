@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewChecked, ElementRef, ViewChild  } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 import * as moment from 'moment';
 
@@ -12,15 +12,18 @@ import { SteeptimePipe } from '../../steeptime.pipe';
     templateUrl: './teaeditor.component.html',
     styleUrls: ['./teaeditor.component.css']
 })
-export class TeaEditorComponent implements OnInit {
+export class TeaEditorComponent implements OnInit, AfterViewChecked {
     TeaFixins = TeaFixins;
     SteepingVessels = SteepingVessels;
+
+    @ViewChild('entriesList') private entriesListEl: ElementRef;
 
     @Input() create = false;
     @Input() cancelable = true;
     private _tea: Tea = null;
+    private _entry: Entry = null;
 
-    public previousSessionEntries: Entry[] = [];
+    public sortedEntries: Entry[] = [];
 
     @Input()
     set tea(t: Tea) {
@@ -28,14 +31,25 @@ export class TeaEditorComponent implements OnInit {
 
         if (this._tea.entries.length > 0 && !this._tea.latestEntry.sessionclosed) {
             const sessionId = this._tea.latestEntry.sessioninstance;
-            this.previousSessionEntries = this._tea.entries
-                .filter(e => e.sessioninstance === sessionId)
+            this.sortedEntries = this._tea.entries
                 .sort((a, b) => moment(a.datetime).diff(moment(b.datetime)));
         }
     }
 
     get tea(): Tea {
         return this._tea;
+    }
+
+    set entry(e: Entry) {
+        if (e === this.entry) {
+            this._entry = null;
+        } else {
+            this._entry = e;
+        }
+    }
+
+    get entry(): Entry {
+        return this._entry;
     }
 
     @Output() createdEntry: EventEmitter<Entry> = new EventEmitter<Entry>();
@@ -46,6 +60,25 @@ export class TeaEditorComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+        this.scrollToBottom();
+    }
+
+    ngAfterViewChecked() {
+        this.scrollToBottom();
+    }
+
+    isEntrySelected(e: Entry): boolean {
+        return (e === this.entry);
+    }
+
+    scrollToBottom(): void {
+        if (this.entriesListEl != null) {
+            try {
+                this.entriesListEl.nativeElement.scrollTop = this.entriesListEl.nativeElement.scrollHeight;
+            } catch (err) {
+                console.error(err);
+            }
+        }
     }
 
     createEntry(e: Entry) {

@@ -1,3 +1,14 @@
+.list-group {
+    max-height: 8rem;
+    overflow-y: scroll;
+}
+
+.list-group-item.selected,
+.list-group-item:hover {
+    cursor: pointer;
+    background: #c0c0c0;
+}
+
 @media (max-width: 575px) {
     .card-body {
         padding: .5rem;

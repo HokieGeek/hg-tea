@@ -3,8 +3,10 @@
         {{ tea.name }}
     </h5>
     <div class="card-body">
-        <div class="card-text">{{ entry.datetime | date:'M/d@HHmm' }} for {{ entry.steeptime }}</div>
-        <hg-rating [(rating)]="rating" max="4" editable=true></hg-rating>
-        <textarea class="comments form-control mt-1" placeholder="Comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
+        <div class="card-text">
+            {{ entry.datetime | date:'M/d@HHmm' }} for {{ entry.steeptime | steeptime }}
+            <hg-rating style="float: right" [(rating)]="rating" max="4" editable=true></hg-rating>
+        </div>
+        <textarea class="comments form-control mt-2" placeholder="Comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
     </div>
 </div>

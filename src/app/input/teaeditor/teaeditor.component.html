@@ -12,10 +12,12 @@
 
     <div class="tab-content">
         <div id="entries-{{tea.id}}" class="tab-pane active">
-            <ul class="list-group list-group-flush" *ngIf="previousSessionEntries != null">
-                <li *ngFor="let e of previousSessionEntries"
+            <ul #entriesList class="list-group list-group-flush" *ngIf="sortedEntries != null">
+                <li *ngFor="let e of sortedEntries"
                     class="list-group-item small"
-                    [title]="e.comments">
+                    [ngClass]="{'selected': isEntrySelected(e)}"
+                    [title]="e.comments"
+                    (click)="entry = e">
                     {{ e.datetime | date:'M/d@HHmm' }} for {{ e.steeptime | steeptime }}
                     <hg-rating style="float: right" [rating]="e.rating" max="4" [small]="true"></hg-rating>
                 </li>
@@ -23,6 +25,7 @@
 
             <hg-entry-edit
                 [tea]="tea"
+                [entry]="entry"
                 [cancelable]="cancelable"
                 (created)="createEntry($event)"
                 (updated)="updateEntry($event)"

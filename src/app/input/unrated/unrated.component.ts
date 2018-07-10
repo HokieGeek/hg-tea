@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Tea, Entry, EntryBuilder } from '../../tea';
 
+import { SteeptimePipe } from '../../steeptime.pipe';
+
 @Component({
     selector: 'hg-unrated',
     templateUrl: './unrated.component.html',
