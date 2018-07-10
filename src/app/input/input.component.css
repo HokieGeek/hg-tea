@@ -24,9 +24,3 @@
         overflow-x: auto;
     }
 }
-
-@media (min-width: 576px) {
-    hg-tea-editor {
-        min-width: 310px;
-    }
-}

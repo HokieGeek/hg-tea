@@ -1,6 +1,18 @@
+/*
+@media (min-width: 576px) {
+    .card {
+        min-width: 310px !important;
+    }
+}
+*/
+
 .list-group {
     max-height: 8rem;
     overflow-y: scroll;
+}
+
+.list-group {
+    border-bottom: 1px solid #dfdfdf;
 }
 
 .list-group-item.selected,

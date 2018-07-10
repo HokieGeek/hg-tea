@@ -16,7 +16,7 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
     TeaFixins = TeaFixins;
     SteepingVessels = SteepingVessels;
 
-    @ViewChild('entriesList') private entriesListEl: ElementRef;
+    // @ViewChild('entriesList') private entriesListEl: ElementRef;
 
     @Input() create = false;
     @Input() cancelable = true;
@@ -30,7 +30,8 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
         this._tea = t;
 
         this.sortedEntries = this._tea.entries
-            .sort((a, b) => moment(a.datetime).diff(moment(b.datetime)));
+            .sort((a, b) => moment(b.datetime).diff(moment(a.datetime)));
+        // .sort((a, b) => moment(a.datetime).diff(moment(b.datetime)));
     }
 
     get tea(): Tea {
@@ -57,17 +58,18 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
     constructor() { }
 
     ngOnInit() {
-        this.scrollToBottom();
+        // this.scrollToBottom();
     }
 
     ngAfterViewChecked() {
-        this.scrollToBottom();
+        // this.scrollToBottom();
     }
 
     isEntrySelected(e: Entry): boolean {
         return (e === this.entry);
     }
 
+        /*
     scrollToBottom(): void {
         if (this.entriesListEl != null) {
             try {
@@ -77,6 +79,7 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
             }
         }
     }
+        */
 
     createEntry(e: Entry) {
         this.createdEntry.emit(e);
