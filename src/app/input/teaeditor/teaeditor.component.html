@@ -12,7 +12,7 @@
 
     <div class="tab-content">
         <div id="entries-{{tea.id}}" class="tab-pane active">
-            <ul #entriesList class="list-group list-group-flush" *ngIf="sortedEntries != null">
+            <ul #entriesList class="list-group list-group-flush" *ngIf="sortedEntries.length > 0">
                 <li *ngFor="let e of sortedEntries"
                     class="list-group-item small"
                     [ngClass]="{'selected': isEntrySelected(e)}"

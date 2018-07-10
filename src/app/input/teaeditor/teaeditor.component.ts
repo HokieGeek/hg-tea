@@ -29,11 +29,8 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
     set tea(t: Tea) {
         this._tea = t;
 
-        if (this._tea.entries.length > 0 && !this._tea.latestEntry.sessionclosed) {
-            const sessionId = this._tea.latestEntry.sessioninstance;
-            this.sortedEntries = this._tea.entries
-                .sort((a, b) => moment(a.datetime).diff(moment(b.datetime)));
-        }
+        this.sortedEntries = this._tea.entries
+            .sort((a, b) => moment(a.datetime).diff(moment(b.datetime)));
     }
 
     get tea(): Tea {
