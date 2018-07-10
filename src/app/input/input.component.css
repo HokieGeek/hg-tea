@@ -1,10 +1,10 @@
-@media (max-width: 499px) {
+@media (max-width: 575px) {
     .selecttea {
         width: 100vw;
     }
 }
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
     .selecttea {
         height: 97vh;
         overflow-y: scroll;
@@ -25,3 +25,8 @@
     }
 }
 
+@media (min-width: 576px) {
+    hg-tea-editor {
+        min-width: 310px;
+    }
+}

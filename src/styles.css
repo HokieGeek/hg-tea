@@ -19,7 +19,7 @@
     color: #0d1a2a;
 }
 
-@media (max-width: 499px) {
+@media (max-width: 575px) {
     .collapse-sm {
         display: none !important;
     }
@@ -28,7 +28,7 @@
     }
 }
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
     .collapse-lg {
         display: none !important;
     }

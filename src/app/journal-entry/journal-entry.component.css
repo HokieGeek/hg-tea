@@ -7,7 +7,7 @@
 }
 
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
     .card-title {
         font-family: 'PT Sans', sans-serif;
         font-size: 17px;
@@ -18,7 +18,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 575px) {
     .card-title {
         font-family: 'Roboto Condensed', sans-serif;
         font-size: 15px;

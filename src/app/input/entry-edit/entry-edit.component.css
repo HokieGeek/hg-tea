@@ -23,13 +23,17 @@
     color: #ff0000;
 }
 
-@media (max-width: 499px) {
+.card-footer {
+    padding: .75rem !important;
+}
+
+@media (max-width: 575px) {
     .datetime {
         max-width: 40vw;
     }
 
     hg-steep-time {
-        min-width: 38vw;
+        min-width: 50vw;
     }
 
     .comments {
@@ -37,15 +41,15 @@
     }
 
     .createbtn {
-        width: 28vw;
+        width: 25vw;
     }
 
     .sessionbtn {
-        width: 20vw;
+        width: 22vw;
     }
 }
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
     hg-steep-time {
         min-width: 10vw;
     }

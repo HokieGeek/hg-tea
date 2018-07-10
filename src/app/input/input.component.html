@@ -55,7 +55,7 @@
                 *ngFor="let e of unratedEntriesList"
                 [tea]="unratedEntries.get(e)"
                 [entry]="e"
-                (rated)="rateEntry(unratedEntries.get(e), e, $event)">
+                (updated)="updateEntry(unratedEntries.get(e), $event)">
             </hg-unrated>
 
             <hg-tea-editor

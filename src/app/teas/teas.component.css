@@ -2,7 +2,7 @@ aside {
     min-width: 205px;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
     aside {
         max-width: 205px;
     }

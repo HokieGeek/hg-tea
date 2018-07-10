@@ -3,8 +3,8 @@
         {{ tea.name }}
     </h5>
 
-    <div class="card-body">
-        <ul class="nav nav-pills card-header-pills nav-fill">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs nav-fill">
             <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#entries-{{tea.id}}">entries</a></li>
             <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#teaedit-{{tea.id}}">tea</a></li>
         </ul>
@@ -13,7 +13,9 @@
     <div class="tab-content">
         <div id="entries-{{tea.id}}" class="tab-pane active">
             <ul class="list-group list-group-flush" *ngIf="previousSessionEntries != null">
-                <li *ngFor="let e of previousSessionEntries" class="list-group-item small">
+                <li *ngFor="let e of previousSessionEntries"
+                    class="list-group-item small"
+                    [title]="e.comments">
                     {{ e.datetime | date:'M/d@HHmm' }} for {{ e.steeptime | steeptime }}
                     <hg-rating style="float: right" [rating]="e.rating" max="4" [small]="true"></hg-rating>
                 </li>

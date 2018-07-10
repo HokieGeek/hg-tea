@@ -2,15 +2,18 @@
     padding: .25rem !important;
 }
 
-@media (max-width: 499px) {
-
+@media (max-width: 575px) {
     .createbtn {
         width: 28vw;
     }
 }
 
-@media (min-width: 500px) {
+@media (min-width: 576px) {
     .createbtn {
         width: 8vw;
+    }
+
+    .card-footer {
+        padding: .75rem !important;
     }
 }

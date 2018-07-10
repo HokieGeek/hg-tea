@@ -53,7 +53,7 @@ export class InputComponent implements OnInit {
     set teas(t: Tea[]) {
         this._teas = t;
 
-        this.stockedTeas =  this._teas
+        this.stockedTeas = this._teas
             .filter(tea => tea.stocked)
             .sort((t1, t2) => {
                 const n1 = t1.name.toLowerCase();
@@ -69,6 +69,7 @@ export class InputComponent implements OnInit {
 
         this.teasWithOpenSessions = this._teas.filter(tea => tea.entries.length > 0 && !tea.latestEntry.sessionclosed);
 
+        this.unratedEntries.clear();
         for (const tea of this._teas) {
             for (const e of tea.entries) {
                 if (e.rating === 0) {
@@ -139,25 +140,6 @@ export class InputComponent implements OnInit {
 
     updateEntry(tea: Tea, entry: Entry) {
         this.teaDbService.updateJournalEntry(tea, entry);
-
-        const index = this.teasWithOpenSessions.indexOf(tea, 0);
-        if (index > -1) {
-            this.teasWithOpenSessions.splice(index, 1);
-        }
-
         setTimeout(() => { this.updateTeas(); }, 2000);
-    }
-
-    rateEntry(tea: Tea, entry: Entry, rating: number) {
-        this.teaDbService.updateJournalEntry(
-            tea,
-            new EntryBuilder()
-                .from(entry)
-                .rating(rating)
-            .build());
-
-        // Remove from list
-        this.unratedEntries.delete(entry);
-        this.unratedEntriesList = Array.from(this.unratedEntries.keys());
     }
 }

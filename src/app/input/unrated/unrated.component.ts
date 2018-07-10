@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Tea, Entry } from '../../tea';
+import { Tea, Entry, EntryBuilder } from '../../tea';
 
 @Component({
     selector: 'hg-unrated',
@@ -10,7 +10,9 @@ import { Tea, Entry } from '../../tea';
 export class UnratedComponent implements OnInit {
     @Input() tea: Tea;
     @Input() entry: Entry;
-    @Output() rated: EventEmitter<number> = new EventEmitter<number>();
+    @Output() updated: EventEmitter<Entry> = new EventEmitter<Entry>();
+
+    public comments: string;
 
     constructor() {}
 
@@ -23,7 +25,11 @@ export class UnratedComponent implements OnInit {
 
     set rating(rating: number) {
         if (rating !== 0) {
-            this.rated.emit(rating);
+            this.updated.emit(new EntryBuilder()
+                .from(this.entry)
+                .rating(rating)
+                .comments(this.comments)
+                .build());
         }
     }
 }
