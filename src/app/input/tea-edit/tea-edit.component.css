@@ -2,6 +2,10 @@
     padding: .25rem !important;
 }
 
+.row {
+    margin-bottom: 5px;
+}
+
 @media (max-width: 575px) {
     .createbtn {
         width: 28vw;

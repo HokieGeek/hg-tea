@@ -1,17 +1,120 @@
+<h5 class="card-header">
+    <input class="form-control" type="text" placeholder="Name" [(ngModel)]="name" />
+</h5>
+
 <div class="card-body">
-    TODO: EDIT A TEA
+    <div class="row">
+        <hg-datetime type="calendar" [(value)]="date"></hg-datetime>
+    </div>
+    <div class="row">
+        <input class="form-control" type="text" placeholder="type" [(ngModel)]="type" />
+    </div>
+    <div class="row">
+        <div class="col">
+            <input class="form-control" type="text" placeholder="region" [(ngModel)]="region" />
+        </div>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="country" [(ngModel)]="country" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input class="form-control" type="text" placeholder="flush" [(ngModel)]="flush" />
+        </div>
+        <div class="col">
+            <input class="form-control" type="text" placeholder="year" [(ngModel)]="year" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input class="form-control" type="text" placeholder="purchaselocation" [(ngModel)]="purchaselocation" />
+        </div>
+        <div class="col">
+            <hg-datetime type="calendar" [(value)]="purchasedate"></hg-datetime>
+        </div>
+        <div class="col input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+            </div>
+            <input class="form-control" type="text" placeholder="purchaseprice" [(ngModel)]="purchaseprice" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <input class="form-control" type="text" placeholder="size" [(ngModel)]="size" />
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+            <div ngbDropdown>
+                <button id="dropdown-packaging"
+                        class="btn btn-sm btn-block btn-primary"
+                        ngbDropdownToggle>
+                    <span *ngIf="packaging == null">Packaging</span>
+                    <span *ngIf="packaging != null">{{ TeaPackagingTypes[packaging] | lowercase }}</span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdown-packaging">
+                    <button class="dropdown-item text-capitalize"
+                            *ngFor="let t of TeaPackagingTypes | enumValues"
+                            (click)="packaging = t">
+                        {{t}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <input *ngFor="let p of pictures; let i = index" type="text" [(ngModel)]="pictures[i]" />
+        <button class="btn btn-sm btn-block btn-primary" (click)="addPicture()">Add picture...</button>
+    </div>
+    <div class="row">
+        <textarea class="form-control" placeholder="comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
+    </div>
+    <div class="row">
+        <div class="btn-group btn-group-toggle mx-1">
+            <label class="btn-sm"
+                   [ngClass]="{'btn-success': stocked, 'btn-danger': !stocked}"
+                   ngbButtonLabel>
+                <input type="checkbox" ngbButton [(ngModel)]="stocked">stocked
+            </label>
+        </div>
+        <div class="btn-group btn-group-toggle mx-1">
+            <label class="btn-sm"
+                   [ngClass]="{'btn-success': aging, 'btn-danger': !aging}"
+                   ngbButtonLabel>
+                <input type="checkbox" ngbButton [(ngModel)]="aging">aging
+            </label>
+        </div>
+        <div class="btn-group btn-group-toggle mx-1">
+            <label class="btn-sm"
+                   [ngClass]="{'btn-success': sample, 'btn-danger': !sample}"
+                   ngbButtonLabel>
+                <input type="checkbox" ngbButton [(ngModel)]="sample">sample
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <input class="form-control" type="text" placeholder="leafgrade" [(ngModel)]="leafgrade" />
+    </div>
 </div>
 
 <div class="card-footer">
+    <input *ngIf="tea == null"
+           type="button"
+           class="btn btn-sm btn-primary createbtn"
+           (click)="create()"
+           value="Create">
+
     <input *ngIf="tea != null"
-     type="button"
-     class="btn btn-sm btn-primary createbtn"
-     (click)="update()"
-     value="Update">
+           type="button"
+           class="btn btn-sm btn-primary createbtn"
+           (click)="update()"
+           value="Update">
 
     <input *ngIf="cancelable"
-     type="button"
-     class="btn btn-sm btn-danger float-right"
-     (click)="close()"
-     value="Close">
+           type="button"
+           class="btn btn-sm btn-danger float-right"
+           (click)="close()"
+           value="Close">
 </div>

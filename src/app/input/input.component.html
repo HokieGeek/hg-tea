@@ -36,11 +36,17 @@
         </aside>
 
         <div class="col card-columns py-1">
-            <hg-tea-create
+            <!--hg-tea-create
                 *ngFor="let t of newTeas"
                 (created)="createTea(t, $event)"
                 (canceled)="removeTeaCreator(t)">
-            </hg-tea-create>
+            </hg-tea-create-->
+
+            <hg-tea-editor
+                *ngFor="let t of newTeas"
+                (createdTea)="createTea(t, $event)"
+                (canceled)="removeTeaCreator(t)">
+            </hg-tea-editor>
 
             <hg-tea-editor
                 *ngFor="let t of selectedTeas"

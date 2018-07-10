@@ -2,10 +2,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 import * as moment from 'moment';
 
-import { Tea, Entry, EntryBuilder, TeaFixins, SteepingVessels } from '../../tea';
+import { Tea, Entry, EntryBuilder, SteepingVessels } from '../../tea';
 
 import { EnumValuesPipe } from '../../enum-values.pipe';
 import { SteeptimePipe } from '../../steeptime.pipe';
+
+enum TeaFixins {'Milk', 'Cream', 'Half & Half',
+                'Sugar', 'Brown Sugar', 'Raw Sugar',
+                'Honey', 'Vanilla Extract', 'Vanilla Bean',
+                'Maple Cream', 'Maple Sugar', 'Chai Goop', 'Ice'}
 
 @Component({
     selector: 'hg-entry-edit',

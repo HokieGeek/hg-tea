@@ -91,7 +91,7 @@ export class TestUtils {
             .size((Math.random() * 500) + 1)
             .stocked((Math.random() >= 0.5))
             .aging((Math.random() >= 0.5))
-            .packaging_idx(0)
+            .packaging('FOOBAR')
             .sample(false)
             .build();
     }

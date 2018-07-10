@@ -36,7 +36,6 @@ import { TeacupimgComponent } from './teacupimg/teacupimg.component';
 import { SteepTimeComponent } from './input/steep-time/steep-time.component';
 import { UnratedComponent } from './input/unrated/unrated.component';
 import { TeaEditorComponent } from './input/teaeditor/teaeditor.component';
-import { TeacreateComponent } from './input/teacreate/teacreate.component';
 import { DatetimeComponent } from './input/datetime/datetime.component';
 import { EntryEditComponent } from './input/entry-edit/entry-edit.component';
 import { TeaEditComponent } from './input/tea-edit/tea-edit.component';
@@ -87,7 +86,6 @@ describe('HgTeaComponent', () => {
                 SteepTimeComponent,
                 UnratedComponent,
                 TeaEditorComponent,
-                TeacreateComponent,
                 DatetimeComponent,
                 EntryEditComponent,
                 TeaEditComponent,

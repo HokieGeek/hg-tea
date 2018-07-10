@@ -1,7 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { TeaEditComponent } from './tea-edit.component';
+import { EnumValuesPipe } from '../../enum-values.pipe';
+import { DatetimeComponent } from '../datetime/datetime.component';
 
 import { TestUtils } from '../../test-utils';
 
@@ -13,8 +16,14 @@ describe('TeaEditComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 FormsModule,
+                OwlDateTimeModule,
+                OwlNativeDateTimeModule,
             ],
-            declarations: [ TeaEditComponent ]
+            declarations: [
+                TeaEditComponent,
+                EnumValuesPipe,
+                DatetimeComponent,
+            ]
         })
         .compileComponents();
     }));

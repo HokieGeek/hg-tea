@@ -1,8 +1,8 @@
 import * as moment from 'moment';
 
-export enum TeaPackagingTypes {'Loose Leaf', 'Bagged', 'Tuo', 'Beeng', 'Brick', 'Mushroom', 'Square'}
-enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
-enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush'}
+// enum TeaPackagingTypes {'Loose Leaf', 'Bagged', 'Tuo', 'Beeng', 'Brick', 'Mushroom', 'Square'}
+// enum teaFlushTypesDefault {'Spring', 'Summer', 'Fall', 'Winter'}
+// enum teaFlushTypesIndian {'1st Flush', '2nd Flush', 'Monsoon Flush', 'Autumn Flush'}
 
 export enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Sugar', 'Brown Sugar', 'Raw Sugar',
@@ -220,7 +220,7 @@ export class TeaDbEntry {
     public size: number;
     public stocked = false;
     public aging = false;
-    public packaging_idx: number;
+    public packaging: string;
     public sample = false;
     public entries: JournalDbEntry[] = [];
 
@@ -322,10 +322,6 @@ export class Tea {
         return this.dbentry.aging;
     }
 
-    get packaging_idx(): number {
-        return this.dbentry.packaging_idx;
-    }
-
     get sample(): boolean {
         return this.dbentry.sample;
     }
@@ -374,7 +370,7 @@ export class Tea {
     }
 
     get packaging() {
-        return TeaPackagingTypes[this.packaging_idx - 1];
+        return this.dbentry.packaging;
     }
 
     get ratingAvg(): number {
@@ -529,8 +525,8 @@ export class TeaBuilder {
         return this;
     }
 
-    public packaging_idx(val: number): TeaBuilder {
-        this.dbentry.packaging_idx = val;
+    public packaging(val: string): TeaBuilder {
+        this.dbentry.packaging = val;
         return this;
     }
 

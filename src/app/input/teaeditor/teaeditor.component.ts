@@ -18,7 +18,6 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
 
     // @ViewChild('entriesList') private entriesListEl: ElementRef;
 
-    @Input() create = false;
     @Input() cancelable = true;
     private _tea: Tea = null;
     private _entry: Entry = null;
@@ -52,6 +51,7 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
 
     @Output() createdEntry: EventEmitter<Entry> = new EventEmitter<Entry>();
     @Output() updatedEntry: EventEmitter<Entry> = new EventEmitter<Entry>();
+    @Output() createdTea: EventEmitter<Tea> = new EventEmitter<Tea>();
     @Output() updatedTea: EventEmitter<Tea> = new EventEmitter<Tea>();
     @Output() canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -87,6 +87,10 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
 
     updateEntry(e: Entry) {
         this.updatedEntry.emit(e);
+    }
+
+    createTea(t: Tea) {
+        this.createdTea.emit(t);
     }
 
     updateTea(t: Tea) {

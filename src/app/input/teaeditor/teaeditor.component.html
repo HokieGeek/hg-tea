@@ -1,18 +1,18 @@
 <div class="card">
-    <h5 class="card-header">
+    <h5 class="card-header" *ngIf="tea != null">
         {{ tea.name }}
     </h5>
 
-    <div class="card-header">
+    <div class="card-header" *ngIf="tea != null">
         <ul class="nav nav-tabs card-header-tabs nav-fill">
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" [ngClass]="{'active': tea != null}" href="#entries-{{tea.id}}">entries</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link disabled" [ngClass]="{'active': tea == null}" href="#teaedit-{{tea.id}}">tea</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#entries-{{tea.id}}">entries</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#teaedit-{{tea.id}}">tea</a></li>
         </ul>
     </div>
 
     <div class="tab-content">
-        <div id="entries-{{tea.id}}" class="tab-pane active">
-            <ul #entriesList class="list-group list-group-flush" *ngIf="sortedEntries.length > 0">
+        <div [attr.id]="tea != null ? 'entries-'+tea.id : null" class="tab-pane active" *ngIf="tea != null">
+            <ul class="list-group list-group-flush" *ngIf="sortedEntries.length > 0">
                 <li *ngFor="let e of sortedEntries"
                     class="list-group-item small"
                     [ngClass]="{'selected': isEntrySelected(e)}"
@@ -33,10 +33,11 @@
             </hg-entry-edit>
         </div>
 
-        <div id="teaedit-{{tea.id}}" class="tab-pane">
+        <div [attr.id]="tea != null ? 'teaedit-'+tea.id : null" class="tab-pane" [ngClass]="{'active': tea == null}">
             <hg-tea-edit
                 [tea]="tea"
                 [cancelable]="cancelable"
+                (created)="createTea($event)"
                 (updated)="updateTea($event)"
                 (canceled)="close()">
             </hg-tea-edit>

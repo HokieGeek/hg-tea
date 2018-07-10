@@ -29,7 +29,7 @@ describe('tea entry', () => {
         const size = 250;
         const stocked = true ;
         const aging = true ;
-        const packaging_idx = 0;
+        const packaging = 'FOOBAR';
         const sample = false;
 
         it('should create', () => {
@@ -54,7 +54,7 @@ describe('tea entry', () => {
                 .size(size)
                 .stocked(stocked)
                 .aging(aging)
-                .packaging_idx(packaging_idx)
+                .packaging(packaging)
                 .sample(sample)
                 .build();
 
@@ -83,7 +83,7 @@ describe('tea entry', () => {
                 .size(size)
                 .stocked(stocked)
                 .aging(aging)
-                .packaging_idx(packaging_idx)
+                .packaging(packaging)
                 .sample(sample)
                 .build();
 
@@ -107,7 +107,7 @@ describe('tea entry', () => {
             expect(tea.size).toBe(size);
             expect(tea.stocked).toBe(stocked);
             expect(tea.aging).toBe(aging);
-            expect(tea.packaging_idx).toBe(packaging_idx); // TODO
+            expect(tea.packaging).toBe(packaging); // TODO
         });
     });
 
