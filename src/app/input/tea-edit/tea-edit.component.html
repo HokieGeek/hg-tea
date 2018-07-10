@@ -2,14 +2,14 @@
     <input class="form-control" type="text" placeholder="Name" [(ngModel)]="name" />
 </h5>
 
-<div class="card-body">
-    <div class="row">
+<div class="card-body d-flex flex-column justify-content-around">
+    <div class="d-flex flex-row">
         <hg-datetime type="calendar" [(value)]="date"></hg-datetime>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <input class="form-control" type="text" placeholder="type" [(ngModel)]="type" />
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <div class="col">
             <input class="form-control" type="text" placeholder="region" [(ngModel)]="region" />
         </div>
@@ -17,7 +17,7 @@
             <input class="form-control" type="text" placeholder="country" [(ngModel)]="country" />
         </div>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <div class="col">
             <input class="form-control" type="text" placeholder="flush" [(ngModel)]="flush" />
         </div>
@@ -25,7 +25,7 @@
             <input class="form-control" type="text" placeholder="year" [(ngModel)]="year" />
         </div>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <div class="col">
             <input class="form-control" type="text" placeholder="purchaselocation" [(ngModel)]="purchaselocation" />
         </div>
@@ -39,7 +39,7 @@
             <input class="form-control" type="text" placeholder="purchaseprice" [(ngModel)]="purchaseprice" />
         </div>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <div class="col">
             <div class="input-group mb-3">
                 <input class="form-control" type="text" placeholder="size" [(ngModel)]="size" />
@@ -64,14 +64,14 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <input *ngFor="let p of pictures; let i = index" type="text" [(ngModel)]="pictures[i]" />
         <button class="btn btn-sm btn-block btn-primary" (click)="addPicture()">Add picture...</button>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <textarea class="form-control" placeholder="comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <div class="btn-group btn-group-toggle mx-1">
             <label class="btn-sm"
                    [ngClass]="{'btn-success': stocked, 'btn-danger': !stocked}"
@@ -94,7 +94,7 @@
             </label>
         </div>
     </div>
-    <div class="row">
+    <div class="d-flex flex-row">
         <input class="form-control" type="text" placeholder="leafgrade" [(ngModel)]="leafgrade" />
     </div>
 </div>
@@ -116,5 +116,5 @@
            type="button"
            class="btn btn-sm btn-danger float-right"
            (click)="close()"
-           value="Close">
+           [value]="tea == null ? 'Cancel' : 'Close'">
 </div>

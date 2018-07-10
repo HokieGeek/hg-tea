@@ -21,7 +21,6 @@ export class TeaDbService {
     }
 
     createTeaEntry(tea: Tea) {
-        console.log('createTeaEntry()', tea);
         const url = this.host + '/' + this.teaEndpoint + '/' + tea.id;
         this.http.post(url, tea.dbentry).subscribe(res => console.log(res));
         // TODO: update the entire thing?
