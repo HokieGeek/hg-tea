@@ -120,7 +120,7 @@ export class InputComponent implements OnInit {
     }
 
     updateTea(tea: Tea) {
-        // TODO
+        this.teaDbService.updateTeaEntry(tea);
         this.unselectTea(tea);
         setTimeout(() => { this.updateTeas(); }, 2000);
     }

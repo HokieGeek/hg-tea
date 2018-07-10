@@ -113,6 +113,25 @@ export class TeaEditComponent implements OnInit {
     update() {
         this.updated.emit(new TeaBuilder()
             .from(this._tea)
+            .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
+            .name(this.name)
+            .date(this.date)
+            .type(this.type)
+            .region(this.region)
+            .country(this.country)
+            .year(+this.year)
+            .flush(this.flush)
+            .purchaselocation(this.purchaselocation)
+            .purchasedate(this.purchasedate)
+            .purchaseprice(+this.purchaseprice)
+            .comments(this.comments)
+            .pictures(this.pictures)
+            .leafgrade(this.leafgrade)
+            .packaging(TeaPackagingTypes[this.packaging])
+            .size(+this.size)
+            .stocked(this.stocked || false)
+            .aging(this.aging || false)
+            .sample(this.sample || false)
             .build());
     }
 
