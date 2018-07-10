@@ -8,6 +8,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class DatetimeComponent implements OnInit {
     private _value = new Date();
 
+    public hour12 = false;
+
+    @Input() type = 'both';
+
     @Input()
     set value(v: Date) {
         this._value = v;
