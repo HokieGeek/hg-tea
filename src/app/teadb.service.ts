@@ -60,6 +60,11 @@ export class TeaDbService {
         this.http.put(url, tea.dbentry).subscribe();
     }
 
+    deleteTeaEntry(tea: Tea) {
+        const url = this.host + '/' + this.teaEndpoint + '/' + tea.id;
+        this.http.delete(url).subscribe();
+    }
+
     createJournalEntry(tea: Tea, e: Entry) {
         const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry';
         this.http.post(url, e.dbentry).subscribe();
