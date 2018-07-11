@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { throwError, timer } from 'rxjs';
+import { tap, switchMap, catchError } from 'rxjs/operators';
 
 import { Tea } from '../tea';
 import { TeaDbService } from '../teadb.service';
@@ -20,6 +20,8 @@ export class TeasComponent implements OnInit {
     @Input() teas: Tea[] = [];
     private _errorMsg: any = null;
 
+    private updateRateMs = 5000;
+
     constructor(private teaDbService: TeaDbService) {}
 
     get errorMsg(): any {
@@ -32,19 +34,21 @@ export class TeasComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.updateTeas();
-        // setTimeout(() => { this.updateTeas(); }, 5000);
-    }
-
-    private updateTeas() {
-        // console.log('updateTeas()');
-        this.teaDbService.teasWithEntries
-            .pipe(catchError(err => {
+        timer(0, this.updateRateMs)
+            .pipe(switchMap(() => this.teaDbService.teasWithEntries))
+            .pipe(
+                tap(val => {
+                    if (!environment.production) {
+                        console.log('updating teas', new Date());
+                    }
+                }),
+                catchError(err => {
                     if (!environment.production && (err.status === 404 || err.status === 0)) {
                         this.teas = TestUtils.createDummyTeasWithEntries();
                     }
                     return throwError(err);
-                }))
+                })
+            )
             .subscribe(
                 teas => this.teas = teas,
                 err => this.errorMsg = err
