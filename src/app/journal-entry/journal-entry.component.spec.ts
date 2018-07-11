@@ -67,11 +67,16 @@ describe('JournalEntryComponent', () => {
         expect(has).toBe(expected);
     });
 
-    it('temperature is correct', () => {
-        const has = fixture.debugElement.query(By.css('#temperature')).nativeElement.innerHTML;
-        const expected = document.createElement('span').innerHTML = '&nbsp;at ' + component.entry.steeptemperature + ' °F';
-        expect(has).toBe(expected);
-    });
+    it('temperature is correct', async(() => {
+        component.entry = new EntryBuilder().from(component.entry).steeptemperature(203).build();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(result => {
+            const has = fixture.debugElement.query(By.css('#temperature')).nativeElement.innerHTML;
+            const expected = document.createElement('span').innerHTML = '&nbsp;at ' + component.entry.steeptemperature + ' °F';
+            expect(has).toBe(expected);
+        });
+    }));
 
     it('comments field is correct', () => {
         const has = fixture.debugElement.query(By.css('#comments')).nativeElement.childNodes.item(0).nodeValue;
