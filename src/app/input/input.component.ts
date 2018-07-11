@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { v4 as uuid } from 'uuid';
 import * as moment from 'moment';
+import { throwError, timer } from 'rxjs';
+import { tap, switchMap, catchError } from 'rxjs/operators';
 
 import { Tea, TeaBuilder, Entry, EntryBuilder, TeaFixins, SteepingVessels } from '../tea';
 import { TeaDbService } from '../teadb.service';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
+
+import { environment } from '../../environments/environment';
 
 import { TestUtils } from '../test-utils';
 
@@ -44,10 +48,30 @@ export class InputComponent implements OnInit {
     public selectedTeas: Tea[] = [];
     public newTeas: number[] = [];
 
+    private updateRateMs = 5000;
+
     constructor(private teaDbService: TeaDbService) {}
 
     ngOnInit() {
-        this.updateTeas();
+        timer(0, this.updateRateMs)
+            .pipe(switchMap(() => this.teaDbService.teasWithEntries))
+            .pipe(
+                tap(val => {
+                    if (!environment.production) {
+                        console.log('updating teas', new Date());
+                    }
+                }),
+                catchError(err => {
+                    if (!environment.production && (err.status === 404 || err.status === 0)) {
+                        this.teas = TestUtils.createDummyTeasWithEntries();
+                    }
+                    return throwError(err);
+                })
+            )
+            .subscribe(
+                teas => this.teas = teas,
+                err => this.errorMsg = err
+            );
     }
 
     set teas(t: Tea[]) {
@@ -84,7 +108,6 @@ export class InputComponent implements OnInit {
         return this._teas;
     }
 
-    // TODO
     get tea(): Tea {
         return this.input.tea;
     }
@@ -100,29 +123,18 @@ export class InputComponent implements OnInit {
         }
     }
 
-    private updateTeas() {
-        // this.tea_database = TestUtils.createDummyTeasWithEntries();
-        this.teaDbService.teasWithEntries.subscribe(
-            teas => this.teas = teas,
-            err => this.errorMsg = err
-        );
-    }
-
     getNextTeaId(): number {
         return this._teas.map(t => t.id).reduce((max, cur) => max = cur > max ? cur : max, 0) + 1;
     }
 
     createTea(newTeaId: number, tea: Tea) {
-        // console.log(tea);
         this.teaDbService.createTeaEntry(new TeaBuilder().from(tea).id(this.getNextTeaId()).build());
         this.removeTeaCreator(newTeaId);
-        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 
     updateTea(tea: Tea) {
         this.teaDbService.updateTeaEntry(tea);
         this.unselectTea(tea);
-        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 
     removeTeaCreator(newTeaId: number) {
@@ -135,11 +147,9 @@ export class InputComponent implements OnInit {
     createEntry(tea: Tea, entry: Entry) {
         this.teaDbService.createJournalEntry(tea, entry);
         this.unselectTea(tea);
-        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 
     updateEntry(tea: Tea, entry: Entry) {
         this.teaDbService.updateJournalEntry(tea, entry);
-        setTimeout(() => { this.updateTeas(); }, 2000);
     }
 }
