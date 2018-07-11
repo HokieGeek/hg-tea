@@ -1,30 +1,34 @@
-<hg-journal-entry *ngFor="let entry of displayedEntries" [entry]="entry"></hg-journal-entry>
+<div class="card-body px-1 py-1">
+    <ul class="list-group list-group-flush">
+        <hg-journal-entry *ngFor="let entry of displayedEntries" [entry]="entry"></hg-journal-entry>
+    </ul>
 
-<span class="btn-group btn-group-toggle mx-1" *ngIf="sortedEntries.length > 1">
-    <button type="button"
-            class="btn btn-outline-secondary btn-sm"
-            [ngClass]="{'disabled': displayedEntriesEnd <= 1}"
-            (click)="lessEntries(5)"
-            title="Remove oldest 5 entries">
+    <span class="btn-group btn-group-toggle mt-2" *ngIf="sortedEntries.length > 1">
+        <button type="button"
+                class="btn btn-outline-secondary btn-sm"
+                [ngClass]="{'disabled': displayedEntriesEnd <= 1}"
+                (click)="lessEntries(5)"
+                title="Remove oldest 5 entries">
             -
-    </button>
-    <button *ngIf="displayedEntriesEnd < sortedEntries.length - 1"
-            type="button"
-            class="btn btn-outline-secondary btn-sm"
-            (click)="allEntries()">
+        </button>
+        <button *ngIf="displayedEntriesEnd < sortedEntries.length - 1"
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="allEntries()">
             All {{ sortedEntries.length }}
-    </button>
-    <button *ngIf="displayedEntriesEnd >= sortedEntries.length - 1"
-            type="button"
-            class="btn btn-outline-secondary btn-sm"
-            (click)="rollup()">
+        </button>
+        <button *ngIf="displayedEntriesEnd >= sortedEntries.length - 1"
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="rollup()">
             Latest
-    </button>
-    <button type="button"
-            class="btn btn-outline-secondary btn-sm"
-            [ngClass]="{'disabled': displayedEntriesEnd >= sortedEntries.length - 1}"
-            (click)="moreEntries(5)"
-            title="Add 5 more entries">
+        </button>
+        <button type="button"
+                class="btn btn-outline-secondary btn-sm"
+                [ngClass]="{'disabled': displayedEntriesEnd >= sortedEntries.length - 1}"
+                (click)="moreEntries(5)"
+                title="Add 5 more entries">
             +
-    </button>
-</span>
+        </button>
+    </span>
+</div>

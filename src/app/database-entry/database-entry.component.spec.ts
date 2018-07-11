@@ -91,7 +91,9 @@ describe('DatabaseEntryComponent', () => {
                 if (elems[i].attributes['class'].indexOf('card-body') < 0
                     && elems[i].attributes['class'].indexOf('card-footer') < 0
                     && elems[i].attributes['class'].indexOf('card-header') < 0
-                    && elems[i].attributes['class'].indexOf('card-img-top') < 0) {
+                    && elems[i].attributes['class'].indexOf('card-img-top') < 0
+                    && elems[i].attributes['class'].indexOf('tab-content') < 0) {
+                    console.log('db-e: Found an unexpected element: ', elems);
                     fail('Found an unexpected element');
                 }
             }

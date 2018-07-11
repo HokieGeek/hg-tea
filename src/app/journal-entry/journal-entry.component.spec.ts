@@ -49,7 +49,7 @@ describe('JournalEntryComponent', () => {
     });
 
     it('fixins list makes sense', () => {
-        const has = fixture.debugElement.query(By.css('.card-subtitle')).nativeElement.innerHTML;
+        const has = fixture.debugElement.query(By.css('#fixins')).nativeElement.innerHTML;
         const expected = document.createElement('div').innerHTML = '&nbsp;with&nbsp;'
             + component.fixinsStr.replace(/&/gi, '&amp;').toLowerCase();
         expect(has).toBe(expected);
@@ -152,80 +152,80 @@ describe('JournalEntryComponent', () => {
         // - in the card-text  a bunch of spans:
         //    steeptime, vessel, temperature, comments and ratings
         // - ratings only has teacupimg elements
-        it('card is only top-level element', () => {
+        it('li is only top-level element', () => {
             // > Check top element
             const elems = TestUtils.filterDebugNodes(fixture.debugElement.childNodes);
             for (const i in elems) {
-                if (elems[i].name !== 'div' || elems[i].attributes['class'].indexOf('card') < 0) {
+                if (elems[i].name !== 'li' || elems[i].attributes['class'].indexOf('list-group-item') < 0) {
                     fail('Found an unexpected element');
                 }
             }
             expect(elems.length).toBe(1);
         });
 
-        it('children of card are only a card-body and a footer', () => {
+        it('children of li are only a thing and a footer', () => {
             // > One card with one body and one footer
-            const elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('.card')).childNodes);
-            expect(elems.length).toBe(1);
+            const elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('.list-group-item')).childNodes);
+            expect(elems.length).toBe(4);
 
             for (const i in elems) {
-                if (elems[i].attributes['class'].indexOf('card-body') < 0) {
+                if (elems[i].name !== 'div') {
                     fail('Found an unexpected element');
                 }
             }
         });
 
-        describe('card-body composition', () => {
-            let cardBody: DebugElement;
+        describe('composition', () => {
+            let entryBody: DebugElement;
 
             const elemPosCardTitle = 0;
             const elemPosCardSubtitle = 1;
             const elemPosCardText = 2;
 
             beforeEach(() => {
-                cardBody = fixture.debugElement.query(By.css('.card-body'));
+                entryBody = fixture.debugElement.query(By.css('li'));
             });
 
             it('expected number of subelements', () => {
-                const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
-                expect(elems.length).toBe(5);
+                const elems = TestUtils.filterDebugNodes(entryBody.childNodes);
+                expect(elems.length).toBe(4);
             });
 
-            it('card-title exists and is first element', () => {
-                const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+            it('title exists and is first element', () => {
+                const elems = TestUtils.filterDebugNodes(entryBody.childNodes);
                 const elem = elems[elemPosCardTitle];
-                expect(elem.attributes['class'].indexOf('card-title')).not.toBeLessThan(0);
+                expect(elem.attributes['id'].indexOf('title')).not.toBeLessThan(0);
                 expect(elem.name).toBe('div');
             });
 
-            xit('card-title has no child elements', () => {
-                const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+            xit('title has no child elements', () => {
+                const elems = TestUtils.filterDebugNodes(entryBody.childNodes);
                 const children = TestUtils.filterDebugNodes(elems[elemPosCardTitle].childNodes);
                 expect(children.length).toBe(0);
             });
 
-            it('card-subtitle exists and is second element', () => {
-                const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+            it('subtitle exists and is second element', () => {
+                const elems = TestUtils.filterDebugNodes(entryBody.childNodes);
                 const elem = elems[elemPosCardSubtitle];
-                expect(elem.attributes['class'].indexOf('card-subtitle')).not.toBeLessThan(0);
+                expect(elem.attributes['id'].indexOf('fixins')).not.toBeLessThan(0);
                 expect(elem.name).toBe('div');
             });
 
-            it('card-subtitle has no child elements', () => {
-                const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+            it('subtitle has no child elements', () => {
+                const elems = TestUtils.filterDebugNodes(entryBody.childNodes);
                 const children = TestUtils.filterDebugNodes(elems[elemPosCardSubtitle].childNodes);
                 expect(children.length).toBe(0);
             });
 
             xit('card-text exists and is third element', () => {
-                const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                const elems = TestUtils.filterDebugNodes(entryBody.childNodes);
                 const elem = elems[elemPosCardText];
                 expect(elem.attributes['class'].indexOf('card-text')).not.toBeLessThan(0);
                 expect(elem.name).toBe('div');
             });
 
             xit('card-text has at least one child element', () => {
-                const elems = TestUtils.filterDebugNodes(cardBody.childNodes);
+                const elems = TestUtils.filterDebugNodes(entryBody.childNodes);
                 const children = TestUtils.filterDebugNodes(elems[elemPosCardText].childNodes);
                 expect(children.length).toBeGreaterThan(0);
             });
@@ -233,7 +233,7 @@ describe('JournalEntryComponent', () => {
             xit('card-text only has expected elements', () => {
                 let numExpectedElemChildren = 0;
                 let countNonExpectedElements = 0;
-                const elems = TestUtils.filterDebugNodes(cardBody.query(By.css('.card-text')).childNodes);
+                const elems = TestUtils.filterDebugNodes(entryBody.query(By.css('.card-text')).childNodes);
                 for (let i = elems.length - 1; i >= 0; i--) {
                     switch (elems[i].attributes['id']) {
                         case 'steeptime': numExpectedElemChildren = 0; break;

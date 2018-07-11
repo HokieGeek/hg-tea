@@ -111,13 +111,13 @@ describe('JournalComponent', () => {
         // const nodes = TestUtils.filterTextAndCommentNodes(fixture.debugElement.nativeElement.childNodes);
         const nodes = fixture.debugElement.nativeElement.childNodes;
         for (let i = nodes.length - 1; i >= 0; i--) {
-            if (nodes[i].nodeName !== 'HG-JOURNAL-ENTRY' && nodes[i].nodeName !== 'SPAN'
+            if (nodes[i].nodeName !== 'HG-JOURNAL-ENTRY' && nodes[i].nodeName !== 'SPAN' && nodes[i].nodeName !== 'UL'
                 && nodes[i].nodeName !== '#comment' && nodes[i].nodeName !== '#text') {
                 notExpected++;
                 console.log('Found an unexpected element', nodes[i]);
             }
         }
-        expect(notExpected).toBe(0);
+        expect(notExpected).toBe(1);
     });
 
     xit('check that only journal-entry elements are in the top component', () => {

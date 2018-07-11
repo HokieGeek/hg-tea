@@ -1,22 +1,24 @@
-<input type="hidden" name="id" value="{{tea.id}}" />
+<div class="card-body">
+    <input type="hidden" name="id" value="{{tea.id}}" />
 
-<p class="card-text type-country" *ngIf="tea.country || tea.type">
+    <p class="card-text type-country" *ngIf="tea.country || tea.type">
     <span *ngIf="tea.type">
         {{tea.type}}
         <span *ngIf="tea.country"> from </span>
     </span>
     <span *ngIf="tea.region">{{tea.region}}, </span>
     {{tea.country}}
-</p>
+    </p>
 
-<hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
+    <hg-purchase-info class="class-text" *ngIf="tea.purchaseprice" [tea]="tea"></hg-purchase-info>
 
-<p class="card-text comments">
+    <p class="card-text comments">
     <span class="card-text" *ngIf="tea.comments">{{tea.comments}}</span>
-</p>
+    </p>
 
-<!--
-    blendedteas: string[]
-    blendratio: string[]
-    aging: boolean
--->
+    <!--
+        blendedteas: string[]
+        blendratio: string[]
+        aging: boolean
+    -->
+</div>
