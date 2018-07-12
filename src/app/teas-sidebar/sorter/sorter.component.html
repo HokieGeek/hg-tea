@@ -7,7 +7,7 @@
         </div>
 
         <div class="row" *ngIf="availableFields().length > 0">
-            <div ngbDropdown class="btn-block" *ngIf="availableFields().length > 0">
+            <div ngbDropdown class="btn-block" title="Click to add more fields" *ngIf="availableFields().length > 0">
                 <button id="dropdown-more" class="btn btn-sm btn-block btn-outline-secondary" ngbDropdownToggle>+</button>
                 <div ngbDropdownMenu aria-labelledby="dropdown-more">
                     <button class="dropdown-item"
