@@ -7,6 +7,6 @@
             {{ entry.datetime | date:'M/d@HHmm' }} for {{ entry.steeptime | steeptime }}
             <hg-rating style="float: right" [(rating)]="rating" max="4" editable=true></hg-rating>
         </div>
-        <textarea class="comments form-control mt-2" placeholder="Comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
+        <textarea class="comments form-control mt-2 w-100" placeholder="Comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
     </div>
 </div>
