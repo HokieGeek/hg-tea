@@ -7,8 +7,8 @@
                     ngbDropdownToggle>
                 Select a tea
             </button>
-            <div ngbDropdownMenu aria-labelledby="dropdown-tea">
-                <button class="dropdown-item text-capitalize"
+            <div id="dropdown-tea-list" ngbDropdownMenu aria-labelledby="dropdown-tea">
+                <button class="dropdown-item"
                         (click)="newTeas.push(newTeas.length)">
                     Create new tea...
                 </button>
@@ -23,7 +23,7 @@
 
         <!-- SELECT TEA (larger devices) -->
         <aside class="selecttea col-sm-3 collapse-sm">
-            <div class="tea-list-item pl-1 text-capitalize"
+            <div class="tea-list-item pl-1"
                  (click)="newTeas.push(newTeas.length)">
                 Create new tea...
             </div>
