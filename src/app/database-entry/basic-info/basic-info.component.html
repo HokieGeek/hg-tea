@@ -3,7 +3,7 @@
 
     <p class="card-text type-country" *ngIf="tea.country || tea.type">
     <span *ngIf="tea.type">
-        {{tea.type}}
+        {{tea.type | titlecase}}
         <span *ngIf="tea.country"> from </span>
     </span>
     <span *ngIf="tea.region">{{tea.region}}, </span>

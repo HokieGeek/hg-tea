@@ -14,4 +14,8 @@ export class PurchaseInfoComponent implements OnInit {
 
     ngOnInit() {
     }
+
+    get packagingNotLooseLeaf(): boolean {
+        return this.tea.packaging != null && this.tea.packaging.toLowerCase() !== 'loose leaf';
+    }
 }

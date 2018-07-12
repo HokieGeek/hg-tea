@@ -1,10 +1,12 @@
 <p class="card-text purchase-info" *ngIf="tea.purchaseprice">
     Purchased
-    <span *ngIf="tea.size">a {{tea.size}}</span>
+    <span *ngIf="tea.size">
+        <span *ngIf="packagingNotLooseLeaf">a</span>
+        {{tea.size}}g
+        <span *ngIf="tea.packaging != null && !packagingNotLooseLeaf">as loose leaf</span>
+        <span *ngIf="packagingNotLooseLeaf">{{tea.packaging | lowercase}}</span>
+    </span>
     <span *ngIf="tea.purchaselocation"> from {{tea.purchaselocation | lowercase}}</span>
-    <span *ngIf="tea.purchasedate"> on {{tea.purchasedate}}</span>
+    <span *ngIf="tea.purchasedate"> on {{tea.purchasedate | date:'yyyy-MM-dd'}}</span>
      for {{tea.purchaseprice | currency:'USD':'$'}}
-    <!--
-    packaging: string
-    -->
 </p>
