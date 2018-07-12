@@ -11,7 +11,9 @@
             </h6>
         </div>
 
-        <hg-rating class="float-right avg" [rating]="entriesRating()" max=4 *ngIf="tea.entries.length > 0"></hg-rating>
+        <div class="w-100 text-right">
+            <hg-rating class="avg" [rating]="entriesRating()" max=4 *ngIf="tea.entries.length > 0"></hg-rating>
+        </div>
     </div>
 
     <div class="card-header">
