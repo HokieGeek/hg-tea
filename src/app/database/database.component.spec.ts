@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { DatabaseComponent } from './database.component';
 import { DatabaseEntryComponent } from '../database-entry/database-entry.component';
@@ -59,6 +60,7 @@ describe('DatabaseComponent', () => {
                 AppRoutingModule,
                 OwlDateTimeModule,
                 OwlNativeDateTimeModule,
+                ChartsModule,
             ],
             declarations: [
                 RatingComponent,

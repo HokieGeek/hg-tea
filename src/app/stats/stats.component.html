@@ -6,57 +6,65 @@
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
 </div>
 
-<div class="card-deck my-1" *ngIf="teas.length > 0">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">You've spent how much?!</h5>
-            <div class="card-text container">
-                <div class="row">I have only spent&nbsp;<b>{{ totalSpent | currency:'USD':'$' }}</b>.</div>
-                <div class="row">Currently have&nbsp;<b>{{ totalSpentStocked | currency:'USD':'$' }}</b>&nbsp;stocked.</div>
-                <div class="row">Which is about&nbsp;<b>{{ totalSpentPerCup | currency:'USD':'$' }}</b>&nbsp;per cup.</div>
+<div class="my-1" *ngIf="teas.length > 0">
+    <div class="card-columns">
+        <div class="card">
+            <h5 class="card-header">You've spent how much?!</h5>
+            <div class="card-body">
+                <div class="card-text container">
+                    <div class="row">I have only spent&nbsp;<b>{{ totalSpent | currency:'USD':'$' }}</b>.</div>
+                    <div class="row">Currently have&nbsp;<b>{{ totalSpentStocked | currency:'USD':'$' }}</b>&nbsp;stocked.</div>
+                    <div class="row">Which is about&nbsp;<b>{{ totalSpentPerCup | currency:'USD':'$' }}</b>&nbsp;per cup.</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Gonna pee my pants</h5>
+        <!--div class="card">
+            <h5 class="card-header">Gonna pee my pants</h5>
+            <div class="card-body">
             <p class="card-text">TODO</p>
-        </div>
+            </div>
+         </div-->
+         <div class="card">
+             <h5 class="card-header">Top ten best values</h5>
+             <div class="card-body">
+                 <div class="card-text">
+                     <ul>
+                         <li *ngFor="let tea of topTenBestValues">{{tea.name}} ({{tea.pricePerCup | currency}})</li>
+                     </ul>
+                 </div>
+             </div>
+         </div>
+         <div class="card">
+             <h5 class="card-header">Top ten worst values</h5>
+             <div class="card-body">
+                 <div class="card-text">
+                     <ul>
+                         <li *ngFor="let tea of topTenWorstValues">{{tea.name}} ({{tea.pricePerCup | currency}})</li>
+                     </ul>
+                 </div>
+             </div>
+         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Top ten best values</h5>
+    <div class="card" style="width: 1500px">
+        <h5 class="card-header">Tea drinking frequency</h5>
+        <div class="card-body w-100">
             <div class="card-text">
-                <ul>
-                    <li *ngFor="let tea of topTenBestValues">{{tea.name}} ({{tea.pricePerCup | currency}})</li>
-                </ul>
+                <canvas baseChart width="1200" height="700"
+                        chartType="bar"
+                        [legend]="false"
+                        [options]="defaultBarChartOptions"
+                        [datasets]="drinkingFrequencyData"
+                        [labels]="drinkingFrequencyLabels"
+                        ></canvas>
             </div>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Top ten worst values</h5>
-            <div class="card-text">
-                <ul>
-                    <li *ngFor="let tea of topTenWorstValues">{{tea.name}} ({{tea.pricePerCup | currency}})</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="card w-100">
-        <div class="card-body">
-            <h5 class="card-title">Tea drinking frequency</h5>
-            <div class="card-text">
-                <canvas #drinkingFrequency></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="card w-100">
+    <!--div class="card w-100">
         <div class="card-body">
             <h5 class="card-title">Pu-erh ratings by region</h5>
             <div class="card-text">
-                <canvas #pu-erh-regions></canvas>
+                <canvas #puerhregions></canvas>
             </div>
         </div>
-    </div>
+    </div-->
 </div>

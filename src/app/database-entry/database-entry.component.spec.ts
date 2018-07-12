@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { DatabaseEntryComponent } from './database-entry.component';
 import { PurchaseInfoComponent } from '../purchase-info/purchase-info.component';
@@ -27,7 +28,8 @@ describe('DatabaseEntryComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 NgbModule.forRoot(),
-                FormsModule
+                FormsModule,
+                ChartsModule,
             ],
             declarations: [
                 RatingComponent,

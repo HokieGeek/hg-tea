@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -53,6 +54,7 @@ import { StatsComponent } from './stats/stats.component';
         AppRoutingModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
+        ChartsModule,
     ],
     declarations: [
         HgTeaComponent,

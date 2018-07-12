@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { StatsComponent } from './stats.component';
 
@@ -9,7 +10,10 @@ describe('StatsComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ HttpClientModule ],
+            imports: [
+                HttpClientModule,
+                ChartsModule,
+            ],
             declarations: [ StatsComponent ],
             providers: [ HttpClient ]
         })

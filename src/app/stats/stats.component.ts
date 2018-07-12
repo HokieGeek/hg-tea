@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import Chart from 'chart.js';
+import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
+import * as Chart from 'chart.js';
 
 import { Tea } from '../tea';
 import { TeaDbService } from '../teadb.service';
@@ -14,12 +15,33 @@ export class StatsComponent implements OnInit {
     private _teas: Tea[] = [];
     private _errorMsg: any = null;
 
-    @ViewChild('drinkingFrequency') drinkingFrequency: ElementRef;
-
     constructor(private teaDbService: TeaDbService) {}
+
+
+    public defaultBarChartOptions = {
+        scaleShowVerticalLines: false,
+        responsive: true
+    };
+
+    // DrinkingFreq Chart
+    public drinkingFrequencyData: Array<any> = [];
+    public drinkingFrequencyLabels: Array<any> = [];
+
+    public lineChartColors: Array<any> = [
+      { // grey
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      }
+    ];
 
     set teas(t: Tea[]) {
         this._teas = t;
+
+        this.populateDrinkingFrequency(this._teas);
     }
 
     get teas(): Tea[] {
@@ -66,111 +88,19 @@ export class StatsComponent implements OnInit {
         return this.teasByPricePerCup.reverse().slice(0, 10);
     }
 
-    private drawDrinkingFrequency() {
-        const ctx = this.drinkingFrequency.nativeElement.getContext('2d');
-
-        /*
-        var data = {
-            labels: [
-                "Value A",
-                "Value B"
-            ],
-            datasets: [
-                {
-                    "data": [101342, 55342],   // Example data
-                    "backgroundColor": [
-                        "#1fc8f8",
-                        "#76a346"
-                    ]
-                }]
-        };
-
-        var chart = new Chart(
-            ctx,
-            {
-                "type": 'line',
-                "data": data,
-                "options": {
-                    "cutoutPercentage": 50,
-                    "animation": {
-                        "animateScale": true,
-                        "animateRotate": false
-                    }
-                }
+    private populateDrinkingFrequency(teas: Tea[]) {
+        let dateCount = new Map<string, number>();
+        teas.forEach(t => t.entries.forEach(e => {
+            const d = moment(e.datetime).format('YYYY-M-D');
+            let count = 1;
+            if (dateCount.has(d)) {
+                count = dateCount.get(d) + 1;
             }
-        );
-    }
-        */
+            dateCount.set(d, count);
+        }));
 
-        /*
-		function randomNumber(min, max) {
-			return Math.random() * (max - min) + min;
-		}
-
-		function randomBar(date, lastClose) {
-			var open = randomNumber(lastClose * 0.95, lastClose * 1.05);
-			var close = randomNumber(open * 0.95, open * 1.05);
-			return {
-				t: date.valueOf(),
-				y: close
-			};
-		}
-
-		var dateFormat = 'MMMM DD YYYY';
-		var date = moment('April 01 2017', dateFormat);
-		var data = [randomBar(date, 30)];
-		var labels = [date];
-		while (data.length < 60) {
-			date = date.clone().add(1, 'd');
-			if (date.isoWeekday() <= 5) {
-				data.push(randomBar(date, data[data.length - 1].y));
-				labels.push(date);
-			}
-		}
-
-		var ctx = document.getElementById('chart1').getContext('2d');
-		ctx.canvas.width = 1000;
-		ctx.canvas.height = 300;
-		var cfg = {
-			type: 'bar',
-			data: {
-				labels: labels,
-				datasets: [{
-					label: 'CHRT - Chart.js Corporation',
-					data: data,
-					type: 'line',
-					pointRadius: 0,
-					fill: false,
-					lineTension: 0,
-					borderWidth: 2
-				}]
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						type: 'time',
-						distribution: 'series',
-						ticks: {
-							source: 'labels'
-						}
-					}],
-					yAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: 'Closing price ($)'
-						}
-					}]
-				}
-			}
-		};
-		var chart = new Chart(ctx, cfg);
-
-		document.getElementById('update').addEventListener('click', function() {
-			var type = document.getElementById('type').value;
-			chart.config.data.datasets[0].type = type;
-			chart.update();
-		});
-
-    */
+        dateCount = new Map(Array.from(dateCount.entries()).sort());
+        this.drinkingFrequencyData = [ {data: Array.from(dateCount.values()), label: 'Daily numbers'}, ];
+        this.drinkingFrequencyLabels = Array.from(dateCount.keys());
     }
 }
