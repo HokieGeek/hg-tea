@@ -19,6 +19,10 @@
     color: #0d1a2a;
 }
 
+.progress-bar {
+    background-color: #a59e8c;
+}
+
 @media (max-width: 575px) {
     .collapse-sm {
         display: none !important;
