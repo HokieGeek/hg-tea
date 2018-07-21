@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "serve": "ng serve --base-href . --prod --configuration production",
     "build": "ng build --base-href . --prod --build-optimizer --configuration production",
     "test": "ng test --browsers ChromeHeadlessNoSandbox --watch=false --code-coverage",
     "test-dev": "CHROME_BIN=/usr/bin/google-chrome-stable ng test --browsers Chrome --code-coverage --watch --source-map=false",
