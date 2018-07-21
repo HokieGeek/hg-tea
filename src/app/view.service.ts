@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import * as moment from 'moment';
 
 import { Tea } from './tea';
 
@@ -348,6 +349,14 @@ class View {
         });
         s.assignField(sorterRecentEntries, SortDirection.DESC);
 
+        s.addFieldComparator('Name', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) {
+                return t2.name.localeCompare(t1.name);
+            } else {
+                return t1.name.localeCompare(t2.name);
+            }
+        });
+
         s.addFieldComparator('Ratings (Median)', (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.ratingMedian - t1.ratingMedian;
@@ -385,6 +394,22 @@ class View {
                 return t2.purchaseprice - t1.purchaseprice;
             } else { // Sort oldest to newest
                 return t1.purchaseprice - t2.purchaseprice;
+            }
+        });
+
+        s.addFieldComparator('Purchase date', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) { // Sort newest to oldest
+                return moment.utc(t2.purchasedate).diff(moment.utc(t1.purchasedate));
+            } else { // Sort oldest to newest
+                return moment.utc(t1.purchasedate).diff(moment.utc(t2.purchasedate));
+            }
+        });
+
+        s.addFieldComparator('Price per cup', (t1, t2: Tea, dir: SortDirection): number => {
+            if (dir === SortDirection.DESC) { // Sort newest to oldest
+                return t2.pricePerCup - t1.pricePerCup;
+            } else { // Sort oldest to newest
+                return t1.pricePerCup - t2.pricePerCup;
             }
         });
     }
