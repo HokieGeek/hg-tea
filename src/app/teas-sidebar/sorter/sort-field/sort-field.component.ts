@@ -16,9 +16,8 @@ export class SortFieldComponent implements OnInit {
     ngOnInit() {
     }
 
-    get directionDesc(): boolean {
-        // return this.sorter.getSortDirection(this.name) === SortDirection.DESC ? '↓' : '↑';
-        return this.sorter.getSortDirection(this.name) === SortDirection.DESC;
+    label() {
+        return this.name + ' ' + (this.sorter.getSortDirection(this.name) === SortDirection.DESC ? '↓' : '↑');
     }
 
     get sorter(): Sorter {

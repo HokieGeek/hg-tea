@@ -1,8 +1,8 @@
 <div class="btn-group w-100">
-    <button type="button" title="Click to change sort direction"
+    <button type="button"
             class="btn btn-sm btn-block btn-primary"
             (click)="sorter.toggleSortDirection(name)">
-        {{name}} <i class="fa" [ngClass]="{'fa-angle-double-down': directionDesc, 'fa-angle-double-up': !directionDesc}"></i>
+            {{ label() }}
     </button>
 
     <button type="button"

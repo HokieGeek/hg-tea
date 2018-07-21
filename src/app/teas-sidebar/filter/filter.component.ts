@@ -31,9 +31,7 @@ export class FilterComponent implements OnInit {
     }
 
     private teaFields(m: (t) => any): string[] {
-        return this.teas.map(m)
-            .filter((value, index, self) => self.indexOf(value) === index && value.length > 0)
-            .sort((a, b) => a.localeCompare(b));
+        return this.teas.map(m).filter((value, index, self) => self.indexOf(value) === index); // TODO: filter out blanks
     }
 
     populateFields() {

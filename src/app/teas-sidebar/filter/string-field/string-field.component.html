@@ -16,11 +16,15 @@
     </div>
     <div class="row">
         <ul *ngIf="filter.hasStrings(name)">
-            <li *ngFor="let value of filter.stringField(name)"
-                class="text-capitalize"
-                title="Click to remove this value"
-                (click)="filter.withoutString(name, value)">
+            <li *ngFor="let value of filter.stringField(name)" class="text-capitalize">
                 <small>{{value}}</small>
+                <button type="button"
+                        class="close"
+                        aria-label="Remove"
+                        title="Remove this value"
+                        (click)="filter.withoutString(name, value)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </li>
         </ul>
     </div>
