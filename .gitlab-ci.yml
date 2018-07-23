@@ -188,8 +188,10 @@ add-proxy-server:
     - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf $ADMIN_USER@hokiegeek.net:/tmp
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo mv /tmp/proxy-tea.conf /etc/hgproxy"
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo systemctl restart hgproxy.service hgproxydev.service"
+  only:
+    - tags
   except:
-    - master
+    - branches
 
 ## Service restarter
 .service-restarter: &service-restarter
@@ -201,7 +203,7 @@ add-proxy-server:
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
   retry: 1
 
-restart-service-dev:
+.restart-service-dev:
   <<: *service-restarter
   variables:
     SERVICE: hgteadev.service
