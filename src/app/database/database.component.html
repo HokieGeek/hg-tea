@@ -8,10 +8,10 @@
     </div>
 </div>
 
-<hg-paginator [pages]="pages" [current]="currentPage" (change)="pageChange($event)"></hg-paginator>
+<hg-paginator [pages]="pages" [current]="currentPage" (change)="pageChange($event)" *ngIf="processedTeas.length > 0"></hg-paginator>
 
 <div class="card-deck">
     <hg-database-entry *ngFor="let tea of teasOnCurrentPage" [tea]="tea"></hg-database-entry>
 </div>
 
-<hg-paginator [pages]="pages" [current]="currentPage" (change)="pageChange($event)"></hg-paginator>
+<hg-paginator [pages]="pages" [current]="currentPage" (change)="pageChange($event)" *ngIf="processedTeas.length > 0"></hg-paginator>
