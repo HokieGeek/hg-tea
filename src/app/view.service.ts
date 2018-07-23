@@ -268,6 +268,25 @@ export class Sorter {
 }
 
 class View {
+    static sorterRecentEntries = 'Recent entries';
+    static sorterName = 'Name';
+    static sorterRatingsMedian = 'Ratings (Median)';
+    static sorterRatingsAverage = 'Ratings (Average)';
+    static sorterYear = 'Year';
+    static sorterNumberOfEntries = 'Number of entries';
+    static sorterPurchasePrice = 'Purchase price';
+    static sorterPurchaseDate = 'Purchase date';
+    static sorterPricePerCup = 'Price per cup';
+
+    static filterTeaType = 'Tea Type';
+    static filterStocked = 'Stocked';
+    static filterWithEntries = 'With entries';
+    static filterCountries = 'Countries';
+    static filterSample = 'Sample';
+    static filterPurchaseLocation = 'Purchase location';
+    static filterRegion = 'Region';
+    static filterAging = 'Aging';
+
     static Stored = class {
         public name: string;
         public filter: string;
@@ -292,45 +311,45 @@ class View {
     }
 
     private addFilters(f: Filter) {
-        f.addStringField('Tea Type', (strings: string[], tea: Tea): boolean => {
+        f.addStringField(View.filterTeaType, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.type);
         });
 
-        f.addFlagField('Stocked', (flag: FilterFlag, tea: Tea): boolean => {
+        f.addFlagField(View.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.stocked)
                 || (flag === FilterFlag.EXCLUDED && !tea.stocked));
         });
 
-        f.addFlagField('With entries', (flag: FilterFlag, tea: Tea): boolean => {
+        f.addFlagField(View.filterWithEntries, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.entries.length > 0)
                 || (flag === FilterFlag.EXCLUDED && tea.entries.length === 0));
         });
 
-        f.addStringField('Countries', (strings: string[], tea: Tea): boolean => {
+        f.addStringField(View.filterCountries, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.country.toLowerCase());
         });
 
-        f.addFlagField('Sample', (flag: FilterFlag, tea: Tea): boolean => {
+        f.addFlagField(View.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.sample)
                 || (flag === FilterFlag.EXCLUDED && !tea.sample));
         });
 
-        f.addStringField('Purchase location', (strings: string[], tea: Tea): boolean => {
+        f.addFlagField(View.filterAging, (flag: FilterFlag, tea: Tea): boolean => {
+            return ((flag === FilterFlag.ONLY && tea.aging)
+                || (flag === FilterFlag.EXCLUDED && !tea.aging));
+        });
+
+        f.addStringField(View.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.purchaselocation.toLowerCase());
         });
 
-        f.addStringField('Purchase location', (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.purchaselocation.toLowerCase());
-        });
-
-        f.addStringField('Region', (strings: string[], tea: Tea): boolean => {
+        f.addStringField(View.filterRegion, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.region.toLowerCase());
         });
     }
 
     private addSorters(s: Sorter) {
-        const sorterRecentEntries = 'Recent entries';
-        s.addFieldComparator(sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
             if (t1.latestEntry == null && t2.latestEntry == null) {
                 return 0;
             } else if (t1.latestEntry == null && t2.latestEntry != null) {
@@ -347,9 +366,8 @@ class View {
                 }
             }
         });
-        s.assignField(sorterRecentEntries, SortDirection.DESC);
 
-        s.addFieldComparator('Name', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterName, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.name.localeCompare(t1.name);
             } else {
@@ -357,7 +375,7 @@ class View {
             }
         });
 
-        s.addFieldComparator('Ratings (Median)', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterRatingsMedian, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.ratingMedian - t1.ratingMedian;
             } else {
@@ -365,7 +383,7 @@ class View {
             }
         });
 
-        s.addFieldComparator('Ratings (Average)', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterRatingsAverage, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.ratingAvg - t1.ratingAvg;
             } else {
@@ -373,7 +391,7 @@ class View {
             }
         });
 
-        s.addFieldComparator('Year', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterYear, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.year - t1.year;
             } else {
@@ -381,7 +399,7 @@ class View {
             }
         });
 
-        s.addFieldComparator('Number of entries', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterNumberOfEntries, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.entries.length - t1.entries.length;
             } else { // Sort oldest to newest
@@ -389,7 +407,7 @@ class View {
             }
         });
 
-        s.addFieldComparator('Purchase price', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterPurchasePrice, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.purchaseprice - t1.purchaseprice;
             } else { // Sort oldest to newest
@@ -397,7 +415,7 @@ class View {
             }
         });
 
-        s.addFieldComparator('Purchase date', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterPurchaseDate, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return moment.utc(t2.purchasedate).diff(moment.utc(t1.purchasedate));
             } else { // Sort oldest to newest
@@ -405,7 +423,7 @@ class View {
             }
         });
 
-        s.addFieldComparator('Price per cup', (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(View.sorterPricePerCup, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.pricePerCup - t1.pricePerCup;
             } else { // Sort oldest to newest
@@ -441,33 +459,53 @@ class View {
 export class ViewService {
     private storageKey = 'hg-tea-views';
     private active: View;
-    private views: Map<string, View> = new Map<string, View>();
+    private defaultViews: Map<string, View> = new Map<string, View>();
+    private userViews: Map<string, View> = new Map<string, View>();
     public changed: EventEmitter<any> = new EventEmitter();
 
     constructor() {
         // localStorage.removeItem(this.storageKey);
-        this.setActiveView(new View(''));
-        this.retrieveViews();
+        const v = new View('');
+        v.sorter.assignField(View.sorterRecentEntries, SortDirection.DESC);
+        this.setActiveView(v);
+        this.createDefaultViews();
+        this.retrieveStoredViews();
     }
 
     private storeViews(): void {
         const stored: Map<string, string> = new Map<string, string>();
-        this.views.forEach((view, name) => {
+        this.userViews.forEach((view, name) => {
             const v: View = view;
             stored.set(name, v.stringify());
         });
         localStorage.setItem(this.storageKey, JSON.stringify(Array.from(stored.entries())));
     }
 
-    private retrieveViews(): void {
-        this.views.clear();
+    private retrieveStoredViews(): void {
+        this.userViews.clear();
         const stored = new Map<string, string>(JSON.parse(localStorage.getItem(this.storageKey)));
         stored.forEach((sv, name) => {
             const v = new View().parse(sv);
             // console.log('retrieved view:', v);
-            this.views.set(name, v);
+            this.userViews.set(name, v);
             // this.views.set(name, new View().parse(sv));
         });
+    }
+
+    private createDefaultViews(): void {
+        // ToDrink
+        const toDrink = new View('Untried');
+        toDrink.sorter.assignField(View.sorterPurchaseDate, SortDirection.ASC);
+        toDrink.filter.withFlagOnly(View.filterStocked);
+        toDrink.filter.withFlagExcluded(View.filterWithEntries);
+        toDrink.filter.withFlagExcluded(View.filterAging);
+        this.defaultViews.set(toDrink.name, toDrink);
+
+        // ToDrink
+        const aging = new View('Aging');
+        aging.sorter.assignField(View.sorterPurchaseDate, SortDirection.ASC);
+        aging.filter.withFlagOnly(View.filterAging);
+        this.defaultViews.set(aging.name, aging);
     }
 
     private setActiveView(view: View): void {
@@ -480,24 +518,33 @@ export class ViewService {
     save(): boolean {
         if (this.active.name.length > 0) {
             // console.log('current view:', this.active);
-            this.views.set(this.active.name, this.active.clone());
+            this.userViews.set(this.active.name, this.active.clone());
             this.storeViews();
             return true;
         }
         return false;
     }
 
-    load(name: string): boolean {
-        if (this.views.has(name)) {
-            this.setActiveView(this.views.get(name).clone());
+    loadDefaultView(name: string): boolean {
+        if (this.defaultViews.has(name)) {
+            this.setActiveView(this.defaultViews.get(name).clone());
             this.changed.emit();
             return true;
         }
         return false;
     }
 
-    remove(name: string): boolean {
-        if (this.views.delete(name)) {
+    loadUserView(name: string): boolean {
+        if (this.userViews.has(name)) {
+            this.setActiveView(this.userViews.get(name).clone());
+            this.changed.emit();
+            return true;
+        }
+        return false;
+    }
+
+    removeUserView(name: string): boolean {
+        if (this.userViews.delete(name)) {
             this.storeViews();
             return true;
         }
@@ -513,8 +560,12 @@ export class ViewService {
         this.changed.emit();
     }
 
-    get list(): string[] {
-        return Array.from(this.views.keys());
+    get listUserViews(): string[] {
+        return Array.from(this.userViews.keys());
+    }
+
+    get listDefaultViews(): string[] {
+        return Array.from(this.defaultViews.keys());
     }
 
     get filter(): Filter {

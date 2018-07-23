@@ -15,10 +15,14 @@
         <div ngbDropdown class="btn-group d-inline-block">
             <button id="dropdown-view-load"
                     class="btn btn-sm btn-block btn-primary"
-                    [disabled]="view.list.length === 0"
+                    [disabled]="view.listDefaultViews.length === 0 && view.listUserViews.length === 0"
                     ngbDropdownToggle>Load</button>
             <div ngbDropdownMenu aria-labelledby="dropdown-view-load">
-                <button class="dropdown-item" *ngFor="let name of view.list" (click)="view.load(name)">
+                <button class="dropdown-item" *ngFor="let name of view.listDefaultViews" (click)="view.loadDefaultView(name)">
+                    {{name}}
+                </button>
+                <div class="dropdown-divider" *ngIf="view.listUserViews.length > 0"></div>
+                <button class="dropdown-item" *ngFor="let name of view.listUserViews" (click)="view.loadUserView(name)">
                     {{name}}
                 </button>
             </div>
@@ -27,10 +31,10 @@
         <div ngbDropdown class="btn-group d-inline-block">
             <button id="dropdown-view-del"
                     class="btn btn-sm btn-block btn-primary"
-                    [disabled]="view.list.length === 0"
+                    [disabled]="view.listUserViews.length === 0"
                     ngbDropdownToggle>Delete</button>
             <div ngbDropdownMenu aria-labelledby="dropdown-view-del">
-                <button class="dropdown-item" *ngFor="let name of view.list" (click)="view.remove(name)">
+                <button class="dropdown-item" *ngFor="let name of view.listUserViews" (click)="view.removeUserView(name)">
                     {{name}}
                 </button>
             </div>
