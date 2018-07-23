@@ -27,7 +27,7 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.view.changed.subscribe(() => this.updateTeas());
+        this.view.applied.subscribe(() => this.updateTeas());
     }
 
     ngOnChanges(changes: SimpleChanges) {

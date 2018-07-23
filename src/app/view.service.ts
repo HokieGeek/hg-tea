@@ -293,6 +293,8 @@ class View {
         public sorter: string;
     };
 
+    public changed: EventEmitter<any> = new EventEmitter();
+
     constructor(public name?: string, public filter?: Filter, public sorter?: Sorter) {
         /*
         if (this.name === undefined) {
@@ -308,6 +310,9 @@ class View {
             this.sorter = new Sorter();
             this.addSorters(this.sorter);
         }
+
+        this.filter.changed.subscribe(() => this.changed.emit());
+        this.sorter.changed.subscribe(() => this.changed.emit());
     }
 
     private addFilters(f: Filter) {
@@ -461,13 +466,12 @@ export class ViewService {
     private active: View;
     private defaultViews: Map<string, View> = new Map<string, View>();
     private userViews: Map<string, View> = new Map<string, View>();
-    public changed: EventEmitter<any> = new EventEmitter();
+    public changed: EventEmitter<boolean> = new EventEmitter();
+    public applied: EventEmitter<any> = new EventEmitter();
 
     constructor() {
         // localStorage.removeItem(this.storageKey);
-        const v = new View('');
-        v.sorter.assignField(View.sorterRecentEntries, SortDirection.DESC);
-        this.setActiveView(v);
+        this.clear();
         this.createDefaultViews();
         this.retrieveStoredViews();
     }
@@ -509,10 +513,12 @@ export class ViewService {
     }
 
     private setActiveView(view: View): void {
+        if (this.active != null) {
+            this.active.changed.unsubscribe();
+        }
         this.active = view;
         // console.log('active view:', this.active);
-        this.active.filter.changed.subscribe(() => this.changed.emit());
-        this.active.sorter.changed.subscribe(() => this.changed.emit());
+        this.active.changed.subscribe(() => this.changed.emit(false));
     }
 
     save(): boolean {
@@ -528,7 +534,7 @@ export class ViewService {
     loadDefaultView(name: string): boolean {
         if (this.defaultViews.has(name)) {
             this.setActiveView(this.defaultViews.get(name).clone());
-            this.changed.emit();
+            this.changed.emit(false);
             return true;
         }
         return false;
@@ -537,7 +543,7 @@ export class ViewService {
     loadUserView(name: string): boolean {
         if (this.userViews.has(name)) {
             this.setActiveView(this.userViews.get(name).clone());
-            this.changed.emit();
+            this.changed.emit(false);
             return true;
         }
         return false;
@@ -557,7 +563,7 @@ export class ViewService {
 
     set name(n: string) {
         this.active.name = n;
-        this.changed.emit();
+        this.changed.emit(false);
     }
 
     get listUserViews(): string[] {
@@ -574,5 +580,17 @@ export class ViewService {
 
     get sorter(): Sorter {
         return this.active.sorter;
+    }
+
+    clear(): void {
+        const v = new View('');
+        v.sorter.assignField(View.sorterRecentEntries, SortDirection.DESC);
+        this.setActiveView(v);
+        this.changed.emit(true);
+        this.applied.emit();
+    }
+
+    apply(): void {
+        this.applied.emit();
     }
 }
