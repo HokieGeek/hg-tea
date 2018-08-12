@@ -11,13 +11,13 @@
                 title="Remove oldest 5 entries">
             -
         </button>
-        <button *ngIf="displayedEntriesEnd < sortedEntries.length - 1"
+        <button *ngIf="displayedEntriesEnd < sortedEntries.length"
                 type="button"
                 class="btn btn-outline-secondary btn-sm"
                 (click)="allEntries()">
             All {{ sortedEntries.length }}
         </button>
-        <button *ngIf="displayedEntriesEnd >= sortedEntries.length - 1"
+        <button *ngIf="displayedEntriesEnd >= sortedEntries.length"
                 type="button"
                 class="btn btn-outline-secondary btn-sm"
                 (click)="rollup()">

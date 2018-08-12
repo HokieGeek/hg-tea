@@ -35,7 +35,7 @@ export class JournalComponent implements OnInit {
     }
 
     public allEntries() {
-        this.displayedEntriesEnd = this.sortedEntries.length - 1;
+        this.displayedEntriesEnd = this.sortedEntries.length;
     }
 
     public rollup() {
