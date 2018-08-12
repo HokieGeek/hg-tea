@@ -1,19 +1,20 @@
 <nav class="navbar navbar-dark bg-dark">
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row align-items-start">
         <a class="navbar-brand" href="#">
             <hg-teacupimg width="30" height="30" class="d-inline-block align-top" alt="tea.hokiegeek.net"></hg-teacupimg>
         </a>
 
-        <span>
-            <ul class="navbar-nav nav mr-auto">
-                <li class="nav-item" [ngClass]="{active: selectedTab === 'database'}">
-                    <a class="nav-link" href="#" routerlink="/db" (click)="selectedTab = 'database'">Teas</a>
-                </li>
-                <!--li class="nav-item" [ngClass]="{active: selectedTab === 'stats'}">
-                    <a class="nav-link" href="#" routerlink="/stats" (click)="selectedTab = 'stats'">Stats</a>
-                </li-->
-            </ul>
-        </span>
+        <div class="navbar-nav nav d-flex flex-row align-items-start">
+            <span class="nav-item" [ngClass]="{active: selectedTab === 'database'}">
+                <a class="nav-link" routerLink="/db" routerLinkActive="active" (click)="selectedTab = 'database'">Teas</a>
+            </span>
+            <!--span class="nav-item" [ngClass]="{active: selectedTab === 'stats'}">
+                <a class="nav-link" routerLink="/stats" routerLinkActive="active" (click)="selectedTab = 'stats'">Stats</a>
+            </span>
+            <span class="nav-item" [ngClass]="{active: selectedTab === 'info'}">
+                <a class="nav-link" routerLink="/info" routerLinkActive="active" (click)="selectedTab = 'info'">Info</a>
+            </span-->
+        </div>
     </div>
 
     <button class="navbar-toggler collapse-lg" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">

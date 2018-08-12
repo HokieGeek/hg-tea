@@ -6,10 +6,12 @@ import { InputComponent } from './input/input.component';
 import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/db', pathMatch: 'full' },
     { path: 'db', component: TeasComponent },
     { path: 'input', component: InputComponent },
     { path: 'stats', component: StatsComponent },
+
+    { path: '', redirectTo: '/db', pathMatch: 'full' },
+    // { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
