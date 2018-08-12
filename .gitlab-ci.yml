@@ -89,14 +89,6 @@ lint-warn:
   retry: 2
       # coverage: /TODO/
 
-unit-node:8:
-  <<: *node-unit-test
-  image: node:8-alpine
-
-unit-node:9:
-  <<: *node-unit-test
-  image: node:9-alpine
-
 unit-node:10:
   <<: *node-unit-test
 
