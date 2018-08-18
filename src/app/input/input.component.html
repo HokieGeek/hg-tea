@@ -56,6 +56,7 @@
                 *ngFor="let e of unratedEntriesList"
                 [tea]="unratedEntries.get(e)"
                 [entry]="e"
+                (expand)="selectTea($event)"
                 (updated)="updateEntry(unratedEntries.get(e), $event)">
             </hg-unrated>
 

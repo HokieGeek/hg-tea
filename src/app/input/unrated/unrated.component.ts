@@ -13,6 +13,7 @@ export class UnratedComponent implements OnInit {
     @Input() tea: Tea;
     @Input() entry: Entry;
     @Output() updated: EventEmitter<Entry> = new EventEmitter<Entry>();
+    @Output() expand: EventEmitter<Tea> = new EventEmitter<Tea>();
 
     public comments: string;
 
@@ -33,5 +34,9 @@ export class UnratedComponent implements OnInit {
                 .comments(this.comments)
                 .build());
         }
+    }
+
+    openParent() {
+        this.expand.emit(this.tea);
     }
 }
