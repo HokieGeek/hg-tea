@@ -16,7 +16,7 @@
                 <button *ngFor="let t of stockedTeas"
                         class="dropdown-item text-capitalize"
                         (click)="selectTea(t)">
-                    {{t.name}}&nbsp;<span class="text-muted small">{{t.id}}</span>
+                    <span *ngIf="t.year">{{t.year}}&nbsp;</span>{{t.name}}&nbsp;<span class="text-muted small">{{t.id}}</span>
                 </button>
             </div>
         </div>
@@ -31,7 +31,7 @@
             <div class="tea-list-item pl-1 text-capitalize"
                  *ngFor="let t of stockedTeas"
                  (click)="selectTea(t)">
-                {{t.name}}&nbsp;<span class="text-muted small">{{t.id}}</span>
+                <span *ngIf="t.year">{{t.year}}&nbsp;</span>{{t.name}}&nbsp;<span class="text-muted small">{{t.id}}</span>
             </div>
         </aside>
 
