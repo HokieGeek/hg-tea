@@ -47,6 +47,7 @@
                 [tea]="t"
                 (createdEntry)="createEntry(t, $event)"
                 (updatedEntry)="updateEntry(t, $event)"
+                (deletedEntry)="deleteEntry(t, $event)"
                 (updatedTea)="updateTea($event)"
                 (canceled)="unselectTea(t)">
             </hg-tea-editor>
@@ -64,6 +65,7 @@
                 [cancelable]="false"
                 (createdEntry)="createEntry(t, $event)"
                 (updatedEntry)="updateEntry(t, $event)"
+                (deletedEntry)="deleteEntry(t, $event)"
                 (updatedTea)="updateTea($event)">
             </hg-tea-editor>
         </div>

@@ -29,6 +29,7 @@
                 [cancelable]="cancelable"
                 (created)="createEntry($event)"
                 (updated)="updateEntry($event)"
+                (deleted)="deleteEntry($event)"
                 (canceled)="close()">
             </hg-entry-edit>
         </div>

@@ -152,4 +152,8 @@ export class InputComponent implements OnInit {
     updateEntry(tea: Tea, entry: Entry) {
         this.teaDbService.updateJournalEntry(tea, entry);
     }
+
+    deleteEntry(tea: Tea, entry: Entry) {
+        this.teaDbService.deleteJournalEntry(tea, entry);
+    }
 }

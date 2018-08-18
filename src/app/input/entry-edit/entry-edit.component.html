@@ -82,6 +82,16 @@
 
     <div class="d-flex flex-row mb-3">
     </div>
+
+    <div class="card-text" *ngIf="entry != null">
+        <input type="button"
+               class="btn btn-sm btn-block btn-danger"
+               (click)="confirmDelete = true"
+               value="Delete">
+        <div class="alert alert-danger text-center" role="alert" *ngIf="confirmDelete">
+            Are you sure? <a href="javascript://" (click)="deleteEntry()">yes</a> / <a href="javascript://" (click)="confirmDelete = false">no</a>.
+        </div>
+    </div>
 </div>
 
 <div class="card-footer">
@@ -105,7 +115,7 @@
 
     <input *ngIf="cancelable"
            type="button"
-           class="btn btn-sm btn-danger float-right"
+           class="btn btn-sm btn-secondary float-right"
            (click)="close()"
            value="Close">
 

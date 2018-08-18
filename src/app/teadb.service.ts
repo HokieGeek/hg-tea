@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { map, tap, filter, catchError, pluck } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { environment } from '../environments/environment';
 
@@ -73,5 +74,10 @@ export class TeaDbService {
     updateJournalEntry(tea: Tea, e: Entry) {
         const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry';
         this.http.put(url, e.dbentry).subscribe();
+    }
+
+    deleteJournalEntry(tea: Tea, e: Entry) {
+        const url = this.host + '/' + this.teaEndpoint + '/' + tea.id + '/entry/' +  moment(e.datetime).unix();
+        this.http.delete(url).subscribe();
     }
 }

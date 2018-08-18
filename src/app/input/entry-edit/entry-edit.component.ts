@@ -27,6 +27,7 @@ export class EntryEditComponent implements OnInit {
     public teaVessels: string[] = [];
     public enableFixins = true;
     public continueSession = false;
+    public confirmDelete = false;
 
     public dateTime: Date;
     public steeptime: number;
@@ -62,6 +63,7 @@ export class EntryEditComponent implements OnInit {
 
     @Output() created: EventEmitter<Entry> = new EventEmitter<Entry>();
     @Output() updated: EventEmitter<Entry> = new EventEmitter<Entry>();
+    @Output() deleted: EventEmitter<Entry> = new EventEmitter<Entry>();
     @Output() canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     private updateFields() {
@@ -180,6 +182,11 @@ export class EntryEditComponent implements OnInit {
             .build());
     }
 
+    deleteEntry() {
+        this.confirmDelete = false;
+        this.deleted.emit(this.entry);
+    }
+
     endSession() {
         this.updated.emit(new EntryBuilder()
                 .from(this.tea.latestEntry)
@@ -189,5 +196,9 @@ export class EntryEditComponent implements OnInit {
 
     close() {
         this.canceled.emit(true);
+    }
+
+    refreshDate() {
+        this.dateTime = new Date();
     }
 }
