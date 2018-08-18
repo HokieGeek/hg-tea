@@ -2,6 +2,7 @@
     <!-- Time and steeptime -->
     <div class="d-flex flex-row">
         <hg-datetime [(value)]="dateTime"></hg-datetime>
+        <i id="refreshDate" class="fa fa-refresh mt-2 pl-1" (click)="refreshDate()"></i>
         <hg-steep-time class="input-group input-group-sm mb-3 col-2"
                        [(value)]="steeptime"></hg-steep-time>
     </div>

@@ -14,6 +14,10 @@
     padding-bottom: .28rem;
 }
 
+#refreshDate {
+    cursor: pointer;
+}
+
 .fixin {
     display: inline;
 }
