@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="d-flex flex-column">
-        <input *ngFor="let p of pictures; let i = index" type="text" [(ngModel)]="pictures[i]" />
+        <hg-images [(images)]="pictures"></hg-images>
         <button class="btn btn-sm btn-block btn-primary" (click)="addPicture()">Add picture...</button>
     </div>
     <div class="d-flex flex-row">
