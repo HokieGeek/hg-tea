@@ -57,7 +57,7 @@
                 <div ngbDropdownMenu aria-labelledby="dropdown-packaging">
                     <button class="dropdown-item text-capitalize"
                             *ngFor="let t of TeaPackagingTypes | enumValues"
-                            (click)="packaging = t">
+                            (click)="packaging = TeaPackagingTypes[t]">
                         {{t}}
                     </button>
                 </div>
