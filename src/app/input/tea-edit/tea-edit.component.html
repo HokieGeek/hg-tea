@@ -64,10 +64,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex flex-column">
-        <hg-images [(images)]="pictures"></hg-images>
-        <button class="btn btn-sm btn-block btn-primary" (click)="addPicture()">Add picture...</button>
-    </div>
+    <hg-pictures [(pictures)]="pictures"></hg-pictures>
     <div class="d-flex flex-row">
         <textarea class="form-control" placeholder="comments" rows="1" cols="30" [(ngModel)]="comments"></textarea>
     </div>

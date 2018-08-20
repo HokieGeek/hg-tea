@@ -24,3 +24,7 @@
         overflow-x: auto;
     }
 }
+
+hg-tea-editor > .card {
+    min-width: 350px;
+}

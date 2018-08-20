@@ -43,7 +43,7 @@ import { EntryEditComponent } from './input/entry-edit/entry-edit.component';
 import { TeaEditComponent } from './input/tea-edit/tea-edit.component';
 
 import { StatsComponent } from './stats/stats.component';
-import { ImagesComponent } from './input/images/images.component';
+import { PicturesComponent } from './input/pictures/pictures.component';
 
 @NgModule({
     imports: [
@@ -88,7 +88,7 @@ import { ImagesComponent } from './input/images/images.component';
         DatetimeComponent,
         EntryEditComponent,
         TeaEditComponent,
-        ImagesComponent,
+        PicturesComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]
