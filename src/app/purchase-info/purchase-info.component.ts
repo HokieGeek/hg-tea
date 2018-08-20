@@ -18,4 +18,9 @@ export class PurchaseInfoComponent implements OnInit {
     get packagingNotLooseLeaf(): boolean {
         return this.tea.packaging != null && this.tea.packaging.toLowerCase() !== 'loose leaf';
     }
+
+    get locationIsUrl(): boolean {
+        const regexp = new RegExp('\.(com|net|org)/?');
+        return regexp.test(this.tea.purchaselocation);
+    }
 }
