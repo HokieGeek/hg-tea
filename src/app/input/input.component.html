@@ -1,39 +1,10 @@
 <div class="container-fluid h-100" *ngIf="teas.length > 0">
     <div class="row h-100">
-        <!-- Select a session or a tea (smaller devices) -->
-        <div class="btn-group mb-3 selecttea collapse-lg" ngbDropdown>
-            <button id="dropdown-tea"
-                    class="btn btn-sm btn-block btn-primary rounded-0"
-                    ngbDropdownToggle>
-                Select a tea
-            </button>
-            <div id="dropdown-tea-list" ngbDropdownMenu aria-labelledby="dropdown-tea">
-                <button class="dropdown-item"
-                        (click)="newTeas.push(newTeas.length)">
-                    Create new tea...
-                </button>
-                <div class="dropdown-divider"></div>
-                <button *ngFor="let t of stockedTeas"
-                        class="dropdown-item text-capitalize"
-                        (click)="selectTea(t)">
-                    {{t.name}}&nbsp;<span *ngIf="t.year" class="text-muted">{{t.year}}&nbsp;</span><span class="text-black-50 small">{{t.id}}</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- SELECT TEA (larger devices) -->
-        <aside class="selecttea col-sm-3 collapse-sm">
-            <div class="tea-list-item pl-1"
-                 (click)="newTeas.push(newTeas.length)">
-                Create new tea...
-            </div>
-            <hr />
-            <div class="tea-list-item pl-1 text-capitalize"
-                 *ngFor="let t of stockedTeas"
-                 (click)="selectTea(t)">
-                {{t.name}}&nbsp;<span *ngIf="t.year" class="text-muted">{{t.year}}&nbsp;</span><span class="text-black-50 small">{{t.id}}</span>
-            </div>
-        </aside>
+        <hg-tealist id="sidebar"
+                    [teas]="stockedTeas"
+                    (selected)="selectTea($event)"
+                    (create)="newTeas.push(newTeas.length)">
+        </hg-tealist>
 
         <div class="col card-columns py-1">
             <hg-tea-editor

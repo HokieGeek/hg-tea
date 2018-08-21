@@ -1,0 +1,13 @@
+@media (max-width: 575px) {
+    aside {
+        width: 100vw;
+    }
+}
+
+.tea-list-item.active,
+.tea-list-item:hover
+{
+    cursor: pointer;
+    background-color: #193251;
+    color: #ffffff;
+}

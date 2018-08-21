@@ -1,22 +1,15 @@
 @media (max-width: 575px) {
-    .selecttea {
-        width: 100vw;
-    }
 }
 
 @media (min-width: 576px) {
-    .selecttea {
+    hg-tealist {
+        padding: 0px;
         height: 97vh;
         overflow-y: scroll;
         overflow-x: hidden;
-    }
 
-    .tea-list-item.active,
-    .tea-list-item:hover
-    {
-        cursor: pointer;
-        background-color: #193251;
-        color: #ffffff;
+        flex: 0 0 25%;
+        max-width: 25%;
     }
 
     .card-columns {
