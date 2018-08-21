@@ -9,7 +9,7 @@ import { Tea } from '../../tea';
 })
 export class TealistComponent implements OnInit {
     @Input() teas: Tea[] = null;
-    @Input() id = "";
+    @Input() id = '';
 
     @Output() selected: EventEmitter<Tea> = new EventEmitter<Tea>();
     @Output() create: EventEmitter<boolean> = new EventEmitter<boolean>();
