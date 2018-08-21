@@ -14,7 +14,21 @@ export class PicturesComponent implements OnInit {
     ngOnInit() {
     }
 
-    addPicture() {
+    add() {
         this.pictures.push('');
+    }
+
+    remove(idx number) {
+        this.pictures.splice(idx, 1);
+    }
+
+    sortDown(idx number) {
+        this.pictures.splice(idx + 2, 0, this.pictures[idx]);
+        this.pictures.splice(idx, 1);
+    }
+
+    sortUp(idx number) {
+        this.pictures.splice(idx - 1, 0, this.pictures[idx]);
+        this.pictures.splice(idx + 1, 1);
     }
 }

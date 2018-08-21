@@ -1,0 +1,10 @@
+.sortBtn {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    height: 100%;
+}
+
+#deleteBtn {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
