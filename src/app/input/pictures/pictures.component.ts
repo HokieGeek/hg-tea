@@ -9,6 +9,14 @@ export class PicturesComponent implements OnInit {
     @Input() pictures: string[] = [];
     @Output() picturesChange: EventEmitter<string[]> = new EventEmitter<string[]>();
 
+    getPicture(idx: number): string {
+        return this.pictures[idx];
+    }
+
+    setPicture(idx: number, val: string) {
+        this.pictures[idx] = val.replace(/=w.*$/, '');
+    }
+
     constructor() { }
 
     ngOnInit() {
