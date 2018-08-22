@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { PicturesComponent } from './pictures.component';
 
@@ -8,9 +9,10 @@ describe('PicturesComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [ FormsModule ],
             declarations: [ PicturesComponent ]
         })
-            .compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {

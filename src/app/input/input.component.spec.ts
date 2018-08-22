@@ -14,6 +14,8 @@ import { TeaEditorComponent } from './teaeditor/teaeditor.component';
 import { DatetimeComponent } from './datetime/datetime.component';
 import { EntryEditComponent } from './entry-edit/entry-edit.component';
 import { TeaEditComponent } from './tea-edit/tea-edit.component';
+import { PicturesComponent } from './pictures/pictures.component';
+import { TealistComponent } from './tealist/tealist.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 import { SteeptimePipe } from '../steeptime.pipe';
@@ -44,6 +46,8 @@ describe('InputComponent', () => {
                 DatetimeComponent,
                 EntryEditComponent,
                 TeaEditComponent,
+                PicturesComponent,
+                TealistComponent,
             ],
             providers: [
                 SteeptimePipe,

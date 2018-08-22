@@ -40,6 +40,8 @@ import { DatetimeComponent } from './input/datetime/datetime.component';
 import { EntryEditComponent } from './input/entry-edit/entry-edit.component';
 import { TeaEditComponent } from './input/tea-edit/tea-edit.component';
 import { StatsComponent } from './stats/stats.component';
+import { PicturesComponent } from './input/pictures/pictures.component';
+import { TealistComponent } from './input/tealist/tealist.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
@@ -90,6 +92,8 @@ describe('HgTeaComponent', () => {
                 DatetimeComponent,
                 EntryEditComponent,
                 TeaEditComponent,
+                PicturesComponent,
+                TealistComponent,
             ],
             imports: [
                 NgbModule.forRoot(),

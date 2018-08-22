@@ -38,6 +38,8 @@ import { DatetimeComponent } from '../input/datetime/datetime.component';
 import { EntryEditComponent } from '../input/entry-edit/entry-edit.component';
 import { TeaEditComponent } from '../input/tea-edit/tea-edit.component';
 import { StatsComponent } from '../stats/stats.component';
+import { PicturesComponent } from '../input/pictures/pictures.component';
+import { TealistComponent } from '../input/tealist/tealist.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -95,6 +97,8 @@ describe('DatabaseComponent', () => {
                 DatetimeComponent,
                 EntryEditComponent,
                 TeaEditComponent,
+                PicturesComponent,
+                TealistComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,

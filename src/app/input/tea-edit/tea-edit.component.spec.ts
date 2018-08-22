@@ -5,6 +5,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { TeaEditComponent } from './tea-edit.component';
 import { EnumValuesPipe } from '../../enum-values.pipe';
 import { DatetimeComponent } from '../datetime/datetime.component';
+import { PicturesComponent } from '../pictures/pictures.component';
 
 import { TestUtils } from '../../test-utils';
 
@@ -23,6 +24,7 @@ describe('TeaEditComponent', () => {
                 TeaEditComponent,
                 EnumValuesPipe,
                 DatetimeComponent,
+                PicturesComponent,
             ]
         })
         .compileComponents();
