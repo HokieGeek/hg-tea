@@ -172,7 +172,7 @@ export class EntryEditComponent implements OnInit {
                 .timestamp(moment().format('DD/MM/YYYY H:mm:ss'))
                 .datetime(this.dateTime)
                 .steeptime(this.steeptime)
-                .fixins(this.fixins.map(f => TeaFixins[TeaFixins[f]]))
+                .fixins(this.fixins.map(f => TeaFixins[f]))
                 .rating(this.rating)
                 .comments(this.comments)
                 .pictures(this.pictures)
