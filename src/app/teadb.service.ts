@@ -43,7 +43,7 @@ export class TeaDbService {
         if (this._cachedTeasById.has(id)) {
             return this._cachedTeasById.get(id);
         }
-        return '';
+        return null;
     }
 
     setCachedTea(id: number, tea: Tea) {
@@ -84,7 +84,7 @@ export class TeaDbService {
                 tap(resp => this.setCachedTeaSum(id, resp.headers.get('etag'))),
                 filter(resp => resp.status === 200),
                 pluck('body'),
-                map((t: TeaDbEntry) => new Tea(t))
+                map((t: TeaDbEntry) => new Tea(t)),
                 tap(t => this.setCachedTea(id, t)),
                 catchError(err => {
                     if (err.status === 304) {
