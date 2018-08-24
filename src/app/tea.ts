@@ -32,32 +32,10 @@ class JournalDbEntry {
 
 export class Entry {
     public teaId: number;
-    // private steeptime_sec = -1;
 
     constructor(public dbentry: JournalDbEntry) {
         this.dbentry.datetime = moment(this.dbentry.datetime).toDate();
-        // this.steeptime_sec = this.steeptimeStrToSec(this.dbentry.steeptime);
     }
-
-    /*
-    private steeptimeStrToSec(str: string): number {
-        const r = /([0-9]*)(m\s*)?([0-9]*)s?$/g;
-        const match = r.exec(str);
-
-        let sec = 0;
-        if (/\s/g.test(str)) {
-            sec = (+match[1] * 60) + +match[3];
-        } else {
-            if (/m/g.test(str)) {
-                sec = (+match[1] * 60);
-            } else {
-                sec = +match[1];
-            }
-        }
-
-        return sec;
-    }
-    */
 
     get comments(): string {
         return this.dbentry.comments;
@@ -88,7 +66,6 @@ export class Entry {
     }
 
     get steeptime(): number {
-        // return this.steeptime_sec;
         return this.dbentry.steeptime;
     }
 

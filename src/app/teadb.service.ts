@@ -17,14 +17,37 @@ export class TeaDbService {
     private teasSum = '';
     private _cachedTeas: Tea[] = [];
 
+    private _cachedTeasById: Map<number, Tea> = new Map<number, Tea>();
+    private _cachedTeaSumsById: Map<number, string> = new Map<number, string>();
+
     set cachedTeas(c: Tea[]) {
-        // console.log('CACHING: ', c);
         this._cachedTeas = c;
     }
 
     get cachedTeas(): Tea[] {
-        // console.log('Using CACHE: ', this._cachedTeas);
         return this._cachedTeas;
+    }
+
+    getCachedTeaSum(id: number): string {
+        if (this._cachedTeaSumsById.has(id)) {
+            return this._cachedTeaSumsById.get(id);
+        }
+        return '';
+    }
+
+    setCachedTeaSum(id: number, sum: string) {
+        this._cachedTeaSumsById.set(id, sum);
+    }
+
+    getCachedTea(id: number): Tea {
+        if (this._cachedTeasById.has(id)) {
+            return this._cachedTeasById.get(id);
+        }
+        return '';
+    }
+
+    setCachedTea(id: number, tea: Tea) {
+        this._cachedTeasById.set(id, tea);
     }
 
     constructor (private http: HttpClient) { }
@@ -44,6 +67,28 @@ export class TeaDbService {
                 catchError(err => {
                     if (err.status === 304) {
                         return of(this.cachedTeas);
+                    } else {
+                        return throwError(err);
+                    }
+                })
+            );
+    }
+
+    getTeaById(id: number): Observable<Tea> {
+        return this.http.get<HttpResponse<TeaDbEntry>>(
+            this.host + '/' + this.teaEndpoint + '/' + id,
+            {   observe: 'response',
+                headers: new HttpHeaders({ 'If-None-Match': this.getCachedTeaSum(id) })
+            })
+            .pipe(
+                tap(resp => this.setCachedTeaSum(id, resp.headers.get('etag'))),
+                filter(resp => resp.status === 200),
+                pluck('body'),
+                map((t: TeaDbEntry) => new Tea(t))
+                tap(t => this.setCachedTea(id, t)),
+                catchError(err => {
+                    if (err.status === 304) {
+                        return of(this.getCachedTea(id));
                     } else {
                         return throwError(err);
                     }
