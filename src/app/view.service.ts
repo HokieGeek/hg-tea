@@ -295,13 +295,37 @@ class View {
 
     public changed: EventEmitter<any> = new EventEmitter();
 
-    constructor(public name?: string, public filter?: Filter, public sorter?: Sorter) {
-        /*
-        if (this.name === undefined) {
-            this.name = "";
-        }
-            */
+    static parse(v: string): View {
+        const parsed = new View();
+        const s = JSON.parse(v);
+        parsed.name = s.name;
+        parsed.filter.parse(s.filter);
+        parsed.sorter.parse(s.sorter);
+        return parsed;
+    }
 
+    static parseFromUrlParams(filterParams, sorterParams: string) {
+        const parsed = new View();
+
+        const f = new Map<string, string>(filterParams.split(';').map((v) => v.split(':')));
+        f.forEach((v, k) => {
+            const typeAndName = k.split('>');
+            switch (typeAndName[0]) {
+                case 'z':
+                    v.split(',').forEach((str) => parsed.filter.withString(typeAndName[1], str));
+                    break;
+                case 'g':
+                    parsed.filter.withFlag(typeAndName[1], +v);
+                    break;
+            }
+        });
+
+        sorterParams.split(';').map((v) => v.split(':')).forEach((v) => parsed.sorter.assignField(v[0], +v[1]));
+
+        return parsed;
+    }
+
+    constructor(public name?: string, public filter?: Filter, public sorter?: Sorter) {
         if (this.filter === undefined) {
             this.filter = new Filter();
             this.addFilters(this.filter);
@@ -449,12 +473,50 @@ class View {
         return JSON.stringify(v);
     }
 
-    parse(v: string): View {
-        const s = JSON.parse(v);
-        this.name = s.name;
-        this.filter.parse(s.filter);
-        this.sorter.parse(s.sorter);
-        return this;
+    private generateFiltersUrlParams(): string {
+        let params = '';
+        this.filter.strings.forEach((v, k) => {
+            if (v.length > 0) {
+                params += 'z>' + k + ':' + v.join(',') + ';';
+            }
+        });
+        this.filter.flags.forEach((v, k) => {
+            if (v !== FilterFlag.UNSET) {
+                params += 'g>' + k + ':' + v + ';';
+            }
+        });
+
+        if (params.length > 0) {
+            params = 'f=' + params.replace(/;$/, '');
+        }
+
+        return params;
+    }
+
+    private generateSortersUrlParams(): string {
+        let params = '';
+
+        this.sorter.assignedFields.forEach((v) => {
+            params += v + ':' + this.sorter.getSortDirection(v) + ';';
+        });
+
+        if (params.length > 0) {
+            params = 's=' + params.replace(/;$/, '');
+        }
+
+        return params;
+    }
+
+    generateUrlParams(): string {
+        let params = this.generateFiltersUrlParams();
+        const sortersParam = this.generateSortersUrlParams();
+
+        if (params.length > 0 && sortersParam.length > 0) {
+            params += '&';
+        }
+        params += sortersParam;
+
+        return encodeURI(params);
     }
 }
 
@@ -489,7 +551,7 @@ export class ViewService {
         this.userViews.clear();
         const stored = new Map<string, string>(JSON.parse(localStorage.getItem(this.storageKey)));
         stored.forEach((sv, name) => {
-            const v = new View().parse(sv);
+            const v = View.parse(sv);
             // console.log('retrieved view:', v);
             this.userViews.set(name, v);
             // this.views.set(name, new View().parse(sv));
@@ -505,7 +567,7 @@ export class ViewService {
         toDrink.filter.withFlagExcluded(View.filterAging);
         this.defaultViews.set(toDrink.name, toDrink);
 
-        // ToDrink
+        // Aging
         const aging = new View('Aging');
         aging.sorter.assignField(View.sorterPurchaseDate, SortDirection.ASC);
         aging.filter.withFlagOnly(View.filterAging);
@@ -580,6 +642,16 @@ export class ViewService {
 
     get sorter(): Sorter {
         return this.active.sorter;
+    }
+
+    generateUrlParams(): string {
+        return this.active.generateUrlParams();
+    }
+
+    loadViewFromUrlParams(filterParams, sorterParams: string) {
+        this.setActiveView(View.parseFromUrlParams(filterParams, sorterParams));
+        this.changed.emit(true);
+        this.applied.emit();
     }
 
     clear(): void {

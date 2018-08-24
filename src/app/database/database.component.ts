@@ -19,11 +19,10 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     constructor(private route: ActivatedRoute, public view: ViewService) { }
 
     ngOnInit() {
-        /*
-        this.route.paramMap.subscribe(params => {
-            console.log('db', params.get('id'));
+        this.route.queryParamMap.subscribe(params => {
+            console.log('db params', params);
+            this.view.loadViewFromUrlParams(params.get('f'), params.get('s'));
         });
-        */
     }
 
     ngAfterViewInit() {

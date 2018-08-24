@@ -17,7 +17,6 @@ export class SortFieldComponent implements OnInit {
     }
 
     get directionDesc(): boolean {
-        // return this.sorter.getSortDirection(this.name) === SortDirection.DESC ? '↓' : '↑';
         return this.sorter.getSortDirection(this.name) === SortDirection.DESC;
     }
 
