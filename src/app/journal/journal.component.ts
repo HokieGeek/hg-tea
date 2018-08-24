@@ -26,14 +26,6 @@ export class JournalComponent implements OnInit {
         return this.sortedEntries.slice(0, this.displayedEntriesEnd);
     }
 
-    public moreEntries(step: number) {
-        this.displayedEntriesEnd += step;
-    }
-
-    public lessEntries(step: number) {
-        this.displayedEntriesEnd -= step;
-    }
-
     public allEntries() {
         this.displayedEntriesEnd = this.sortedEntries.length;
     }

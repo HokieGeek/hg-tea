@@ -4,31 +4,17 @@
     </ul>
 
     <span class="btn-group btn-group-toggle mt-2" *ngIf="sortedEntries.length > 1">
-        <button type="button"
-                class="btn btn-outline-secondary btn-sm"
-                [ngClass]="{'disabled': displayedEntriesEnd <= 1}"
-                (click)="lessEntries(5)"
-                title="Remove oldest 5 entries">
-            -
-        </button>
         <button *ngIf="displayedEntriesEnd < sortedEntries.length"
                 type="button"
                 class="btn btn-outline-secondary btn-sm"
                 (click)="allEntries()">
-            All {{ sortedEntries.length }}
+            All {{ sortedEntries.length }} entries
         </button>
         <button *ngIf="displayedEntriesEnd >= sortedEntries.length"
                 type="button"
                 class="btn btn-outline-secondary btn-sm"
                 (click)="rollup()">
-            Latest
-        </button>
-        <button type="button"
-                class="btn btn-outline-secondary btn-sm"
-                [ngClass]="{'disabled': displayedEntriesEnd >= sortedEntries.length - 1}"
-                (click)="moreEntries(5)"
-                title="Add 5 more entries">
-            +
+            Latest entry only
         </button>
     </span>
 </div>
