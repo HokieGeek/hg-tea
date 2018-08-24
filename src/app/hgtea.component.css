@@ -6,6 +6,11 @@
     display: inline;
 }
 
+.navbar-brand hg-teacupimg {
+    position: relative;
+    top: -4px;
+}
+
 .nav-item {
     margin-right: 1rem;
 }
