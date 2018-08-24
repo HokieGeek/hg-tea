@@ -1,6 +1,6 @@
 <hr />
 <div>
-    <div class="btn-group w-100" role="group" aria-label="Current view controls">
+    <div class="btn-group w-100 mb-3" role="group" aria-label="Current view controls">
         <button type="button"
                 class="btn btn-sm btn-group btn-primary w-100"
                 [disabled]="!this.enableApply"
@@ -9,10 +9,6 @@
                 class="btn btn-sm btn-group btn-primary w-100"
                 [disabled]="!this.enableClear"
                 (click)="view.clear()">Clear</button>
-    </div>
-
-    <div class="w-100 text-right">
-        <a class="small" [href]="this.viewUrl">permalink</a>
     </div>
 
     <input type="text"
@@ -54,5 +50,9 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    <div class="w-100 text-right">
+        <a class="small text-dark" [href]="this.viewUrl">permalink</a>
     </div>
 </div>
