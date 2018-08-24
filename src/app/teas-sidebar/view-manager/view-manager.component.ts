@@ -20,4 +20,8 @@ export class ViewManagerComponent implements OnInit, AfterViewInit {
         this.view.applied.subscribe(() => this.enableApply = false);
         this.view.changed.subscribe(cleared => this.enableClear = this.enableApply = !cleared);
     }
+
+    get viewUrl(): string {
+        return '/db?' + this.view.generateUrlParams(); // TODO
+    }
 }

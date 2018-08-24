@@ -20,7 +20,6 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
 
     ngOnInit() {
         this.route.queryParamMap.subscribe(params => {
-            console.log('db params', params);
             if (params.has('f') || params.has('s')) {
                 this.view.loadViewFromUrlParams(params.get('f'), params.get('s'));
                 this.updateTeas();

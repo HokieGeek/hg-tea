@@ -650,7 +650,7 @@ export class ViewService {
 
     loadViewFromUrlParams(filterParams, sorterParams: string) {
         this.setActiveView(View.parseFromUrlParams(filterParams, sorterParams));
-        this.changed.emit(true);
+        // this.changed.emit(true);
         this.applied.emit();
     }
 
