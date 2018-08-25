@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  teadbUrl: 'http://db.hokiegeek.net'
+  teadbUrl: 'http://teadb.hokiegeek.net'
     // teadbUrl: 'http://localhost:8888'
 };
