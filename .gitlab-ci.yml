@@ -177,9 +177,9 @@ add-proxy-server:
   <<: *server-connector-template
   stage: deploy
   script:
-    - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf $ADMIN_USER@hokiegeek.net:/tmp
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo mv /tmp/proxy-tea.conf /etc/hgproxy"
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo systemctl restart hgproxy.service"
+    - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf $ADMIN_USER@${DEPLOY_HOST}:/tmp
+    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mv /tmp/proxy-tea.conf /etc/hgproxy"
+    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl restart hgproxy.service"
   only:
     - tags
   except:
@@ -190,21 +190,10 @@ add-proxy-server:
   <<: *server-connector-template
   stage: deploy
   script:
-    - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/${SERVICE} $ADMIN_USER@hokiegeek.net:/tmp
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo mv /tmp/${SERVICE} /etc/systemd/system/ && sudo systemctl daemon-reload"
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@hokiegeek.net "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
+    - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/${SERVICE} $ADMIN_USER@${DEPLOY_HOST}:/tmp
+    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mv /tmp/${SERVICE} /etc/systemd/system/ && sudo systemctl daemon-reload"
+    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
   retry: 1
-
-.restart-service-dev:
-  <<: *service-restarter
-  variables:
-    SERVICE: hgteadev.service
-  environment:
-    name: staging
-    url: http://tea.hokiegeek.net/dev
-  except:
-    - tags
-    - master
 
 restart-service:
   <<: *service-restarter
