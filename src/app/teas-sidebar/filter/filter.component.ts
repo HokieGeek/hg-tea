@@ -37,10 +37,10 @@ export class FilterComponent implements OnInit {
     }
 
     populateFields() {
-        this.teaTypes = this.teaFields(t => t.type.toLowerCase());
-        this.countries = this.teaFields(t => t.country.toLowerCase());
-        this.purchaseLocations = this.teaFields(t => t.purchaselocation.toLowerCase());
-        this.regions = this.teaFields(t => t.region.toLowerCase());
+        this.teaTypes = this.teaFields(t => t.type.toLowerCase().trim());
+        this.countries = this.teaFields(t => t.country.toLowerCase().trim());
+        this.purchaseLocations = this.teaFields(t => t.purchaselocation.toLowerCase().trim());
+        this.regions = this.teaFields(t => t.region.toLowerCase().trim());
     }
 
     filteredTeaData(field: string): string[] {

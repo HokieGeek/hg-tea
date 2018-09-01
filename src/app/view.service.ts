@@ -341,7 +341,7 @@ class View {
 
     private addFilters(f: Filter) {
         f.addStringField(View.filterTeaType, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.type);
+            return strings.includes(tea.type.toLowerCase().trim());
         });
 
         f.addFlagField(View.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
@@ -355,7 +355,7 @@ class View {
         });
 
         f.addStringField(View.filterCountries, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.country.toLowerCase());
+            return strings.includes(tea.country.toLowerCase().trim());
         });
 
         f.addFlagField(View.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
@@ -369,11 +369,11 @@ class View {
         });
 
         f.addStringField(View.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.purchaselocation.toLowerCase());
+            return strings.includes(tea.purchaselocation.toLowerCase().trim());
         });
 
         f.addStringField(View.filterRegion, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.region.toLowerCase());
+            return strings.includes(tea.region.toLowerCase().trim());
         });
     }
 
