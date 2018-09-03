@@ -70,6 +70,10 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
         return (e === this.entry);
     }
 
+    isEntryThisYear(e: Entry): boolean {
+        return e.datetime.getFullYear() === new Date().getFullYear();
+    }
+
         /*
     scrollToBottom(): void {
         if (this.entriesListEl != null) {

@@ -18,7 +18,7 @@
                     [ngClass]="{'selected': isEntrySelected(e)}"
                     [title]="e.comments"
                     (click)="entry = e">
-                    {{ e.datetime | date:'M/d@HHmm' }} for {{ e.steeptime | steeptime }}
+                    <span *ngIf="isEntryThisYear(e);else newer_entry">{{ e.datetime | date:'M/d@HHmm' }}</span><ng-template #newer_entry>{{ e.datetime | date:'y/M/d@HHmm' }}</ng-template> for {{ e.steeptime | steeptime }}
                     <hg-rating style="float: right" [rating]="e.rating" max="4" [small]="true"></hg-rating>
                 </li>
             </ul>
