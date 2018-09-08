@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hgnet-tea
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: hgnet-tea-ip
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: tea.hokiegeek.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hgnet-tea
+          servicePort: 80
+  - host: tea.hokigeek.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hgnet-tea
+          servicePort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hgnet-tea
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    name: hgnet-tea
+  selector:
+    app: hgnet-tea
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: hgnet-tea
+spec:
+  replicas: 1
+  selector:
+    app: hgnet-tea
+  template:
+    metadata:
+      labels:
+        app: hgnet-tea
+    spec:
+      containers:
+      - name: hgnet-tea
+        image: registry.gitlab.com/hokiegeek.net/tea:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: hgnet-tea
