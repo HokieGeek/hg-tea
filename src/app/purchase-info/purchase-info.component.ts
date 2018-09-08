@@ -20,7 +20,7 @@ export class PurchaseInfoComponent implements OnInit {
     }
 
     get locationIsUrl(): boolean {
-        const regexp = new RegExp('\.(com|net|org)/?');
+        const regexp = new RegExp('\.(com|net|org|us)/?');
         return regexp.test(this.tea.purchaselocation);
     }
 }
