@@ -170,7 +170,8 @@ create-container:
   image: alpine:latest
   before_script:
     - apk add --update --no-cache openssh
-    - echo $HOST_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/sshkey
+    - echo $HOST_SSH_KEY | base64 -d > /tmp/sshkey
+      # - echo $HOST_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/sshkey
     - chmod 0600 /tmp/sshkey
 
 add-proxy-server:
@@ -178,8 +179,8 @@ add-proxy-server:
   stage: deploy
   script:
     - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf $ADMIN_USER@${DEPLOY_HOST}:/tmp
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mv /tmp/proxy-tea.conf /etc/hgproxy"
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl restart hgproxy.service"
+    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mkdir -p /etc/nginx/conf.d; sudo mv /tmp/proxy-tea.conf /etc/nginx/conf.d && sudo systemctl restart hgproxy.service"
+      # - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl restart hgproxy.service"
   only:
     - tags
   except:
