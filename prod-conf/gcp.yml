@@ -10,14 +10,14 @@ spec:
   - host: tea.hokiegeek.net
     http:
       paths:
-      - path: /
+      - path: /*
         backend:
           serviceName: hgnet-tea
           servicePort: 80
   - host: tea.hokigeek.net
     http:
       paths:
-      - path: /
+      - path: /*
         backend:
           serviceName: hgnet-tea
           servicePort: 80

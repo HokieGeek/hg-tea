@@ -105,12 +105,13 @@ export class EntryEditComponent implements OnInit {
                         this.vessel = SteepingVessels[this.tea.latestEntry.steepingvessel];
                         this.temperature = this.tea.latestEntry.steeptemperature;
                         this.continueSession = true;
+                        this.sessionClosed = false;
 
                         // TODO: fixins
                     }
                 }
 
-                this.sessionClosed = (!lcType.includes('sheng') && !lcType.includes('oolong'));
+                // this.sessionClosed = (!lcType.includes('sheng') && !lcType.includes('oolong'));
             } else {
                 // load the entries values
                 this.dateTime = this.entry.datetime;
