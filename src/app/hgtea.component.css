@@ -1,5 +1,10 @@
 .navbar {
     background-image: url('../assets/nav-bg.jpg');
+    padding-left: 1px;
+}
+
+.navbar-toggler {
+    border: 0px;
 }
 
 .navbar-brand {
