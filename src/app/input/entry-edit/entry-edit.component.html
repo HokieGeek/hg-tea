@@ -48,9 +48,9 @@
         <div *ngIf="fixins.length > 0">
             with<span *ngFor="let f of fixins; let i = index"
          class="fixin"
-         title="Remove {{ TeaFixins[f] | lowercase }}"
+         title="Remove {{ f | lowercase }}"
          (click)="removeFixin(f)"
-         ><span *ngIf="i !== 0">,</span>&nbsp;<span *ngIf="fixins.length > 1 && i == fixins.length - 1">and&nbsp;</span>{{ TeaFixins[f] | lowercase }}</span>
+         ><span *ngIf="i !== 0">,</span>&nbsp;<span *ngIf="fixins.length > 1 && i == fixins.length - 1">and&nbsp;</span>{{ f | lowercase }}</span>
         </div>
         <span *ngIf="fixins.length > 0">&nbsp;</span>
         <div ngbDropdown class="d-inline-block">
