@@ -29,11 +29,11 @@
                     [disabled]="view.listDefaultViews.length === 0 && view.listUserViews.length === 0"
                     ngbDropdownToggle>Load</button>
             <div ngbDropdownMenu aria-labelledby="dropdown-view-load">
-                <button class="dropdown-item" *ngFor="let name of view.listDefaultViews" (click)="view.loadDefaultView(name)">
+                <button class="dropdown-item" *ngFor="let name of view.listDefaultViews" (click)="loadDefaultView(name)">
                     {{name}}
                 </button>
                 <div class="dropdown-divider" *ngIf="view.listUserViews.length > 0"></div>
-                <button class="dropdown-item" *ngFor="let name of view.listUserViews" (click)="view.loadUserView(name)">
+                <button class="dropdown-item" *ngFor="let name of view.listUserViews" (click)="loadUserView(name)">
                     {{name}}
                 </button>
             </div>

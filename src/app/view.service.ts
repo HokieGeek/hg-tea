@@ -572,6 +572,14 @@ export class ViewService {
         aging.sorter.assignField(View.sorterPurchaseDate, SortDirection.ASC);
         aging.filter.withFlagOnly(View.filterAging);
         this.defaultViews.set(aging.name, aging);
+
+        // Been a while
+        const beenAWhile = new View('Been a while');
+        beenAWhile.sorter.assignField(View.sorterRecentEntries, SortDirection.ASC);
+        beenAWhile.filter.withFlagOnly(View.filterStocked);
+        beenAWhile.filter.withFlagOnly(View.filterWithEntries);
+        beenAWhile.filter.withFlagExcluded(View.filterAging);
+        this.defaultViews.set(beenAWhile.name, beenAWhile);
     }
 
     private setActiveView(view: View): void {
@@ -593,22 +601,24 @@ export class ViewService {
         return false;
     }
 
+    private loadView(view: View): boolean {
+        this.setActiveView(view);
+        this.changed.emit(false);
+        return true;
+    }
+
     loadDefaultView(name: string): boolean {
-        if (this.defaultViews.has(name)) {
-            this.setActiveView(this.defaultViews.get(name).clone());
-            this.changed.emit(false);
-            return true;
+        if (!this.defaultViews.has(name)) {
+            return false;
         }
-        return false;
+        return this.loadView(this.defaultViews.get(name).clone());
     }
 
     loadUserView(name: string): boolean {
-        if (this.userViews.has(name)) {
-            this.setActiveView(this.userViews.get(name).clone());
-            this.changed.emit(false);
-            return true;
+        if (!this.userViews.has(name)) {
+            return false;
         }
-        return false;
+        return this.loadView(this.userViews.get(name).clone());
     }
 
     removeUserView(name: string): boolean {

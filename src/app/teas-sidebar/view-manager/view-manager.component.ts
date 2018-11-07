@@ -24,4 +24,14 @@ export class ViewManagerComponent implements OnInit, AfterViewInit {
     get viewUrl(): string {
         return '/db?' + this.view.generateUrlParams(); // TODO
     }
+
+    loadDefaultView(name: string) {
+        this.view.loadDefaultView(name);
+        this.view.apply();
+    }
+
+    loadUserView(name: string) {
+        this.view.loadUserView(name);
+        this.view.apply();
+    }
 }
