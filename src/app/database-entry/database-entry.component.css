@@ -3,4 +3,5 @@
     margin: 10px;
     max-width: 450px;
     border-color: #586e83;
+    box-shadow: 2px 3px 7px 0 rgba(107, 107, 107, 0.3);
 }
