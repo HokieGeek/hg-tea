@@ -4,19 +4,17 @@
     </ul>
 </div>
 
-<div class="card-footer" *ngIf="sortedEntries.length > 1">
-    <span class="btn-group btn-group-toggle">
-        <button *ngIf="displayedEntriesEnd < sortedEntries.length"
-                type="button"
-                class="btn btn-outline-secondary btn-sm"
-                (click)="allEntries()">
-            All {{ sortedEntries.length }} entries
-        </button>
-        <button *ngIf="displayedEntriesEnd >= sortedEntries.length"
-                type="button"
-                class="btn btn-outline-secondary btn-sm"
-                (click)="rollup()">
-            Latest entry only
-        </button>
-    </span>
-</div>
+<span *ngIf="sortedEntries.length > 1">
+    <button type="button" *ngIf="displayedEntriesEnd < sortedEntries.length"
+            class="btn btn-light btn-sm btn-block rounded-0 card-footer py-1"
+            title="Display all journal entries"
+            (click)="allEntries()">
+        Show all {{ sortedEntries.length }} entries
+    </button>
+    <button type="button" *ngIf="displayedEntriesEnd >= sortedEntries.length"
+            class="btn btn-light btn-sm btn-block rounded-0 card-footer py-1"
+            title="Hide all but the latest journal entry"
+            (click)="rollup()">
+        Show latest entry only
+    </button>
+</span>
