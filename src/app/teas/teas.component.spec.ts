@@ -58,7 +58,7 @@ describe('TeasComponent', () => {
                 BrowserModule,
                 BrowserAnimationsModule,
                 HttpClientModule,
-                NgbModule.forRoot(),
+                NgbModule,
                 FormsModule,
                 AppRoutingModule,
                 OwlDateTimeModule,

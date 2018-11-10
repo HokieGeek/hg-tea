@@ -19,7 +19,7 @@ describe('JournalComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                NgbModule.forRoot(),
+                NgbModule,
                 FormsModule
             ],
             declarations: [

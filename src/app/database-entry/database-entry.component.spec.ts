@@ -27,7 +27,7 @@ describe('DatabaseEntryComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                NgbModule.forRoot(),
+                NgbModule,
                 FormsModule,
                 ChartsModule,
             ],
@@ -84,14 +84,13 @@ describe('DatabaseEntryComponent', () => {
             expect(elems.length).toBe(1);
         });
 
-        it('children of card are only a card-body and a footer', () => {
+        it('children of card are only a card-body', () => {
             // > One card with one body and one footer
             const elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('.card')).childNodes);
-            expect(elems.length).toBe(4);
+            expect(elems.length).toBe(3);
 
             for (const i in elems) {
                 if (elems[i].attributes['class'].indexOf('card-body') < 0
-                    && elems[i].attributes['class'].indexOf('card-footer') < 0
                     && elems[i].attributes['class'].indexOf('card-header') < 0
                     && elems[i].attributes['class'].indexOf('card-img-top') < 0
                     && elems[i].attributes['class'].indexOf('tab-content') < 0) {

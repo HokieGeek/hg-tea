@@ -57,7 +57,7 @@ describe('DatabaseComponent', () => {
             imports: [
                 BrowserModule,
                 BrowserAnimationsModule,
-                NgbModule.forRoot(),
+                NgbModule,
                 FormsModule,
                 AppRoutingModule,
                 OwlDateTimeModule,

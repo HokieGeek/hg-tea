@@ -96,7 +96,7 @@ describe('HgTeaComponent', () => {
                 TealistComponent,
             ],
             imports: [
-                NgbModule.forRoot(),
+                NgbModule,
                 BrowserModule,
                 BrowserAnimationsModule,
                 FormsModule,

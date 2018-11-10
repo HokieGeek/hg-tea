@@ -48,7 +48,7 @@ import { TealistComponent } from './input/tealist/tealist.component';
 
 @NgModule({
     imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
