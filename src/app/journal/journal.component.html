@@ -2,8 +2,10 @@
     <ul class="list-group list-group-flush">
         <hg-journal-entry *ngFor="let entry of displayedEntries" [entry]="entry"></hg-journal-entry>
     </ul>
+</div>
 
-    <span class="btn-group btn-group-toggle mt-2" *ngIf="sortedEntries.length > 1">
+<div class="card-footer" *ngIf="sortedEntries.length > 1">
+    <span class="btn-group btn-group-toggle">
         <button *ngIf="displayedEntriesEnd < sortedEntries.length"
                 type="button"
                 class="btn btn-outline-secondary btn-sm"

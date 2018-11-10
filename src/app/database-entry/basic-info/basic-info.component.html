@@ -22,3 +22,8 @@
         aging: boolean
     -->
 </div>
+
+<div class="card-footer text-muted small">
+    <span class="text-danger" *ngIf="!tea.stocked">I'm all out</span>
+    <span class="float-right" *ngIf="tea.date">Entered on {{tea.date}}</span>
+</div>

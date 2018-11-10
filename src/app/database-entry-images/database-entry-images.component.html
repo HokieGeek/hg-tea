@@ -1,11 +1,4 @@
 <div id="teaImages-{{tea.id}}" class="carousel slide" data-ride="carousel" data-interval="false">
-    <ol class="carousel-indicators" *ngIf="tea.pictures.length > 1">
-        <li data-target="#carouselExampleIndicators"
-            *ngFor="let pic of tea.pictures; let i = index"
-            [ngClass]="{active: i == 0}"
-            data-slide-to="i" >
-        </li>
-    </ol>
     <div class="carousel-inner">
         <div class="carousel-item" *ngFor="let pic of tea.pictures; let i = index" [ngClass]="{active: i == 0}">
             <img class="d-block w-100" src="{{pic}}" />
