@@ -2,7 +2,9 @@
     <ul class="pagination pagination-sm justify-content-center">
         <li class="page-item"
             [ngClass]="{'disabled': currentPage === 1}">
-            <div class="page-link" (click)="prevPage()">Prev</div>
+            <div class="page-link bg-light" (click)="prevPage()" title="Previous page">
+                <i class="fa fa-caret-left"></i>
+            </div>
         </li>
 
         <li *ngFor="let i of range"
@@ -13,7 +15,9 @@
 
         <li class="page-item"
             [ngClass]="{'disabled': currentPage === range.length}">
-            <div class="page-link" (click)="nextPage()">Next</div>
+            <div class="page-link bg-light" (click)="nextPage()" title="Next page">
+                <i class="fa fa-caret-right"></i>
+            </div>
         </li>
     </ul>
 </nav>
