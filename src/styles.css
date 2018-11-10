@@ -7,6 +7,9 @@
     background-color: #193251;
     border-color: #193251;
 }
+.text-primary {
+    color: #193251 !important;
+}
 
 .btn-primary:hover
 {

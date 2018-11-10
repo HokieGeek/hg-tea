@@ -19,11 +19,11 @@
     <!--
         blendedteas: string[]
         blendratio: string[]
-        aging: boolean
     -->
 </div>
 
-<div class="card-footer text-muted small">
+<div class="card-footer text-muted small d-flex">
     <span class="text-danger" *ngIf="!tea.stocked">I'm all out</span>
-    <span class="float-right" *ngIf="tea.date">Entered on {{tea.date}}</span>
+    <span class="text-warning" *ngIf="tea.aging">aging</span>
+    <span class="ml-auto" *ngIf="tea.date">Entered on {{tea.date}}</span>
 </div>
