@@ -2,6 +2,12 @@ aside {
     min-width: 205px;
 }
 
+@media (max-width: 575px) {
+    main {
+        padding: 0px;
+    }
+}
+
 @media (min-width: 576px) {
     aside {
         max-width: 205px;

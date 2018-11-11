@@ -16,7 +16,7 @@
     <span class="card-text" *ngIf="tea.comments">{{tea.comments}}</span>
     </p>
 
-    <!--
+    <!-- TODO: this will be better when I add a way to view individual teas
         blendedteas: string[]
         blendratio: string[]
     -->
@@ -25,5 +25,5 @@
 <div class="card-footer text-muted small d-flex">
     <span class="text-danger" *ngIf="!tea.stocked">I'm all out</span>
     <span class="text-warning" *ngIf="tea.aging">aging</span>
-    <span class="ml-auto" *ngIf="tea.date">Entered on {{tea.date}}</span>
+    <span class="ml-auto" *ngIf="tea.date">Entered on {{tea.date | date:'short'}}</span>
 </div>
