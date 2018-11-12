@@ -5,6 +5,7 @@ import { tap, switchMap, catchError } from 'rxjs/operators';
 import { Tea } from '../tea';
 import { TeaDbService } from '../teadb.service';
 import { ViewService } from '../view.service';
+import { SearchService } from '../search.service';
 
 import { environment } from '../../environments/environment';
 
@@ -14,7 +15,7 @@ import { TestUtils } from '../test-utils';
   selector: 'hg-teas',
   templateUrl: './teas.component.html',
   styleUrls: ['./teas.component.css'],
-  providers: [ TeaDbService ]
+  providers: [ TeaDbService, SearchService ]
 })
 export class TeasComponent implements OnInit {
     public teas: Tea[] = [];
@@ -22,7 +23,7 @@ export class TeasComponent implements OnInit {
 
     private updateRateMs = 5000;
 
-    constructor(private teaDbService: TeaDbService) {}
+    constructor(private teaDbService: TeaDbService, private searchService: SearchService) {}
 
     get errorMsg(): any {
         return this._errorMsg;
@@ -50,7 +51,10 @@ export class TeasComponent implements OnInit {
                 })
             )
             .subscribe(
-                teas => this.teas = teas,
+                teas => {
+                    this.teas = teas;
+                    this.searchService.ingest(this.teas);
+                },
                 err => this.errorMsg = err
             );
     }
