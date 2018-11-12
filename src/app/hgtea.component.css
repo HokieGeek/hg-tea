@@ -23,3 +23,7 @@ button.navbar-toggler:focus {
 .nav-item {
     margin-right: 1rem;
 }
+
+#filter-controls {
+    width: 50vw;
+}

@@ -45,6 +45,7 @@ import { TeaEditComponent } from './input/tea-edit/tea-edit.component';
 import { StatsComponent } from './stats/stats.component';
 import { PicturesComponent } from './input/pictures/pictures.component';
 import { TealistComponent } from './input/tealist/tealist.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
     imports: [
@@ -91,6 +92,7 @@ import { TealistComponent } from './input/tealist/tealist.component';
         TeaEditComponent,
         PicturesComponent,
         TealistComponent,
+        SearchComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]
