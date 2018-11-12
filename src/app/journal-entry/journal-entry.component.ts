@@ -26,9 +26,13 @@ export class JournalEntryComponent {
     }
 
     get fixinsStr(): string {
+        let ret = '';
         if (this.entry.fixins != null && this.entry.fixins.length > 0) {
-            return this.entry.fixins.join(', ').replace(/, ([^,]*)$/, ', & $1');
+            ret = this.entry.fixins.join(', ').replace(/, ([^,]*)$/, ', & $1');
+            if ((ret.match(/,/g) || []).length === 1) {
+                ret = ret.replace(/,/, '');
+            }
         }
-        return '';
+        return ret;
     }
 }

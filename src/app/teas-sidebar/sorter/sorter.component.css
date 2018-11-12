@@ -1,3 +1,7 @@
 .row {
     padding-bottom: 3px;
 }
+
+#dropdown-more:after {
+    content: none !important;
+}
