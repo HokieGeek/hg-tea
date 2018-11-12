@@ -7,6 +7,10 @@
     border: 0px;
 }
 
+button.navbar-toggler:focus {
+    outline: 0;
+}
+
 .navbar-brand {
     display: inline;
 }
