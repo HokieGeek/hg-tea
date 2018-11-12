@@ -5,14 +5,38 @@ import { Tea } from './tea';
 
 export enum FilterFlag { 'UNSET', 'ONLY', 'EXCLUDED' }
 
+export class ViewFields {
+    public static sorterRecentEntries    = 'Recent entries';
+    public static sorterName             = 'Name';
+    public static sorterRatingsMedian    = 'Ratings (Median)';
+    public static sorterRatingsAverage   = 'Ratings (Average)';
+    public static sorterYear             = 'Year';
+    public static sorterNumberOfEntries  = 'Number of entries';
+    public static sorterPurchasePrice    = 'Purchase price';
+    public static sorterPurchaseDate     = 'Purchase date';
+    public static sorterPricePerCup      = 'Price per cup';
+
+    public static filterTeaIds           = 'Tea IDs';
+    public static filterTeaType          = 'Tea Type';
+    public static filterStocked          = 'Stocked';
+    public static filterWithEntries      = 'With entries';
+    public static filterCountries        = 'Countries';
+    public static filterSample           = 'Sample';
+    public static filterPurchaseLocation = 'Purchase location';
+    public static filterRegion           = 'Region';
+    public static filterAging            = 'Aging';
+}
+
 export class Filter {
     static Stored = class {
         public strings: string;
+        public numbers: string;
         public flags: string;
     };
 
     // TODO: not public
     public strings: Map<string, string[]> = new Map<string, string[]>();
+    public numbers: Map<string, number[]> = new Map<string, number[]>();
     public flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
     public matchers: Map<string, any> = new Map<string, any>();
     public changed: EventEmitter<any> = new EventEmitter();
@@ -21,6 +45,12 @@ export class Filter {
 
     addStringField(field: string, matcher: (strings: string[], tea: Tea) => boolean) {
         this.strings.set(field, []);
+        this.matchers.set(field, matcher);
+        this.changed.emit();
+    }
+
+    addNumberField(field: string, matcher: (numbers: number[], tea: Tea) => boolean) {
+        this.numbers.set(field, []);
         this.matchers.set(field, matcher);
         this.changed.emit();
     }
@@ -40,16 +70,24 @@ export class Filter {
     }
 
     withString(field: string, value: string): Filter {
+        return this.withStrings(field, [value]);
+    }
+
+    withStrings(field: string, value: string[]): Filter {
         if (this.strings.has(field)) {
-            this.strings.get(field).push(value);
+            this.strings.set(field, this.strings.get(field).concat(value));
             this.changed.emit();
         }
         return this;
     }
 
     withoutString(field: string, value: string): Filter {
+        return this.withoutStrings(field, [value]);
+    }
+
+    withoutStrings(field: string, value: string[]): Filter {
         if (this.strings.has(field)) {
-            this.strings.set(field, this.strings.get(field).filter(v => v !== value));
+            this.strings.set(field, this.strings.get(field).filter(v => !value.includes(v)));
             this.changed.emit();
         }
         return this;
@@ -59,8 +97,60 @@ export class Filter {
         return this.strings.has(field) && this.strings.get(field).length !== 0;
     }
 
+    clearStrings(field: string) {
+        if (this.strings.has(field)) {
+            this.strings.set(field, []);
+        }
+    }
+
     get stringFields(): string[] {
         return Array.from(this.strings.keys());
+    }
+
+    // Number fields
+    numberField(field: string): number[] {
+        if (this.numbers.has(field)) {
+            return this.numbers.get(field);
+        }
+        return null;
+    }
+
+    withNumber(field: string, value: number): Filter {
+        return this.withNumbers(field, [value]);
+    }
+
+    withNumbers(field: string, value: number[]): Filter {
+        if (this.numbers.has(field)) {
+            this.numbers.set(field, this.numbers.get(field).concat(value));
+            this.changed.emit();
+        }
+        return this;
+    }
+
+    withoutNumber(field: string, value: number): Filter {
+        return this.withoutNumbers(field, [value]);
+    }
+
+    withoutNumbers(field: string, value: number[]): Filter {
+        if (this.numbers.has(field)) {
+            this.numbers.set(field, this.numbers.get(field).filter(v => !value.includes(v)));
+            this.changed.emit();
+        }
+        return this;
+    }
+
+    hasNumbers(field: string): boolean {
+        return this.numbers.has(field) && this.numbers.get(field).length !== 0;
+    }
+
+    clearNumbers(field: string) {
+        if (this.numbers.has(field)) {
+            this.numbers.set(field, []);
+        }
+    }
+
+    get numberFields(): string[] {
+        return Array.from(this.numbers.keys());
     }
 
     // FilterFlag fields
@@ -115,7 +205,12 @@ export class Filter {
         let isMatch = true;
         this.matchers.forEach((matcher: any, field: string) => {
             if (isMatch) {
-                if (this.strings.has(field)) {
+                if (this.numbers.has(field)) {
+                    const numbers = this.numbers.get(field);
+                    if (numbers.length !== 0 && !matcher(numbers, tea)) {
+                        isMatch = false;
+                    }
+                } else if (this.strings.has(field)) {
                     const strings = this.strings.get(field);
                     if (strings.length !== 0 && !matcher(strings, tea)) {
                         isMatch = false;
@@ -142,6 +237,7 @@ export class Filter {
     stringify(): string {
         const s = new Filter.Stored();
         s.strings = JSON.stringify(Array.from(this.strings.entries()));
+        s.numbers = JSON.stringify(Array.from(this.numbers.entries()));
         s.flags = JSON.stringify(Array.from(this.flags.entries()));
         return JSON.stringify(s);
     }
@@ -268,25 +364,6 @@ export class Sorter {
 }
 
 class View {
-    static sorterRecentEntries = 'Recent entries';
-    static sorterName = 'Name';
-    static sorterRatingsMedian = 'Ratings (Median)';
-    static sorterRatingsAverage = 'Ratings (Average)';
-    static sorterYear = 'Year';
-    static sorterNumberOfEntries = 'Number of entries';
-    static sorterPurchasePrice = 'Purchase price';
-    static sorterPurchaseDate = 'Purchase date';
-    static sorterPricePerCup = 'Price per cup';
-
-    static filterTeaType = 'Tea Type';
-    static filterStocked = 'Stocked';
-    static filterWithEntries = 'With entries';
-    static filterCountries = 'Countries';
-    static filterSample = 'Sample';
-    static filterPurchaseLocation = 'Purchase location';
-    static filterRegion = 'Region';
-    static filterAging = 'Aging';
-
     static Stored = class {
         public name: string;
         public filter: string;
@@ -340,45 +417,49 @@ class View {
     }
 
     private addFilters(f: Filter) {
-        f.addStringField(View.filterTeaType, (strings: string[], tea: Tea): boolean => {
+        f.addNumberField(ViewFields.filterTeaIds, (numbers: number[], tea: Tea): boolean => {
+            return numbers.includes(tea.id);
+        });
+
+        f.addStringField(ViewFields.filterTeaType, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.type.toLowerCase().trim());
         });
 
-        f.addFlagField(View.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
+        f.addFlagField(ViewFields.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.stocked)
                 || (flag === FilterFlag.EXCLUDED && !tea.stocked));
         });
 
-        f.addFlagField(View.filterWithEntries, (flag: FilterFlag, tea: Tea): boolean => {
+        f.addFlagField(ViewFields.filterWithEntries, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.entries.length > 0)
                 || (flag === FilterFlag.EXCLUDED && tea.entries.length === 0));
         });
 
-        f.addStringField(View.filterCountries, (strings: string[], tea: Tea): boolean => {
+        f.addStringField(ViewFields.filterCountries, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.country.toLowerCase().trim());
         });
 
-        f.addFlagField(View.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
+        f.addFlagField(ViewFields.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.sample)
                 || (flag === FilterFlag.EXCLUDED && !tea.sample));
         });
 
-        f.addFlagField(View.filterAging, (flag: FilterFlag, tea: Tea): boolean => {
+        f.addFlagField(ViewFields.filterAging, (flag: FilterFlag, tea: Tea): boolean => {
             return ((flag === FilterFlag.ONLY && tea.aging)
                 || (flag === FilterFlag.EXCLUDED && !tea.aging));
         });
 
-        f.addStringField(View.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
+        f.addStringField(ViewFields.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.purchaselocation.toLowerCase().trim());
         });
 
-        f.addStringField(View.filterRegion, (strings: string[], tea: Tea): boolean => {
+        f.addStringField(ViewFields.filterRegion, (strings: string[], tea: Tea): boolean => {
             return strings.includes(tea.region.toLowerCase().trim());
         });
     }
 
     private addSorters(s: Sorter) {
-        s.addFieldComparator(View.sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterRecentEntries, (t1, t2: Tea, dir: SortDirection): number => {
             if (t1.latestEntry == null && t2.latestEntry == null) {
                 return 0;
             } else if (t1.latestEntry == null && t2.latestEntry != null) {
@@ -396,7 +477,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterName, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterName, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.name.localeCompare(t1.name);
             } else {
@@ -404,7 +485,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterRatingsMedian, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterRatingsMedian, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.ratingMedian - t1.ratingMedian;
             } else {
@@ -412,7 +493,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterRatingsAverage, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterRatingsAverage, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.ratingAvg - t1.ratingAvg;
             } else {
@@ -420,7 +501,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterYear, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterYear, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) {
                 return t2.year - t1.year;
             } else {
@@ -428,7 +509,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterNumberOfEntries, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterNumberOfEntries, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.entries.length - t1.entries.length;
             } else { // Sort oldest to newest
@@ -436,7 +517,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterPurchasePrice, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterPurchasePrice, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.purchaseprice - t1.purchaseprice;
             } else { // Sort oldest to newest
@@ -444,7 +525,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterPurchaseDate, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterPurchaseDate, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return moment.utc(t2.purchasedate).diff(moment.utc(t1.purchasedate));
             } else { // Sort oldest to newest
@@ -452,7 +533,7 @@ class View {
             }
         });
 
-        s.addFieldComparator(View.sorterPricePerCup, (t1, t2: Tea, dir: SortDirection): number => {
+        s.addFieldComparator(ViewFields.sorterPricePerCup, (t1, t2: Tea, dir: SortDirection): number => {
             if (dir === SortDirection.DESC) { // Sort newest to oldest
                 return t2.pricePerCup - t1.pricePerCup;
             } else { // Sort oldest to newest
@@ -561,24 +642,24 @@ export class ViewService {
     private createDefaultViews(): void {
         // ToDrink
         const toDrink = new View('Untried');
-        toDrink.sorter.assignField(View.sorterPurchaseDate, SortDirection.ASC);
-        toDrink.filter.withFlagOnly(View.filterStocked);
-        toDrink.filter.withFlagExcluded(View.filterWithEntries);
-        toDrink.filter.withFlagExcluded(View.filterAging);
+        toDrink.sorter.assignField(ViewFields.sorterPurchaseDate, SortDirection.ASC);
+        toDrink.filter.withFlagOnly(ViewFields.filterStocked);
+        toDrink.filter.withFlagExcluded(ViewFields.filterWithEntries);
+        toDrink.filter.withFlagExcluded(ViewFields.filterAging);
         this.defaultViews.set(toDrink.name, toDrink);
 
         // Aging
         const aging = new View('Aging');
-        aging.sorter.assignField(View.sorterPurchaseDate, SortDirection.ASC);
-        aging.filter.withFlagOnly(View.filterAging);
+        aging.sorter.assignField(ViewFields.sorterPurchaseDate, SortDirection.ASC);
+        aging.filter.withFlagOnly(ViewFields.filterAging);
         this.defaultViews.set(aging.name, aging);
 
         // Been a while
         const beenAWhile = new View('Been a while');
-        beenAWhile.sorter.assignField(View.sorterRecentEntries, SortDirection.ASC);
-        beenAWhile.filter.withFlagOnly(View.filterStocked);
-        beenAWhile.filter.withFlagOnly(View.filterWithEntries);
-        beenAWhile.filter.withFlagExcluded(View.filterAging);
+        beenAWhile.sorter.assignField(ViewFields.sorterRecentEntries, SortDirection.ASC);
+        beenAWhile.filter.withFlagOnly(ViewFields.filterStocked);
+        beenAWhile.filter.withFlagOnly(ViewFields.filterWithEntries);
+        beenAWhile.filter.withFlagExcluded(ViewFields.filterAging);
         this.defaultViews.set(beenAWhile.name, beenAWhile);
     }
 
@@ -666,7 +747,7 @@ export class ViewService {
 
     clear(): void {
         const v = new View('');
-        v.sorter.assignField(View.sorterRecentEntries, SortDirection.DESC);
+        v.sorter.assignField(ViewFields.sorterRecentEntries, SortDirection.DESC);
         this.setActiveView(v);
         this.changed.emit(true);
         this.applied.emit();
