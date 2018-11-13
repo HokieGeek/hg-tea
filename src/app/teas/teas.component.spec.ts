@@ -37,6 +37,7 @@ import { TeaEditComponent } from '../input/tea-edit/tea-edit.component';
 import { StatsComponent } from '../stats/stats.component';
 import { PicturesComponent } from '../input/pictures/pictures.component';
 import { TealistComponent } from '../input/tealist/tealist.component';
+import { SearchComponent } from '../search/search.component';
 
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
@@ -100,6 +101,7 @@ describe('TeasComponent', () => {
                 TeaEditComponent,
                 PicturesComponent,
                 TealistComponent,
+                SearchComponent,
             ],
             providers: [
                 HttpClient,

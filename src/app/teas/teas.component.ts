@@ -15,7 +15,7 @@ import { TestUtils } from '../test-utils';
   selector: 'hg-teas',
   templateUrl: './teas.component.html',
   styleUrls: ['./teas.component.css'],
-  providers: [ TeaDbService, SearchService ]
+  providers: [ TeaDbService ]
 })
 export class TeasComponent implements OnInit {
     public teas: Tea[] = [];

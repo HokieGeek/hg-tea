@@ -12,6 +12,7 @@ import { FlagFieldComponent } from './filter/flag-field/flag-field.component';
 import { SorterComponent } from './sorter/sorter.component';
 import { SortFieldComponent } from './sorter/sort-field/sort-field.component';
 import { ViewManagerComponent } from './view-manager/view-manager.component';
+import { SearchComponent } from '../search/search.component';
 
 import { TestUtils } from '../test-utils';
 
@@ -33,6 +34,7 @@ describe('TeasSidebarComponent', () => {
                 SorterComponent,
                 SortFieldComponent,
                 ViewManagerComponent,
+                SearchComponent,
             ]
         })
         .compileComponents();

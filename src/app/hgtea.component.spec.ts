@@ -42,6 +42,7 @@ import { TeaEditComponent } from './input/tea-edit/tea-edit.component';
 import { StatsComponent } from './stats/stats.component';
 import { PicturesComponent } from './input/pictures/pictures.component';
 import { TealistComponent } from './input/tealist/tealist.component';
+import { SearchComponent } from './search/search.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
@@ -94,6 +95,7 @@ describe('HgTeaComponent', () => {
                 TeaEditComponent,
                 PicturesComponent,
                 TealistComponent,
+                SearchComponent,
             ],
             imports: [
                 NgbModule,

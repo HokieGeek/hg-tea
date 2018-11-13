@@ -40,6 +40,7 @@ import { TeaEditComponent } from '../input/tea-edit/tea-edit.component';
 import { StatsComponent } from '../stats/stats.component';
 import { PicturesComponent } from '../input/pictures/pictures.component';
 import { TealistComponent } from '../input/tealist/tealist.component';
+import { SearchComponent } from '../search/search.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -99,6 +100,7 @@ describe('DatabaseComponent', () => {
                 TeaEditComponent,
                 PicturesComponent,
                 TealistComponent,
+                SearchComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,

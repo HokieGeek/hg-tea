@@ -6,8 +6,7 @@ import { SearchService } from '../search.service';
 @Component({
     selector: 'hg-search',
     templateUrl: './search.component.html',
-    styleUrls: ['./search.component.css'],
-    providers: [ SearchService ]
+    styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
     ViewFields = ViewFields;
