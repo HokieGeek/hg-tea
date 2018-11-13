@@ -1,0 +1,7 @@
+input.transparent {
+    opacity: .2;
+}
+
+input.transparent:focus {
+    opacity: 1;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ViewFields, ViewService } from '../view.service';
 import { SearchService } from '../search.service';
@@ -9,7 +9,7 @@ import { SearchService } from '../search.service';
     styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-    ViewFields = ViewFields;
+    @Input('transparent') transparent: boolean;
 
     private queryValue = '';
 

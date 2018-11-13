@@ -26,4 +26,7 @@ button.navbar-toggler:focus {
 
 #filter-controls {
     width: 50vw;
+    padding-right: .55rem;
+    position: relative;
+    top: -2px;
 }

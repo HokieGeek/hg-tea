@@ -1,5 +1,7 @@
-<nav class="navbar navbar-dark bg-dark">
-    <div class="d-flex flex-row align-items-start">
+<nav class="navbar navbar-dark bg-dark p-0">
+    <div class="d-flex flex-row align-items-start"
+        style="margin-top: .5rem; margin-bottom: .5rem;">
+
         <button class="navbar-toggler collapse-sm" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,9 +23,9 @@
         </div>
     </div>
 
-    <span id="filter-controls" class="collapse-sm">
-        <hg-search></hg-search>
-    </span>
+    <div id="filter-controls" class="align-top collapse-sm">
+        <hg-search transparent=true></hg-search>
+    </div>
 
     <button class="navbar-toggler collapse-lg" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
