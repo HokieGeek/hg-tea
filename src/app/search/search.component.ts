@@ -9,7 +9,7 @@ import { SearchService } from '../search.service';
     styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-    @Input('transparent') transparent: boolean;
+    @Input() transparent: boolean;
 
     private queryValue = '';
 
