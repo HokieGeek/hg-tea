@@ -4,6 +4,10 @@
     }
 }
 
+.nav-item {
+    cursor: pointer;
+}
+
 .tea-list-item.active,
 .tea-list-item:hover
 {

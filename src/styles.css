@@ -7,6 +7,13 @@
     background-color: #193251;
     border-color: #193251;
 }
+.nav-pills .nav-link.active:hover {
+    color: #ffffff;
+}
+.nav-pills .nav-link:hover {
+    color: #193251;
+}
+
 .text-primary {
     color: #193251 !important;
 }

@@ -1,10 +1,24 @@
 <div class="container-fluid h-100" *ngIf="teas.length > 0">
     <div class="row h-100">
-        <hg-tealist id="sidebar"
-                    [teas]="stockedTeas"
-                    (selected)="selectTea($event)"
-                    (create)="newTeas.push(newTeas.length)">
-        </hg-tealist>
+        <aside class="collapse-sm">
+            <hg-tealist [stockedTeas]="stockedTeas"
+                        [noLongerStockedTeas]="noLongerStockedTeas"
+                        (selected)="selectTea($event)">
+            </hg-tealist>
+        </aside>
+
+        <aside id="sidebar" class="collapse">
+            <hg-tealist [stockedTeas]="stockedTeas"
+                        [noLongerStockedTeas]="noLongerStockedTeas"
+                        (selected)="selectTea($event)">
+            </hg-tealist>
+        </aside>
+
+        <button type="button"
+                class="btn btn-primary btn-block rounded-0"
+                (click)="newTeas.push(newTeas.length)">
+            Create new tea...
+        </button>
 
         <div class="col card-columns py-1">
             <hg-tea-editor

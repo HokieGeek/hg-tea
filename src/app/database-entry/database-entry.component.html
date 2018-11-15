@@ -17,11 +17,11 @@
     </div>
 
     <div class="card-header">
-        <ul class="nav nav-pills card-header-pills nav-fill">
-            <li class="nav-item"><a data-toggle="tab" class="nav-link active" *ngIf="tea.entries.length > 0" href="#journal-{{tea.id}}">journal</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" [ngClass]="{'active': tea.entries.length == 0}" href="#info-{{tea.id}}">info</a></li>
+        <nav class="nav nav-pills card-header-pills nav-fill">
+            <a data-toggle="tab" class="nav-item nav-link active" *ngIf="tea.entries.length > 0" href="#journal-{{tea.id}}">journal</a>
+            <a data-toggle="tab" class="nav-item nav-link" [ngClass]="{'active': tea.entries.length == 0}" href="#info-{{tea.id}}">info</a>
             <!--li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#stats-{{tea.id}}">stats</a></li-->
-        </ul>
+        </nav>
     </div>
 
     <div class="tab-content">

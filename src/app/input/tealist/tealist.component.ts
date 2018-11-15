@@ -8,11 +8,16 @@ import { Tea } from '../../tea';
     styleUrls: ['./tealist.component.css']
 })
 export class TealistComponent implements OnInit {
-    @Input() teas: Tea[] = null;
-    @Input() id = '';
+    @Input() stockedTeas: Tea[] = null;
+    @Input() noLongerStockedTeas: Tea[] = null;
+
+    public listStocked = true;
+
+    get teas(): Tea[] {
+        return this.listStocked ? this.stockedTeas : this.noLongerStockedTeas;
+    }
 
     @Output() selected: EventEmitter<Tea> = new EventEmitter<Tea>();
-    @Output() create: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor() { }
 
@@ -21,9 +26,5 @@ export class TealistComponent implements OnInit {
 
     selectTea(tea: Tea) {
         this.selected.emit(tea);
-    }
-
-    createNew() {
-        this.create.emit(true);
     }
 }

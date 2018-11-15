@@ -42,6 +42,7 @@ export class InputComponent implements OnInit {
     public input = new InputEntry();
     private _teas: Tea[] = [];
     public stockedTeas: Tea[] = [];
+    public noLongerStockedTeas: Tea[] = [];
     public teasWithOpenSessions: Tea[] = [];
     public unratedEntries: Map<Entry, Tea> = new Map<Entry, Tea>();
     public unratedEntriesList: Entry[] = [];
@@ -79,6 +80,20 @@ export class InputComponent implements OnInit {
 
         this.stockedTeas = this._teas
             .filter(tea => tea.stocked)
+            .sort((t1, t2) => {
+                const n1 = t1.name.toLowerCase();
+                const n2 = t2.name.toLowerCase();
+                if (n1 > n2) {
+                    return 1;
+                } else if (n1 < n2) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+
+        this.noLongerStockedTeas = this._teas
+            .filter(tea => !tea.stocked)
             .sort((t1, t2) => {
                 const n1 = t1.name.toLowerCase();
                 const n2 = t2.name.toLowerCase();

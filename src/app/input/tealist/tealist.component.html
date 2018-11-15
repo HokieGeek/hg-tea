@@ -1,28 +1,9 @@
-<!--
--->
-<aside class="collapse-sm">
-    <div class="tea-list-item pl-1"
-         (click)="createNew()">
-        Create new tea...
-    </div>
-    <hr />
-    <div *ngFor="let t of teas"
-         class="tea-list-item pl-1 text-capitalize"
-         (click)="selectTea(t)">
-        {{t.name}}&nbsp;<span *ngIf="t.year" class="text-muted">{{t.year}}&nbsp;</span><span class="text-black-50 small">{{t.id}}</span>
-    </div>
-</aside>
-
-<aside [id]="id" class="collapse">
-<!--aside [id]="id" class="collapse d-none d-lg-block"-->
-    <div class="tea-list-item pl-1"
-         (click)="createNew()">
-        Create new tea...
-    </div>
-    <hr />
-    <div *ngFor="let t of teas"
-         class="tea-list-item pl-1 text-capitalize"
-         (click)="selectTea(t)">
-        {{t.name}}&nbsp;<span *ngIf="t.year" class="text-muted">{{t.year}}&nbsp;</span><span class="text-black-50 small">{{t.id}}</span>
-    </div>
-</aside>
+<nav class="nav nav-pills nav-fill" role="tablist">
+    <a class="nav-item nav-link rounded-0" [ngClass]="{'active': listStocked}" (click)="listStocked = true" data-toggle="tab" role="tab" aria-controls="stocked">Stocked</a>
+    <a class="nav-item nav-link rounded-0" [ngClass]="{'active': !listStocked}" (click)="listStocked = false" data-toggle="tab" role="tab" aria-controls="Not stocked">Not</a>
+</nav>
+<div *ngFor="let t of teas"
+     class="tea-list-item pl-1 text-capitalize"
+     (click)="selectTea(t)">
+    {{t.name}}&nbsp;<span *ngIf="t.year" class="text-muted">{{t.year}}&nbsp;</span><span class="text-black-50 small">{{t.id}}</span>
+</div>
