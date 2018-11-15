@@ -19,8 +19,16 @@ export class SearchService {
     private rebuildIndex() {
         const builder = new lunr.Builder();
         builder.ref('id');
+
+        builder.field('id');
         builder.field('name');
+        builder.field('year');
+        builder.field('type');
+        builder.field('comments');
+        builder.field('purchaselocation');
+
         this.teas.forEach(t => builder.add(t));
+
         this.idx = builder.build();
     }
 
