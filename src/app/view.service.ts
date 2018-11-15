@@ -229,6 +229,7 @@ export class Filter {
     clone(): Filter {
         const f: Filter = new Filter();
         f.strings = new Map<string, string[]>(this.strings);
+        f.numbers = new Map<string, number[]>(this.numbers);
         f.flags = new Map<string, FilterFlag>(this.flags);
         f.matchers = new Map<string, any>(this.matchers);
         return f;
@@ -245,6 +246,7 @@ export class Filter {
     parse(f: string) {
         const s = JSON.parse(f);
         this.strings = new Map<string, string[]>(JSON.parse(s.strings));
+        this.numbers = new Map<string, number[]>(JSON.parse(s.numbers));
         this.flags = new Map<string, FilterFlag>(JSON.parse(s.flags));
     }
 }
@@ -388,6 +390,9 @@ class View {
         f.forEach((v, k) => {
             const typeAndName = k.split('>');
             switch (typeAndName[0]) {
+                case 'n':
+                    v.split(',').forEach((num) => parsed.filter.withNumber(typeAndName[1], +num));
+                    break;
                 case 'z':
                     v.split(',').forEach((str) => parsed.filter.withString(typeAndName[1], str));
                     break;
@@ -559,6 +564,11 @@ class View {
         this.filter.strings.forEach((v, k) => {
             if (v.length > 0) {
                 params += 'z>' + k + ':' + v.join(',') + ';';
+            }
+        });
+        this.filter.numbers.forEach((v, k) => {
+            if (v.length > 0) {
+                params += 'n>' + k + ':' + v.join(',') + ';';
             }
         });
         this.filter.flags.forEach((v, k) => {
