@@ -1,59 +1,62 @@
 <div class="container-fluid h-100" *ngIf="teas.length > 0">
     <div class="row h-100">
-        <aside class="collapse-sm">
-            <hg-tealist [stockedTeas]="stockedTeas"
-                        [noLongerStockedTeas]="noLongerStockedTeas"
-                        (selected)="selectTea($event)">
-            </hg-tealist>
-        </aside>
+        <div class="col-3 h-100 px-0">
+            <aside class="collapse-sm">
+                <hg-tealist [stockedTeas]="stockedTeas"
+                            [noLongerStockedTeas]="noLongerStockedTeas"
+                            (selected)="selectTea($event)">
+                </hg-tealist>
+            </aside>
 
-        <aside id="sidebar" class="collapse">
-            <hg-tealist [stockedTeas]="stockedTeas"
-                        [noLongerStockedTeas]="noLongerStockedTeas"
-                        (selected)="selectTea($event)">
-            </hg-tealist>
-        </aside>
+            <aside id="sidebar" class="collapse">
+                <hg-tealist [stockedTeas]="stockedTeas"
+                            [noLongerStockedTeas]="noLongerStockedTeas"
+                            (selected)="selectTea($event)">
+                </hg-tealist>
+            </aside>
+        </div>
 
-        <button type="button"
-                class="btn btn-primary btn-block rounded-0"
-                (click)="newTeas.push(newTeas.length)">
-            Create new tea...
-        </button>
+        <div class="col h-100 px-0">
+            <button type="button"
+                    class="btn btn-dark btn-block rounded-0"
+                    (click)="newTeas.push(newTeas.length)">
+                Create new tea...
+            </button>
+            <div class="card-columns py-1">
+                <hg-tea-editor
+                    *ngFor="let t of newTeas"
+                    (createdTea)="createTea(t, $event)"
+                    (canceled)="removeTeaCreator(t)">
+                </hg-tea-editor>
 
-        <div class="col card-columns py-1">
-            <hg-tea-editor
-                *ngFor="let t of newTeas"
-                (createdTea)="createTea(t, $event)"
-                (canceled)="removeTeaCreator(t)">
-            </hg-tea-editor>
+                <hg-tea-editor
+                    *ngFor="let t of selectedTeas"
+                    [tea]="t"
+                    (createdEntry)="createEntry(t, $event)"
+                    (updatedEntry)="updateEntry(t, $event)"
+                    (deletedEntry)="deleteEntry(t, $event)"
+                    (updatedTea)="updateTea($event)"
+                    (canceled)="unselectTea(t)">
+                </hg-tea-editor>
 
-            <hg-tea-editor
-                *ngFor="let t of selectedTeas"
-                [tea]="t"
-                (createdEntry)="createEntry(t, $event)"
-                (updatedEntry)="updateEntry(t, $event)"
-                (deletedEntry)="deleteEntry(t, $event)"
-                (updatedTea)="updateTea($event)"
-                (canceled)="unselectTea(t)">
-            </hg-tea-editor>
+                <hg-unrated
+                    *ngFor="let e of unratedEntriesList"
+                    [tea]="unratedEntries.get(e)"
+                    [entry]="e"
+                    (expand)="selectTea($event)"
+                    (updated)="updateEntry(unratedEntries.get(e), $event)">
+                </hg-unrated>
 
-            <hg-unrated
-                *ngFor="let e of unratedEntriesList"
-                [tea]="unratedEntries.get(e)"
-                [entry]="e"
-                (expand)="selectTea($event)"
-                (updated)="updateEntry(unratedEntries.get(e), $event)">
-            </hg-unrated>
-
-            <hg-tea-editor
-                *ngFor="let t of teasWithOpenSessions"
-                [tea]="t"
-                [cancelable]="false"
-                (createdEntry)="createEntry(t, $event)"
-                (updatedEntry)="updateEntry(t, $event)"
-                (deletedEntry)="deleteEntry(t, $event)"
-                (updatedTea)="updateTea($event)">
-            </hg-tea-editor>
+                <hg-tea-editor
+                    *ngFor="let t of teasWithOpenSessions"
+                    [tea]="t"
+                    [cancelable]="false"
+                    (createdEntry)="createEntry(t, $event)"
+                    (updatedEntry)="updateEntry(t, $event)"
+                    (deletedEntry)="deleteEntry(t, $event)"
+                    (updatedTea)="updateTea($event)">
+                </hg-tea-editor>
+            </div>
         </div>
     </div>
 </div>
