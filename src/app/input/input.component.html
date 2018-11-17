@@ -1,14 +1,16 @@
 <div class="container-fluid h-100" *ngIf="teas.length > 0">
     <div class="row h-100">
-        <div class="col-3 h-100 px-0">
-            <aside class="collapse-sm">
+        <div class="col-3 h-100 px-0 collapse-sm">
+            <aside>
                 <hg-tealist [stockedTeas]="stockedTeas"
                             [noLongerStockedTeas]="noLongerStockedTeas"
                             (selected)="selectTea($event)">
                 </hg-tealist>
             </aside>
+        </div>
 
-            <aside id="sidebar" class="collapse">
+        <div id="sidebar" class="collapse h-100 px-0">
+            <aside>
                 <hg-tealist [stockedTeas]="stockedTeas"
                             [noLongerStockedTeas]="noLongerStockedTeas"
                             (selected)="selectTea($event)">
