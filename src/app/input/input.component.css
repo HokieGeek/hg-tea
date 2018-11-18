@@ -2,19 +2,18 @@
 }
 
 @media (min-width: 576px) {
+    /*
     hg-tealist {
         padding: 0px;
         height: 97vh;
         overflow-y: scroll;
         overflow-x: hidden;
-
-        flex: 0 0 25%;
-        max-width: 25%;
     }
+    */
 
-    .card-columns {
-        overflow-y: scroll;
-        overflow-x: auto;
+    hg-tea-editor {
+        padding-bottom: 5px;
+        max-width: 25rem;
     }
 }
 
