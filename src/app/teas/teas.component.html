@@ -8,11 +8,14 @@
 
 <div class="container-fluid h-100" *ngIf="teas.length > 0">
     <div class="row h-100">
-        <aside id="sidebar" class="collapse col-sm-2 p-1">
+        <aside id="sidebar" class="collapse collapse-lg col-sm-2 p-1">
             <hg-teas-sidebar [teas]="teas"></hg-teas-sidebar>
         </aside>
         <main class="col mt-2">
             <hg-database [teas]="teas"></hg-database>
         </main>
+        <aside id="sidebar" class="collapse collapse-sm col-sm-2 p-1">
+            <hg-teas-sidebar [teas]="teas"></hg-teas-sidebar>
+        </aside>
     </div>
 </div>

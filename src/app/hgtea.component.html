@@ -2,9 +2,9 @@
     <div class="d-flex flex-row align-items-start"
         style="margin-top: .5rem; margin-bottom: .5rem;">
 
-        <button class="navbar-toggler collapse-sm" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+        <!--button class="navbar-toggler collapse-sm" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button-->
 
         <a class="navbar-brand mx-3" href="#">
             <hg-teacupimg width="30" height="30" class="d-inline-block align-top" selected alt="tea.hokiegeek.net"></hg-teacupimg>
@@ -23,8 +23,12 @@
         </div>
     </div>
 
-    <div id="filter-controls" class="collapse-sm">
-        <hg-search transparent=true></hg-search>
+    <!--div id="filter-controls" class="collapse-sm"-->
+    <div id="filter-controls" class="d-flex flex-row collapse-sm">
+        <hg-search class="flex-grow-1" transparent=true></hg-search>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 
     <button class="navbar-toggler collapse-lg" type="button" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
