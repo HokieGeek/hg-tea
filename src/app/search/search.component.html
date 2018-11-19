@@ -2,7 +2,8 @@
     <input type="text" [ngClass]="{'transparent': transparent, 'glass': query.length === 0}"
            [(ngModel)]="query" class="form-control" aria-label="Search" aria-describedby="search">
     <div class="input-group-append" *ngIf="query.length > 0">
-        <button class="btn btn-secondary" type="button" id="search-clear" (click)="clear()">
+        <button type="button"
+            class="btn btn-secondary" id="search-clear" (click)="clear()">
             <i class="fa fa-times-circle"></i>
         </button>
     </div>

@@ -15,3 +15,11 @@ input.transparent:focus {
 input:focus {
     background-image: none;
 }
+
+#search-clear {
+    color: #ffffff;
+    margin-left: 1px;
+    border: 0px;
+    border-right: 1px;
+    background-color: rgb(255, 255, 255, .3);
+}
