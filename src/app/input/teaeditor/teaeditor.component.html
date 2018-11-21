@@ -37,6 +37,7 @@
         <div [attr.id]="tea != null ? 'teaedit-'+tea.id : null" class="tab-pane" [ngClass]="{'active': tea == null}">
             <hg-tea-edit
                 [tea]="tea"
+                [teas]="teas"
                 [cancelable]="cancelable"
                 (created)="createTea($event)"
                 (updated)="updateTea($event)"

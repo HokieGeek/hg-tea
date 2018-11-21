@@ -23,6 +23,7 @@
             <div class="card-deck p-1">
                 <hg-tea-editor
                     *ngFor="let t of newTeas"
+                    [teas]="teas"
                     (createdTea)="createTea(t, $event)"
                     (canceled)="removeTeaCreator(t)">
                 </hg-tea-editor>
@@ -30,6 +31,7 @@
                 <hg-tea-editor
                     *ngFor="let t of selectedTeas"
                     [tea]="t"
+                    [teas]="teas"
                     (createdEntry)="createEntry(t, $event)"
                     (updatedEntry)="updateEntry(t, $event)"
                     (deletedEntry)="deleteEntry(t, $event)"
@@ -48,6 +50,7 @@
                 <hg-tea-editor
                     *ngFor="let t of teasWithOpenSessions"
                     [tea]="t"
+                    [teas]="teas"
                     [cancelable]="false"
                     (createdEntry)="createEntry(t, $event)"
                     (updatedEntry)="updateEntry(t, $event)"

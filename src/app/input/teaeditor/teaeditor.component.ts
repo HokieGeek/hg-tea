@@ -18,6 +18,8 @@ export class TeaEditorComponent implements OnInit, AfterViewChecked {
 
     // @ViewChild('entriesList') private entriesListEl: ElementRef;
 
+    @Input() teas: Tea[];
+
     @Input() cancelable = true;
     private _tea: Tea = null;
     private _entry: Entry = null;

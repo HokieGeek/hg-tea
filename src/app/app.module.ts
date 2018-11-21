@@ -46,6 +46,7 @@ import { StatsComponent } from './stats/stats.component';
 import { PicturesComponent } from './input/pictures/pictures.component';
 import { TealistComponent } from './input/tealist/tealist.component';
 import { SearchComponent } from './search/search.component';
+import { AutofillerComponent } from './input/autofiller/autofiller.component';
 
 @NgModule({
     imports: [
@@ -93,6 +94,7 @@ import { SearchComponent } from './search/search.component';
         PicturesComponent,
         TealistComponent,
         SearchComponent,
+        AutofillerComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]

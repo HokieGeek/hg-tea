@@ -15,8 +15,16 @@ enum TeaPackagingTypes {'Loose Leaf', 'Bagged', 'Tuo', 'Beeng', 'Brick', 'Mushro
 export class TeaEditComponent implements OnInit {
     TeaPackagingTypes = TeaPackagingTypes;
 
+    private _teas: Tea[];
     private _tea: Tea = null;
 
+    public teaTypes: string[];
+    public teaRegions: string[];
+    public teaCountries: string[];
+    public teaPurchaselocations: string[];
+    public teaLeafgrades: string[];
+
+    // Tea fields
     public name: string;
     // public timestamp: string;
     public date: Date;
@@ -73,6 +81,24 @@ export class TeaEditComponent implements OnInit {
         return this._tea;
     }
 
+    @Input()
+    set teas(teas: Tea[]) {
+        this._teas = teas;
+
+        this.teaTypes = this.forAutofill(this._teas.map(t => t.type.toLowerCase()));
+        this.teaRegions = this.forAutofill(this._teas.map(t => t.region.toLowerCase()));
+        this.teaCountries = this.forAutofill(this._teas.map(t => t.country.toLowerCase()));
+        this.teaPurchaselocations = this.forAutofill(this._teas.map(t => {
+            const re = new RegExp('.*\.(com|net|us|org|edu|mil)$');
+            if (re.test(t.purchaselocation)) {
+                return t.purchaselocation.toLowerCase();
+            } else {
+                return t.purchaselocation;
+            }
+        }));
+        this.teaLeafgrades = this.forAutofill(this._teas.map(t => t.leafgrade));
+    }
+
     @Output() created: EventEmitter<Tea> = new EventEmitter<Tea>();
     @Output() updated: EventEmitter<Tea> = new EventEmitter<Tea>();
     @Output() canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -80,6 +106,11 @@ export class TeaEditComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+    }
+
+    private forAutofill(v: string[]): string[] {
+        console.log(Array.from(new Set(v.filter(t => t))));
+        return Array.from(new Set(v.filter(t => t)));
     }
 
     addPicture() {

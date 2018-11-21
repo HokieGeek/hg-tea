@@ -6,6 +6,10 @@
     margin-bottom: 5px;
 }
 
+hg-autofiller {
+    width: 100%;
+}
+
 @media (max-width: 575px) {
     .createbtn {
         width: 28vw;
