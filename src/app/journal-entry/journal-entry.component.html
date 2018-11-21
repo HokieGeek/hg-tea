@@ -14,6 +14,6 @@
         <div id="entrydate" class="text-muted small d-block" [title]="entry.datetime">
             {{ humanizedDate }}
         </div>
-        <hg-rating id="rating" class="pl-3" [rating]="entry.rating" max=4 [small]="true"></hg-rating>
+        <hg-rating *ngIf="entry.rating > 0" id="rating" class="pl-3" [rating]="entry.rating" max=4 [small]="true"></hg-rating>
     </div>
 </li>
