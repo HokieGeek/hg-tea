@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { InputComponent } from './input.component';
 import { SteepTimeComponent } from './steep-time/steep-time.component';
@@ -16,6 +17,7 @@ import { EntryEditComponent } from './entry-edit/entry-edit.component';
 import { TeaEditComponent } from './tea-edit/tea-edit.component';
 import { PicturesComponent } from './pictures/pictures.component';
 import { TealistComponent } from './tealist/tealist.component';
+import { AutofillerComponent } from './autofiller/autofiller.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 import { SteeptimePipe } from '../steeptime.pipe';
@@ -33,6 +35,7 @@ describe('InputComponent', () => {
                 FormsModule,
                 OwlDateTimeModule,
                 OwlNativeDateTimeModule,
+                NgbTypeaheadModule,
             ],
             declarations: [
                 InputComponent,
@@ -48,6 +51,7 @@ describe('InputComponent', () => {
                 TeaEditComponent,
                 PicturesComponent,
                 TealistComponent,
+                AutofillerComponent,
             ],
             providers: [
                 SteeptimePipe,

@@ -115,6 +115,10 @@ export class TestUtils {
         return teas;
     }
 
+    static createDummyTeas(): Tea[] {
+        return this.createDummyTeasWithEntries();
+    }
+
     static filterTextAndCommentNodes(nodes: DebugNode[]): DebugNode[] {
         const filtered: DebugNode[] = [];
 

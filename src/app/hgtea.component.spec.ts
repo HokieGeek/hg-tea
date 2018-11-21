@@ -43,6 +43,7 @@ import { StatsComponent } from './stats/stats.component';
 import { PicturesComponent } from './input/pictures/pictures.component';
 import { TealistComponent } from './input/tealist/tealist.component';
 import { SearchComponent } from './search/search.component';
+import { AutofillerComponent } from './input/autofiller/autofiller.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
@@ -96,6 +97,7 @@ describe('HgTeaComponent', () => {
                 PicturesComponent,
                 TealistComponent,
                 SearchComponent,
+                AutofillerComponent,
             ],
             imports: [
                 NgbModule,

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TeaEditorComponent } from './teaeditor.component';
 import { SteepTimeComponent } from '../steep-time/steep-time.component';
@@ -10,6 +11,7 @@ import { DatetimeComponent } from '../datetime/datetime.component';
 import { EntryEditComponent } from '../entry-edit/entry-edit.component';
 import { TeaEditComponent } from '../tea-edit/tea-edit.component';
 import { PicturesComponent } from '../pictures/pictures.component';
+import { AutofillerComponent } from '../autofiller/autofiller.component';
 
 import { EnumValuesPipe } from '../../enum-values.pipe';
 import { SteeptimePipe } from '../../steeptime.pipe';
@@ -26,6 +28,7 @@ describe('TeaEditorComponent', () => {
                 FormsModule,
                 OwlDateTimeModule,
                 OwlNativeDateTimeModule,
+                NgbTypeaheadModule,
             ],
             declarations: [
                 TeaEditorComponent,
@@ -38,6 +41,7 @@ describe('TeaEditorComponent', () => {
                 EntryEditComponent,
                 TeaEditComponent,
                 PicturesComponent,
+                AutofillerComponent,
             ]
         })
         .compileComponents();
@@ -48,6 +52,7 @@ describe('TeaEditorComponent', () => {
         component = fixture.componentInstance;
 
         component.tea = TestUtils.createDummyTea();
+        component.teas = TestUtils.createDummyTeas();
 
         fixture.detectChanges();
     });

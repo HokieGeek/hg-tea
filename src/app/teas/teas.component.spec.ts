@@ -38,6 +38,7 @@ import { StatsComponent } from '../stats/stats.component';
 import { PicturesComponent } from '../input/pictures/pictures.component';
 import { TealistComponent } from '../input/tealist/tealist.component';
 import { SearchComponent } from '../search/search.component';
+import { AutofillerComponent } from '../input/autofiller/autofiller.component';
 
 import { TestUtils } from '../test-utils';
 import { ViewService } from '../view.service';
@@ -102,6 +103,7 @@ describe('TeasComponent', () => {
                 PicturesComponent,
                 TealistComponent,
                 SearchComponent,
+                AutofillerComponent,
             ],
             providers: [
                 HttpClient,

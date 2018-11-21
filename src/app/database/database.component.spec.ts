@@ -41,6 +41,7 @@ import { StatsComponent } from '../stats/stats.component';
 import { PicturesComponent } from '../input/pictures/pictures.component';
 import { TealistComponent } from '../input/tealist/tealist.component';
 import { SearchComponent } from '../search/search.component';
+import { AutofillerComponent } from '../input/autofiller/autofiller.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -101,6 +102,7 @@ describe('DatabaseComponent', () => {
                 PicturesComponent,
                 TealistComponent,
                 SearchComponent,
+                AutofillerComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,

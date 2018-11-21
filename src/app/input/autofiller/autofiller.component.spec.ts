@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AutofillerComponent } from './autofiller.component';
 
@@ -8,7 +10,13 @@ describe('AutofillerComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ AutofillerComponent ]
+            imports: [
+                NgbTypeaheadModule,
+                FormsModule,
+            ],
+            declarations: [
+                AutofillerComponent,
+            ]
         })
         .compileComponents();
     }));
