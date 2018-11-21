@@ -28,16 +28,25 @@ export class EntryEditComponent implements OnInit {
     public enableFixins = true;
     public continueSession = false;
     public confirmDelete = false;
+    public temperatureInF = false;
 
     public dateTime: Date;
     public steeptime: number;
     public rating: number;
     public pictures: string[];
     public vessel: SteepingVessels;
-    public temperature: number;
+    public temperatureF: number;
     public fixins: TeaFixins[];
     public comments: string;
     public sessionClosed: boolean;
+
+    get temperature(): number {
+        return this.temperatureInF ? this.temperatureF : Math.round((this.temperatureF - 32) * 5 / 9);
+    }
+
+    set temperature(t: number) {
+        this.temperatureF = this.temperatureInF ? t : Math.round(t * 9 / 5 + 32);
+    }
 
     @Input() cancelable = true;
 
@@ -98,12 +107,12 @@ export class EntryEditComponent implements OnInit {
                 if (this.tea.entries.length > 0) {
                     if (this.tea.latestEntry.sessionclosed) {
                         this.vessel = SteepingVessels[this.tea.vessels[0]];
-                        this.temperature = this.tea.temperaturesInF[0];
+                        this.temperatureF = this.tea.temperaturesInF[0];
 
                         this.sessionClosed = !(lcType.includes('pu-erh') || lcType.includes('oolong'));
                     } else {
                         this.vessel = SteepingVessels[this.tea.latestEntry.steepingvessel];
-                        this.temperature = this.tea.latestEntry.steeptemperature;
+                        this.temperatureF = this.tea.latestEntry.steeptemperature;
                         this.continueSession = true;
                         this.sessionClosed = false;
                     }
@@ -115,7 +124,7 @@ export class EntryEditComponent implements OnInit {
                 this.rating = this.entry.rating;
                 this.pictures = this.entry.pictures;
                 this.vessel = SteepingVessels[this.entry.steepingvessel];
-                this.temperature = this.entry.steeptemperature;
+                this.temperatureF = this.entry.steeptemperature;
                 this.fixins = this.entry.fixins.map(f => TeaFixins[f]);
                 this.comments = this.entry.comments;
                 this.sessionClosed = this.entry.sessionclosed;
@@ -157,7 +166,7 @@ export class EntryEditComponent implements OnInit {
                 .comments(this.comments)
                 .pictures(this.pictures)
                 .steepingvessel_idx(this.vessel)
-                .steeptemperature(+this.temperature)
+                .steeptemperature(+this.temperatureF)
                 .sessioninstance(instance)
                 .sessionclosed(this.sessionClosed)
             .build());
@@ -174,7 +183,7 @@ export class EntryEditComponent implements OnInit {
                 .comments(this.comments)
                 .pictures(this.pictures)
                 .steepingvessel_idx(this.vessel)
-                .steeptemperature(+this.temperature)
+                .steeptemperature(+this.temperatureF)
                 .sessionclosed(this.sessionClosed)
             .build());
     }

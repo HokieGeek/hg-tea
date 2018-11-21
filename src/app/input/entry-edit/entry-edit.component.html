@@ -38,7 +38,9 @@
         <div class="input-group input-group-sm col-2 temperature">
             <input type="text" class="form-control" aria-label="Temperature in F" [(ngModel)]="temperature">
             <div class="input-group-append">
-                <span class="input-group-text">&deg;F</span>
+                <button class="btn input-group-text" type="button" (click)="temperatureInF = !temperatureInF">
+                    &deg;<span *ngIf="temperatureInF;else celsius">F</span><ng-template #celsius>C</ng-template>
+                </button>
             </div>
         </div>
     </div>
