@@ -43,7 +43,7 @@ export class TeaEditComponent implements OnInit {
     // public blendratio: string;
     public packaging: TeaPackagingTypes;
     public size: number;
-    public stocked: boolean;
+    public stocked = true;
     public aging: boolean;
     public sample: boolean;
 

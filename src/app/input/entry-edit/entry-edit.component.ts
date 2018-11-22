@@ -91,7 +91,7 @@ export class EntryEditComponent implements OnInit {
                 // Set the vessel
                 if (lcType.includes('sheng')) {
                     this.vessel = SteepingVessels['Shipiao Yixing'];
-                } else if (lcType.includes('oolong')) {
+                } else if (lcType.includes('oolong') || lcType.includes('shu')) {
                     this.vessel = SteepingVessels['Celadon Gaiwan'];
                 }
 
@@ -100,18 +100,14 @@ export class EntryEditComponent implements OnInit {
                         this.vessel = SteepingVessels[this.tea.vessels[0]];
                         this.temperature = this.tea.temperaturesInF[0];
 
-                        // TODO: Would be great if the 'with' dropdown had some prefilled based on commons
+                        this.sessionClosed = !(lcType.includes('pu-erh') || lcType.includes('oolong'));
                     } else {
                         this.vessel = SteepingVessels[this.tea.latestEntry.steepingvessel];
                         this.temperature = this.tea.latestEntry.steeptemperature;
                         this.continueSession = true;
                         this.sessionClosed = false;
-
-                        // TODO: fixins
                     }
                 }
-
-                // this.sessionClosed = (!lcType.includes('sheng') && !lcType.includes('oolong'));
             } else {
                 // load the entries values
                 this.dateTime = this.entry.datetime;

@@ -5,7 +5,7 @@
             <button type="button" class="btn btn-secondary sortBtn" [disabled]="i === pictures.length - 1" (click)="sortDown(i)"><i class="fa fa-chevron-down"></i></button>
         </div>
         <img *ngIf="pic" class="border-top border-bottom" [src]="pic" height="100" />
-        <textarea [ngModel]="getPicture(i)" (ngModelChange)="setPicture(i, $event)" rows="3"></textarea>
+        <textarea class="w-100" [ngModel]="getPicture(i)" (ngModelChange)="setPicture(i, $event)" rows="3"></textarea>
         <button id="deleteBtn" type="button" class="btn btn-danger" (click)="remove(i)">&times;</button>
     </div>
     <button class="btn btn-sm btn-block btn-primary" (click)="add()">Add picture...</button>

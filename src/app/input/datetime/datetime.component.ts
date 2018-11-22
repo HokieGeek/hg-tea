@@ -10,6 +10,7 @@ export class DatetimeComponent implements OnInit {
 
     public hour12 = false;
 
+    @Input() placeholder = '';
     @Input() type = 'both';
 
     @Input()
