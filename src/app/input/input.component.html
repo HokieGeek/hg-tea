@@ -15,11 +15,19 @@
         </aside>
 
         <main class="col h-100 px-0">
-            <button type="button"
-                    class="btn btn-dark btn-block rounded-0"
-                    (click)="newTeas.push(newTeas.length)">
-                Create new tea...
-            </button>
+            <div class="btn-group d-flex flex-row">
+                <button type="button"
+                        class="btn btn-dark btn-block rounded-0 flex-grow-1"
+                        (click)="newTeas.push(newTeas.length)">
+                    Create new tea...
+                </button>
+                <button *ngIf="selectedTeas.length > 0"
+                        type="button"
+                        class="btn btn-danger rounded-0"
+                        (click)="selectedTeas.length = 0">
+                    Clear
+                </button>
+            </div>
             <div class="card-deck p-1">
                 <hg-tea-editor
                     *ngFor="let t of newTeas"
