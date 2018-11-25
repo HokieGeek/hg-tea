@@ -109,7 +109,6 @@ export class TeaEditComponent implements OnInit {
     }
 
     private forAutofill(v: string[]): string[] {
-        console.log(Array.from(new Set(v.filter(t => t))));
         return Array.from(new Set(v.filter(t => t)));
     }
 

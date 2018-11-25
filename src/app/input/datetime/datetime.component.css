@@ -1,11 +1,3 @@
 input {
     font-size: .875rem;
-    padding-top: .28rem;
-    padding-bottom: .28rem;
-}
-
-@media (max-width: 575px) {
-    input {
-        max-width: 50vw;
-    }
 }

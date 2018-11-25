@@ -8,12 +8,6 @@
     min-width: 104px;
 }
 
-.datetime {
-    font-size: .875rem;
-    padding-top: .28rem;
-    padding-bottom: .28rem;
-}
-
 #refreshDate {
     cursor: pointer;
 }
