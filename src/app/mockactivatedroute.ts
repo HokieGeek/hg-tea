@@ -6,6 +6,5 @@ import { of } from 'rxjs';
 export class MockActivatedRoute {
     url = of([new UrlSegment('foo', {})]);
     queryParamMap = of(convertToParamMap({}));
+    paramMap = of(convertToParamMap({}));
 }
-/*
-    */

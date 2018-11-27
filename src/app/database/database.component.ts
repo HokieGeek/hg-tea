@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { zip } from 'rxjs';
 
 import { Tea } from '../tea';
-import { ViewService } from '../view.service';
+import { ViewService, ViewFields } from '../view.service';
 
 @Component({
     selector: 'hg-database',
@@ -19,10 +20,23 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     constructor(private route: ActivatedRoute, public view: ViewService) { }
 
     ngOnInit() {
-        this.route.queryParamMap.subscribe(params => {
-            if (params.has('f') || params.has('s')) {
-                this.view.loadViewFromUrlParams(params.get('f'), params.get('s'));
-                this.updateTeas();
+        zip(
+            this.route.url,
+            this.route.paramMap,
+            this.route.queryParamMap
+        ).subscribe(([url, paramMap, queryParamMap]) => {
+            switch (url[0].path) {
+                case 'db':
+                    if (queryParamMap.has('f') || queryParamMap.has('s')) {
+                        this.view.loadViewFromUrlParams(queryParamMap.get('f'), queryParamMap.get('s'));
+                        this.updateTeas();
+                    }
+                    break;
+                case 'tea':
+                    this.view.filter.withNumber(ViewFields.filterTeaIds, +paramMap.get('id'));
+                    this.view.apply();
+                    this.updateTeas();
+                    break;
             }
         });
     }

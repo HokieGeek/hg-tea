@@ -7,6 +7,7 @@ import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
     { path: 'db', component: TeasComponent },
+    { path: 'tea/:id', component: TeasComponent },
     { path: 'input', component: InputComponent },
     { path: 'stats', component: StatsComponent },
 
