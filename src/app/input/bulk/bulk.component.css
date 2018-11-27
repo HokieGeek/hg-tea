@@ -1,0 +1,9 @@
+.notValid {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.list-group {
+    max-height: 16rem;
+    overflow-y: scroll;
+}

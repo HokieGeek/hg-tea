@@ -1,0 +1,46 @@
+<div class="card mb-1">
+    <div class="card-body p-0">
+        <textarea class="form-control" [ngClass]="{'notValid': !isValid}"
+            rows="15" cols="80" [(ngModel)]="input"></textarea>
+        <span class="text-muted small ml-1" style="cursor: pointer" (click)="addDummySample()">insert dummy</span>
+    </div>
+    <ul class="list-group list-group-flush" *ngIf="teas.length > 0">
+        <li *ngFor="let t of teas"
+            class="list-group-item small">
+            <span [ngClass]="{'text-success': t.stocked, 'text-danger': !t.stocked}">
+            {{ t.name }}
+            </span>,
+            <span [ngClass]="{'text-success': t.aging, 'text-danger': !t.aging}">
+            {{ t.date | date:'yy-M-d Hmm' }}
+            </span>,
+            {{ t.type }},
+            {{ t.leafgrade }},
+            {{ t.region }},
+            {{ t.country }},
+            {{ t.flush }} {{ t.year }},
+            {{ t.purchaselocation }},
+            {{ t.purchasedate | date:'yy-M-d Hmm' }},
+            {{ t.purchaseprice | currency}},
+            <span [ngClass]="{'text-warning': t.sample}">
+            {{ t.size }}g {{ t.packaging }}
+            </span>,
+            <span *ngIf="t.pictures && t.pictures.length > 0">
+            {{ t.pictures.length }},
+            </span>
+            {{ t.comments }}
+        </li>
+    </ul>
+    <div class="card-footer">
+        <div class="btn-group d-flex flex-row">
+            <input type="button"
+                   class="btn btn-sm btn-primary flex-grow-1"
+                   [disabled]="teas.length == 0 || !isValid"
+                   (click)="created.emit(convertToTeas(teas))"
+                   value="Parse" />
+            <input type="button"
+                   class="btn btn-sm btn-danger"
+                   (click)="canceled.emit(true)"
+                   value="Cancel" />
+        </div>
+    </div>
+</div>
