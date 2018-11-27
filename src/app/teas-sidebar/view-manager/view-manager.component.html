@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <div class="w-100 text-right">
+    <div *ngIf="hasViewUrl" class="w-100 text-right">
         <a class="small text-dark" [href]="this.viewUrl">permalink</a>
     </div>
 </div>
