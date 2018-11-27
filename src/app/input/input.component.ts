@@ -47,7 +47,9 @@ export class InputComponent implements OnInit {
     public unratedEntries: Map<Entry, Tea> = new Map<Entry, Tea>();
     public unratedEntriesList: Entry[] = [];
     public selectedTeas: Tea[] = [];
-    public newTeas: number[] = [];
+    public newTeas: Tea[] = [];
+
+    public bulkLoad = false;
 
     private updateRateMs = 5000;
 
@@ -142,9 +144,20 @@ export class InputComponent implements OnInit {
         return this._teas.map(t => t.id).reduce((max, cur) => max = cur > max ? cur : max, 0) + 1;
     }
 
-    createTea(newTeaId: number, tea: Tea) {
+    addNewTea() {
+        this.newTeas.push(new TeaBuilder()
+            .id(-1)
+            .date(new Date())
+            .build());
+    }
+
+    createTea(initialTea: Tea, tea: Tea) {
         this.teaDbService.createTeaEntry(new TeaBuilder().from(tea).id(this.getNextTeaId()).build());
-        this.removeTeaCreator(newTeaId);
+        this.removeTeaCreator(initialTea);
+    }
+
+    createTeas(teas: Tea[]) {
+        teas.forEach(t => this.newTeas.push(t));
     }
 
     updateTea(tea: Tea) {
@@ -152,8 +165,8 @@ export class InputComponent implements OnInit {
         this.unselectTea(tea);
     }
 
-    removeTeaCreator(newTeaId: number) {
-        const index = this.newTeas.indexOf(newTeaId, 0);
+    removeTeaCreator(tea: Tea) {
+        const index = this.newTeas.indexOf(tea, 0);
         if (index > -1) {
             this.newTeas.splice(index, 1);
         }

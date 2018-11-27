@@ -1,9 +1,9 @@
 <div class="card">
-    <h5 class="card-header" *ngIf="tea != null">
+    <h5 class="card-header" *ngIf="tea != null && tea.id > -1">
         {{ tea.name }}<span *ngIf="tea.year > 0">&nbsp;{{ tea.year }}</span>
     </h5>
 
-    <div class="card-header" *ngIf="tea != null">
+    <div class="card-header" *ngIf="tea != null && tea.id > -1">
         <ul class="nav nav-tabs card-header-tabs nav-fill">
             <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#entries-{{tea.id}}">entries</a></li>
             <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#teaedit-{{tea.id}}">tea</a></li>
@@ -11,7 +11,9 @@
     </div>
 
     <div class="tab-content">
-        <div [attr.id]="tea != null ? 'entries-'+tea.id : null" class="tab-pane active" *ngIf="tea != null">
+        <div *ngIf="tea != null && tea.id > -1"
+            [attr.id]="tea != null && tea.id > -1 ? 'entries-'+tea.id : null"
+            class="tab-pane active">
             <ul class="list-group list-group-flush" *ngIf="sortedEntries.length > 0">
                 <li *ngFor="let e of sortedEntries"
                     class="list-group-item small"
@@ -34,7 +36,7 @@
             </hg-entry-edit>
         </div>
 
-        <div [attr.id]="tea != null ? 'teaedit-'+tea.id : null" class="tab-pane" [ngClass]="{'active': tea == null}">
+        <div [attr.id]="tea != null && tea.id > -1 ? 'teaedit-'+tea.id : null" class="tab-pane" [ngClass]="{'active': tea == null || tea.id < 0}">
             <hg-tea-edit
                 [tea]="tea"
                 [teas]="teas"

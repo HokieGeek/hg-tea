@@ -47,6 +47,7 @@ import { PicturesComponent } from './input/pictures/pictures.component';
 import { TealistComponent } from './input/tealist/tealist.component';
 import { SearchComponent } from './search/search.component';
 import { AutofillerComponent } from './input/autofiller/autofiller.component';
+import { BulkComponent } from './input/bulk/bulk.component';
 
 @NgModule({
     imports: [
@@ -95,6 +96,7 @@ import { AutofillerComponent } from './input/autofiller/autofiller.component';
         TealistComponent,
         SearchComponent,
         AutofillerComponent,
+        BulkComponent,
     ],
     providers: [HttpClient],
     bootstrap: [HgTeaComponent]

@@ -16,21 +16,36 @@
 
         <main class="col h-100 px-0">
             <div class="btn-group d-flex flex-row">
-                <button type="button"
-                        class="btn btn-dark btn-block rounded-0 flex-grow-1"
-                        (click)="newTeas.push(newTeas.length)">
-                    Create new tea...
-                </button>
-                <button *ngIf="selectedTeas.length > 0"
+                <div class="btn-group flex-grow-1">
+                    <button type="button"
+                            class="btn btn-dark btn-block rounded-0"
+                            (click)="addNewTea()">
+                        Create new tea...
+                    </button>
+                    <div class="btn-group" ngbDropdown placement="bottom-right" role="group" aria-label="More options">
+                        <button class="btn btn-dark rounded-0 dropdown-toggle-split" ngbDropdownToggle></button>
+                        <div class="dropdown-menu" ngbDropdownMenu>
+                            <button class="dropdown-item" (click)="bulkLoad = true">Bulk</button>
+                        </div>
+                    </div>
+                </div>
+                <button *ngIf="selectedTeas.length > 0 || newTeas.length > 0"
                         type="button"
                         class="btn btn-danger rounded-0"
-                        (click)="selectedTeas.length = 0">
+                        (click)="selectedTeas.length = newTeas.length = 0">
                     Clear
                 </button>
             </div>
             <div class="card-deck p-1">
+                <hg-bulk
+                    *ngIf="bulkLoad"
+                    (created)="createTeas($event); bulkLoad = false"
+                    (canceled)="bulkLoad = false">
+                </hg-bulk>
+
                 <hg-tea-editor
                     *ngFor="let t of newTeas"
+                    [tea]="t"
                     [teas]="teas"
                     (createdTea)="createTea(t, $event)"
                     (canceled)="removeTeaCreator(t)">

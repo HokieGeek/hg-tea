@@ -79,14 +79,14 @@
 </div>
 
 <div class="card-footer">
-    <input *ngIf="tea == null"
+    <input *ngIf="tea == null || tea.id < 0"
            type="button"
            class="btn btn-sm btn-primary createbtn"
            (click)="create()"
            [disabled]="name === undefined"
            value="Create">
 
-    <input *ngIf="tea != null"
+    <input *ngIf="tea != null && tea.id > -1"
            type="button"
            class="btn btn-sm btn-primary createbtn"
            (click)="update()"
@@ -96,5 +96,5 @@
            type="button"
            class="btn btn-sm btn-secondary float-right"
            (click)="close()"
-           [value]="tea == null ? 'Cancel' : 'Close'">
+           [value]="tea == null || tea.id < 0 ? 'Cancel' : 'Close'">
 </div>

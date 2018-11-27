@@ -18,6 +18,7 @@ import { TeaEditComponent } from './tea-edit/tea-edit.component';
 import { PicturesComponent } from './pictures/pictures.component';
 import { TealistComponent } from './tealist/tealist.component';
 import { AutofillerComponent } from './autofiller/autofiller.component';
+import { BulkComponent } from './bulk/bulk.component';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 import { SteeptimePipe } from '../steeptime.pipe';
@@ -52,6 +53,7 @@ describe('InputComponent', () => {
                 PicturesComponent,
                 TealistComponent,
                 AutofillerComponent,
+                BulkComponent,
             ],
             providers: [
                 SteeptimePipe,
