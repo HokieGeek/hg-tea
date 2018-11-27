@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
@@ -42,10 +43,9 @@ import { AutofillerComponent } from '../input/autofiller/autofiller.component';
 import { BulkComponent } from '../input/bulk/bulk.component';
 
 import { TestUtils } from '../test-utils';
-import { ViewService } from '../view.service';
+import { MockActivatedRoute } from '../mockactivatedroute';
 
-import { APP_BASE_HREF } from '@angular/common';
-import { AppRoutingModule } from '../app-routing.module';
+import { ViewService } from '../view.service';
 
 import { InputComponent } from '../input/input.component';
 import { EnumValuesPipe } from '../enum-values.pipe';
@@ -63,7 +63,7 @@ describe('TeasComponent', () => {
                 HttpClientModule,
                 NgbModule,
                 FormsModule,
-                AppRoutingModule,
+                RouterModule,
                 OwlDateTimeModule,
                 OwlNativeDateTimeModule,
                 ChartsModule,
@@ -112,7 +112,7 @@ describe('TeasComponent', () => {
                 ViewService,
                 NaturalLanguageDatePipe,
                 SteeptimePipe,
-                {provide: APP_BASE_HREF, useValue : '/' }
+                { provide: ActivatedRoute, useClass: MockActivatedRoute }
             ]
         })
         .compileComponents();

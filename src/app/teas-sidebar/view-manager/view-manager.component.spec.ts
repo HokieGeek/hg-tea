@@ -1,7 +1,10 @@
 import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 
 import { ViewManagerComponent } from './view-manager.component';
+
+import { MockActivatedRoute } from '../../mockactivatedroute';
 
 describe('ViewManagerComponent', () => {
     let component: ViewManagerComponent;
@@ -9,8 +12,15 @@ describe('ViewManagerComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ FormsModule ],
-            declarations: [ ViewManagerComponent ]
+            imports: [
+                FormsModule,
+            ],
+            declarations: [
+                ViewManagerComponent
+            ],
+            providers: [
+                { provide: ActivatedRoute, useClass: MockActivatedRoute }
+            ]
         })
         .compileComponents();
     }));

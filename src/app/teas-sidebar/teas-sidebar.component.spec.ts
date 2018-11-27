@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { Tea } from '../tea';
 import { ViewService, Filter, FilterFlag } from '../view.service';
@@ -15,6 +17,7 @@ import { ViewManagerComponent } from './view-manager/view-manager.component';
 import { SearchComponent } from '../search/search.component';
 
 import { TestUtils } from '../test-utils';
+import { MockActivatedRoute } from '../mockactivatedroute';
 
 describe('TeasSidebarComponent', () => {
     let component: TeasSidebarComponent;
@@ -35,6 +38,9 @@ describe('TeasSidebarComponent', () => {
                 SortFieldComponent,
                 ViewManagerComponent,
                 SearchComponent,
+            ],
+            providers: [
+                { provide: ActivatedRoute, useClass: MockActivatedRoute }
             ]
         })
         .compileComponents();
