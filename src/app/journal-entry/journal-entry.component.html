@@ -1,19 +1,17 @@
-<li class="list-group-item">
-    <div id="title" class="row mb-0">
-        <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime | steeptime}}</span>
-        <span id="vessel" *ngIf="entry.steepingvessel">&nbsp;using the {{entry.steepingvessel | lowercase}}</span>
-        <span id="temperature" *ngIf="entry.steeptemperature != null && entry.steeptemperature < 212">&nbsp;at {{entry.steeptemperature}} &deg;F</span>
-    </div>
-    <div id="fixins" class="text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{fixinsStr | lowercase}}</div>
+<div id="title" class="row mb-0">
+    <span id="steeptime" *ngIf="entry.steeptime">{{entry.steeptime | steeptime}}</span>
+    <span id="vessel" *ngIf="entry.steepingvessel">&nbsp;using the {{entry.steepingvessel | lowercase}}</span>
+    <span id="temperature" *ngIf="entry.steeptemperature != null && entry.steeptemperature < 212">&nbsp;at {{entry.steeptemperature}} &deg;F</span>
+</div>
+<div id="fixins" class="text-muted d-inline" *ngIf="entry.fixins.length > 0">&nbsp;with&nbsp;{{fixinsStr | lowercase}}</div>
 
-    <div class="row">
-        <span id="comments" class="d-block pt-1" *ngIf="entry.comments">{{entry.comments}}</span>
-    </div>
+<div class="row">
+    <span id="comments" class="d-block pt-1" *ngIf="entry.comments">{{entry.comments}}</span>
+</div>
 
-    <div class="d-flex flex-row justify-content-between">
-        <div id="entrydate" class="text-muted small d-block" [title]="entry.datetime">
-            {{ humanizedDate }}
-        </div>
-        <hg-rating *ngIf="entry.rating > 0" id="rating" class="pl-3" [rating]="entry.rating" max=4 [small]="true"></hg-rating>
+<div class="d-flex flex-row justify-content-between">
+    <div id="entrydate" class="text-muted small d-block" [title]="entry.datetime">
+        {{ humanizedDate }}
     </div>
-</li>
+    <hg-rating *ngIf="entry.rating > 0" id="rating" class="pl-3" [rating]="entry.rating" max=4 [small]="true"></hg-rating>
+</div>
