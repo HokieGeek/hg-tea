@@ -45,6 +45,7 @@ import { TealistComponent } from './input/tealist/tealist.component';
 import { SearchComponent } from './search/search.component';
 import { AutofillerComponent } from './input/autofiller/autofiller.component';
 import { BulkComponent } from './input/bulk/bulk.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { NaturalLanguageDatePipe } from './natural-language-date-pipe';
 import { EnumValuesPipe } from './enum-values.pipe';
@@ -100,6 +101,7 @@ describe('HgTeaComponent', () => {
                 SearchComponent,
                 AutofillerComponent,
                 BulkComponent,
+                PageNotFoundComponent,
             ],
             imports: [
                 NgbModule,

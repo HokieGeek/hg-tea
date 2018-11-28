@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TeasComponent } from './teas/teas.component';
 import { InputComponent } from './input/input.component';
 import { StatsComponent } from './stats/stats.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
     { path: 'db', component: TeasComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
     { path: 'stats', component: StatsComponent },
 
     { path: '', redirectTo: '/db', pathMatch: 'full' },
-    // { path: '**', component: PageNotFoundComponent }
+    { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
