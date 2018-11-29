@@ -1,3 +1,50 @@
 <div *ngIf="tea != null">
-    {{ tea.name }}
+    <div id="header" class="d-flex flex-row">
+        <hg-database-entry-images [tea]="tea" *ngIf="tea.pictures.length > 0"></hg-database-entry-images>
+
+        <div id="info" class="pt-2 pl-2">
+            <div class="w-100">
+                <h3 class="display-4">{{tea.name}}</h3>
+
+                <h5 class="text-muted" *ngIf="tea.leafgrade || tea.year">
+                    <span *ngIf="tea.leafgrade">{{tea.leafgrade}}<span *ngIf="tea.year">,</span></span>
+                    <span *ngIf="tea.year">{{tea.flush}} {{tea.year}}</span>
+                </h5>
+            </div>
+
+            <div class="mb-2">
+                <hg-rating [rating]="tea.ratingMedian" max=4 *ngIf="tea.entries.length > 0"></hg-rating>
+            </div>
+
+            <p class="type-country" *ngIf="tea.country || tea.type">
+                <span *ngIf="tea.type">
+                    {{tea.type | titlecase}}
+                    <span *ngIf="tea.country"> from </span>
+                </span>
+                <span *ngIf="tea.region">{{tea.region}}, </span>
+                {{tea.country}}
+            </p>
+
+            <hg-purchase-info [tea]="tea"></hg-purchase-info>
+
+            <p class="comments">
+                <span *ngIf="tea.comments">{{tea.comments}}</span>
+            </p>
+
+            <!-- TODO: this will be better when I add a way to view individual teas
+                blendedteas: string[]
+                blendratio: string[]
+            -->
+            <span class="text-danger" *ngIf="!tea.stocked">I'm all out</span>
+            <span class="text-warning" *ngIf="tea.aging">aging</span>
+            <div class="text-muted small" *ngIf="tea.date">Entered on {{tea.date | date:'short'}}</div>
+        </div>
+    </div>
+    <div id="entries" class="card-columns pt-3 px-2">
+        <div class="card" *ngFor="let entry of sortedEntries">
+            <div class="card-body">
+                <hg-journal-entry [entry]="entry"></hg-journal-entry>
+            </div>
+        </div>
+    </div>
 </div>

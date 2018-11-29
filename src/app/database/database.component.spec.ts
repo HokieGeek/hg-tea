@@ -44,6 +44,7 @@ import { SearchComponent } from '../search/search.component';
 import { AutofillerComponent } from '../input/autofiller/autofiller.component';
 import { BulkComponent } from '../input/bulk/bulk.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { TeaComponent } from '../tea/tea.component';
 
 import { Filter, Sorter } from '../view.service';
 
@@ -107,6 +108,7 @@ describe('DatabaseComponent', () => {
                 AutofillerComponent,
                 BulkComponent,
                 PageNotFoundComponent,
+                TeaComponent,
             ],
             providers: [
                 NaturalLanguageDatePipe,

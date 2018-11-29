@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { throwError, timer } from 'rxjs';
 import { tap, switchMap, catchError } from 'rxjs/operators';
+import * as moment from 'moment';
 
-import { Tea } from '../tea';
+import { Tea, Entry } from '../tea';
 import { TeaDbService } from '../teadb.service';
 
 import { environment } from '../../environments/environment';
@@ -18,6 +19,7 @@ import { TestUtils } from '../test-utils';
 })
 export class TeaComponent implements OnInit {
     public tea: Tea = null;
+    public sortedEntries: Entry[] = [];
     private _errorMsg: any = null;
 
     private updateRateMs = 10000;
@@ -54,6 +56,7 @@ export class TeaComponent implements OnInit {
                 .subscribe(
                     tea => {
                         this.tea = tea;
+                        this.sortedEntries = this.tea.entries.sort((a, b) => moment(b.datetime).diff(moment(a.datetime)));
                     },
                     err => this.errorMsg = err
                 );

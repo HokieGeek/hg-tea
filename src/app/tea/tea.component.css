@@ -1,0 +1,18 @@
+#header {
+    box-shadow: 2px 3px 7px 0 rgba(151, 151, 151, 0.3);
+}
+
+#entries {
+}
+
+.comments {
+    color: #5b5b5b;
+    font-family: 'Lato', sans-serif;
+}
+
+.card {
+    background-color: #f5f6f7;
+    background-color: #fafafb;
+    border-color: #586e83;
+    box-shadow: 2px 3px 7px 0 rgba(151, 151, 151, 0.3);
+}

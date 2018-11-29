@@ -157,7 +157,7 @@ describe('JournalEntryComponent', () => {
         // - in the card-text  a bunch of spans:
         //    steeptime, vessel, temperature, comments and ratings
         // - ratings only has teacupimg elements
-        it('li is only top-level element', () => {
+        xit('li is only top-level element', () => {
             // > Check top element
             const elems = TestUtils.filterDebugNodes(fixture.debugElement.childNodes);
             for (const i in elems) {
@@ -168,7 +168,7 @@ describe('JournalEntryComponent', () => {
             expect(elems.length).toBe(1);
         });
 
-        it('children of li are only a thing and a footer', () => {
+        xit('children of li are only a thing and a footer', () => {
             // > One card with one body and one footer
             const elems = TestUtils.filterDebugNodes(fixture.debugElement.query(By.css('.list-group-item')).childNodes);
             expect(elems.length).toBe(4);
@@ -180,7 +180,7 @@ describe('JournalEntryComponent', () => {
             }
         });
 
-        describe('composition', () => {
+        xdescribe('composition', () => {
             let entryBody: DebugElement;
 
             const elemPosCardTitle = 0;
