@@ -13,7 +13,7 @@ import { SearchService } from './search.service';
 export class HgTeaComponent implements OnInit {
     selectedTab = 'database';
 
-    constructor() {}
+    constructor(public view: ViewService) {}
 
     ngOnInit() {
     }

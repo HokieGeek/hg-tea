@@ -7,6 +7,7 @@ import { tap, switchMap, catchError } from 'rxjs/operators';
 
 import { Tea, TeaBuilder, Entry, EntryBuilder, TeaFixins, SteepingVessels } from '../tea';
 import { TeaDbService } from '../teadb.service';
+import { ViewService } from '../view.service';
 
 import { EnumValuesPipe } from '../enum-values.pipe';
 
@@ -53,9 +54,10 @@ export class InputComponent implements OnInit {
 
     private updateRateMs = 5000;
 
-    constructor(private teaDbService: TeaDbService) {}
+    constructor(private teaDbService: TeaDbService, private view: ViewService) {}
 
     ngOnInit() {
+        this.view.enableSidebar = true;
         timer(0, this.updateRateMs)
             .pipe(switchMap(() => this.teaDbService.teasWithEntries))
             .pipe(

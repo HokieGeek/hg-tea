@@ -622,11 +622,30 @@ export class ViewService {
     public changed: EventEmitter<boolean> = new EventEmitter();
     public applied: EventEmitter<any> = new EventEmitter();
 
+    private sidebarEnabled = false;
+    private searchEnabled = false;
+
     constructor() {
         // localStorage.removeItem(this.storageKey);
         this.clear();
         this.createDefaultViews();
         this.retrieveStoredViews();
+    }
+
+    get isSidebarEnabled(): boolean {
+        return this.sidebarEnabled;
+    }
+
+    set enableSidebar(enabled: boolean) {
+        this.sidebarEnabled = enabled;
+    }
+
+    get isSearchEnabled(): boolean {
+        return this.searchEnabled;
+    }
+
+    set enableSearch(enabled: boolean) {
+        this.searchEnabled = enabled;
     }
 
     private storeViews(): void {

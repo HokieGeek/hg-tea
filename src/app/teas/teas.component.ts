@@ -23,7 +23,9 @@ export class TeasComponent implements OnInit {
 
     private updateRateMs = 5000;
 
-    constructor(private teaDbService: TeaDbService, private searchService: SearchService) {}
+    constructor(private teaDbService: TeaDbService,
+                private searchService: SearchService,
+                private view: ViewService) {}
 
     get errorMsg(): any {
         return this._errorMsg;
@@ -35,6 +37,8 @@ export class TeasComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.view.enableSidebar = true;
+        this.view.enableSearch = true;
         timer(0, this.updateRateMs)
             .pipe(switchMap(() => this.teaDbService.teasWithEntries))
             .pipe(
