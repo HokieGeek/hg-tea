@@ -1,2 +1,2 @@
-# hg-tea
-New page for tracking and displaying my tea consumption
+# [tea.hokiegeek.net](//tea.hokiegeek.net)
+The latest incarnation of a page for tracking and displaying my tea consumption
