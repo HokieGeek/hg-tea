@@ -11,11 +11,12 @@ export class AutofillerComponent implements OnInit {
     @Input() placeholder: string;
     @Input() values: string[];
 
-    public val: string;
+    private val: string;
 
     @Input()
     set model(v: string) {
         this.val = v;
+        this.modelChange.emit(this.val);
     }
 
     get model(): string {
