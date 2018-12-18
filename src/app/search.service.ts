@@ -21,11 +21,12 @@ export class SearchService {
         builder.ref('id');
 
         builder.field('id');
-        builder.field('name');
+        builder.field('name', {'boost': 2});
         builder.field('year');
         builder.field('type');
         builder.field('comments');
-        builder.field('purchaselocation');
+        builder.field('purchaselocation', {'boost': 1});
+        builder.field('from', {'boost': 1, 'extractor': (doc) => doc['purchaselocation']});
 
         this.teas.forEach(t => builder.add(t));
 
