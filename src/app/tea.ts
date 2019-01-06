@@ -8,9 +8,14 @@ export enum TeaFixins {'Milk', 'Cream', 'Half & Half',
                 'Sugar', 'Brown Sugar', 'Raw Sugar',
                 'Honey', 'Vanilla Extract', 'Vanilla Bean',
                 'Maple Cream', 'Maple Sugar', 'Chai Goop', 'Ice'}
-export enum SteepingVessels {'Other', 'French Press', 'Shipiao Yixing', 'Tea-zer Tumbler',
-                      'Tea Stick', 'Mesh Spoon', 'Sauce Pan',
-                      'Cup', 'Bowl', 'Chrysanthemum Gaiwan', 'Aberdeen Steeper', 'Celadon Gaiwan'}
+export enum SteepingVessels {'Other', 'French Press',
+        'Shipiao Yixing', // 220cc
+        'Tea-zer Tumbler', 'Tea Stick', 'Mesh Spoon', 'Sauce Pan', 'Cup', 'Bowl',
+        'Chrysanthemum Gaiwan', // 180cc
+        'Aberdeen Steeper',
+        'Celadon Gaiwan', // 180cc
+        'Yixing Gaiwan', // 150cc
+}
 
 // import { SteeptimePipe } from './steeptime.pipe';
 
