@@ -1,4 +1,4 @@
-image: node:10-alpine
+image: node:11-alpine
 
 stages:
     - build
@@ -78,7 +78,7 @@ lint-warn:
     - apk update && apk upgrade
     - echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
     - echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories
-    - apk add --no-cache chromium@edge nss@edge
+    - apk add --no-cache chromium@edge harfbuzz@edge nss@edge
   script:
     - npm run test
   only:
@@ -89,7 +89,7 @@ lint-warn:
   retry: 2
       # coverage: /TODO/
 
-unit-node:10:
+unit-node:11:
   <<: *node-unit-test
 
 unit-node:latest:
