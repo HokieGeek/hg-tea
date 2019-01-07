@@ -34,7 +34,7 @@ export class SearchService {
     }
 
     private processQuery(query: string): string {
-        return query.trim().split(' ').map(word => `${word}* ${word}`).join(' ');
+        return query.trim().split(' ').map(word => `${word}* ${word} *${word} '${word}* '${word} ${word}' *${word}'`).join(' ');
     }
 
     ingest(teas: Tea[]) {
