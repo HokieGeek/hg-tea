@@ -14,7 +14,7 @@ import { ViewService, ViewFields } from '../view.service';
 export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     @Input() teas: Tea[] = [];
     private _processedTeas: Tea[] = [];
-    private _teasPerPage = 35;
+    private _teasPerPage = 42;
     private _currentPage = 1;
 
     constructor(private route: ActivatedRoute, public view: ViewService) { }
