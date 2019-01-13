@@ -5,5 +5,5 @@
 <div *ngFor="let t of teas"
      class="tea-list-item pl-1 text-capitalize"
      (click)="selectTea(t)">
-    <span [ngClass]="{'text-warning': t.aging}">{{t.name}}</span>&nbsp;<span *ngIf="t.year" class="text-muted">{{t.year}}&nbsp;</span><span class="text-black-50 small">{{t.id}}</span>
+    <span [ngClass]="{'text-info': t.aging, 'font-italic': t.sample}">{{t.name}}</span>&nbsp;<span *ngIf="t.year" class="text-muted">{{t.year}}&nbsp;</span><span class="text-black-50 small">{{t.id}}</span>
 </div>

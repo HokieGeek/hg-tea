@@ -1,6 +1,6 @@
 <div class="card">
     <h5 class="card-header" *ngIf="tea != null && tea.id > -1">
-        {{ tea.name }}<span *ngIf="tea.year > 0">&nbsp;{{ tea.year }}</span>
+        {{ tea.name }}<span *ngIf="tea.year > 0">&nbsp;{{ tea.year }}</span><span class="text-muted small">&nbsp;{{ tea.id }}</span>
     </h5>
 
     <div class="card-header" *ngIf="tea != null && tea.id > -1">
