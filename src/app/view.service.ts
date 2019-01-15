@@ -677,11 +677,16 @@ export class ViewService {
         toDrink.filter.withFlagExcluded(ViewFields.filterAging);
         this.defaultViews.set(toDrink.name, toDrink);
 
-        // Aging
-        const aging = new View('Aging');
-        aging.sorter.assignField(ViewFields.sorterPurchaseDate, SortDirection.ASC);
-        aging.filter.withFlagOnly(ViewFields.filterAging);
-        this.defaultViews.set(aging.name, aging);
+        // Next sample
+        const nextSample = new View('Next sample');
+        nextSample.sorter.assignField(ViewFields.sorterNumberOfEntries, SortDirection.ASC);
+        nextSample.sorter.assignField(ViewFields.sorterPurchaseDate, SortDirection.ASC);
+        nextSample.sorter.assignField(ViewFields.sorterRatingsAverage, SortDirection.DESC);
+        nextSample.sorter.assignField(ViewFields.sorterRecentEntries, SortDirection.DESC);
+        nextSample.filter.withFlagOnly(ViewFields.filterStocked);
+        nextSample.filter.withFlagOnly(ViewFields.filterSample);
+        nextSample.filter.withFlagExcluded(ViewFields.filterAging);
+        this.defaultViews.set(nextSample.name, nextSample);
 
         // Been a while
         const beenAWhile = new View('Been a while');
@@ -690,6 +695,12 @@ export class ViewService {
         beenAWhile.filter.withFlagOnly(ViewFields.filterWithEntries);
         beenAWhile.filter.withFlagExcluded(ViewFields.filterAging);
         this.defaultViews.set(beenAWhile.name, beenAWhile);
+
+        // Aging
+        const aging = new View('Aging');
+        aging.sorter.assignField(ViewFields.sorterPurchaseDate, SortDirection.ASC);
+        aging.filter.withFlagOnly(ViewFields.filterAging);
+        this.defaultViews.set(aging.name, aging);
     }
 
     private setActiveView(view: View): void {
