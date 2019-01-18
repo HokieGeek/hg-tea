@@ -85,6 +85,7 @@ export class DatabaseComponent implements OnInit, OnChanges, AfterViewInit {
     pageChange(p: number) {
         if (p !== this._currentPage) {
             this._currentPage = p;
+            window.scrollTo(0, 0);
         }
     }
 }
