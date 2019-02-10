@@ -3,7 +3,7 @@ environment:
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
     CHROME_BIN: "/usr/bin/chromium-browser"
 sources:
-    https://git.sr.ht/~hokiegeek/hg-tea
+    - https://git.sr.ht/~hokiegeek/hg-tea
 tasks:
     - setup: |
         npm install
