@@ -9,11 +9,12 @@ environment:
   CHROME_BIN: "/usr/bin/chromium-browser"
 tasks:
   - setup: |
+      ls -l
       npm install
   - lint: |
       npm run lint
   - build: |
-      npm run build # Run optimized build
+      npm run build
       version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json)
       sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
       head dist/index.html
