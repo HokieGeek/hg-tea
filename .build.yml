@@ -2,9 +2,9 @@ image: alpine/edge
 packages:
   - nodejs
   - npm
-  - chromium@edge
-  - harfbuzz@edge
-  - nss@edge
+  - chromium
+  - harfbuzz
+  - nss
 sources:
   - https://git.sr.ht/~hokiegeek/hg-tea
 environment:
