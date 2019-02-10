@@ -12,9 +12,14 @@ sources:
 environment:
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
   CHROME_BIN: "/usr/bin/chromium-browser"
-  # IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
-  # IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
+  CI_REGISTRY: quay.io
+  CI_REGISTRY_USER: hokiegeek
+  CI_REGISTRY_IMAGE: quay.io/hokiegeek/hg-tea
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:foo
+  IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   # SERVICE: hgtea.service
+secrets:
+  - a4b1408b-768c-4214-85dc-f621010882d8
 tasks:
   - setup: |
       cd hg-tea
@@ -30,13 +35,13 @@ tasks:
   - test: |
       cd hg-tea
       npm run test
-      # - package: |
-      #     cd hg-tea
-      #     docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_TOKEN} ${CI_REGISTRY}
-      #     docker build -t $IMAGE_TAG .
-      #     docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
-      #     docker push $IMAGE_TAG
-      #     docker push $IMAGE_LATEST_TAG
+  - package: |
+      cd hg-tea
+      cat ~/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+      docker build -t $IMAGE_TAG .
+      docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
+      docker push $IMAGE_TAG
+      docker push $IMAGE_LATEST_TAG
       # - deploy: |
       #     cd hg-tea
       #     scp -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf ./prod-conf/${SERVICE} $ADMIN_USER@${DEPLOY_HOST}:/tmp
