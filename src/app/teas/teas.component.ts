@@ -33,7 +33,9 @@ export class TeasComponent implements OnInit {
 
     set errorMsg(msg: any) {
         console.error('errorMsg: ', msg);
-        this._errorMsg = msg;
+        if (environment.production && this.teas.length === 0) {
+            this._errorMsg = msg;
+        }
     }
 
     ngOnInit() {
