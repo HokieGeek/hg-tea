@@ -15,7 +15,7 @@ environment:
   CHROME_BIN: "/usr/bin/chromium-browser"
   # CI_REGISTRY: quay.io
   # CI_REGISTRY_USER: hokiegeek
-  # CI_REGISTRY_IMAGE: hokiegeek/hg-tea
+  CI_REGISTRY_IMAGE: hokiegeek/hg-tea
   IMAGE_TAG: $CI_REGISTRY_IMAGE:foo
   IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   # SERVICE: hgtea.service
