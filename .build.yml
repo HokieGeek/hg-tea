@@ -5,7 +5,8 @@ packages:
   - chromium
   - harfbuzz
   - nss
-    # - docker
+  - docker
+  - shadow
     # - openssh
 sources:
   - https://git.sr.ht/~hokiegeek/hg-tea
@@ -15,8 +16,8 @@ environment:
   # CI_REGISTRY: quay.io
   # CI_REGISTRY_USER: hokiegeek
   # CI_REGISTRY_IMAGE: hokiegeek/hg-tea
-  # IMAGE_TAG: $CI_REGISTRY_IMAGE:foo
-  # IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:foo
+  IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   # SERVICE: hgtea.service
   # secrets:
   #   - 90c1ea6e-f034-4632-92d5-7658507b9018
@@ -36,6 +37,17 @@ tasks:
   - test: |
       cd hg-tea
       npm run test
+  - package: |
+      sudo mount -t tmpfs -o size=4G /dev/null /dev/shm
+      sudo service cgroups start
+      sleep 2
+      sudo nohup dockerd --bip 172.18.0.1/16 </dev/null >/dev/null 2>&1 &
+      sleep 5
+      sudo usermod -aG docker $(whoami)
+      cd hg-tea
+      # cat ~/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+      docker build -t $IMAGE_TAG .
+      docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
       # - package: |
       #     cd hg-tea
       #     cat ~/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
