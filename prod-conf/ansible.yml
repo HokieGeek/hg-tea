@@ -1,0 +1,25 @@
+---
+- name: Deploy tea site
+  hosts: all
+  tasks:
+      - name: tea | Add the systemd unit
+        template:
+          src: hgtea.service.j2
+          dest: /etc/systemd/system/hgtea.service
+          mode: 644
+        become: yes
+      - name: tea | Start service
+        systemd:
+          name: hgtea
+          enabled: yes
+          state: restarted
+          masked: no
+          daemon_reload: yes
+        become: yes
+      - name: tea | Restart proxy
+        systemd:
+          name: hgproxy
+          state: restarted
+          daemon_reload: yes
+        become: yes
+

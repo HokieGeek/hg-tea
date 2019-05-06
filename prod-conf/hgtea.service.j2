@@ -1,0 +1,17 @@
+[Unit]
+Description=HokieGeek.net_Tea
+After=docker.service,hgnetwork.service
+Requires=docker.service,hgteadb.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill site-tea
+ExecStartPre=-/usr/bin/docker rm site-tea
+ExecStartPre=/usr/bin/docker pull {{ image }}
+ExecStart=/usr/bin/docker run --name site-tea --network hokiegeek.net {{ image }}
+ExecStop=/usr/bin/docker stop site-tea
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
