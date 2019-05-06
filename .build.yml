@@ -59,6 +59,3 @@ tasks:
    - deploy: |
        cd ${PROJ}
        ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/hg-tea:latest ./prod-conf/ansible.yml
-       # scp -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf ./prod-conf/${SERVICE} $ADMIN_USER@${DEPLOY_HOST}:/tmp
-       # ssh -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mkdir -p /etc/nginx/conf.d; sudo mv /tmp/proxy-tea.conf /etc/nginx/conf.d && sudo mv /tmp/${SERVICE} /etc/systemd/system/"
-       # ssh -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl daemon-reload && sudo systemctl enable ${SERVICE}; sudo systemctl restart hgproxy.service ${SERVICE}"

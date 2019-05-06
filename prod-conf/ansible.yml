@@ -2,6 +2,12 @@
 - name: Deploy tea site
   hosts: all
   tasks:
+      - name: tea | Add the proxy config
+        template:
+          src: proxy-tea.conf.j2
+          dest: /etc/nginx/conf.d/proxy-tea.conf
+          mode: 644
+        become: yes
       - name: tea | Add the systemd unit
         template:
           src: hgtea.service.j2
