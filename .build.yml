@@ -8,7 +8,6 @@ packages:
   - docker
   - shadow
   - ansible
-# - python
 sources:
   - https://git.sr.ht/~hokiegeek/hg-tea
 environment:
@@ -57,5 +56,5 @@ tasks:
       docker push $IMAGE_TAG
       docker push $IMAGE_LATEST_TAG
   - deploy: |
-      cd ${PROJ}
-      ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/hg-tea:latest ./prod-conf/ansible.yml
+      cd ${PROJ}/prod-conf
+      ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/hg-tea:latest ./ansible.yml
