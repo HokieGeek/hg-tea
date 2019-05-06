@@ -91,11 +91,13 @@ lint-warn:
 
 unit-node:11:
   <<: *node-unit-test
+  allow_failure: true
 
 unit-node:latest:
   <<: *node-unit-test
-  image: node:alpine
-  allow_failure: true
+  # image: node:alpine
+  image: alpine/edge
+  # allow_failure: true
 
 ## Lifecycle Evaluation
 .lifecycle-evaluation: &lifecycle-evaluation
@@ -185,6 +187,18 @@ create-container:
   except:
     - branches
 
+deploy and restart:
+  stage: deploy
+  image: alpine:edge
+  variables:
+    IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
+  before_script:
+    - apk update && apk upgrade
+    - apk add --no-cache ansible
+    - cd ./prod-conf
+    - ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${IMAGE_LATEST_TAG} ./ansible.yml
+  script:
+
 .server-connector-template: &server-connector-template
   image: alpine:latest
   before_script:
@@ -193,7 +207,7 @@ create-container:
       # - echo $HOST_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/sshkey
     - chmod 0600 /tmp/sshkey
 
-add-proxy-server:
+.add-proxy-server:
   <<: *server-connector-template
   stage: deploy
   script:
@@ -215,7 +229,7 @@ add-proxy-server:
     - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
   retry: 1
 
-restart-service:
+.restart-service:
   <<: *service-restarter
   variables:
     SERVICE: hgtea.service
