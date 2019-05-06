@@ -15,21 +15,26 @@ environment:
   CHROME_BIN: "/usr/bin/chromium-browser"
   CI_REGISTRY: quay.io
   CI_REGISTRY_USER: hokiegeek
-  CI_REGISTRY_IMAGE: hokiegeek/hg-tea
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:foo
+  CI_REGISTRY_IMAGE: ${CI_REGISTRY}/hokiegeek/hg-tea
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$(git describe)
   IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   # SERVICE: hgtea.service
-  secrets:
-    - a4b1408b-768c-4214-85dc-f621010882d8
+secrets:
+  - d675b280-e56b-4c0f-9908-549c70a7e2f9
+  - d036fc7d-4eb9-4589-9d37-f61214d4fcb3
+    # - a4b1408b-768c-4214-85dc-f621010882d8
   #   - 90c1ea6e-f034-4632-92d5-7658507b9018
 tasks:
   - setup: |
+      ls -l ~
       sudo mount -t tmpfs -o size=4G /dev/null /dev/shm
       sudo service cgroups start
       sleep 2
       sudo nohup dockerd --bip 172.18.0.1/16 </dev/null >/dev/null 2>&1 &
       sleep 5
       sudo usermod -aG docker $(whoami)
+      ls -la ~
+      ls -la $HOME
   - install: |
       cd hg-tea
       npm install
@@ -48,7 +53,7 @@ tasks:
       cd hg-tea
       docker build -t $IMAGE_TAG .
       docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
-      cat ~/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+      cat $HOME/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
       docker push $IMAGE_TAG
       docker push $IMAGE_LATEST_TAG
       # - package: |
