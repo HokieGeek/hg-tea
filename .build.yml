@@ -8,7 +8,7 @@ packages:
   - docker
   - shadow
   - ansible
-    # - python
+# - python
 sources:
   - https://git.sr.ht/~hokiegeek/hg-tea
 environment:
@@ -56,6 +56,6 @@ tasks:
       cat $HOME/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
       docker push $IMAGE_TAG
       docker push $IMAGE_LATEST_TAG
-      # - deploy: |
-      #     cd ${PROJ}
-      #     ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/hg-tea:latest ./prod-conf/ansible.yml
+  - deploy: |
+      cd ${PROJ}
+      ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/hg-tea:latest ./prod-conf/ansible.yml
