@@ -11,19 +11,19 @@ packages:
 sources:
   - https://git.sr.ht/~hokiegeek/hg-tea
 environment:
+  PROJ: hg-tea
+  GIT_TAG: $(git --work-tree=./${PROJ} --git-dir=./${PROJ}/.git describe)
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
   CHROME_BIN: "/usr/bin/chromium-browser"
   CI_REGISTRY: quay.io
   CI_REGISTRY_USER: hokiegeek
   CI_REGISTRY_IMAGE: ${CI_REGISTRY}/hokiegeek/hg-tea
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$(git describe)
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:${GIT_TAG}
   IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   # SERVICE: hgtea.service
 secrets:
   - d675b280-e56b-4c0f-9908-549c70a7e2f9
   - d036fc7d-4eb9-4589-9d37-f61214d4fcb3
-    # - a4b1408b-768c-4214-85dc-f621010882d8
-  #   - 90c1ea6e-f034-4632-92d5-7658507b9018
 tasks:
   - setup: |
       ls -l ~
@@ -33,38 +33,29 @@ tasks:
       sudo nohup dockerd --bip 172.18.0.1/16 </dev/null >/dev/null 2>&1 &
       sleep 5
       sudo usermod -aG docker $(whoami)
-      ls -la ~
-      ls -la $HOME
   - install: |
-      cd hg-tea
+      cd ${PROJ}
       npm install
   - lint: |
-      cd hg-tea
+      cd ${PROJ}
       npm run lint
   - build: |
-      cd hg-tea
+      cd ${PROJ}
       npm run build
       version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json)
       sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
   - test: |
-      cd hg-tea
+      cd ${PROJ}
       npm run test
   - package: |
-      cd hg-tea
+      cd ${PROJ}
       docker build -t $IMAGE_TAG .
       docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
       cat $HOME/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
       docker push $IMAGE_TAG
       docker push $IMAGE_LATEST_TAG
-      # - package: |
-      #     cd hg-tea
-      #     cat ~/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
-      #     docker build -t $IMAGE_TAG .
-      #     docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
-      #     docker push $IMAGE_TAG
-      #     docker push $IMAGE_LATEST_TAG
       # - deploy: |
-      #     cd hg-tea
+      #     cd ${PROJ}
       #     scp -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf ./prod-conf/${SERVICE} $ADMIN_USER@${DEPLOY_HOST}:/tmp
       #     ssh -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mkdir -p /etc/nginx/conf.d; sudo mv /tmp/proxy-tea.conf /etc/nginx/conf.d && sudo mv /tmp/${SERVICE} /etc/systemd/system/"
       #     ssh -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl daemon-reload && sudo systemctl enable ${SERVICE}; sudo systemctl restart hgproxy.service ${SERVICE}"
