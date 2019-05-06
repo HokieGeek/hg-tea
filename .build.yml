@@ -12,14 +12,14 @@ sources:
   - https://git.sr.ht/~hokiegeek/hg-tea
 environment:
   PROJ: hg-tea
-  GIT_TAG: $(git --work-tree=./${PROJ} --git-dir=./${PROJ}/.git describe)
+  GIT_TAG: $(git --work-tree=./hg-tea --git-dir=./hg-tea/.git describe)
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
   CHROME_BIN: "/usr/bin/chromium-browser"
   CI_REGISTRY: quay.io
   CI_REGISTRY_USER: hokiegeek
-  CI_REGISTRY_IMAGE: ${CI_REGISTRY}/hokiegeek/hg-tea
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:${GIT_TAG}
-  IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
+  # CI_REGISTRY_IMAGE: ${CI_REGISTRY}/hokiegeek/hg-tea
+  # IMAGE_TAG: $CI_REGISTRY_IMAGE:${GIT_TAG}
+  # IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
   # SERVICE: hgtea.service
 secrets:
   - d675b280-e56b-4c0f-9908-549c70a7e2f9
@@ -49,6 +49,9 @@ tasks:
       npm run test
   - package: |
       cd ${PROJ}
+      IMAGE=${CI_REGISTRY}/hokiegeek/hg-tea
+      IMAGE_TAG=$IMAGE:${GIT_TAG}
+      IMAGE_LATEST_TAG=$IMAGE:latest
       docker build -t $IMAGE_TAG .
       docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
       cat $HOME/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
