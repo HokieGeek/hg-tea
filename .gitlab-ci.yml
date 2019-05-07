@@ -195,9 +195,9 @@ deploy-and-restart:
   before_script:
     - apk update && apk upgrade
     - apk add --no-cache ansible
+  script:
     - cd ./prod-conf
     - ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${IMAGE_LATEST_TAG} ./ansible.yml
-  script:
 
 .server-connector-template: &server-connector-template
   image: alpine:latest
