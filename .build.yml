@@ -40,8 +40,8 @@ tasks:
       version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json)
       sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
   - test: |
-      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
-      CHROME_BIN="/usr/bin/chromium-browser"
+      export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+      export CHROME_BIN="/usr/bin/chromium-browser"
       cd ${PROJ}
       npm run test
   - package: |
