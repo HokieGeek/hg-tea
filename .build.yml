@@ -13,11 +13,8 @@ sources:
 environment:
   PROJ: hg-tea
   GIT_TAG: $(git --work-tree=./hg-tea --git-dir=./hg-tea/.git describe)
-  PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
-  CHROME_BIN: "/usr/bin/chromium-browser"
   CI_REGISTRY: quay.io
   CI_REGISTRY_USER: hokiegeek
-  SERVICE: hgtea.service
   ADMIN_USER: hokiegeek
   DEPLOY_HOST: hokiegeek.net
 secrets:
@@ -43,6 +40,8 @@ tasks:
       version=$(awk 'BEGIN { FS=":"; RS="," } $1 ~ /"version"/ { gsub(/( |")/, "", $0); print $2 }' package.json)
       sed -i '/^<head>$/ a\    <meta name="application-name" content="hokiegeek.net_tea" data-version="'${version}${version_suffix:+":${version_suffix}"}'" />' dist/index.html
   - test: |
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+      CHROME_BIN="/usr/bin/chromium-browser"
       cd ${PROJ}
       npm run test
   - package: |

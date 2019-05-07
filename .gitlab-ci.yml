@@ -193,51 +193,10 @@ deploy-and-restart:
   image: alpine:edge
   variables:
     IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
+    ANSIBLE_CONFIG: prod-conf/ansible.cfg
   before_script:
     - apk update && apk upgrade
     - apk add --no-cache ansible
   script:
     - cd ./prod-conf
     - ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${IMAGE_LATEST_TAG} ./ansible.yml
-
-.server-connector-template: &server-connector-template
-  image: alpine:latest
-  before_script:
-    - apk add --update --no-cache openssh
-    - echo $HOST_SSH_KEY | base64 -d > /tmp/sshkey
-      # - echo $HOST_SSH_KEY | sed -e 's/ /\n/g' | sed -r -e '1,4{:a;N;4!ba;s/\n/ /g}' | sed -r -e '/^-{5}END/,${:z;N;$!bz;s/\n/ /g}' > /tmp/sshkey
-    - chmod 0600 /tmp/sshkey
-
-.add-proxy-server:
-  <<: *server-connector-template
-  stage: deploy
-  script:
-    - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/proxy-tea.conf $ADMIN_USER@${DEPLOY_HOST}:/tmp
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mkdir -p /etc/nginx/conf.d; sudo mv /tmp/proxy-tea.conf /etc/nginx/conf.d && sudo systemctl restart hgproxy.service"
-      # - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl restart hgproxy.service"
-  only:
-    - tags
-  except:
-    - branches
-
-## Service restarter
-.service-restarter: &service-restarter
-  <<: *server-connector-template
-  stage: deploy
-  script:
-    - scp -i /tmp/sshkey -o StrictHostKeyChecking=no ./prod-conf/${SERVICE} $ADMIN_USER@${DEPLOY_HOST}:/tmp
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo mv /tmp/${SERVICE} /etc/systemd/system/ && sudo systemctl daemon-reload"
-    - ssh -i /tmp/sshkey -o StrictHostKeyChecking=no $ADMIN_USER@${DEPLOY_HOST} "sudo systemctl enable ${SERVICE}; sudo systemctl restart ${SERVICE}"
-  retry: 1
-
-.restart-service:
-  <<: *service-restarter
-  variables:
-    SERVICE: hgtea.service
-  environment:
-    name: production
-    url: http://tea.hokiegeek.net
-  only:
-    - tags
-  except:
-    - branches
