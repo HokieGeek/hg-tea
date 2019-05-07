@@ -78,6 +78,7 @@ lint-warn:
     - apk update && apk upgrade
     - echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
     - echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories
+    - apk add --no-cache nodejs@edge npm@edge
     - apk add --no-cache chromium@edge harfbuzz@edge nss@edge ttf-freefont@edge
   script:
     - npm run test
