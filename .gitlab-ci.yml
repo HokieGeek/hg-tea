@@ -193,10 +193,10 @@ deploy-and-restart:
   image: alpine:edge
   variables:
     IMAGE_LATEST_TAG: $CI_REGISTRY_IMAGE:latest
-    ANSIBLE_CONFIG: prod-conf/ansible.cfg
   before_script:
     - apk update && apk upgrade
     - apk add --no-cache ansible
   script:
+    - chmod 755 prod-conf
     - cd ./prod-conf
     - ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${IMAGE_LATEST_TAG} ./ansible.yml
