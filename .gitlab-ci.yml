@@ -196,7 +196,12 @@ deploy-and-restart:
   before_script:
     - apk update && apk upgrade
     - apk add --no-cache ansible
+    - echo $HOST_SSH_KEY | base64 -d > /tmp/sshkey
+    - chmod 0600 /tmp/sshkey
+    - echo "${DEPLOY_HOST} ansible_ssh_private_key_file=/tmp/sshkey" > /tmp/host
   script:
     - chmod 755 prod-conf
     - cd ./prod-conf
-    - ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${IMAGE_LATEST_TAG} ./ansible.yml
+    - ansible-playbook -i /tmp/host -u ${ADMIN_USER} -e image=${IMAGE_LATEST_TAG} ./ansible.yml
+
+
