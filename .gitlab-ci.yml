@@ -96,7 +96,7 @@ unit-node:11:
 unit-node:latest:
   <<: *node-unit-test
   # image: node:alpine
-  image: alpine/edge
+  image: alpine:edge
   # allow_failure: true
 
 ## Lifecycle Evaluation

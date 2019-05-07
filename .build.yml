@@ -47,7 +47,7 @@ tasks:
       npm run test
   - package: |
       cd ${PROJ}
-      IMAGE=${CI_REGISTRY}/hokiegeek/hg-tea
+      IMAGE=${CI_REGISTRY}/hokiegeek/${PROJ}
       IMAGE_TAG=${IMAGE}:${GIT_TAG}
       IMAGE_LATEST_TAG=${IMAGE}:latest
       docker build -t $IMAGE_TAG .
@@ -57,4 +57,4 @@ tasks:
       docker push $IMAGE_LATEST_TAG
   - deploy: |
       cd ${PROJ}/prod-conf
-      ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/hg-tea:latest ./ansible.yml
+      ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/${PROJ}:latest ./ansible.yml
