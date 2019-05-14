@@ -12,7 +12,7 @@ sources:
   - https://git.sr.ht/~hokiegeek/hg-tea
 environment:
   PROJ: hg-tea
-  GIT_TAG: $(git --work-tree=./hg-tea --git-dir=./hg-tea/.git describe)
+  CI_COMMIT_TAG: $(git --work-tree=./hg-tea --git-dir=./hg-tea/.git describe)
   CI_REGISTRY: quay.io
   CI_REGISTRY_USER: hokiegeek
   ADMIN_USER: hokiegeek
@@ -47,11 +47,10 @@ tasks:
   - package: |
       cd ${PROJ}
       IMAGE=${CI_REGISTRY}/hokiegeek/${PROJ}
-      IMAGE_TAG=${IMAGE}:${GIT_TAG}
+      IMAGE_TAG=${IMAGE}:${CI_COMMIT_TAG}
       IMAGE_LATEST_TAG=${IMAGE}:latest
-      docker build -t $IMAGE_TAG .
-      docker tag $IMAGE_TAG $IMAGE_LATEST_TAG
-      cat $HOME/.image_registry_token | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+      docker build -t $IMAGE_TAG -t $IMAGE_LATEST_TAG .
+      cat $HOME/.image_registry_token | docker login --username ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
       docker push $IMAGE_TAG
       docker push $IMAGE_LATEST_TAG
   - deploy: |
