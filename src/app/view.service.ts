@@ -127,6 +127,13 @@ export class Filter {
         return this.strings.has(field) && this.strings.get(field).match;
     }
 
+    setStringMatching(field: string, match: boolean) {
+        if (this.strings.has(field)) {
+            this.strings.get(field).match = match;
+            this.changed.emit();
+        }
+    }
+
     // Number fields
     numberField(field: string): number[] {
         if (this.numbers.has(field)) {
@@ -414,6 +421,8 @@ class View {
                     v.split(',').forEach((num) => parsed.filter.withNumber(typeAndName[1], +num));
                     break;
                 case 'z':
+                case 'Z':
+                    parsed.filter.setStringMatching(typeAndName[1], typeAndName[0] === 'z');
                     v.split(',').forEach((str) => parsed.filter.withString(typeAndName[1], str));
                     break;
                 case 'g':
@@ -598,8 +607,9 @@ class View {
     private generateFiltersUrlParams(): string {
         let params = '';
         this.filter.strings.forEach((v, k) => {
-            if (v.length > 0) {
-                params += 'z>' + k + ':' + v.join(',') + ';';
+            if (v.values.length > 0) {
+                params += v.match ? 'z' : 'Z';
+                params += '>' + k + ':' + v.values.join(',') + ';';
             }
         });
         this.filter.numbers.forEach((v, k) => {
