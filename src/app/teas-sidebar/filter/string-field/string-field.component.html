@@ -1,16 +1,21 @@
 <div class="container">
     <div class="row">
-        <div ngbDropdown class="d-inline-block btn-block">
-            <button id="dropdown-foo"
-                    class="btn btn-sm btn-block"
-                    [ngClass]="{'btn-success': filter.hasStrings(name), 'btn-primary': !filter.hasStrings(name)}"
-                    ngbDropdownToggle>{{name}}</button>
-            <div ngbDropdownMenu aria-labelledby="dropdown-foo">
-                <button class="dropdown-item text-capitalize btn-block"
-                        *ngFor="let value of values"
-                        (click)="filter.withString(name, value)">
-                    {{value}}
-                </button>
+        <div class="btn-group btn-block">
+            <button type="button" class="btn btn-sm btn-block"
+                [ngClass]="{'btn-success': filter.hasStrings(name) && filter.isStringMatching(name),
+                            'btn-danger': filter.hasStrings(name) && !filter.isStringMatching(name),
+                            'btn-primary': !filter.hasStrings(name)}"
+                (click)="filter.toggleStringMatchingType(name)">
+                {{name}}</button>
+            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                <button class="btn btn-primary btn-sm btn-block dropdown-toggle-split" ngbDropdownToggle></button>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                    <button class="dropdown-item text-capitalize btn-block"
+                            *ngFor="let value of values"
+                            (click)="filter.withString(name, value)">
+                        {{value}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>

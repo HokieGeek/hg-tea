@@ -5,6 +5,11 @@ import { Tea } from './tea';
 
 export enum FilterFlag { 'UNSET', 'ONLY', 'EXCLUDED' }
 
+class StringsFilter {
+    public values: string[] = [];
+    public match = true;
+}
+
 export class ViewFields {
     public static sorterRecentEntries    = 'Recent entries';
     public static sorterName             = 'Name';
@@ -35,7 +40,7 @@ export class Filter {
     };
 
     // TODO: not public
-    public strings: Map<string, string[]> = new Map<string, string[]>();
+    public strings: Map<string, StringsFilter> = new Map<string, StringsFilter>();
     public numbers: Map<string, number[]> = new Map<string, number[]>();
     public flags: Map<string, FilterFlag> = new Map<string, FilterFlag>();
     public matchers: Map<string, any> = new Map<string, any>();
@@ -43,8 +48,8 @@ export class Filter {
 
     constructor() { }
 
-    addStringField(field: string, matcher: (strings: string[], tea: Tea) => boolean) {
-        this.strings.set(field, []);
+    addStringField(field: string, matcher: (strings: string[], match: boolean, tea: Tea) => boolean) {
+        this.strings.set(field, new StringsFilter());
         this.matchers.set(field, matcher);
         this.changed.emit();
     }
@@ -64,7 +69,7 @@ export class Filter {
     // String fields
     stringField(field: string): string[] {
         if (this.strings.has(field)) {
-            return this.strings.get(field);
+            return this.strings.get(field).values;
         }
         return null;
     }
@@ -75,7 +80,9 @@ export class Filter {
 
     withStrings(field: string, value: string[]): Filter {
         if (this.strings.has(field)) {
-            this.strings.set(field, this.strings.get(field).concat(value));
+            const strings = this.strings.get(field);
+            strings.values = strings.values.concat(value);
+            this.strings.set(field, strings);
             this.changed.emit();
         }
         return this;
@@ -87,24 +94,37 @@ export class Filter {
 
     withoutStrings(field: string, value: string[]): Filter {
         if (this.strings.has(field)) {
-            this.strings.set(field, this.strings.get(field).filter(v => !value.includes(v)));
+            const strings = this.strings.get(field);
+            strings.values = strings.values.filter(v => !value.includes(v));
+            this.strings.set(field, strings);
             this.changed.emit();
         }
         return this;
     }
 
     hasStrings(field: string): boolean {
-        return this.strings.has(field) && this.strings.get(field).length !== 0;
+        return this.strings.has(field) && this.strings.get(field).values.length !== 0;
     }
 
     clearStrings(field: string) {
         if (this.strings.has(field)) {
-            this.strings.set(field, []);
+            this.strings.set(field, new StringsFilter());
         }
     }
 
     get stringFields(): string[] {
         return Array.from(this.strings.keys());
+    }
+
+    toggleStringMatchingType(field: string) {
+        if (this.strings.has(field)) {
+            this.strings.get(field).match = !this.strings.get(field).match;
+            this.changed.emit();
+        }
+    }
+
+    isStringMatching(field: string): boolean {
+        return this.strings.has(field) && this.strings.get(field).match;
     }
 
     // Number fields
@@ -212,7 +232,7 @@ export class Filter {
                     }
                 } else if (this.strings.has(field)) {
                     const strings = this.strings.get(field);
-                    if (strings.length !== 0 && !matcher(strings, tea)) {
+                    if (strings.values.length !== 0 && !matcher(strings.values, strings.match, tea)) {
                         isMatch = false;
                     }
                 } else if (this.flags.has(field)) {
@@ -228,7 +248,7 @@ export class Filter {
 
     clone(): Filter {
         const f: Filter = new Filter();
-        f.strings = new Map<string, string[]>(this.strings);
+        f.strings = new Map<string, StringsFilter>(this.strings);
         f.numbers = new Map<string, number[]>(this.numbers);
         f.flags = new Map<string, FilterFlag>(this.flags);
         f.matchers = new Map<string, any>(this.matchers);
@@ -245,7 +265,7 @@ export class Filter {
 
     parse(f: string) {
         const s = JSON.parse(f);
-        this.strings = new Map<string, string[]>(JSON.parse(s.strings));
+        this.strings = new Map<string, StringsFilter>(JSON.parse(s.strings));
         this.numbers = new Map<string, number[]>(JSON.parse(s.numbers));
         this.flags = new Map<string, FilterFlag>(JSON.parse(s.flags));
     }
@@ -426,8 +446,12 @@ class View {
             return numbers.includes(tea.id);
         });
 
-        f.addStringField(ViewFields.filterTeaType, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.type.toLowerCase().trim());
+        f.addStringField(ViewFields.filterTeaType, (strings: string[], match: boolean, tea: Tea): boolean => {
+            if (match) {
+                return strings.includes(tea.type.toLowerCase().trim());
+            } else {
+                return !strings.includes(tea.type.toLowerCase().trim());
+            }
         });
 
         f.addFlagField(ViewFields.filterStocked, (flag: FilterFlag, tea: Tea): boolean => {
@@ -440,8 +464,12 @@ class View {
                 || (flag === FilterFlag.EXCLUDED && tea.entries.length === 0));
         });
 
-        f.addStringField(ViewFields.filterCountries, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.country.toLowerCase().trim());
+        f.addStringField(ViewFields.filterCountries, (strings: string[], match: boolean, tea: Tea): boolean => {
+            if (match) {
+                return strings.includes(tea.country.toLowerCase().trim());
+            } else {
+                return !strings.includes(tea.country.toLowerCase().trim());
+            }
         });
 
         f.addFlagField(ViewFields.filterSample, (flag: FilterFlag, tea: Tea): boolean => {
@@ -454,12 +482,20 @@ class View {
                 || (flag === FilterFlag.EXCLUDED && !tea.aging));
         });
 
-        f.addStringField(ViewFields.filterPurchaseLocation, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.purchaselocation.toLowerCase().trim());
+        f.addStringField(ViewFields.filterPurchaseLocation, (strings: string[], match: boolean, tea: Tea): boolean => {
+            if (match) {
+                return strings.includes(tea.purchaselocation.toLowerCase().trim());
+            } else {
+                return !strings.includes(tea.purchaselocation.toLowerCase().trim());
+            }
         });
 
-        f.addStringField(ViewFields.filterRegion, (strings: string[], tea: Tea): boolean => {
-            return strings.includes(tea.region.toLowerCase().trim());
+        f.addStringField(ViewFields.filterRegion, (strings: string[], match: boolean, tea: Tea): boolean => {
+            if (match) {
+                return strings.includes(tea.region.toLowerCase().trim());
+            } else {
+                return !strings.includes(tea.region.toLowerCase().trim());
+            }
         });
     }
 
