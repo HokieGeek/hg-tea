@@ -2,6 +2,11 @@
 - name: Deploy tea site
   hosts: all
   tasks:
+      - name: tea | Create the proxy config directory
+        file:
+          path: /etc/nginx/conf.d
+          state: directory
+        become: yes
       - name: tea | Add the proxy config
         template:
           src: proxy-tea.conf.j2
