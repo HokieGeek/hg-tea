@@ -54,5 +54,5 @@ tasks:
       docker push $IMAGE_TAG
       docker push $IMAGE_LATEST_TAG
   - deploy: |
-      cd ${PROJ}/prod-conf
+      cd ${PROJ}/prod
       ansible-playbook -i ${DEPLOY_HOST}, -u ${ADMIN_USER} -e image=${CI_REGISTRY}/hokiegeek/${PROJ}:latest ./ansible.yml
